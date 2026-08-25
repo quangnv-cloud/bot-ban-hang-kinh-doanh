@@ -1,0 +1,29 @@
+{
+  "styles": [
+    "1-card-and-bar",
+    "2-chip-and-leaderboard",
+    "3-ticker-tape",
+    "4-split-comparison",
+    "5-map-and-geo",
+    "6-ring-progress",
+    "7-timeline-chronology",
+    "8-icon-grid",
+    "9-editorial-clipping",
+    "10-stock-terminal"
+  ],
+  "last_used_index": 1,
+  "log": [
+    {
+      "index": 0,
+      "style": "1-card-and-bar",
+      "project": "lan-bien-chuyen-nhuong-50-dat",
+      "date": "2026-08-24"
+    },
+    {
+      "index": 1,
+      "style": "2-chip-and-leaderboard",
+      "project": "100-doanh-nghiep-tu-nhan-nop-thue",
+      "date": "2026-08-25"
+    }
+  ]
+}

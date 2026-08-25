@@ -1,0 +1,299 @@
+<template>
+  <style>
+    @font-face {
+      font-family: 'Space Grotesk';
+      font-weight: 500;
+      font-style: normal;
+      src: url('assets/fonts/SpaceGrotesk-500-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Space Grotesk';
+      font-weight: 500;
+      font-style: normal;
+      src: url('assets/fonts/SpaceGrotesk-500-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+    @font-face {
+      font-family: 'Space Grotesk';
+      font-weight: 600;
+      font-style: normal;
+      src: url('assets/fonts/SpaceGrotesk-600-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Space Grotesk';
+      font-weight: 600;
+      font-style: normal;
+      src: url('assets/fonts/SpaceGrotesk-600-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+    @font-face {
+      font-family: 'Space Grotesk';
+      font-weight: 700;
+      font-style: normal;
+      src: url('assets/fonts/SpaceGrotesk-700-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Space Grotesk';
+      font-weight: 700;
+      font-style: normal;
+      src: url('assets/fonts/SpaceGrotesk-700-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+    @font-face {
+      font-family: 'Inter';
+      font-weight: 400;
+      font-style: normal;
+      src: url('assets/fonts/Inter-400-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Inter';
+      font-weight: 400;
+      font-style: normal;
+      src: url('assets/fonts/Inter-400-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+    @font-face {
+      font-family: 'Inter';
+      font-weight: 600;
+      font-style: normal;
+      src: url('assets/fonts/Inter-600-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Inter';
+      font-weight: 600;
+      font-style: normal;
+      src: url('assets/fonts/Inter-600-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+
+    #root {
+      position: relative;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      container-type: size;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+
+    /* ---- background (full-bleed clip, never on #root) ---- */
+    .f3elig-bg {
+      position: absolute;
+      inset: 0;
+      background: #fdfae7;
+    }
+    .f3elig-dotgrid {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(30, 43, 250, 0.16) 3px, transparent 3px);
+      background-size: 52px 52px;
+      opacity: 0.55;
+    }
+    .f3elig-glow {
+      position: absolute;
+      width: 760px;
+      height: 760px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(30, 43, 250, 0.14), rgba(30, 43, 250, 0) 70%);
+      filter: blur(50px);
+      pointer-events: none;
+    }
+    .f3elig-glow-a {
+      top: -220px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .f3elig-glow-b {
+      bottom: -260px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* ---- split-tilt stage (stacked vertically for portrait) ---- */
+    .f3elig-stagewrap {
+      position: absolute;
+      inset: 0;
+      perspective: 1700px;
+    }
+    .f3elig-splitstage {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+    }
+
+    .f3elig-card {
+      position: absolute;
+      left: 100px;
+      width: 880px;
+      height: 520px;
+      transform-style: preserve-3d;
+      will-change: transform;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      padding: 48px;
+      box-sizing: border-box;
+      background: rgba(30, 43, 250, 0.04);
+      border: 1.5px solid rgba(30, 43, 250, 0.2);
+      border-radius: 14px;
+      transform-origin: 50% 50%;
+    }
+    .f3elig-card-top {
+      top: 280px;
+      box-shadow: 26px 30px 64px rgba(30, 43, 250, 0.12);
+    }
+    .f3elig-card-bottom {
+      top: 940px;
+      box-shadow: -26px 30px 64px rgba(30, 43, 250, 0.12);
+    }
+
+    .f3elig-icon {
+      width: 76px;
+      height: 76px;
+      color: #1e2bfa;
+    }
+    .f3elig-icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .f3elig-label {
+      font-family: 'Space Grotesk', Arial, sans-serif;
+      font-weight: 700;
+      font-size: 58px;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: #111111;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    /* ---- shared-threshold badges ---- */
+    .f3elig-badge {
+      position: absolute;
+      left: 50%;
+      width: max-content;
+      transform-origin: 50% 50%;
+      background: #1e2bfa;
+      color: #fdfae7;
+      font-family: 'Space Grotesk', Arial, sans-serif;
+      font-weight: 600;
+      font-size: 32px;
+      letter-spacing: -0.01em;
+      padding: 18px 40px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+    .f3elig-badge-1 {
+      top: 800px;
+    }
+    .f3elig-badge-2 {
+      top: 940px;
+    }
+  </style>
+
+  <div id="root" data-composition-id="03-eligibility" data-width="1080" data-height="1920">
+    <div class="clip f3elig-bg" data-start="0" data-duration="6.316" data-track-index="0">
+      <div class="f3elig-glow f3elig-glow-a"></div>
+      <div class="f3elig-glow f3elig-glow-b"></div>
+      <div class="f3elig-dotgrid"></div>
+    </div>
+
+    <div class="clip f3elig-stagewrap" data-start="0" data-duration="6.316" data-track-index="1">
+      <div class="f3elig-splitstage">
+        <div class="f3elig-card f3elig-card-top" id="f3elig-card1">
+          <div class="f3elig-icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="32" cy="19" r="12"></circle>
+              <path d="M11 55c0-13 9.4-21 21-21s21 8 21 21"></path>
+            </svg>
+          </div>
+          <div class="f3elig-label" id="f3elig-label1">Cá nhân kinh doanh</div>
+        </div>
+
+        <div class="f3elig-card f3elig-card-bottom" id="f3elig-card2">
+          <div class="f3elig-icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="14" y="9" width="36" height="47" rx="2"></rect>
+              <line x1="22" y1="19" x2="28" y2="19"></line>
+              <line x1="36" y1="19" x2="42" y2="19"></line>
+              <line x1="22" y1="29" x2="28" y2="29"></line>
+              <line x1="36" y1="29" x2="42" y2="29"></line>
+              <line x1="22" y1="39" x2="28" y2="39"></line>
+              <line x1="36" y1="39" x2="42" y2="39"></line>
+              <rect x="26" y="46" width="12" height="10"></rect>
+            </svg>
+          </div>
+          <div class="f3elig-label" id="f3elig-label2">Doanh nghiệp</div>
+        </div>
+
+        <div class="f3elig-badge f3elig-badge-1" id="f3elig-badge1">≤ 10 tỷ đồng/năm</div>
+        <div class="f3elig-badge f3elig-badge-2" id="f3elig-badge2">≤ 10 tỷ đồng/năm</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var TILT = 14;
+      var TILT_OVERSHOOT = 8;
+
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      /* Scene 1 (0.0-1.9s) — "Cá nhân kinh doanh" book-open in from the left wing */
+      tl.fromTo(
+        "#f3elig-card1",
+        { x: -520, rotateY: TILT + TILT_OVERSHOOT, opacity: 0, scale: 0.85 },
+        { x: 0, rotateY: TILT, opacity: 1, scale: 1, duration: 0.7, ease: "power3.out" },
+        0.1,
+      );
+      tl.from(
+        "#f3elig-card1 .f3elig-icon, #f3elig-label1",
+        { opacity: 0, y: 22, stagger: 0.06, duration: 0.4, ease: "power2.out" },
+        0.42,
+      );
+
+      /* Scene 2 (1.9-3.8s) — "và doanh nghiệp" mirrored entry from the right wing, stacked below */
+      tl.fromTo(
+        "#f3elig-card2",
+        { x: 520, rotateY: -(TILT + TILT_OVERSHOOT), opacity: 0, scale: 0.85 },
+        { x: 0, rotateY: -TILT, opacity: 1, scale: 1, duration: 0.7, ease: "power3.out" },
+        1.9,
+      );
+      tl.from(
+        "#f3elig-card2 .f3elig-icon, #f3elig-label2",
+        { opacity: 0, y: 22, stagger: 0.06, duration: 0.4, ease: "power2.out" },
+        2.22,
+      );
+
+      /* Scene 3 (3.8-5.7s) — "doanh thu không quá 10 tỷ đồng một năm": shared badge pops onto each inner edge */
+      tl.fromTo(
+        "#f3elig-badge1",
+        { xPercent: -50, yPercent: -50, scale: 0, opacity: 0 },
+        { xPercent: -50, yPercent: -50, scale: 1, opacity: 1, duration: 0.45, ease: "power3.out" },
+        3.85,
+      );
+      tl.fromTo(
+        "#f3elig-badge2",
+        { xPercent: -50, yPercent: -50, scale: 0, opacity: 0 },
+        { xPercent: -50, yPercent: -50, scale: 1, opacity: 1, duration: 0.45, ease: "power3.out" },
+        4.15,
+      );
+
+      /* Scene 4 (5.7-6.316s) — hold; the lone remaining motion is a quiet counter-phase jitter */
+      tl.to("#f3elig-card1", { y: -5, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: 1 }, 5.7);
+      tl.to("#f3elig-card2", { y: 5, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: 1 }, 5.7);
+
+      window.__timelines["03-eligibility"] = tl;
+    })();
+  </script>
+</template>

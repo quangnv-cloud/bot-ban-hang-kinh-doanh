@@ -1,0 +1,382 @@
+<template>
+  <style>
+    /* ---- Brand fonts (self-hosted, offline-safe) ---- */
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 400;
+      src: url('assets/fonts/Montserrat-400-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 400;
+      src: url('assets/fonts/Montserrat-400-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 500;
+      src: url('assets/fonts/Montserrat-500-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 500;
+      src: url('assets/fonts/Montserrat-500-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 600;
+      src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 600;
+      src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 700;
+      src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 700;
+      src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 800;
+      src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 800;
+      src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 900;
+      src: url('assets/fonts/Montserrat-900-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 900;
+      src: url('assets/fonts/Montserrat-900-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+
+    #root {
+      position: relative;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+
+    /* ---- base ground (safety fill under the photo) ---- */
+    #f02-bg {
+      position: absolute;
+      inset: 0;
+      background: #111111;
+    }
+
+    /* ---- full-bleed 9:16 real photo — image-first hierarchy ---- */
+    #f02-photo-wrap {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    #f02-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 35%;
+      display: block;
+    }
+
+    /* Layered scrim: strong at the very top (brand-anchor keep-out corners +
+       headline legibility), fully clears through the mid-frame so the real
+       photograph reads, builds again toward the bottom for the counter /
+       chip legibility. Photo stays visible — never crushed dark. */
+    #f02-scrim-top {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(17, 17, 17, 0.86) 0px,
+        rgba(17, 17, 17, 0.55) 230px,
+        rgba(17, 17, 17, 0.16) 480px,
+        rgba(17, 17, 17, 0) 660px
+      );
+    }
+    #f02-scrim-bottom {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        0deg,
+        rgba(17, 17, 17, 0.72) 0px,
+        rgba(17, 17, 17, 0.5) 280px,
+        rgba(17, 17, 17, 0.18) 560px,
+        rgba(17, 17, 17, 0) 860px
+      );
+    }
+
+    /* ---- headline — early, co-lead with the photo ---- */
+    #f02-headline {
+      position: absolute;
+      left: 70px;
+      right: 70px;
+      top: 230px;
+    }
+    #f02-headline h1 {
+      margin: 0;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 800;
+      font-size: 60px;
+      line-height: 1.16;
+      letter-spacing: -0.01em;
+      text-transform: lowercase;
+      color: #FFFFFF;
+    }
+    #f02-headline .f02-accent {
+      color: #E8441E;
+    }
+    #f02-headline .f02-propercase {
+      text-transform: none;
+    }
+
+    /* ---- 93% counter — hero stat, value-scaled count-up ---- */
+    #f02-stat {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 1130px;
+      text-align: center;
+    }
+    #f02-stat-rule {
+      display: inline-block;
+      width: 36px;
+      height: 2px;
+      background: #E8441E;
+      margin-bottom: 22px;
+    }
+    .f02-stat-counter-wrap {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+    }
+    #f02-counter {
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 900;
+      font-size: 210px;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      color: #E8441E;
+      font-variant-numeric: tabular-nums;
+      display: inline-block;
+      width: 320px;
+      text-align: right;
+      transform-origin: center center;
+    }
+    #f02-counter-suffix {
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 900;
+      font-size: 122px;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: #E8441E;
+      opacity: 0;
+    }
+    #f02-stat-label {
+      margin-top: 40px;
+      font-family: 'Montserrat', 'Courier New', monospace;
+      font-weight: 600;
+      font-size: 30px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      opacity: 0.9;
+    }
+
+    /* ---- "Hiệu lực 1/10" chip ---- */
+    #f02-chip {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 1650px;
+      text-align: center;
+    }
+    #f02-chip-inner {
+      display: inline-block;
+      padding: 16px 30px;
+      border: 1px solid rgba(232, 68, 30, 0.6);
+      background: rgba(17, 17, 17, 0.45);
+    }
+    #f02-chip-inner .f02-chip-label {
+      font-family: 'Montserrat', 'Courier New', monospace;
+      font-weight: 500;
+      font-size: 22px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+    }
+    #f02-chip-inner .f02-chip-accent {
+      font-family: 'Montserrat', 'Courier New', monospace;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: #E8441E;
+    }
+  </style>
+
+  <div data-hf-id="hf-5ubw" id="root" data-composition-id="02-what-happened" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-apr3" id="f02-bg" class="clip" data-start="0" data-duration="7" data-track-index="0"></div>
+
+    <div data-hf-id="hf-s6p2" id="f02-photo-wrap" class="clip" data-start="0" data-duration="7" data-track-index="1">
+      <img data-hf-id="hf-fj2d" id="f02-photo" src="public/photo-dai-bieu-quoc-hoi.jpg" alt="">
+    </div>
+
+    <div data-hf-id="hf-k6fk" id="f02-scrim-top" class="clip" data-start="0" data-duration="7" data-track-index="2"></div>
+    <div data-hf-id="hf-7g7n" id="f02-scrim-bottom" class="clip" data-start="0" data-duration="7" data-track-index="3"></div>
+
+    <div data-hf-id="hf-z9wm" id="f02-headline" class="clip" data-start="0" data-duration="7" data-track-index="4">
+      <h1 data-hf-id="hf-m3fm">
+        <span data-hf-id="hf-xctl"><span data-hf-id="hf-4lfy" class="f02-propercase">Quốc Hội</span> thông qua</span><br data-hf-id="hf-x5px">
+        <span data-hf-id="hf-1rg5" class="f02-accent f02-propercase">Luật Phát Triển Đô Thị</span>
+      </h1>
+    </div>
+
+    <div data-hf-id="hf-lkym" id="f02-stat" class="clip" data-start="2.5" data-duration="4.5" data-track-index="5">
+      <span data-hf-id="hf-m4q0" id="f02-stat-rule"></span>
+      <div data-hf-id="hf-c3x9" class="f02-stat-counter-wrap">
+        <span data-hf-id="hf-0zsj" id="f02-counter">0</span><span data-hf-id="hf-mdyo" id="f02-counter-suffix">%</span>
+      </div>
+      <div data-hf-id="hf-mv51" id="f02-stat-label">Đại biểu tán thành</div>
+    </div>
+
+    <div data-hf-id="hf-skfa" id="f02-chip" class="clip" data-start="4.55" data-duration="2.45" data-track-index="6">
+      <div data-hf-id="hf-91n5" id="f02-chip-inner">
+        <span data-hf-id="hf-2mhw" class="f02-chip-label">Hiệu lực <span data-hf-id="hf-5tqc" class="f02-chip-accent">1/10</span></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    var tl = gsap.timeline({ paused: true });
+
+    // ---- Photo + scrim present from t=0 — the real photograph is the
+    // frame's ground truth, image-first hierarchy, never hidden/delayed.
+    tl.fromTo(
+      "#f02-photo",
+      { scale: 1.06, opacity: 0 },
+      { scale: 1.0, opacity: 1, duration: 0.5, ease: "power2.out" },
+      0
+    );
+    tl.fromTo("#f02-scrim-top", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.out" }, 0);
+    tl.fromTo("#f02-scrim-bottom", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.out" }, 0);
+
+    // Scene 1 (0.0–2.0s) — headline lands early, on "Quốc hội vừa thông qua
+    // Luật Phát triển đô thị". SFX cue: click-soft on landing (~0.95s).
+    tl.fromTo(
+      "#f02-headline h1",
+      { y: -70, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
+      0.15
+    );
+
+    // Scene 2 (2.5–4.4s) — "93%" value-scaled count-up, timed to land when
+    // the VO says "93%". Two synced tweens on the same window/ease: the
+    // proxy value (text) and the numeral's transform scale growing to its
+    // final size — escalating visual weight without font-size reflow.
+    tl.fromTo(
+      "#f02-stat",
+      { opacity: 0, y: 16 },
+      { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+      2.5
+    );
+    tl.fromTo(
+      "#f02-stat-label",
+      { opacity: 0, y: 10 },
+      { opacity: 0.9, y: 0, duration: 0.5, ease: "power2.out" },
+      2.6
+    );
+
+    var f02CounterState = { value: 0 };
+    var f02Counter = null;
+    var F02_COUNT_START = 2.9;
+    var F02_COUNT_DUR = 1.4; // lands ~4.3s, on the VO's "93%"
+    var F02_START_SCALE = 0.5; // START_SIZE (~120px) / END_SIZE (240px)
+
+    tl.to(
+      f02CounterState,
+      {
+        value: 93,
+        duration: F02_COUNT_DUR,
+        ease: "power3.out",
+        onStart: function () {
+          f02Counter = document.getElementById("f02-counter");
+        },
+        onUpdate: function () {
+          if (f02Counter) f02Counter.textContent = Math.round(f02CounterState.value);
+        },
+      },
+      F02_COUNT_START
+    );
+    tl.fromTo(
+      "#f02-counter",
+      { scale: F02_START_SCALE },
+      { scale: 1, duration: F02_COUNT_DUR, ease: "power3.out" },
+      F02_COUNT_START
+    );
+
+    // Suffix "%" slides in right after the count lands — its own beat.
+    // SFX cue: pop, on the count finishing (~4.3s).
+    tl.fromTo(
+      "#f02-counter-suffix",
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.7)" },
+      F02_COUNT_START + F02_COUNT_DUR
+    );
+
+    // Scene 3 (4.55–7.0s) — "Hiệu lực 1/10" chip lands after, on the VO's
+    // "hiệu lực từ tháng Mười".
+    tl.fromTo(
+      "#f02-chip-inner",
+      { opacity: 0, y: 14, scale: 0.85 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)" },
+      4.7
+    );
+
+    // Hold — subtle deterministic settle-jitter on the landed content
+    // through the end of the frame (no breathing/pan, no randomness).
+    tl.to("#f02-stat, #f02-chip", { y: -3, duration: 0.35, ease: "sine.inOut" }, 5.5)
+      .to("#f02-stat, #f02-chip", { y: 0, duration: 0.35, ease: "sine.inOut" }, 5.85)
+      .to("#f02-stat, #f02-chip", { y: -2, duration: 0.35, ease: "sine.inOut" }, 6.3)
+      .to("#f02-stat, #f02-chip", { y: 0, duration: 0.35, ease: "sine.inOut" }, 6.65);
+
+    window.__timelines["02-what-happened"] = tl;
+  </script>
+</template>

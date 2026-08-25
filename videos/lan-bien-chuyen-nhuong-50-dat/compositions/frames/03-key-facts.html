@@ -1,0 +1,304 @@
+<template>
+  <style>
+    /* ---- Brand fonts (self-hosted, offline-safe) ---- */
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 400;
+      src: url('assets/fonts/Montserrat-400-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 400;
+      src: url('assets/fonts/Montserrat-400-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 500;
+      src: url('assets/fonts/Montserrat-500-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 500;
+      src: url('assets/fonts/Montserrat-500-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 600;
+      src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 600;
+      src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 700;
+      src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 700;
+      src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 800;
+      src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 800;
+      src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 900;
+      src: url('assets/fonts/Montserrat-900-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 900;
+      src: url('assets/fonts/Montserrat-900-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+
+    #root[data-composition-id="03-key-facts"] {
+      position: relative;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      container-type: size;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+
+    /* ---- full-bleed background (own clip, never on #root) ---- */
+    .kf03-bg {
+      position: absolute;
+      inset: 0;
+      background: #111111;
+      overflow: hidden;
+    }
+    .kf03-bg-photo {
+      position: absolute;
+      inset: -30px;
+      width: calc(100% + 60px);
+      height: calc(100% + 60px);
+      object-fit: cover;
+      object-position: 50% 32%;
+      filter: blur(20px) brightness(0.68);
+      opacity: 0.65;
+    }
+    .kf03-bg-scrim {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        ellipse 140% 90% at 50% 42%,
+        rgba(17, 17, 17, 0.5) 0%,
+        rgba(17, 17, 17, 0.68) 55%,
+        rgba(17, 17, 17, 0.85) 100%
+      );
+    }
+    .kf03-bg .kf03-hairline {
+      position: absolute;
+      left: 5.5cqw;
+      right: 5.5cqw;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .kf03-bg .kf03-hairline.top {
+      top: 6.5cqh;
+    }
+    .kf03-bg .kf03-hairline.bottom {
+      bottom: 8cqh;
+    }
+
+    /* ---- content stack (static layout wrapper, not itself timed) ---- */
+    .kf03-stack {
+      position: absolute;
+      left: 5.5cqw;
+      right: 5.5cqw;
+      top: 10cqh;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4cqh;
+    }
+
+    /* ---- label (Scene 1) ---- */
+    .kf03-label {
+      font-family: 'Montserrat', 'Courier New', monospace;
+      font-size: 2.6cqw;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #e8441e;
+      will-change: transform, opacity;
+    }
+
+    /* ---- fact cards (Scene 2 / Scene 3) ---- */
+    .kf03-card {
+      width: 100%;
+      box-sizing: border-box;
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 2.6cqw 3cqw;
+      will-change: transform, opacity;
+    }
+    .kf03-card-text {
+      display: block;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 800;
+      font-size: 5cqw;
+      line-height: 1.22;
+      letter-spacing: -0.005em;
+      color: #ffffff;
+    }
+
+    /* ---- stat payoff (Scene 4) ---- */
+    .kf03-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.1cqh;
+    }
+    .kf03-stat-number {
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 900;
+      font-size: 32cqw;
+      line-height: 0.92;
+      letter-spacing: -0.02em;
+      transform-origin: 0% 50%;
+      will-change: transform, opacity, background-position;
+      background-image: linear-gradient(
+        100deg,
+        #e8441e 0%,
+        #e8441e 44%,
+        #ffffff 50%,
+        #e8441e 56%,
+        #e8441e 100%
+      );
+      background-size: 300% 100%;
+      background-position: 130% 50%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .kf03-stat-sub {
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 400;
+      font-size: 3.2cqw;
+      line-height: 1.3;
+      letter-spacing: 0.01em;
+      color: #ffffff;
+      opacity: 0.85;
+      will-change: transform, opacity;
+    }
+  </style>
+
+  <div data-hf-id="hf-chzy" id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-gmqx" class="clip kf03-bg" data-start="0" data-duration="10" data-track-index="0">
+      <img data-hf-id="hf-3p3j" class="kf03-bg-photo" src="public/photo-bo-truong-tu-phap.jpg" alt="">
+      <div data-hf-id="hf-wuzx" class="kf03-bg-scrim"></div>
+      <div data-hf-id="hf-lpna" class="kf03-hairline top"></div>
+      <div data-hf-id="hf-g8ro" class="kf03-hairline bottom"></div>
+    </div>
+
+    <div data-hf-id="hf-jno7" class="kf03-stack">
+      <div data-hf-id="hf-0for" class="clip kf03-label" data-start="0" data-duration="10" data-track-index="1">
+        LUẬT QUY ĐỊNH
+      </div>
+
+      <div data-hf-id="hf-dpkv" class="clip kf03-card kf03-card-1" data-start="1.8" data-duration="8.2" data-track-index="2">
+        <span data-hf-id="hf-hniw" class="kf03-card-text">Nhà đầu tư chiến lược không được bán toàn bộ dự án</span>
+      </div>
+
+      <div data-hf-id="hf-kc91" class="clip kf03-card kf03-card-2" data-start="5.2" data-duration="4.8" data-track-index="3">
+        <span data-hf-id="hf-z5ku" class="kf03-card-text">Chỉ tối đa</span>
+      </div>
+
+      <div data-hf-id="hf-i57u" class="clip kf03-stat" data-start="8.6" data-duration="1.4" data-track-index="4">
+        <div data-hf-id="hf-kr3e" class="kf03-stat-number" id="kf03-stat-number">50%</div>
+        <div data-hf-id="hf-byl3" class="kf03-stat-sub">Diện tích đất đã xong hạ tầng kỹ thuật</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      // Scene 1 (0.0-1.8s) — label fades/rises in, matched to "Luật quy định".
+      tl.fromTo(
+        ".kf03-label",
+        { opacity: 0, y: -16 },
+        { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" },
+        0.2,
+      );
+
+      // Scene 2 (1.8-5.2s) — fact 1 card slides in from the left.
+      tl.fromTo(
+        ".kf03-card-1",
+        { opacity: 0, x: -130 },
+        { opacity: 1, x: 0, duration: 0.55, ease: "expo.out" },
+        1.8,
+      );
+
+      // Scene 3 (5.2-8.6s) — fact 2 card lands directly under fact 1.
+      tl.fromTo(
+        ".kf03-card-2",
+        { opacity: 0, x: -130 },
+        { opacity: 1, x: 0, duration: 0.55, ease: "expo.out" },
+        5.2,
+      );
+
+      // Scene 4 (8.6-10.0s) — "50%" spring-pops in, then an orange/cream
+      // highlight sheen sweeps once through the glyphs and settles solid.
+      tl.fromTo(
+        "#kf03-stat-number",
+        { scale: 0, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.5, ease: "power3.out" },
+        8.6,
+      );
+      tl.fromTo(
+        ".kf03-stat-sub",
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+        8.75,
+      );
+      tl.fromTo(
+        "#kf03-stat-number",
+        { backgroundPosition: "130% 50%" },
+        { backgroundPosition: "-30% 50%", duration: 0.75, ease: "none" },
+        9.05,
+      );
+
+      window.__timelines["03-key-facts"] = tl;
+    })();
+  </script>
+</template>
