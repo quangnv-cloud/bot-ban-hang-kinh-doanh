@@ -208,26 +208,93 @@ Google Apps Script làm lớp lấy tin, tách khỏi cloud routine — code đ�
 
 ### Việc còn thiếu trước khi tạo routine thật (chưa làm ở phiên 2026-08-25)
 
-1. **Git repo cho project** — cloud routine cần source từ 1 git repo. Thư mục
-   `C:\Users\Admin\Desktop\Claude` hiện CHƯA phải git repo. Cần quyết định: tạo repo mới (ở đâu —
-   GitHub cá nhân?), hay chỉ đưa riêng `videos/` vào repo. **Tuyệt đối không commit file `.env`/
-   API key thật lên repo** — cần `.gitignore` trước khi init.
-2. **Cài môi trường cloud**: xác minh `Default` cloud environment (env_01Prtq2F5hNPLxk3EW2maFA8)
-   có sẵn Node/npm hay không; `ffmpeg` và trình duyệt headless (hyperframes cần để chụp/render)
-   gần như chắc chắn PHẢI tự cài trong prompt của routine (vd. `apt-get install ffmpeg`) — chưa
-   verify môi trường có quyền cài đặt hay không.
-3. **API key làm secret trên cloud**: ElevenLabs (`eleven_v3`, giọng Khánh Lâm) và Google Lyria
-   cần được cấu hình như biến môi trường/secret trong cloud environment — cách làm việc này chưa
-   xác nhận được qua tool hiện có, nhiều khả năng người dùng phải tự cấu hình qua giao diện web
-   claude.ai/code (tương tự cách kết nối MCP connector).
-4. ~~Google Apps Script~~ — **đã soạn xong code** (`automation/news-fetch-gas/`), chỉ còn chờ
-   người dùng tự deploy theo `SETUP.md` (Google yêu cầu authorize từ tài khoản người dùng, không
-   làm thay qua tool được) rồi gửi lại URL Web App.
-5. **Cơ chế giao video từ cloud routine**: routine cloud không dùng chung `SendUserFile` như phiên
+1. ~~Git repo cho project~~ — **đã tạo**: repo private
+   [`quangnv-cloud/bot-ban-hang-kinh-doanh`](https://github.com/quangnv-cloud/bot-ban-hang-kinh-doanh)
+   (2026-08-25), toàn bộ `C:\Users\Admin\Desktop\Claude`. `.gitignore` chặn `.env`/`node_modules/`/
+   `renders/`/`.claude/`/`.agents/` — đã verify không có secret nào lọt vào commit đầu tiên trước
+   khi push.
+2. ~~Cài môi trường cloud~~ — **đã probe thật** (routine `trig_01NkU9uCDBiSPNwgdzkc1D3v`,
+   2026-08-25, 170s, xem log đầy đủ tại https://claude.ai/code/session_01WXXKeLEf8XM25emhQj1F2m):
+   Node v22.22.2/npm 10.9.7 sẵn có; `ffmpeg` không có trên PATH nhưng root + `sudo -n true` OK nên
+   `apt-get install -y ffmpeg` cài được ngay (đã dry-run xác nhận resolve sạch); Python 3.11.15 +
+   `pip install openai-whisper` cài được (nặng ~1GB+ do kéo theo torch, chấp nhận được); **Chromium
+   headless ĐÃ CÓ SẴN** tại `/opt/pw-browsers` (`chromium-1194`, `chromium_headless_shell-1194`) —
+   khớp `PLAYWRIGHT_BROWSERS_PATH` của môi trường, hyperframes không cần tự tải trình duyệt;
+   `npx hyperframes@latest --version` chạy thật, trả về `0.8.14` — xác nhận npm registry + Node
+   tooling hoạt động đầy đủ; 27G đĩa trống / 15Gi RAM — dư sức cho pipeline render.
+   **Kết luận**: hạ tầng kỹ thuật (Node/ffmpeg/Chromium/Python) trong sandbox HOÀN TOÀN đủ điều
+   kiện chạy pipeline render local, không cần phụ thuộc `cloudrun`/`lambda` của hyperframes.
+3. ~~Egress proxy chặn theo allowlist~~ — **ĐÃ XỬ LÝ XONG (2026-08-26)**: chuyển "Network access"
+   của environment "Default" từ "Trusted" sang **"Custom"**, thêm domain gốc (giữ npm/pip/git hoạt
+   động: `api.anthropic.com` + biến thể, `registry.npmjs.org`, `jsr.io`, `npm.jsr.io`, `pypi.org`,
+   `files.pythonhosted.org`, `index.crates.io`, `proxy.golang.org`) + domain mới cho dự án
+   (`api.elevenlabs.io`, `generativelanguage.googleapis.com`, `script.google.com`,
+   `script.googleusercontent.com`, `vnexpress.net`, `dantri.com.vn`, `tuoitre.vn`, `znews.vn`,
+   `github.com`, `raw.githubusercontent.com`, `objects.githubusercontent.com`). Verify lại bằng
+   routine chẩn đoán (`trig_01EX9WCyTJNyNvCjn8aKoGZ2`): **12/12 domain reachable**, `npx
+   hyperframes@latest --version` chạy trọn vẹn (v0.8.15) — không có gì bị hỏng khi chuyển từ
+   Trusted sang Custom.
+   <details còn giữ lại bên dưới để tham khảo bối cảnh phát hiện ban đầu>
+   Egress proxy chặn theo allowlist (đã fix — bối cảnh gốc):
+   sandbox đi qua 1 proxy chỉ cho phép domain nằm trong danh sách trắng (npm registry, PyPI,
+   crates.io, Go proxy, jsr.io, api.anthropic.com...). `api.elevenlabs.io` VÀ `vnexpress.net` đều
+   bị **403 ngay ở tầng CONNECT** (từ chối theo policy, không phải site sập). Nếu domain lấy tin
+   (`script.google.com` cho Apps Script Web App) và domain ElevenLabs/Gemini cũng bị chặn tương tự
+   (chưa test riêng từng cái), **TOÀN BỘ pipeline không gọi được ra ngoài dù code đúng 100%**.
+   Cần người dùng vào cấu hình network/egress của cloud environment `Default` tại claude.ai/code
+   (chưa rõ tool nào cho phép làm thay) để thêm vào allowlist: `api.elevenlabs.io`,
+   `generativelanguage.googleapis.com` (Gemini/Lyria), `script.google.com` +
+   `script.googleusercontent.com` (Apps Script Web App), và domain các nguồn tin nếu routine tự
+   fetch trực tiếp thay vì qua Apps Script proxy (`vnexpress.net`, `dantri.com.vn`, `tuoitre.vn`,
+   `znews.vn`). **Đây là việc cần làm TRƯỚC, quan trọng hơn cả việc cấu hình API key secret** —
+   API key đúng cũng vô ích nếu domain bị chặn ở tầng mạng.
+4. ~~API key làm secret trên cloud~~ — **ĐÃ XONG (2026-08-26)**: điền `ELEVENLABS_API_KEY` +
+   `GEMINI_API_KEY` vào ô "Environment variables" của environment "Default" (environment riêng tư,
+   chỉ người dùng này truy cập — chấp nhận được vì ô đó không mã hoá, hiện dạng plain text cho
+   bất kỳ ai dùng chung environment). Verify qua routine chẩn đoán
+   (`trig_01CyA8FdCZc7rkf2LM5pQZSn`): cả 2 key đọc được từ sandbox, xác thực thành công với
+   ElevenLabs (`/v1/user` → 200) và Gemini (`/v1beta/models` → 200), giọng "Khánh Lâm"
+   (`RCmOaM1iiIH5xX3QXjIF`) gọi được. Không key nào bị in ra log trong quá trình kiểm tra.
+5. ~~Google Apps Script~~ — **ĐÃ DEPLOY + VERIFY THÀNH CÔNG (2026-08-26)**. Bài học quan trọng:
+   deploy trên tài khoản Workspace (`@botbanhang.vn`) bị 403 dù chọn "Anyone" (chính sách admin
+   domain chặn chia sẻ ra ngoài tổ chức, đè lên cài đặt riêng của script) — phải chuyển sang deploy
+   bằng Gmail cá nhân (`minhanhh1108@gmail.com`). Cũng đổi `getSheet_()` sang tự tạo Sheet riêng
+   qua `PropertiesService` (project Apps Script standalone, không cần bind vào Sheet có sẵn nữa —
+   đơn giản hoá setup). Verify từ đúng cloud sandbox (KHÔNG phải máy local — test `curl` từ máy cá
+   nhân từng cho 403 sai lệch, không phản ánh đúng deployment) — kết quả: HTTP 200, JSON hợp lệ,
+   `?category=business` → 74 tin, không filter → 285 tin.
+   **URL chính thức**:
+   `https://script.google.com/macros/s/AKfycbxIQa9BsNnTAsIs2MWBNCsT8zh7_lT9OIKn8srfQ5D3wks0AM88VrjHNvCpYTAEaA7n/exec`
+   — đây là `<NEWS_FEED_URL>` dùng trong prompt routine ở mục "Nội dung prompt" phía trên.
+6. ~~Kết nối GitHub cho routine~~ — **ĐÃ XONG (2026-08-26)**. Diễn biến đầy đủ (đáng nhớ, tránh
+   mất thời gian lặp lại nếu gặp lại): (1) kết nối GitHub Integration trong claude.ai/Connectors
+   → hết lỗi "Connect your GitHub account..." nhưng gặp lỗi mới `"You don't have access to a
+   repository this routine uses."`; (2) kiểm tra `github.com/settings/installations` → "No
+   installed GitHub Apps"; (3) tab "Authorized GitHub Apps" có "Claude" (owned by anthropics) ghi
+   rõ *"Claude has not been installed on any accounts you have access to"* và quyền chỉ gồm "Verify
+   identity / Know what resources you can access / Act on your behalf" — **không có bước chọn repo
+   nào cả, kể cả disconnect+reconnect lại cũng không hiện màn hình chọn repo**; (4) **nguyên nhân
+   thật**: kiểu kết nối OAuth này chỉ đọc được repo **public**, không đọc được private dù đã
+   "connected" ở claude.ai. **Fix**: chuyển repo `bot-ban-hang-kinh-doanh` từ Private → Public
+   (GitHub repo Settings → Danger Zone → Change visibility — thao tác này bị chặn nếu làm qua `gh`
+   CLI của Claude Code do auto-mode classifier, phải tự làm trên web GitHub). Verify: routine clone
+   + đọc file thành công ngay sau khi đổi visibility.
+   **Lưu ý cho tương lai**: nếu tạo repo mới cho việc tương tự, làm public NGAY TỪ ĐẦU để khỏi lặp
+   lại toàn bộ quá trình dò lỗi này. Repo hiện tại không chứa `.env`/secret nào (đã verify trước
+   khi push), chỉ có code + tài liệu + kịch bản — chấp nhận được khi public.
+7. **Cơ chế giao video từ cloud routine**: routine cloud không dùng chung `SendUserFile` như phiên
    tương tác này — cần xác nhận cách 1 cloud routine gửi file/kết quả về cho người dùng (có thể
    qua commit vào repo + thông báo, hoặc cơ chế khác) trước khi tin tưởng chạy 3 lần/ngày không
-   giám sát.
-6. **Chạy thử có giám sát trước khi bật lịch thật** — không bật `enabled: true` chạy 3 lần/ngày
+   giám sát. Routine chẩn đoán đã cho thấy `PushNotification` hoạt động được (gửi push báo "xong
+   việc" khi routine hoàn tất) — có thể dùng làm tín hiệu báo hoàn tất tối thiểu, dù không thay
+   thế được việc giao file thật.
+7.5. ~~Tạo 3 routine thật~~ — **ĐÃ TẠO (2026-08-26)**, đều `enabled: false`:
+   - Sáng 7h VN: `trig_01RdHP4oNHzaYm5UMjuZxWzb` (`0 0 * * *` UTC)
+   - Trưa 12h30 VN: `trig_01HWAjgP7cpWSiprRfpJ68ap` (`30 5 * * *` UTC)
+   - Tối 19h30 VN: `trig_01Y4gS5dsfucSEmBv7HQBL49` (`30 12 * * *` UTC)
+   Prompt đầy đủ giống bản trong `automation/cloud-routine-DRAFT.md`, đã thay `<NEWS_FEED_URL>`
+   bằng URL thật, thêm bước tự cài `ffmpeg`/`openai-whisper` nếu sandbox chưa có.
+8. **Chạy thử có giám sát trước khi bật lịch thật** — không bật `enabled: true` chạy 3 lần/ngày
    ngay từ đầu; nên `run_once_at` 1 lần để kiểm tra toàn bộ chuỗi (lấy tin → dựng → render →
    verify → giao video) hoạt động đúng trong môi trường cloud trước khi tin tưởng giao cho lịch
    tự động vô thời hạn.
