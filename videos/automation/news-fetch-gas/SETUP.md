@@ -51,13 +51,8 @@ Google nào) → "Thêm tài khoản khác" → đăng nhập Gmail cá nhân �
 - Sau khi chọn 1 tin để dựng video: `POST <URL>` với body
   `{"id": "<id của item đã chọn>", "video": "<tên thư mục project video>"}` để đánh dấu đã dùng,
   tránh 7h/12h30/19h30 cùng ngày trùng tin.
-- **Tải ảnh bài báo** (bắt buộc cho Hook/Article Image Card, xem "Ghi chú kỹ thuật" bên dưới về lý
-  do cần bước này): `GET <URL>?image=<url ảnh gốc đã url-encode>` → trả JSON
-  `{"ok": true, "contentType": "...", "base64": "..."}`. Giải mã base64 để lấy file ảnh thật, vd.
-  ```bash
-  curl -sSL "<URL>?image=$(python3 -c "import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1], safe=''))" "https://cdn2.tuoitre.vn/...jpg")" \
-    | python3 -c "import json,base64,sys; d=json.load(sys.stdin); open('photo.jpg','wb').write(base64.b64decode(d['base64']))"
-  ```
+- **Tải ảnh bài báo** — xem mục "Ghi chú kỹ thuật" bên dưới: đã THỬ và BỎ endpoint `?image=` (proxy
+  ảnh qua Apps Script), thay bằng hướng thêm domain CDN trực tiếp vào allowlist mạng.
 
 ## Ghi chú kỹ thuật (bài học từ lần deploy 2026-08-26)
 
@@ -78,10 +73,21 @@ Google nào) → "Thêm tài khoản khác" → đăng nhập Gmail cá nhân �
   bài báo bình thường (domain gốc `vnexpress.net`/`dantri.com.vn`/`tuoitre.vn`/`znews.vn` đã nằm
   trong allowlist egress), nhưng **KHÔNG tải được ảnh bài báo** — ảnh luôn nằm ở domain CDN RIÊNG
   (vd. `cdn2.tuoitre.vn`, `i1-vnexpress.vnecdn.net`, `static-znews.zadn.vn`), khác hẳn domain gốc
-  và không nằm trong allowlist. Thêm từng domain CDN vào allowlist không bền vững (mỗi báo có
-  nhiều CDN, có thể đổi). **Fix**: thêm endpoint `?image=` ở trên — Apps Script chạy trên server
-  Google, KHÔNG bị egress policy phía client chi phối, nên proxy ảnh qua đây luôn hoạt động bất kể
-  ảnh nằm ở CDN nào, miễn routine chỉ cần gọi domain `script.google.com` đã được allowlist sẵn.
+  và không nằm trong allowlist.
+  **Đã thử fix bằng `?image=` proxy qua Apps Script — ĐÃ BỎ, không dùng cách này.** Lý do: routine
+  cloud (Claude Code) **tự động từ chối chạy** bất kỳ lệnh nào gọi endpoint đó, kể cả sau khi diễn
+  đạt lại rất rõ ràng là tính năng hợp pháp của hệ thống tự xây — vì hàm proxy về bản chất nhận
+  **URL bất kỳ** làm tham số rồi fetch hộ, tức là một "cổng fetch URL tuỳ ý" đi vòng qua allowlist
+  mạng của chính sandbox, bất kể ý định thật là gì. Đây là phản hồi an toàn ĐÚNG của Claude Code
+  (không phải lỗi), không nên tìm cách né qua (vd. hardcode giới hạn domain chặt hơn) — bản chất
+  vẫn là 1 cơ chế bypass, sẽ tiếp tục bị từ chối và không nên cố "thắng" cơ chế an toàn này.
+  **Hướng đúng thay thế**: thêm thẳng các domain CDN ảnh đã quan sát được vào Custom allowlist của
+  cloud environment (cùng chỗ đã thêm 11 domain trước đó ở mục 10 PRODUCTION-WORKFLOW) — domain cụ
+  thể cần thêm: `vnecdn.net` (dùng chung bởi VnExpress + Tuổi Trẻ, quan sát qua
+  `i1-vnexpress.vnecdn.net`, `i1-kinhdoanh.vnecdn.net`), `zadn.vn` (Znews/Zalo, qua
+  `static-znews.zadn.vn`), `vnncdn.net` (qua `static-images.vnncdn.net`), và domain ảnh riêng của
+  Dân Trí nếu phát sinh (chưa quan sát được tên chính xác, cần test lại). Việc này minh bạch, đúng
+  bản chất (mở rộng allowlist thật thay vì proxy che giấu), và không bị Claude Code tự chặn.
 
 ## Bảo trì
 
