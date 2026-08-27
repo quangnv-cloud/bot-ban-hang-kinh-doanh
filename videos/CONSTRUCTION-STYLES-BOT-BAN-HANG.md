@@ -30,7 +30,7 @@ tên video vào cùng file. Không bỏ qua bước cập nhật này — nếu 
 | 1 | Card & Bar | Thẻ viền bo góc có số thứ tự, biểu đồ cột dọc | `lan-bien-chuyen-nhuong-50-dat` |
 | 2 | Chip & Leaderboard | Chip số liệu viền cam, bảng xếp hạng ngang, watermark số khổng lồ | `100-doanh-nghiep-tu-nhan-nop-thue` |
 | 3 | Ticker Tape | Dải tin chạy kiểu bảng điện sàn chứng khoán | *(chưa dùng)* |
-| 4 | Split Comparison | Chia đôi màn hình, đường phân cách dọc, đối chiếu 2 vế | *(chưa dùng)* |
+| 4 | Split Comparison | Chia đôi màn hình, đường phân cách dọc, đối chiếu 2 vế | `vingroup-von-hoa-ky-luc-1-8-trieu-ty` |
 | 5 | Map & Geo | Bản đồ Việt Nam vector, ghim địa danh | *(chưa dùng)* |
 | 6 | Ring Progress | Vòng tròn tiến trình (radial), số liệu ở tâm | *(chưa dùng)* |
 | 7 | Timeline Chronology | Trục thời gian ngang có mốc/node nối nhau | *(chưa dùng)* |

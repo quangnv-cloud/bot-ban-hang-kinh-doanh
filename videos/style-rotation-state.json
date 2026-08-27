@@ -11,7 +11,7 @@
     "9-editorial-clipping",
     "10-stock-terminal"
   ],
-  "last_used_index": 2,
+  "last_used_index": 3,
   "log": [
     {
       "index": 0,
@@ -29,6 +29,12 @@
       "index": 2,
       "style": "3-ticker-tape",
       "project": "12-ngan-hang-tin-dung-408-nghin-ty",
+      "date": "2026-08-27"
+    },
+    {
+      "index": 3,
+      "style": "4-split-comparison",
+      "project": "vingroup-von-hoa-ky-luc-1-8-trieu-ty",
       "date": "2026-08-27"
     }
   ]
