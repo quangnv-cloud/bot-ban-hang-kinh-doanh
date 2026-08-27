@@ -330,19 +330,25 @@ Google Apps Script làm lớp lấy tin, tách khỏi cloud routine — code đ�
     - Trong lúc dừng, 1 stop-hook trong sandbox cloud tự sửa author của 3 commit đó sang
       `Claude <noreply@anthropic.com>` — vô hại, các commit này vẫn chưa push được nên không ảnh
       hưởng lịch sử `origin/master` thật.
-11. **Còn mở, cần người dùng tự làm** (không có tool nào của Claude Code làm thay được):
-    - Cài Claude GitHub App với quyền ghi: **https://github.com/apps/claude/installations/select_target**
-      (chi tiết nguyên nhân ở mục 10). Sau khi cài xong, chạy lại `run_once_at` 1 lần để xác nhận
-      `git push`/`push_files` không còn 403 trước khi bật `enabled: true` cho cả 3 routine.
+11. ~~Cài Claude GitHub App với quyền ghi~~ — **ĐÃ XONG (2026-08-27)**. Người dùng cài tại
+    https://github.com/apps/claude/installations/select_target, reconnect GitHub Integration ở
+    claude.ai Settings → Connectors. **Verify bằng cách an toàn**: tạo 1 trigger routine TẠM RIÊNG
+    (`trig_019HZ4pktTjB9y1rHt4nooWH`, prompt chỉ tạo branch `test/github-app-write-check` + push
+    1 file test, KHÔNG đụng `master`/code thật) thay vì chạy lại 1 trong 3 trigger sản xuất thật —
+    tránh lặp lại sự cố kích hoạt nhầm pipeline đầy đủ (mục 10). Kết quả: push thành công, không
+    lỗi. Đã xoá branch test trên GitHub ngay sau đó. Trigger test vẫn còn tồn tại (`enabled: false`,
+    cron đặt xa tới 2027 để không tự chạy) vì `RemoteTrigger` không có action xoá trigger — có thể
+    tự xoá thủ công qua claude.ai/code nếu muốn dọn, không bắt buộc.
+12. **Còn mở, cần người dùng tự làm**:
     - Thêm domain CDN ảnh vào Custom network allowlist của environment `env_01Prtq2F5hNPLxk3EW2maFA8`
       (claude.ai/code → environment edit dialog → Network access → Custom): `vnecdn.net`,
       `zadn.vn`, `vnncdn.net`, và domain ảnh của Dân Trí (chưa quan sát được, cần test lại khi có
       1 bài Dân Trí trong batch tin).
-    - **Chưa nên gọi `RemoteTrigger run` trên 1 trong 3 trigger ID này nữa cho tới khi 2 việc trên
-      xong** — mỗi lần chạy sẽ lại dừng sớm ở bước push, không kiểm tra được xa hơn. Nếu cần test
-      riêng phần lấy tin/Apps Script, dùng `curl`/`WebFetch` trực tiếp vào `<NEWS_FEED_URL>` thay
-      vì chạy cả routine — gọi `RemoteTrigger run` luôn kích hoạt nguyên prompt sản xuất video đã
-      lưu trong trigger, không có cách nào override bằng message khác qua tham số `body`.
+    - Sau khi xong việc trên, có thể chạy `run_once_at` 1 lần trên 1 trong 3 trigger thật để test
+      toàn bộ chuỗi end-to-end trước khi bật `enabled: true`.
+    - **Lưu ý chung**: gọi `RemoteTrigger run` trên 1 trong 3 trigger ID sản xuất luôn kích hoạt
+      nguyên prompt sản xuất video thật đã lưu trong trigger — không có cách override bằng message
+      khác qua tham số `body`. Muốn test nhỏ, tạo 1 trigger tạm riêng như cách đã làm ở mục 11.
 
 ---
 
