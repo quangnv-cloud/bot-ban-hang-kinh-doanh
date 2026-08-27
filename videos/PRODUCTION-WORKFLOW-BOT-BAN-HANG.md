@@ -172,9 +172,31 @@ python -m whisper audio.wav --model base --language Vietnamese --output_format t
 Chỉ coi là "xong" khi cả 4 bước trên đều sạch. Không báo cáo hoàn thành chỉ dựa trên `npm run
 check` hay thumbnail preview.
 
+## 7.5. Xuất ảnh thumbnail (bìa video)
+
+**[Bắt buộc — 2026-08-27, áp dụng cho MỌI video]**: ngoài file mp4, luôn xuất kèm 1 ảnh thumbnail
+tĩnh dùng làm bìa/ảnh đại diện video (đăng TikTok/YouTube Shorts...). Yêu cầu:
+
+- Lấy khung hình trong cửa sổ **giây thứ 3–5** (đúng phần Hook — xem cấu trúc Hook trong
+  `BRAND-SYSTEM-BOT-BAN-HANG.md`), tại thời điểm TOÀN BỘ animation vào đã hoàn tất: ảnh nền thật
+  hiện rõ, logo hiện đủ, badge "Nguồn: … · [ngày]" hiện đủ, tiêu đề/số liệu lớn hiện đủ — không
+  được chụp giữa lúc chữ/badge đang bay vào hoặc mờ/opacity chưa đạt 100%.
+- Cách xác định mốc chính xác: đọc timeline GSAP trong `compositions/frames/01-hook.html`, tìm
+  `tl.fromTo(...)` có mốc thời gian bắt đầu (tham số cuối) lớn nhất cộng với `duration` của chính
+  tween đó — đó là thời điểm phần tử vào TRỄ NHẤT ổn định xong. Chọn `t` = mốc đó + ~0.3s đệm,
+  nhưng KHÔNG vượt quá (thời lượng Hook − 0.3s) để tránh dính vào hiệu ứng chuyển cảnh ra khỏi
+  Hook. Nếu không muốn tính tay, `t=3.5` là mặc định an toàn cho Hook dài ~5s (đã verify khớp thực
+  tế ở video thứ 3 của kênh) — nhưng vẫn PHẢI xem lại bằng mắt (bước dưới), không dùng mù.
+  ```bash
+  ffmpeg -y -ss <t> -i output/<ten-project>.mp4 -frames:v 1 -q:v 2 output/thumbnail.jpg
+  ```
+- **Xem lại bằng mắt bắt buộc** (Read tool trên file ảnh) — xác nhận cả 4 thành phần (ảnh nền,
+  logo, nguồn, tiêu đề/số) đều hiển thị đầy đủ, rõ nét, không bị cắt/mờ/tràn. Nếu còn thiếu, thử
+  `t` khác trong cửa sổ 3–5s rồi chụp lại — không giao ảnh thumbnail chưa đạt.
+
 ## 8. Giao video
 
-- `SendUserFile` file mp4 kèm caption ngắn.
+- `SendUserFile` file mp4 VÀ file thumbnail (`output/thumbnail.jpg`) kèm caption ngắn.
 - Tóm tắt cho người dùng: thời lượng thật, các thay đổi so với yêu cầu (đối chiếu từng điểm nếu
   người dùng gửi danh sách đánh số), lỗi phát hiện + đã sửa (nếu có), và **chủ động nêu rõ mọi
   quyết định thiết kế mà bạn tự đưa ra** (vd. giữ nguyên cấu trúc 1 frame nào đó vì coi là quy
@@ -399,6 +421,47 @@ Google Apps Script làm lớp lấy tin, tách khỏi cloud routine — code đ�
       năng bị chặn ở cloud sandbox dù hoạt động bình thường ở máy local trước đây — luôn test
       reachability sớm (`curl -sD -` hoặc thử chạy thật) thay vì giả định, và ưu tiên phương án tự
       host/dùng domain đã allowlist sẵn thay vì xin thêm domain mới khi có thể.
+
+## 11. Tự động đăng mạng xã hội sau khi có video — [Đang thiết lập, 2026-08-27]
+
+Bắt đầu với Facebook Fanpage (Feed + Reels), sẽ mở rộng sang TikTok/YouTube Shorts sau. Kiến trúc:
+routine cloud (sau bước 7 verify) gọi `POST <NEWS_FEED_URL>` với body
+`{"action":"publish_facebook","video_url":"<URL raw.githubusercontent.com của mp4>","caption":"<nội
+dung>"}` → Apps Script (cùng project `news-fetch-gas`) tự đăng lên Feed (qua `file_url`, Facebook
+tự fetch server-side) và Reels (qua flow start/upload/finish của Meta) — độc lập nhau, 1 bên lỗi
+không chặn bên kia. Xem `automation/news-fetch-gas/Code.gs` (hàm `fbPublish_`) và
+`automation/news-fetch-gas/SETUP.md` mục "Đăng Facebook Fanpage tự động".
+
+**Lý do chọn kiến trúc này**: token các kênh mạng xã hội tách biệt khỏi môi trường cloud dựng video
+(nơi có `ELEVENLABS_API_KEY`/`GEMINI_API_KEY`) — nếu môi trường dựng video có sự cố, token đăng bài
+vẫn an toàn. Token lưu ở Script Properties của Apps Script, không hard-code trong `Code.gs`.
+
+**[2026-08-27] Đã code + deploy live (Phiên bản 4)** — chưa test thật vì còn thiếu 2 Script
+Properties (`FB_PAGE_ACCESS_TOKEN`, `FB_PAGE_ID`, xem SETUP.md), **người dùng phải tự thêm** — quy
+tắc an toàn cố định của Claude Code cấm tự nhập API key/token vào bất kỳ field cấu hình nào (kể cả
+khi người dùng đã cung cấp trực tiếp và đồng ý), chỉ được *dùng* token để gọi API (vd. verify qua
+`curl`) chứ không được *nhập* vào UI.
+
+Token thật đã được verify qua `curl` (không lưu vào đâu, không nhập vào field nào):
+- Loại **System User** của Business Manager, `expires_at: 0` (không bao giờ hết hạn) — đúng chuẩn
+  khuyến nghị cho tự động hoá.
+- Đúng trang: "Kinh Tế Số" (Page ID `1276081382253398`).
+- Đủ quyền `pages_manage_posts` (lần token đầu tiên người dùng gửi thiếu quyền này, đã yêu cầu tạo
+  lại — lần 2 đủ quyền).
+
+**Bài học phụ**: gọi `GET /me/accounts` để kiểm tra trả về access token của **TẤT CẢ** các trang mà
+System User quản lý, không giới hạn theo 1 trang — tránh gọi endpoint này trừ khi thật sự cần liệt
+kê nhiều trang; ưu tiên `GET /{page-id}?access_token=...` để kiểm tra đúng 1 trang, giảm rủi ro lộ
+token trang không liên quan.
+
+**Việc cần làm tiếp** (chờ người dùng):
+1. Thêm 2 Script Properties trên Apps Script (`FB_PAGE_ACCESS_TOKEN`, `FB_PAGE_ID`).
+2. Test thật `publish_facebook` với 1 video đã có (vd. video #3) — xem kết quả JSON trả về từ cả
+   Feed lẫn Reels trước khi đưa bước này vào prompt của 3 routine thật.
+3. Sau Facebook: bàn tiếp TikTok (lưu ý: Content Posting API mặc định chỉ đăng chế độ riêng
+   tư/nháp SELF_ONLY trừ khi app đã qua audit của TikTok — cần hỏi người dùng trạng thái audit
+   trước khi code) và YouTube Shorts (cần OAuth Client ID/Secret + refresh_token, "Testing mode" là
+   đủ, không cần Google duyệt app).
 
 ---
 
