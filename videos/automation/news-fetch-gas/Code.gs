@@ -208,11 +208,31 @@ function doPost(e) {
 
 var FB_GRAPH_VERSION = 'v20.0';
 
-function fbPageAccessToken_() {
+// FB_PAGE_ACCESS_TOKEN holds a SYSTEM USER token (never-expiring, from Business
+// Manager). Facebook's content-publishing endpoints (/videos, /video_reels)
+// reject a System User token used directly even when it has pages_manage_posts
+// and the System User has Full Control on the Page — confirmed via live testing
+// 2026-08-27 (error #100 "No permission to publish the video" / #200 "does not
+// have permission to post videos on this target"). The fix: derive the actual
+// PAGE token via GET /{page-id}?fields=access_token using the System User
+// token, then use THAT page token for the actual publish call. Page tokens
+// derived this way inherit the System User token's never-expiring property.
+function fbSystemUserToken_() {
   return PropertiesService.getScriptProperties().getProperty('FB_PAGE_ACCESS_TOKEN');
 }
 function fbPageId_() {
   return PropertiesService.getScriptProperties().getProperty('FB_PAGE_ID');
+}
+function fbPageAccessToken_() {
+  var pageId = fbPageId_();
+  var url = 'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + pageId +
+    '?fields=access_token&access_token=' + encodeURIComponent(fbSystemUserToken_());
+  var resp = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
+  var data = safeJsonParse_(resp.getContentText());
+  if (!data || !data.access_token) {
+    throw new Error('Could not derive Page access token: ' + resp.getContentText());
+  }
+  return data.access_token;
 }
 
 /**
