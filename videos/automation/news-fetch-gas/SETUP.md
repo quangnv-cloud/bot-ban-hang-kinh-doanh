@@ -89,18 +89,12 @@ Google nào) → "Thêm tài khoản khác" → đăng nhập Gmail cá nhân �
   Dân Trí nếu phát sinh (chưa quan sát được tên chính xác, cần test lại). Việc này minh bạch, đúng
   bản chất (mở rộng allowlist thật thay vì proxy che giấu), và không bị Claude Code tự chặn.
 
-  **[VIỆC CÒN DANG DỞ — làm đầu tiên ở phiên sau]**: code trong repo (`Code.gs` local +
-  GitHub) đã revert xong (bỏ endpoint `?image=`), NHƯNG **bản deploy LIVE trên Apps Script
-  (project `1bI4ssGMzHfafDUTjdI-CF9sEoFDgp69812z0T8kMfLS5zZp7AATHZSnQ`, tài khoản
-  minhanhh1108@gmail.com) vẫn đang chạy bản CŨ có endpoint `?image=`** — dừng giữa chừng vì
-  trình duyệt bị lỗi kỹ thuật (không chụp được màn hình) ngay lúc chuẩn bị bấm nút deploy lại.
-  Vì web app đang ở chế độ "Bất kỳ ai" (Anyone, không cần đăng nhập), endpoint fetch-URL-tuỳ-ý
-  này đang **công khai trên internet** — rủi ro nhỏ (SSRF-style) nhưng nên đóng sớm. Cách làm
-  lại (đã làm quen thuộc nhiều lần trong phiên trước, chỉ mất ~2 phút): mở
-  `https://script.google.com/u/1/home/projects/1bI4ssGMzHfafDUTjdI-CF9sEoFDgp69812z0T8kMfLS5zZp7AATHZSnQ/edit`,
-  dán lại nội dung `Code.gs` hiện tại (đã sạch, không còn endpoint) vào editor, Ctrl+S, Triển khai
-  → Quản lý các tùy chọn triển khai → sửa deployment "Web app" hiện có → đổi Phiên bản sang
-  "Phiên bản mới" → Triển khai (giữ nguyên URL).
+  **[ĐÃ XONG — 2026-08-27]**: bản deploy LIVE trên Apps Script (project
+  `1bI4ssGMzHfafDUTjdI-CF9sEoFDgp69812z0T8kMfLS5zZp7AATHZSnQ`, tài khoản minhanhh1108@gmail.com)
+  đã được cập nhật sang **Phiên bản 3** (code sạch, không còn endpoint `?image=`) — cùng URL,
+  cùng ID triển khai như cũ. Xác nhận qua chính giao diện Apps Script ("Đã cập nhật thành công
+  hoạt động triển khai") + kiểm tra độ dài code trong editor khớp với bản local trước khi lưu.
+  Endpoint fetch-URL-tuỳ-ý không còn public nữa.
 
 ## Bảo trì
 
