@@ -156,6 +156,10 @@ function doGet(e) {
  * OR:
  *   {"action": "publish_facebook", "video_url": "<public mp4 URL>", "caption": "<text>"}
  *     — publishes to the Page's Feed AND Reels (see fbPublish_ below).
+ * OR:
+ *   {"action": "publish_facebook_photo", "image_url": "<public jpg/png URL>", "caption": "<text>"}
+ *     — publishes a regular photo+caption post ("tin") to the Page's Feed —
+ *       a normal status-style post, not a video/Reel (see fbPublishPhoto_ below).
  */
 function doPost(e) {
   var body;
@@ -173,6 +177,18 @@ function doPost(e) {
     }
     var publishResult = fbPublish_(body.video_url, body.caption || '');
     return ContentService.createTextOutput(JSON.stringify({ ok: true, result: publishResult }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  if (body.action === 'publish_facebook_photo') {
+    if (!body.image_url) {
+      return ContentService.createTextOutput(JSON.stringify({ ok: false, error: 'image_url required' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    var photoResult;
+    try { photoResult = fbPublishPhoto_(body.image_url, body.caption || ''); }
+    catch (e2) { photoResult = { error: String(e2) }; }
+    return ContentService.createTextOutput(JSON.stringify({ ok: true, result: photoResult }))
       .setMimeType(ContentService.MimeType.JSON);
   }
 
@@ -305,6 +321,26 @@ function fbPublishReel_(videoUrl, caption) {
     body: safeJsonParse_(finishResp.getContentText()),
     video_id: startData.video_id
   };
+}
+
+/**
+ * Publishes a regular photo+caption post ("tin") to the Page's Feed — the
+ * standard status-style post with an image (e.g. the video's thumbnail) and
+ * the full caption text underneath, distinct from fbPublishFeed_/fbPublishReel_
+ * which upload video content. Uses POST /{page-id}/photos with a public
+ * image `url` — Facebook fetches the image server-side, same file_url pattern
+ * as fbPublishFeed_.
+ */
+function fbPublishPhoto_(imageUrl, caption) {
+  var token = fbPageAccessToken_();
+  var pageId = fbPageId_();
+  var url = 'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + pageId + '/photos';
+  var resp = UrlFetchApp.fetch(url, {
+    method: 'post',
+    muteHttpExceptions: true,
+    payload: { url: imageUrl, caption: caption, access_token: token }
+  });
+  return { code: resp.getResponseCode(), body: safeJsonParse_(resp.getContentText()) };
 }
 
 function safeJsonParse_(text) {
