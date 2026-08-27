@@ -347,9 +347,43 @@ Google Apps Script làm lớp lấy tin, tách khỏi cloud routine — code đ�
     kích hoạt nguyên prompt sản xuất video thật đã lưu trong trigger — không có cách override bằng
     message khác qua tham số `body`. Muốn test nhỏ không tốn kém, tạo 1 trigger tạm riêng như cách
     đã làm ở mục 11.
-13. **Cả 2 lỗ hổng hạ tầng (mục 9) đã được xử lý** — sẵn sàng chạy thử end-to-end lần đầu trên 1
-    trong 3 trigger thật (mục 8). Chưa chạy — chờ xác nhận của người dùng trước khi tốn API
-    ElevenLabs/Gemini + render + push video thật.
+13. ~~Chạy thử end-to-end lần đầu~~ — **THÀNH CÔNG (2026-08-27)**. Toàn bộ chuỗi (lấy tin → chọn tin
+    → viết BRIEF/SCRIPT → voice ElevenLabs → composition 6-act style Ticker Tape → BGM Lyria + SFX
+    + carve → `npm run check` → render → verify đủ 4 bước (ffprobe/silencedetect/frame/transcript)
+    → commit + push) chạy trọn từ cloud sandbox, không cần thao tác thủ công. Video:
+    `12-ngan-hang-tin-dung-408-nghin-ty` (12 ngân hàng tung gói tín dụng 408.000 tỷ đồng, Dân Trí
+    26/08/2026), 46.4s. Ba lỗ hổng hạ tầng MỚI phát hiện + đã xử lý ngay trong lần chạy này:
+    - **Apps Script POST bị 405/"Page Not Found" nếu dùng `curl -L`**: `curl -L` (mặc định, kể cả
+      `--post301/--post302/--post303`) đổi POST→GET khi theo redirect hoặc theo sai cách sang
+      `script.googleusercontent.com`, hỏng cả 2 chiều. Cách đúng: gọi POST KHÔNG kèm `-L`, tự đọc
+      header `Location` (302, trỏ tới `script.googleusercontent.com/macros/echo?user_content_key=...`
+      — Apps Script đã CHẠY XONG doPost và cache sẵn kết quả tại URL đó), rồi GET riêng URL đó để
+      lấy response thật.
+    - **`cdn.jsdelivr.net` (dùng để tải GSAP qua `<script src>`) KHÔNG nằm trong Custom network
+      allowlist** — `npm run check`/render báo lỗi runtime `net::ERR_TUNNEL_CONNECTION_FAILED`.
+      Domain này KHÁC hẳn với `registry.npmjs.org` (đã allowlist) — không tự suy luận là cùng loại
+      "npm" nên chắc chắn được phép. Fix: vendor GSAP local — `npm install gsap@<version>` (đã có
+      sẵn qua `registry.npmjs.org`), copy `node_modules/gsap/dist/gsap.min.js` vào
+      `assets/vendor/gsap.min.js`, đổi `<script src="assets/vendor/gsap.min.js">` trong `index.html`
+      thay vì fetch CDN. Áp dụng cho MỌI video sau — không dùng `<script src="https://cdn.jsdelivr.net/...">`
+      nữa trong môi trường cloud.
+    - **`openaipublic.azureedge.net` (host tải model weight của `openai-whisper`) cũng KHÔNG nằm
+      trong allowlist** — `pip install openai-whisper` cài package thành công nhưng lần chạy đầu
+      tiên (tự tải file `.pt` model) bị 403 ở tầng CONNECT. Domain host của whisper models chưa
+      được thêm và KHÔNG có trong danh sách domain dự tính ở mục 3 (egress) — đây là lỗ hổng mới,
+      chưa từng phát hiện trước đây vì các lần chạy thử trước đó (mục 9, 10) đều dừng sớm hơn bước
+      này. Fix tạm thời đã dùng: verify transcript bằng Gemini multimodal (`generateContent` với
+      `inline_data` audio/wav, model `gemini-flash-latest` — LƯU Ý tên model timestamp-cụ-thể như
+      `gemini-2.5-flash` có thể bị "no longer available to new users" theo thời gian, luôn gọi
+      `GET /v1beta/models` trước để lấy tên model còn dùng được) thay vì Whisper — cùng mục đích
+      (so khớp lời đọc với script gốc), dùng domain đã sẵn allowlist
+      (`generativelanguage.googleapis.com`). Việc cần làm sau (chưa làm, không bắt buộc vì đã có
+      lối thay thế hoạt động): thêm `openaipublic.azureedge.net` vào Custom allowlist nếu muốn
+      quay lại dùng đúng Whisper như mô tả gốc trong file này.
+    - Bài học chung: mọi domain bên thứ ba không nằm trong danh sách đã duyệt ở mục 3 đều có khả
+      năng bị chặn ở cloud sandbox dù hoạt động bình thường ở máy local trước đây — luôn test
+      reachability sớm (`curl -sD -` hoặc thử chạy thật) thay vì giả định, và ưu tiên phương án tự
+      host/dùng domain đã allowlist sẵn thay vì xin thêm domain mới khi có thể.
 
 ---
 
