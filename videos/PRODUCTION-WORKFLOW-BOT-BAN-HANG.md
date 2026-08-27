@@ -93,6 +93,21 @@ Xem chi tiết đầy đủ (voice_id, lý do bắt buộc `eleven_v3`, cách ve
    ```bash
    ffmpeg -y -i track-raw.mp3 -t <TOTAL_DUR> -af "afade=t=out:st=<TOTAL_DUR-3>:d=3.0" -c:a libmp3lame -q:a 2 assets/bgm/track.mp3
    ```
+   **[Bắt buộc — 2026-08-27, áp dụng cho TOÀN BỘ tuyến video kinh doanh/đời sống, xem
+   `BRAND-SYSTEM-BOT-BAN-HANG.md` mục Audio]**: nhạc nền LUÔN 100% không lời (instrumental), thể
+   hiện đúng tinh thần tin tức nghiêm túc/chuyên nghiệp. Luôn truyền `--negative-prompt` khi gọi
+   `lyria-recipe.py`, không chỉ dựa vào `--prompt` mô tả mood:
+   ```bash
+   python3 lyria-recipe.py \
+     --output assets/bgm/track-raw.wav \
+     --duration <TOTAL_DUR + đệm> \
+     --prompt "modern business news underscore, digital, fast-paced, minimal, professional, instrumental only" \
+     --negative-prompt "vocals, lyrics, singing, choir, rap, spoken word, humming"
+   ```
+   Sau khi sinh xong, nghe thử/kiểm tra bằng mắt nhanh (waveform hoặc chính bản audio) để chắc
+   chắn không có giọng hát lọt vào — nếu track vẫn dính vocal dù đã có negative-prompt, sinh lại
+   với `--prompt`/`--negative-prompt` mạnh tay hơn, không chấp nhận và không tự ý cắt/che đoạn có
+   giọng hát.
 2. SFX: đặt cue tại các điểm pop-in text/card quan trọng và điểm chuyển cảnh chính (không phải
    MỌI lần chuyển cảnh) — xem palette SFX (click/pop/impact-bass/whoosh/chime) trong dự án hiện
    có làm tham chiếu tỉ lệ mật độ.

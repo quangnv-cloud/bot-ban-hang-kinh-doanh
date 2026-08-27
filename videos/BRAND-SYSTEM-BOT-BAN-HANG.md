@@ -111,6 +111,12 @@ Anchor luôn cố định, không nằm trong style), rồi cập nhật lại `
 ## Audio (khi có điều kiện sản xuất)
 
 Nhạc nền: modern business/news/digital/fast-paced/minimal/professional, không lớn hơn voiceover.
+**[Quy tắc bắt buộc, áp dụng cho TOÀN BỘ tuyến video kinh doanh/đời sống của kênh — 2026-08-27]
+Nhạc nền LUÔN 100% không lời (instrumental)** — thể hiện đúng tinh thần tin tức/đưa tin, chuyên
+nghiệp, nghiêm túc; không dùng bất kỳ track nào có giọng hát/vocal/lyrics/choir dù chỉ thoáng qua
+hay ở nền xa. Đây là quy tắc thương hiệu cố định, không phải lựa chọn theo từng video — xem cách
+áp dụng cụ thể (Lyria `--negative-prompt`) ở mục "Nhạc nền & SFX" trong
+`PRODUCTION-WORKFLOW-BOT-BAN-HANG.md`.
 Sound design: news hit khi headline xuất hiện, data pop khi số liệu xuất hiện, whoosh khi chuyển
 cảnh, brand sting ở end card. Voiceover: tiếng Việt, tự nhiên, rõ, nhanh vừa, có năng lượng, không
 quá MC truyền hình/quảng cáo.
