@@ -1,0 +1,208 @@
+<template>
+  <style>
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 400;
+      src: url('assets/fonts/Montserrat-400-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 400;
+      src: url('assets/fonts/Montserrat-400-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 600;
+      src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 600;
+      src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 700;
+      src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 700;
+      src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 900;
+      src: url('assets/fonts/Montserrat-900-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 900;
+      src: url('assets/fonts/Montserrat-900-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      color: #ffffff;
+      background: #111111;
+    }
+
+    .dm04-stage {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 700px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .dm04-code {
+      font-weight: 700;
+      font-size: 30px;
+      letter-spacing: 0.24em;
+      color: #e8441e;
+      margin-bottom: 26px;
+      opacity: 0;
+    }
+
+    .dm04-rule {
+      width: 820px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.28);
+      transform-origin: 50% 50%;
+      opacity: 0;
+    }
+    .dm04-rule-top { margin-bottom: 30px; }
+    .dm04-rule-bottom { margin-top: 30px; }
+
+    .dm04-number-row {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+    }
+    .dm04-number {
+      font-weight: 900;
+      font-size: 168px;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      color: #ffffff;
+      font-variant-numeric: tabular-nums;
+    }
+    .dm04-unit {
+      font-weight: 700;
+      font-size: 40px;
+      color: #e8441e;
+      opacity: 0;
+    }
+
+    .dm04-sub {
+      margin-top: 34px;
+      font-weight: 600;
+      font-size: 32px;
+      color: #ffffff;
+      text-align: center;
+      opacity: 0;
+    }
+    .dm04-sub .accent {
+      color: #e8441e;
+    }
+  </style>
+
+  <div data-hf-id="hf-d001" id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-d002" id="dm04-stage" class="clip dm04-stage" data-start="0" data-duration="6.9" data-track-index="0">
+      <span data-hf-id="hf-d003" class="dm04-code" id="dm04-code">TOP4</span>
+      <div data-hf-id="hf-d004" class="dm04-rule dm04-rule-top" id="dm04-rule-top"></div>
+      <div data-hf-id="hf-d005" class="dm04-number-row">
+        <span data-hf-id="hf-d006" class="dm04-number" id="dm04-number">0</span><span data-hf-id="hf-d007" class="dm04-unit" id="dm04-unit">tỷ đồng</span>
+      </div>
+      <div data-hf-id="hf-d008" class="dm04-rule dm04-rule-bottom" id="dm04-rule-bottom"></div>
+      <div data-hf-id="hf-d009" class="dm04-sub" id="dm04-sub">Dẫn đầu là <span data-hf-id="hf-d010" class="accent">Agribank</span>, 70.000 tỷ đồng</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      var counter = { val: 0 };
+      var numberEl = document.getElementById("dm04-number");
+      function formatVN(n) {
+        n = Math.round(n);
+        return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      }
+
+      tl.fromTo(
+        "#dm04-code",
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" },
+        0,
+      );
+
+      tl.fromTo(
+        "#dm04-rule-top",
+        { scaleX: 0, opacity: 0 },
+        { scaleX: 1, opacity: 1, duration: 0.4, ease: "power2.out" },
+        0.4,
+      );
+
+      tl.to(
+        counter,
+        {
+          val: 220000,
+          duration: 1.3,
+          ease: "power2.out",
+          onUpdate: function () {
+            numberEl.textContent = formatVN(counter.val);
+          },
+        },
+        0.55,
+      );
+
+      tl.fromTo(
+        "#dm04-unit",
+        { opacity: 0, y: 8 },
+        { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" },
+        1.7,
+      );
+
+      tl.fromTo(
+        "#dm04-rule-bottom",
+        { scaleX: 0, opacity: 0 },
+        { scaleX: 1, opacity: 1, duration: 0.4, ease: "power2.out" },
+        1.9,
+      );
+
+      tl.fromTo(
+        "#dm04-sub",
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: 0.36, ease: "power2.out" },
+        2.15,
+      );
+
+      window.__timelines["04-data-moment"] = tl;
+    })();
+  </script>
+</template>
