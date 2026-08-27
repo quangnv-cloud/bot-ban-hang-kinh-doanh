@@ -270,6 +270,14 @@ function doPost(e) {
       .setMimeType(ContentService.MimeType.JSON);
   }
 
+  if (body.action === 'get_sheet_url') {
+    var props0 = PropertiesService.getScriptProperties();
+    var ssId0 = props0.getProperty('SPREADSHEET_ID');
+    var url0 = ssId0 ? SpreadsheetApp.openById(ssId0).getUrl() : '';
+    return ContentService.createTextOutput(JSON.stringify({ ok: true, url: url0 }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
   if (body.action === 'log_post') {
     try {
       logPost_(body);
