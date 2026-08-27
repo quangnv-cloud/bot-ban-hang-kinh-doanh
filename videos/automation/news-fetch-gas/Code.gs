@@ -30,6 +30,14 @@ var SHEET_NAME = 'news_queue';
 var MAX_AGE_HOURS_FOR_API = 30; // doGet only returns items published within this window
 var HEADERS = ['id', 'title', 'link', 'source', 'category', 'pubDate', 'fetchedAt', 'used', 'usedAt', 'usedByVideo'];
 
+// Cross-channel posting log (Facebook + future TikTok/YouTube) — same
+// spreadsheet as news_queue, separate tab. See logPost_ + POSTS_HEADERS below.
+var POSTS_SHEET_NAME = 'posts_log';
+var POSTS_HEADERS = [
+  'posted_at', 'channel', 'post_type', 'video_project', 'title',
+  'caption', 'platform_post_id', 'permalink', 'status', 'posted_by', 'notes'
+];
+
 // ---- Sheet helpers ------------------------------------------------------
 
 function getSheet_() {
@@ -54,6 +62,36 @@ function getSheet_() {
 function hashLink_(link) {
   var digest = Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, link);
   return digest.map(function (b) { return ((b + 256) % 256).toString(16).padStart(2, '0'); }).join('').slice(0, 12);
+}
+
+// ---- Cross-channel posting log (Facebook / TikTok / YouTube) --------------
+
+function getPostsSheet_() {
+  var props = PropertiesService.getScriptProperties();
+  var ssId = props.getProperty('SPREADSHEET_ID');
+  var ss = ssId ? SpreadsheetApp.openById(ssId) : SpreadsheetApp.create('BBH News Queue');
+  if (!ssId) props.setProperty('SPREADSHEET_ID', ss.getId());
+  var sheet = ss.getSheetByName(POSTS_SHEET_NAME);
+  if (!sheet) {
+    sheet = ss.insertSheet(POSTS_SHEET_NAME);
+    sheet.appendRow(POSTS_HEADERS);
+    sheet.setFrozenRows(1);
+  }
+  return sheet;
+}
+
+/**
+ * Appends one row to posts_log. `fields` may omit any column — missing ones
+ * are left blank. `posted_at` defaults to now if not given.
+ */
+function logPost_(fields) {
+  var sheet = getPostsSheet_();
+  var row = POSTS_HEADERS.map(function (h) {
+    if (h === 'posted_at') return fields.posted_at || new Date().toISOString();
+    var v = fields[h];
+    return (v === undefined || v === null) ? '' : v;
+  });
+  sheet.appendRow(row);
 }
 
 // ---- Fetch + store --------------------------------------------------------
@@ -160,6 +198,15 @@ function doGet(e) {
  *   {"action": "publish_facebook_photo", "image_url": "<public jpg/png URL>", "caption": "<text>"}
  *     — publishes a regular photo+caption post ("tin") to the Page's Feed —
  *       a normal status-style post, not a video/Reel (see fbPublishPhoto_ below).
+ * OR:
+ *   {"action": "log_post", ...POSTS_HEADERS fields...}
+ *     — appends one row directly to posts_log (for channels/backfill not
+ *       covered by the two actions above, e.g. TikTok, YouTube, or a post
+ *       made manually outside this script). See POSTS_HEADERS for fields.
+ *
+ * publish_facebook and publish_facebook_photo log to posts_log automatically
+ * on every attempt (success or failure) — no separate log_post call needed
+ * for those two.
  */
 function doPost(e) {
   var body;
@@ -176,6 +223,25 @@ function doPost(e) {
         .setMimeType(ContentService.MimeType.JSON);
     }
     var publishResult = fbPublish_(body.video_url, body.caption || '');
+    var videoProject = body.video || '';
+    try {
+      var feedOk = publishResult.feed && !publishResult.feed.error && publishResult.feed.code === 200;
+      logPost_({
+        channel: 'facebook', post_type: 'video_feed', video_project: videoProject,
+        title: body.title || '', caption: body.caption || '',
+        platform_post_id: (publishResult.feed && publishResult.feed.body && publishResult.feed.body.id) || '',
+        permalink: '', status: feedOk ? 'published' : 'failed', posted_by: 'auto',
+        notes: feedOk ? '' : JSON.stringify(publishResult.feed)
+      });
+      var reelOk = publishResult.reel && !publishResult.reel.error && publishResult.reel.code === 200;
+      logPost_({
+        channel: 'facebook', post_type: 'reel', video_project: videoProject,
+        title: body.title || '', caption: body.caption || '',
+        platform_post_id: (publishResult.reel && publishResult.reel.video_id) || '',
+        permalink: '', status: reelOk ? 'published' : 'failed', posted_by: 'auto',
+        notes: reelOk ? '' : JSON.stringify(publishResult.reel)
+      });
+    } catch (logErr) { Logger.log('logPost_ failed (publish_facebook): %s', logErr); }
     return ContentService.createTextOutput(JSON.stringify({ ok: true, result: publishResult }))
       .setMimeType(ContentService.MimeType.JSON);
   }
@@ -188,8 +254,31 @@ function doPost(e) {
     var photoResult;
     try { photoResult = fbPublishPhoto_(body.image_url, body.caption || ''); }
     catch (e2) { photoResult = { error: String(e2) }; }
+    try {
+      var photoOk = photoResult && !photoResult.error && photoResult.code === 200;
+      logPost_({
+        channel: 'facebook', post_type: 'photo_tin', video_project: body.video || '',
+        title: body.title || '', caption: body.caption || '',
+        platform_post_id: (photoResult.body && photoResult.body.id) || '',
+        permalink: (photoResult.body && photoResult.body.id)
+          ? ('https://www.facebook.com/' + photoResult.body.id) : '',
+        status: photoOk ? 'published' : 'failed', posted_by: 'auto',
+        notes: photoOk ? '' : JSON.stringify(photoResult)
+      });
+    } catch (logErr) { Logger.log('logPost_ failed (publish_facebook_photo): %s', logErr); }
     return ContentService.createTextOutput(JSON.stringify({ ok: true, result: photoResult }))
       .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  if (body.action === 'log_post') {
+    try {
+      logPost_(body);
+      return ContentService.createTextOutput(JSON.stringify({ ok: true }))
+        .setMimeType(ContentService.MimeType.JSON);
+    } catch (logErr) {
+      return ContentService.createTextOutput(JSON.stringify({ ok: false, error: String(logErr) }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
   }
 
   var sheet = getSheet_();
