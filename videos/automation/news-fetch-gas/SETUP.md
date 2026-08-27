@@ -101,6 +101,41 @@ Google nào) → "Thêm tài khoản khác" → đăng nhập Gmail cá nhân �
 - Nếu 1 nguồn đổi đường dẫn RSS (404), sửa URL trong mảng `FEEDS` ở `Code.gs`, dán lại vào Apps
   Script editor, Save — không cần deploy lại (code trong 1 deployment "Web app" luôn dùng bản mới
   nhất khi bạn Save, trừ khi bạn đã chọn deploy theo version cố định).
+  **[Sửa lại 2026-08-27]**: thực tế deployment hiện tại của dự án ĐANG pin theo version cố định
+  (xác nhận qua việc phải Deploy → Quản lý deployment → Phiên bản mới mới cập nhật được hành vi
+  live) — mọi thay đổi Code.gs đều cần redeploy version mới mới có hiệu lực trên URL `/exec` thật,
+  không tự động như ghi chú gốc ở trên.
+
+## Đăng Facebook Fanpage tự động (Feed + Reels) — thêm 2026-08-27
+
+Endpoint mới: `POST <NEWS_FEED_URL>` với body
+`{"action":"publish_facebook","video_url":"<URL mp4 công khai>","caption":"<nội dung>"}` —
+đăng đồng thời lên Feed và Reels của Fanpage, độc lập nhau (1 bên lỗi không chặn bên kia). Xem hàm
+`fbPublish_`/`fbPublishFeed_`/`fbPublishReel_` trong `Code.gs`.
+
+**Cần thêm 2 Script Properties** (Apps Script editor → biểu tượng bánh răng "Cài đặt dự án" →
+cuộn xuống "Thuộc tính của tập lệnh" → Thêm thuộc tính của tập lệnh):
+
+| Tên thuộc tính | Giá trị |
+| --- | --- |
+| `FB_PAGE_ACCESS_TOKEN` | Page Access Token dạng System User (không hết hạn), quyền tối thiểu: `pages_manage_posts`, `pages_read_engagement`, `pages_show_list` |
+| `FB_PAGE_ID` | ID của Fanpage (không phải tên) |
+
+**[Vì sao Claude không tự nhập token]**: theo quy tắc an toàn cố định, Claude Code không được tự
+nhập API key/token vào bất kỳ field cấu hình nào (kể cả Script Properties của chính dự án này) dù
+người dùng đã cung cấp trực tiếp và đồng ý — chỉ được *dùng* token để gọi API (vd. verify qua
+`curl`), không được *nhập* nó vào UI. Vì vậy bước thêm 2 thuộc tính trên luôn cần người dùng tự làm.
+
+**Đã verify (2026-08-27)**: token thật đã test qua `curl` (đọc `/debug_token`, gọi trực tiếp
+`GET /{page-id}`) — xác nhận đúng loại System User (`expires_at: 0`, không hết hạn), đúng trang
+("Kinh Tế Số", ID `1276081382253398`), đủ quyền `pages_manage_posts`. Chưa test thật lệnh
+`publish_facebook` qua endpoint (cần user tự thêm 2 Script Properties trên trước, rồi redeploy
+version mới, rồi mới gọi thử được).
+
+**Lưu ý khi gọi `/me/accounts` để kiểm tra**: endpoint này trả về access token của **TẤT CẢ** các
+Trang mà System User quản lý, không giới hạn theo trang cần — tránh gọi endpoint này trừ khi thật
+sự cần liệt kê nhiều trang, ưu tiên gọi thẳng `GET /{page-id}?access_token=...` để kiểm tra 1 trang
+cụ thể, giảm rủi ro lộ token trang khác không liên quan.
 - Sheet `news_queue` (tự tạo, tên "BBH News Queue" trong Drive của tài khoản deploy) sẽ phình dần
   theo thời gian — có thể dọn thủ công định kỳ (vd. xoá dòng có `used=TRUE` và cũ hơn 30 ngày) nếu
   muốn, không bắt buộc cho việc vận hành.

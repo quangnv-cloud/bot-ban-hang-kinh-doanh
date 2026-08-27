@@ -150,8 +150,12 @@ function doGet(e) {
 }
 
 /**
- * POST body: {"id": "<id from doGet>", "video": "<optional project folder name>"}
- * Marks that item used so later runs (same day) don't pick it again.
+ * POST body EITHER:
+ *   {"id": "<id from doGet>", "video": "<optional project folder name>"}
+ *     — marks that news item used so later runs don't pick it again.
+ * OR:
+ *   {"action": "publish_facebook", "video_url": "<public mp4 URL>", "caption": "<text>"}
+ *     — publishes to the Page's Feed AND Reels (see fbPublish_ below).
  */
 function doPost(e) {
   var body;
@@ -159,6 +163,16 @@ function doPost(e) {
     body = JSON.parse(e.postData.contents);
   } catch (err) {
     return ContentService.createTextOutput(JSON.stringify({ ok: false, error: 'bad json' }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  if (body.action === 'publish_facebook') {
+    if (!body.video_url) {
+      return ContentService.createTextOutput(JSON.stringify({ ok: false, error: 'video_url required' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    var publishResult = fbPublish_(body.video_url, body.caption || '');
+    return ContentService.createTextOutput(JSON.stringify({ ok: true, result: publishResult }))
       .setMimeType(ContentService.MimeType.JSON);
   }
 
@@ -180,6 +194,113 @@ function doPost(e) {
 
   return ContentService.createTextOutput(JSON.stringify({ ok: false, error: 'id not found' }))
     .setMimeType(ContentService.MimeType.JSON);
+}
+
+// ---- Facebook publish (Feed + Reels) ---------------------------------------
+//
+// Reads FB_PAGE_ACCESS_TOKEN + FB_PAGE_ID from Script Properties (Project
+// Settings → Script Properties in the Apps Script editor) — never hard-coded
+// here, never committed to the repo. Page token must be a long-lived/System
+// User token with at least: pages_manage_posts, pages_read_engagement,
+// pages_show_list. See ../../PRODUCTION-WORKFLOW-BOT-BAN-HANG.md for the
+// full setup checklist and the reasoning behind this design (token isolated
+// in Apps Script, separate from the Claude cloud environment's own secrets).
+
+var FB_GRAPH_VERSION = 'v20.0';
+
+function fbPageAccessToken_() {
+  return PropertiesService.getScriptProperties().getProperty('FB_PAGE_ACCESS_TOKEN');
+}
+function fbPageId_() {
+  return PropertiesService.getScriptProperties().getProperty('FB_PAGE_ID');
+}
+
+/**
+ * Publishes a video to the Page's regular Feed via `file_url` — Facebook
+ * fetches the video server-side from the given public URL (our GitHub raw
+ * URL), so Apps Script never has to buffer the video bytes for this one.
+ */
+function fbPublishFeed_(videoUrl, caption) {
+  var token = fbPageAccessToken_();
+  var pageId = fbPageId_();
+  var url = 'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + pageId + '/videos';
+  var resp = UrlFetchApp.fetch(url, {
+    method: 'post',
+    muteHttpExceptions: true,
+    payload: { file_url: videoUrl, description: caption, access_token: token }
+  });
+  return { code: resp.getResponseCode(), body: safeJsonParse_(resp.getContentText()) };
+}
+
+/**
+ * Publishes a video as a Facebook Reel. Reels do NOT support the simple
+ * file_url shortcut — they require the resumable start → upload bytes →
+ * finish flow (Meta's Video Reels Publishing API).
+ */
+function fbPublishReel_(videoUrl, caption) {
+  var token = fbPageAccessToken_();
+  var pageId = fbPageId_();
+  var base = 'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + pageId + '/video_reels';
+
+  var startResp = UrlFetchApp.fetch(base, {
+    method: 'post',
+    muteHttpExceptions: true,
+    payload: { upload_phase: 'start', access_token: token }
+  });
+  var startData = safeJsonParse_(startResp.getContentText());
+  if (!startData || !startData.video_id || !startData.upload_url) {
+    return { phase: 'start', code: startResp.getResponseCode(), body: startData };
+  }
+
+  var videoBytes = UrlFetchApp.fetch(videoUrl, { muteHttpExceptions: true }).getBlob().getBytes();
+  var uploadResp = UrlFetchApp.fetch(startData.upload_url, {
+    method: 'post',
+    muteHttpExceptions: true,
+    headers: {
+      Authorization: 'OAuth ' + token,
+      offset: '0',
+      file_size: String(videoBytes.length)
+    },
+    contentType: 'application/octet-stream',
+    payload: videoBytes
+  });
+  if (uploadResp.getResponseCode() !== 200) {
+    return { phase: 'upload', code: uploadResp.getResponseCode(), body: uploadResp.getContentText() };
+  }
+
+  var finishResp = UrlFetchApp.fetch(base, {
+    method: 'post',
+    muteHttpExceptions: true,
+    payload: {
+      upload_phase: 'finish',
+      video_id: startData.video_id,
+      video_state: 'PUBLISHED',
+      description: caption,
+      access_token: token
+    }
+  });
+  return {
+    phase: 'finish',
+    code: finishResp.getResponseCode(),
+    body: safeJsonParse_(finishResp.getContentText()),
+    video_id: startData.video_id
+  };
+}
+
+function safeJsonParse_(text) {
+  try { return JSON.parse(text); } catch (e) { return { parseError: String(e), raw: text }; }
+}
+
+/**
+ * Publishes to Feed and Reels independently — one failing does not block or
+ * roll back the other. Caller (doPost) returns both results so the routine
+ * can report per-target success/failure rather than a single pass/fail.
+ */
+function fbPublish_(videoUrl, caption) {
+  var feed, reel;
+  try { feed = fbPublishFeed_(videoUrl, caption); } catch (e) { feed = { error: String(e) }; }
+  try { reel = fbPublishReel_(videoUrl, caption); } catch (e) { reel = { error: String(e) }; }
+  return { feed: feed, reel: reel };
 }
 
 // ---- One-time setup helper -------------------------------------------------
