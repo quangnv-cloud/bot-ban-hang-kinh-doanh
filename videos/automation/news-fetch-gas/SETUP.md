@@ -139,3 +139,38 @@ cụ thể, giảm rủi ro lộ token trang khác không liên quan.
 - Sheet `news_queue` (tự tạo, tên "BBH News Queue" trong Drive của tài khoản deploy) sẽ phình dần
   theo thời gian — có thể dọn thủ công định kỳ (vd. xoá dòng có `used=TRUE` và cũ hơn 30 ngày) nếu
   muốn, không bắt buộc cho việc vận hành.
+
+## Nhật ký đăng bài đa kênh — tab `posts_log` (thêm 2026-08-27)
+
+Cùng 1 Google Sheet với `news_queue` ("BBH News Queue"), thêm tab `posts_log` để theo dõi mọi bài
+đã đăng trên Facebook/TikTok/YouTube ở 1 chỗ. Link Sheet:
+`https://docs.google.com/spreadsheets/d/1crUZGUuX4jA9PvHo-0USpLf6J5KPJycMQLZcwrA6boM/edit`
+
+Cột: `posted_at, channel, post_type, video_project, title, caption, platform_post_id, permalink,
+status, posted_by, notes`.
+
+- `channel`: `facebook` | `tiktok` | `youtube`.
+- `post_type`: `video_feed` | `reel` | `photo_tin` | (tự do cho tiktok/youtube khi làm, vd.
+  `tiktok_video`, `youtube_short`).
+- `posted_by`: `auto` (qua routine/API) hoặc `manual` (đăng tay).
+
+**Tự động ghi log**: `publish_facebook` và `publish_facebook_photo` (trong `doPost`) tự ghi 1-2
+dòng vào `posts_log` mỗi lần gọi (kể cả khi lỗi, `status` sẽ là `failed` kèm chi tiết lỗi ở
+`notes`) — không cần gọi gì thêm.
+
+**Ghi thủ công / kênh khác**: `POST <NEWS_FEED_URL>` với `{"action": "log_post", ...các cột ở
+trên...}` — dùng cho TikTok/YouTube (chưa có pipeline tự động) hoặc backfill bài đăng tay.
+
+**Lấy link Sheet qua API**: `POST <NEWS_FEED_URL>` với `{"action": "get_sheet_url"}` → trả về
+`{"ok":true,"url":"..."}`.
+
+## Routine tự động 7h sáng — ĐÃ BẬT (2026-08-27)
+
+Trigger `trig_01RdHP4oNHzaYm5UMjuZxWzb` ("BBH auto-video — sáng (7h VN)") đã set `enabled: true`,
+chạy lần đầu tự động vào 2026-08-28 07:02 VN. Job prompt (trong `job_config.ccr`) đã được cập nhật
+thêm bước 12-13: sau khi sản xuất + commit/push video xong, routine tự viết caption Facebook rồi
+gọi `publish_facebook` (Feed+Reels) và `publish_facebook_photo` (bài "tin" ảnh+caption) qua chính
+endpoint này — không cần thao tác gì thêm, kể cả ghi log vào `posts_log` (tự động). Nếu bước đăng
+lỗi, routine KHÔNG coi cả lần chạy là thất bại, chỉ ghi rõ lỗi vào tóm tắt cuối; nếu bước sản xuất
+video (1-11) lỗi thì DỪNG LẠI, không đăng gì cả. 2 trigger còn lại (trưa 12h30, tối 19h30) vẫn để
+`enabled: false`, chưa có yêu cầu bật.
