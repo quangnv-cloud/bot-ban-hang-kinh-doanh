@@ -176,11 +176,19 @@ trên...}` — dùng cho TikTok/YouTube (chưa có pipeline tự động) hoặc
 | BBH auto-video — chiều | 13:00 | `0 6 * * *` | `trig_01HWAjgP7cpWSiprRfpJ68ap` |
 | BBH auto-video — tối | 20:00 | `0 13 * * *` | `trig_01Y4gS5dsfucSEmBv7HQBL49` |
 
-Cả 3 đều `enabled: true`. Job prompt giống nhau (chỉ khác tên/giờ), bước 12-13 của prompt: sau khi
+Cả 3 đều `enabled: true`. Job prompt giống nhau (chỉ khác tên/giờ), bước 13-14 của prompt: sau khi
 sản xuất + commit/push video xong, routine tự viết caption rồi gọi `publish_facebook` (đăng Reels)
 và `publish_facebook_photo` (đăng Story/"Tin", ảnh) qua chính endpoint này — không cần thao tác gì
 thêm, kể cả ghi log vào `posts_log` (tự động). **Nội dung Facebook của mỗi video chỉ gồm đúng 2
 phần: 1 Reel (video, vĩnh viễn) + 1 Story (ảnh, tự hết hạn ~24h) — không đăng thêm bài Feed nào
 khác** (đã thử đăng thêm bài Feed ảnh song song 2026-08-28, user xác nhận không cần, đã revert).
-Nếu bước đăng lỗi, routine KHÔNG coi cả lần chạy là thất bại, chỉ ghi rõ lỗi vào tóm tắt cuối; nếu
-bước sản xuất video (1-11) lỗi thì DỪNG LẠI, không đăng gì cả.
+
+**Đăng YouTube Shorts tự động — thêm 2026-08-28**: sau bước Facebook, routine gọi thêm
+`publish_youtube` (video "Kinh Tế Số", privacy `public`) với `thumbnail_url` trỏ tới
+`output/thumbnail.jpg` vừa push. Backend tự động viết hoa toàn bộ tiêu đề trước khi đăng (xem
+`ytPublishVideo_` trong `Code.gs`). Nếu upload video thành công nhưng set thumbnail lỗi (ví dụ
+`403 forbidden` do quyền custom-thumbnail của kênh chưa lan truyền hết sau khi vừa xác minh số điện
+thoại), video vẫn coi là đăng thành công — chỉ thiếu thumbnail tùy chỉnh.
+
+Nếu bước đăng (Facebook hoặc YouTube) lỗi, routine KHÔNG coi cả lần chạy là thất bại, chỉ ghi rõ lỗi
+vào tóm tắt cuối; nếu bước sản xuất video (1-11) lỗi thì DỪNG LẠI, không đăng gì cả.
