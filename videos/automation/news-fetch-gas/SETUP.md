@@ -150,8 +150,9 @@ Cột: `posted_at, channel, post_type, video_project, title, caption, platform_p
 status, posted_by, notes`.
 
 - `channel`: `facebook` | `tiktok` | `youtube`.
-- `post_type`: `video_feed` | `reel` | `photo_tin` | (tự do cho tiktok/youtube khi làm, vd.
-  `tiktok_video`, `youtube_short`).
+- `post_type`: `reel` | `story` | (tự do cho tiktok/youtube khi làm, vd.
+  `tiktok_video`, `youtube_short`). `video_feed`/`photo_tin` chỉ còn xuất hiện trong dữ liệu lịch
+  sử (2026-08-27/28) từ trước khi chốt luồng 2-nội-dung — xem mục routine bên dưới.
 - `posted_by`: `auto` (qua routine/API) hoặc `manual` (đăng tay).
 
 **Tự động ghi log**: `publish_facebook` và `publish_facebook_photo` (trong `doPost`) tự ghi 1-2
@@ -164,13 +165,22 @@ trên...}` — dùng cho TikTok/YouTube (chưa có pipeline tự động) hoặc
 **Lấy link Sheet qua API**: `POST <NEWS_FEED_URL>` với `{"action": "get_sheet_url"}` → trả về
 `{"ok":true,"url":"..."}`.
 
-## Routine tự động 7h sáng — ĐÃ BẬT (2026-08-27)
+## Routine tự động 3 lần/ngày — ĐÃ BẬT CẢ 3 (cập nhật 2026-08-28)
 
-Trigger `trig_01RdHP4oNHzaYm5UMjuZxWzb` ("BBH auto-video — sáng (7h VN)") đã set `enabled: true`,
-chạy lần đầu tự động vào 2026-08-28 07:02 VN. Job prompt (trong `job_config.ccr`) đã được cập nhật
-thêm bước 12-13: sau khi sản xuất + commit/push video xong, routine tự viết caption Facebook rồi
-gọi `publish_facebook` (Feed+Reels) và `publish_facebook_photo` (bài "tin" ảnh+caption) qua chính
-endpoint này — không cần thao tác gì thêm, kể cả ghi log vào `posts_log` (tự động). Nếu bước đăng
-lỗi, routine KHÔNG coi cả lần chạy là thất bại, chỉ ghi rõ lỗi vào tóm tắt cuối; nếu bước sản xuất
-video (1-11) lỗi thì DỪNG LẠI, không đăng gì cả. 2 trigger còn lại (trưa 12h30, tối 19h30) vẫn để
-`enabled: false`, chưa có yêu cầu bật.
+3 trigger chạy độc lập, mỗi ngày, mỗi lần tự sản xuất + đăng 1 video mới (tin khác nhau nhờ cơ chế
+đánh dấu `used` trong `news_queue`):
+
+| Trigger | Giờ VN | Cron (UTC) | ID |
+| --- | --- | --- | --- |
+| BBH auto-video — sáng | 07:00 | `0 0 * * *` | `trig_01RdHP4oNHzaYm5UMjuZxWzb` |
+| BBH auto-video — chiều | 13:00 | `0 6 * * *` | `trig_01HWAjgP7cpWSiprRfpJ68ap` |
+| BBH auto-video — tối | 20:00 | `0 13 * * *` | `trig_01Y4gS5dsfucSEmBv7HQBL49` |
+
+Cả 3 đều `enabled: true`. Job prompt giống nhau (chỉ khác tên/giờ), bước 12-13 của prompt: sau khi
+sản xuất + commit/push video xong, routine tự viết caption rồi gọi `publish_facebook` (đăng Reels)
+và `publish_facebook_photo` (đăng Story/"Tin", ảnh) qua chính endpoint này — không cần thao tác gì
+thêm, kể cả ghi log vào `posts_log` (tự động). **Nội dung Facebook của mỗi video chỉ gồm đúng 2
+phần: 1 Reel (video, vĩnh viễn) + 1 Story (ảnh, tự hết hạn ~24h) — không đăng thêm bài Feed nào
+khác** (đã thử đăng thêm bài Feed ảnh song song 2026-08-28, user xác nhận không cần, đã revert).
+Nếu bước đăng lỗi, routine KHÔNG coi cả lần chạy là thất bại, chỉ ghi rõ lỗi vào tóm tắt cuối; nếu
+bước sản xuất video (1-11) lỗi thì DỪNG LẠI, không đăng gì cả.
