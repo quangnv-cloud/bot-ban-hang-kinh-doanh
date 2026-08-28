@@ -206,11 +206,18 @@ function doGet(e) {
  *       here without the user asking for a 3rd content type again.
  * OR:
  *   {"action": "publish_youtube", "video_url": "<public mp4 URL>", "title": "<text>",
- *    "description": "<text>", "privacy": "public"|"unlisted"|"private" (optional, default "public")}
+ *    "description": "<text>", "thumbnail_url": "<public jpg/png URL>" (optional),
+ *    "privacy": "public"|"unlisted"|"private" (optional, default "public")}
  *     — uploads the video to YouTube (Shorts, since our videos are 9:16 under
  *       60s) via OAuth2 refresh token (YOUTUBE_CLIENT_ID/SECRET/REFRESH_TOKEN
  *       Script Properties — a different Google account than the one running
- *       this script; see ytAccessToken_ below). Logs to posts_log automatically.
+ *       this script; see ytAccessToken_ below). Title is force-uppercased
+ *       (user preference, 2026-08-28) — pass it any case, it comes out ALL
+ *       CAPS on YouTube regardless. thumbnail_url, if given, is set as the
+ *       video's custom thumbnail via a second API call after upload — if
+ *       that call fails the video upload itself still counts as success (see
+ *       result.thumbnail for its own separate status). Logs to posts_log
+ *       automatically.
  * OR:
  *   {"action": "log_post", ...POSTS_HEADERS fields...}
  *     — appends one row directly to posts_log (for channels/backfill not
@@ -284,7 +291,10 @@ function doPost(e) {
     var ytProject = body.video || '';
     var ytResult;
     try {
-      ytResult = ytPublishVideo_(body.video_url, body.title || '', body.description || '', body.privacy || 'public');
+      ytResult = ytPublishVideo_(
+        body.video_url, body.title || '', body.description || '',
+        body.privacy || 'public', body.thumbnail_url || ''
+      );
     } catch (e3) { ytResult = { error: String(e3) }; }
     try {
       var ytOk = ytResult && !ytResult.error && ytResult.code === 200 && ytResult.body && ytResult.body.id;
@@ -607,13 +617,19 @@ function ytAccessToken_() {
  * `privacy` defaults to 'public'; pass 'private' or 'unlisted' for testing
  * before a video is meant to go live to real subscribers.
  * categoryId 25 = News & Politics (fits this channel's content).
+ * `title` is force-uppercased here (String.toUpperCase() handles Vietnamese
+ * diacritics correctly) — user preference 2026-08-28, applies regardless of
+ * what case the caller sends.
+ * `thumbnailUrl`, if given, is set via ytSetThumbnail_ after a successful
+ * upload; its result is attached as `.thumbnail` without affecting the
+ * overall success of the video upload itself.
  */
-function ytPublishVideo_(videoUrl, title, description, privacy) {
+function ytPublishVideo_(videoUrl, title, description, privacy, thumbnailUrl) {
   var token = ytAccessToken_();
   var videoBlob = UrlFetchApp.fetch(videoUrl, { muteHttpExceptions: true }).getBlob();
 
   var metadata = {
-    snippet: { title: title, description: description, categoryId: '25' },
+    snippet: { title: (title || '').toUpperCase(), description: description, categoryId: '25' },
     status: { privacyStatus: privacy || 'public', selfDeclaredMadeForKids: false }
   };
 
@@ -638,6 +654,34 @@ function ytPublishVideo_(videoUrl, title, description, privacy) {
       contentType: 'multipart/related; boundary="' + boundary + '"',
       headers: { Authorization: 'Bearer ' + token },
       payload: Utilities.newBlob(bodyBytes),
+      muteHttpExceptions: true
+    }
+  );
+  var result = { code: resp.getResponseCode(), body: safeJsonParse_(resp.getContentText()) };
+
+  if (thumbnailUrl && result.code === 200 && result.body && result.body.id) {
+    try { result.thumbnail = ytSetThumbnail_(result.body.id, thumbnailUrl, token); }
+    catch (e) { result.thumbnail = { error: String(e) }; }
+  }
+
+  return result;
+}
+
+/**
+ * Sets a video's custom thumbnail via POST /upload/youtube/v3/thumbnails/set
+ * — a plain media upload (just the image bytes, no metadata/multipart
+ * needed), separate call from the video insert above. Covered by the same
+ * youtube.upload scope already granted, no extra OAuth consent needed.
+ */
+function ytSetThumbnail_(videoId, thumbnailUrl, token) {
+  var imageBlob = UrlFetchApp.fetch(thumbnailUrl, { muteHttpExceptions: true }).getBlob();
+  var resp = UrlFetchApp.fetch(
+    'https://www.googleapis.com/upload/youtube/v3/thumbnails/set?videoId=' + encodeURIComponent(videoId),
+    {
+      method: 'post',
+      contentType: imageBlob.getContentType() || 'image/jpeg',
+      headers: { Authorization: 'Bearer ' + token },
+      payload: imageBlob,
       muteHttpExceptions: true
     }
   );
