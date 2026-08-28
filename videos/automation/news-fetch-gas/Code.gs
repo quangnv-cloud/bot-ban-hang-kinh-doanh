@@ -197,10 +197,12 @@ function doGet(e) {
  *       2026-08-28, changed after Feed posts turned out to duplicate Reels).
  * OR:
  *   {"action": "publish_facebook_photo", "image_url": "<public jpg/png URL>", "caption": "<text>"}
- *     — publishes the image as a Page STORY ("Tin" in the FB Vietnamese UI —
- *       distinct from Feed/Reels, expires ~24h). Was a permanent Feed photo
- *       post until 2026-08-28 — corrected after the user reported these
- *       landing on Feed instead of "Tin" (see fbPublishPhoto_ below).
+ *     — publishes the image BOTH as a permanent Feed photo post AND as a
+ *       Page STORY ("Tin" in the FB Vietnamese UI, expires ~24h) — the user
+ *       wants both in parallel, not either/or. History: was Feed-only until
+ *       2026-08-28 morning (user: these are landing on Feed, not "Tin") →
+ *       changed to Story-only same day → user then clarified they want BOTH
+ *       at once, not a replacement. See fbPublishPhotoBoth_ below.
  * OR:
  *   {"action": "log_post", ...POSTS_HEADERS fields...}
  *     — appends one row directly to posts_log (for channels/backfill not
@@ -246,19 +248,30 @@ function doPost(e) {
       return ContentService.createTextOutput(JSON.stringify({ ok: false, error: 'image_url required' }))
         .setMimeType(ContentService.MimeType.JSON);
     }
-    var photoResult;
-    try { photoResult = fbPublishPhoto_(body.image_url, body.caption || ''); }
-    catch (e2) { photoResult = { error: String(e2) }; }
+    var photoProject = body.video || '';
+    var photoResult = fbPublishPhotoBoth_(body.image_url, body.caption || '');
     try {
-      var photoOk = photoResult && !photoResult.error && photoResult.code === 200;
-      var storyPostId = (photoResult.body && (photoResult.body.post_id || photoResult.body.id)) || '';
+      var feedPhotoOk = photoResult.feed && !photoResult.feed.error && photoResult.feed.code === 200;
+      var feedPhotoId = (photoResult.feed && photoResult.feed.body && photoResult.feed.body.id) || '';
       logPost_({
-        channel: 'facebook', post_type: 'story', video_project: body.video || '',
+        channel: 'facebook', post_type: 'photo_tin', video_project: photoProject,
+        title: body.title || '', caption: body.caption || '',
+        platform_post_id: feedPhotoId,
+        permalink: feedPhotoId ? ('https://www.facebook.com/' + feedPhotoId) : '',
+        status: feedPhotoOk ? 'published' : 'failed', posted_by: 'auto',
+        notes: feedPhotoOk ? '' : JSON.stringify(photoResult.feed)
+      });
+
+      var storyOk = photoResult.story && !photoResult.story.error && photoResult.story.code === 200;
+      var storyPostId = (photoResult.story && photoResult.story.body &&
+        (photoResult.story.body.post_id || photoResult.story.body.id)) || '';
+      logPost_({
+        channel: 'facebook', post_type: 'story', video_project: photoProject,
         title: body.title || '', caption: body.caption || '',
         platform_post_id: storyPostId,
         permalink: storyPostId ? ('https://www.facebook.com/stories/' + storyPostId) : '',
-        status: photoOk ? 'published' : 'failed', posted_by: 'auto',
-        notes: (photoOk ? '' : JSON.stringify(photoResult) + ' ') + 'Story — expires ~24h, not permanent like Feed/Reels.'
+        status: storyOk ? 'published' : 'failed', posted_by: 'auto',
+        notes: (storyOk ? '' : JSON.stringify(photoResult.story) + ' ') + 'Story — expires ~24h, not permanent like Feed/Reels.'
       });
     } catch (logErr) { Logger.log('logPost_ failed (publish_facebook_photo): %s', logErr); }
     return ContentService.createTextOutput(JSON.stringify({ ok: true, result: photoResult }))
@@ -429,24 +442,39 @@ function fbPublishReel_(videoUrl, caption) {
 }
 
 /**
+ * Publishes a regular photo+caption post to the Page's Feed — a normal,
+ * permanent status-style post (NOT the "Tin"/Story — see fbPublishPhotoStory_
+ * for that). Uses POST /{page-id}/photos published normally (no
+ * `published:false`), same pattern as fbPublishFeed_/fbPublishReel_ for video.
+ */
+function fbPublishPhotoFeed_(imageUrl, caption) {
+  var token = fbPageAccessToken_();
+  var pageId = fbPageId_();
+  var url = 'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + pageId + '/photos';
+  var resp = UrlFetchApp.fetch(url, {
+    method: 'post',
+    muteHttpExceptions: true,
+    payload: { url: imageUrl, caption: caption, access_token: token }
+  });
+  return { code: resp.getResponseCode(), body: safeJsonParse_(resp.getContentText()) };
+}
+
+/**
  * Publishes an image as a Facebook Page STORY ("Tin" in the Vietnamese
- * Facebook UI — Trang > Tin, the same "Tin" the user meant, NOT a regular
- * Feed post). Corrected 2026-08-28: this used to POST /{page-id}/photos
- * (published, no `published:false`), which creates a normal permanent Feed
- * post — every "tin" post looked to the user like it landed on the Feed,
- * because it literally did. Stories are a genuinely different object graph:
+ * Facebook UI — Trang > Tin — genuinely different from a Feed post, see
+ * fbPublishPhotoFeed_). Two-step Stories API:
  *   1. Upload the image UNPUBLISHED: POST /{page-id}/photos with
  *      published=false — returns a photo id that isn't on the Feed/Timeline
  *      at all, just staged.
  *   2. POST /{page-id}/photo_stories with that photo_id — attaches it to the
  *      Page's Story tray ("Tin"), separate from Feed/Reels/Photos tabs.
  * Note: Stories expire after ~24h (Facebook's own behavior, not something
- * this script controls) — unlike Feed/Reels posts, which are permanent. The
- * `caption` param is accepted for posts_log only; the Stories API has no
- * text-caption field, which is fine here since the source image (the
- * video's thumbnail) already has the headline/source baked in visually.
+ * this script controls) — unlike Feed/Reels posts, which are permanent. No
+ * `caption` param — the Stories API has no text-caption field, which is fine
+ * here since the source image (the video's thumbnail) already has the
+ * headline/source baked in visually.
  */
-function fbPublishPhoto_(imageUrl, caption) {
+function fbPublishPhotoStory_(imageUrl) {
   var token = fbPageAccessToken_();
   var pageId = fbPageId_();
 
@@ -473,6 +501,19 @@ function fbPublishPhoto_(imageUrl, caption) {
     body: safeJsonParse_(storyResp.getContentText()),
     photo_id: uploadData.id
   };
+}
+
+/**
+ * Publishes to Feed AND Story independently — one failing does not block or
+ * roll back the other (same pattern as fbPublish_ for video). The user wants
+ * both in parallel: a permanent Feed post AND an ephemeral "Tin"/Story from
+ * the same image, at the same time — not a choice between the two.
+ */
+function fbPublishPhotoBoth_(imageUrl, caption) {
+  var feed, story;
+  try { feed = fbPublishPhotoFeed_(imageUrl, caption); } catch (e) { feed = { error: String(e) }; }
+  try { story = fbPublishPhotoStory_(imageUrl); } catch (e) { story = { error: String(e) }; }
+  return { feed: feed, story: story };
 }
 
 function safeJsonParse_(text) {
