@@ -205,14 +205,21 @@ function doGet(e) {
  *       again). See fbPublishPhotoStory_ below; do not add a Feed photo call
  *       here without the user asking for a 3rd content type again.
  * OR:
+ *   {"action": "publish_youtube", "video_url": "<public mp4 URL>", "title": "<text>",
+ *    "description": "<text>", "privacy": "public"|"unlisted"|"private" (optional, default "public")}
+ *     — uploads the video to YouTube (Shorts, since our videos are 9:16 under
+ *       60s) via OAuth2 refresh token (YOUTUBE_CLIENT_ID/SECRET/REFRESH_TOKEN
+ *       Script Properties — a different Google account than the one running
+ *       this script; see ytAccessToken_ below). Logs to posts_log automatically.
+ * OR:
  *   {"action": "log_post", ...POSTS_HEADERS fields...}
  *     — appends one row directly to posts_log (for channels/backfill not
- *       covered by the two actions above, e.g. TikTok, YouTube, or a post
- *       made manually outside this script). See POSTS_HEADERS for fields.
+ *       covered by the actions above, e.g. TikTok, or a post made manually
+ *       outside this script). See POSTS_HEADERS for fields.
  *
- * publish_facebook and publish_facebook_photo log to posts_log automatically
- * on every attempt (success or failure) — no separate log_post call needed
- * for those two.
+ * publish_facebook, publish_facebook_photo, and publish_youtube log to
+ * posts_log automatically on every attempt (success or failure) — no
+ * separate log_post call needed for those.
  */
 function doPost(e) {
   var body;
@@ -266,6 +273,32 @@ function doPost(e) {
       });
     } catch (logErr) { Logger.log('logPost_ failed (publish_facebook_photo): %s', logErr); }
     return ContentService.createTextOutput(JSON.stringify({ ok: true, result: photoResult }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  if (body.action === 'publish_youtube') {
+    if (!body.video_url) {
+      return ContentService.createTextOutput(JSON.stringify({ ok: false, error: 'video_url required' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    var ytProject = body.video || '';
+    var ytResult;
+    try {
+      ytResult = ytPublishVideo_(body.video_url, body.title || '', body.description || '', body.privacy || 'public');
+    } catch (e3) { ytResult = { error: String(e3) }; }
+    try {
+      var ytOk = ytResult && !ytResult.error && ytResult.code === 200 && ytResult.body && ytResult.body.id;
+      var ytId = (ytResult.body && ytResult.body.id) || '';
+      logPost_({
+        channel: 'youtube', post_type: 'short', video_project: ytProject,
+        title: body.title || '', caption: body.description || '',
+        platform_post_id: ytId,
+        permalink: ytId ? ('https://youtube.com/shorts/' + ytId) : '',
+        status: ytOk ? 'published' : 'failed', posted_by: 'auto',
+        notes: ytOk ? '' : JSON.stringify(ytResult)
+      });
+    } catch (logErr) { Logger.log('logPost_ failed (publish_youtube): %s', logErr); }
+    return ContentService.createTextOutput(JSON.stringify({ ok: true, result: ytResult }))
       .setMimeType(ContentService.MimeType.JSON);
   }
 
@@ -526,6 +559,89 @@ function fbPublish_(videoUrl, caption) {
   var reel;
   try { reel = fbPublishReel_(videoUrl, caption); } catch (e) { reel = { error: String(e) }; }
   return { reel: reel };
+}
+
+// ---- YouTube publish (Shorts) -----------------------------------------------
+//
+// Reads YOUTUBE_CLIENT_ID + YOUTUBE_CLIENT_SECRET + YOUTUBE_REFRESH_TOKEN from
+// Script Properties. Unlike Facebook's Page token, the YouTube channel here is
+// on a DIFFERENT Google account than the one this Apps Script project runs
+// under, so we can't use the script's own implicit identity (ScriptApp.get
+// OAuthToken()) — instead this is a standalone OAuth2 refresh-token flow set
+// up manually via Google Cloud Console + OAuth Playground on 2026-08-28:
+//   1. OAuth Client (ID+secret) created under a Cloud project — can be ANY
+//      Google account with Cloud project-creation rights, doesn't need to be
+//      the channel's own account (only the consent step below does).
+//   2. Consent granted via OAuth Playground, logged in AS the channel's
+//      Google account, scope https://www.googleapis.com/auth/youtube.upload
+//      → yields a refresh token that's tied to that channel's account
+//      regardless of which account owns the OAuth Client.
+// The refresh token here does not expire on its own (until revoked), so this
+// mints a fresh access token on every call, same pattern as fbPageAccessToken_.
+
+function ytAccessToken_() {
+  var props = PropertiesService.getScriptProperties();
+  var resp = UrlFetchApp.fetch('https://oauth2.googleapis.com/token', {
+    method: 'post',
+    muteHttpExceptions: true,
+    payload: {
+      client_id: props.getProperty('YOUTUBE_CLIENT_ID'),
+      client_secret: props.getProperty('YOUTUBE_CLIENT_SECRET'),
+      refresh_token: props.getProperty('YOUTUBE_REFRESH_TOKEN'),
+      grant_type: 'refresh_token'
+    }
+  });
+  var data = safeJsonParse_(resp.getContentText());
+  if (!data || !data.access_token) {
+    throw new Error('Could not refresh YouTube access token: ' + resp.getContentText());
+  }
+  return data.access_token;
+}
+
+/**
+ * Uploads a video to YouTube via a hand-built multipart/related request
+ * (metadata JSON + video bytes in one call) — Apps Script's UrlFetchApp
+ * doesn't have native multipart/related support, so the body is assembled
+ * manually with a boundary string, same general approach as any other
+ * language's raw HTTP client would need for this endpoint.
+ * `privacy` defaults to 'public'; pass 'private' or 'unlisted' for testing
+ * before a video is meant to go live to real subscribers.
+ * categoryId 25 = News & Politics (fits this channel's content).
+ */
+function ytPublishVideo_(videoUrl, title, description, privacy) {
+  var token = ytAccessToken_();
+  var videoBlob = UrlFetchApp.fetch(videoUrl, { muteHttpExceptions: true }).getBlob();
+
+  var metadata = {
+    snippet: { title: title, description: description, categoryId: '25' },
+    status: { privacyStatus: privacy || 'public', selfDeclaredMadeForKids: false }
+  };
+
+  var boundary = 'bbh_yt_upload_boundary_' + new Date().getTime();
+  var delimiter = '\r\n--' + boundary + '\r\n';
+  var closeDelim = '\r\n--' + boundary + '--';
+
+  var metadataPart = Utilities.newBlob(
+    delimiter + 'Content-Type: application/json; charset=UTF-8\r\n\r\n' + JSON.stringify(metadata)
+  ).getBytes();
+  var videoPartHeader = Utilities.newBlob(
+    delimiter + 'Content-Type: ' + (videoBlob.getContentType() || 'video/mp4') + '\r\n\r\n'
+  ).getBytes();
+  var closePart = Utilities.newBlob(closeDelim).getBytes();
+
+  var bodyBytes = metadataPart.concat(videoPartHeader).concat(videoBlob.getBytes()).concat(closePart);
+
+  var resp = UrlFetchApp.fetch(
+    'https://www.googleapis.com/upload/youtube/v3/videos?uploadType=multipart&part=snippet,status',
+    {
+      method: 'post',
+      contentType: 'multipart/related; boundary="' + boundary + '"',
+      headers: { Authorization: 'Bearer ' + token },
+      payload: Utilities.newBlob(bodyBytes),
+      muteHttpExceptions: true
+    }
+  );
+  return { code: resp.getResponseCode(), body: safeJsonParse_(resp.getContentText()) };
 }
 
 // ---- One-time setup helper -------------------------------------------------
