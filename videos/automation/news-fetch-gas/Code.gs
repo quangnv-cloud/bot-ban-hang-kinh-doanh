@@ -197,8 +197,10 @@ function doGet(e) {
  *       2026-08-28, changed after Feed posts turned out to duplicate Reels).
  * OR:
  *   {"action": "publish_facebook_photo", "image_url": "<public jpg/png URL>", "caption": "<text>"}
- *     — publishes a regular photo+caption post ("tin") to the Page's Feed —
- *       a normal status-style post, not a video/Reel (see fbPublishPhoto_ below).
+ *     — publishes the image as a Page STORY ("Tin" in the FB Vietnamese UI —
+ *       distinct from Feed/Reels, expires ~24h). Was a permanent Feed photo
+ *       post until 2026-08-28 — corrected after the user reported these
+ *       landing on Feed instead of "Tin" (see fbPublishPhoto_ below).
  * OR:
  *   {"action": "log_post", ...POSTS_HEADERS fields...}
  *     — appends one row directly to posts_log (for channels/backfill not
@@ -249,14 +251,14 @@ function doPost(e) {
     catch (e2) { photoResult = { error: String(e2) }; }
     try {
       var photoOk = photoResult && !photoResult.error && photoResult.code === 200;
+      var storyPostId = (photoResult.body && (photoResult.body.post_id || photoResult.body.id)) || '';
       logPost_({
-        channel: 'facebook', post_type: 'photo_tin', video_project: body.video || '',
+        channel: 'facebook', post_type: 'story', video_project: body.video || '',
         title: body.title || '', caption: body.caption || '',
-        platform_post_id: (photoResult.body && photoResult.body.id) || '',
-        permalink: (photoResult.body && photoResult.body.id)
-          ? ('https://www.facebook.com/' + photoResult.body.id) : '',
+        platform_post_id: storyPostId,
+        permalink: storyPostId ? ('https://www.facebook.com/stories/' + storyPostId) : '',
         status: photoOk ? 'published' : 'failed', posted_by: 'auto',
-        notes: photoOk ? '' : JSON.stringify(photoResult)
+        notes: (photoOk ? '' : JSON.stringify(photoResult) + ' ') + 'Story — expires ~24h, not permanent like Feed/Reels.'
       });
     } catch (logErr) { Logger.log('logPost_ failed (publish_facebook_photo): %s', logErr); }
     return ContentService.createTextOutput(JSON.stringify({ ok: true, result: photoResult }))
@@ -427,23 +429,50 @@ function fbPublishReel_(videoUrl, caption) {
 }
 
 /**
- * Publishes a regular photo+caption post ("tin") to the Page's Feed — the
- * standard status-style post with an image (e.g. the video's thumbnail) and
- * the full caption text underneath, distinct from fbPublishFeed_/fbPublishReel_
- * which upload video content. Uses POST /{page-id}/photos with a public
- * image `url` — Facebook fetches the image server-side, same file_url pattern
- * as fbPublishFeed_.
+ * Publishes an image as a Facebook Page STORY ("Tin" in the Vietnamese
+ * Facebook UI — Trang > Tin, the same "Tin" the user meant, NOT a regular
+ * Feed post). Corrected 2026-08-28: this used to POST /{page-id}/photos
+ * (published, no `published:false`), which creates a normal permanent Feed
+ * post — every "tin" post looked to the user like it landed on the Feed,
+ * because it literally did. Stories are a genuinely different object graph:
+ *   1. Upload the image UNPUBLISHED: POST /{page-id}/photos with
+ *      published=false — returns a photo id that isn't on the Feed/Timeline
+ *      at all, just staged.
+ *   2. POST /{page-id}/photo_stories with that photo_id — attaches it to the
+ *      Page's Story tray ("Tin"), separate from Feed/Reels/Photos tabs.
+ * Note: Stories expire after ~24h (Facebook's own behavior, not something
+ * this script controls) — unlike Feed/Reels posts, which are permanent. The
+ * `caption` param is accepted for posts_log only; the Stories API has no
+ * text-caption field, which is fine here since the source image (the
+ * video's thumbnail) already has the headline/source baked in visually.
  */
 function fbPublishPhoto_(imageUrl, caption) {
   var token = fbPageAccessToken_();
   var pageId = fbPageId_();
-  var url = 'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + pageId + '/photos';
-  var resp = UrlFetchApp.fetch(url, {
+
+  var uploadUrl = 'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + pageId + '/photos';
+  var uploadResp = UrlFetchApp.fetch(uploadUrl, {
     method: 'post',
     muteHttpExceptions: true,
-    payload: { url: imageUrl, caption: caption, access_token: token }
+    payload: { url: imageUrl, published: 'false', access_token: token }
   });
-  return { code: resp.getResponseCode(), body: safeJsonParse_(resp.getContentText()) };
+  var uploadData = safeJsonParse_(uploadResp.getContentText());
+  if (!uploadData || !uploadData.id) {
+    return { phase: 'upload', code: uploadResp.getResponseCode(), body: uploadData };
+  }
+
+  var storyUrl = 'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + pageId + '/photo_stories';
+  var storyResp = UrlFetchApp.fetch(storyUrl, {
+    method: 'post',
+    muteHttpExceptions: true,
+    payload: { photo_id: uploadData.id, access_token: token }
+  });
+  return {
+    phase: 'publish',
+    code: storyResp.getResponseCode(),
+    body: safeJsonParse_(storyResp.getContentText()),
+    photo_id: uploadData.id
+  };
 }
 
 function safeJsonParse_(text) {
