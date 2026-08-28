@@ -219,14 +219,23 @@ function doGet(e) {
  *       result.thumbnail for its own separate status). Logs to posts_log
  *       automatically.
  * OR:
+ *   {"action": "publish_instagram", "video_url": "<public mp4 URL>", "caption": "<text>"}
+ *     — publishes the video as an Instagram Reel on the Business/Creator
+ *       account linked to the Facebook Page (see igPublishReel_ below).
+ *       Reuses the same FB_PAGE_ACCESS_TOKEN as Facebook — no separate
+ *       OAuth/consent step needed, but the System User must have
+ *       instagram_basic + instagram_content_publish permission (see
+ *       SETUP.md). Synchronous call — Instagram needs to process the video
+ *       before it can publish, so this can take up to ~2.5 minutes.
+ * OR:
  *   {"action": "log_post", ...POSTS_HEADERS fields...}
  *     — appends one row directly to posts_log (for channels/backfill not
  *       covered by the actions above, e.g. TikTok, or a post made manually
  *       outside this script). See POSTS_HEADERS for fields.
  *
- * publish_facebook, publish_facebook_photo, and publish_youtube log to
- * posts_log automatically on every attempt (success or failure) — no
- * separate log_post call needed for those.
+ * publish_facebook, publish_facebook_photo, publish_youtube, and
+ * publish_instagram log to posts_log automatically on every attempt
+ * (success or failure) — no separate log_post call needed for those.
  */
 function doPost(e) {
   var body;
@@ -309,6 +318,31 @@ function doPost(e) {
       });
     } catch (logErr) { Logger.log('logPost_ failed (publish_youtube): %s', logErr); }
     return ContentService.createTextOutput(JSON.stringify({ ok: true, result: ytResult }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  if (body.action === 'publish_instagram') {
+    if (!body.video_url) {
+      return ContentService.createTextOutput(JSON.stringify({ ok: false, error: 'video_url required' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    var igProject = body.video || '';
+    var igResult;
+    try { igResult = igPublishReel_(body.video_url, body.caption || ''); }
+    catch (e4) { igResult = { error: String(e4) }; }
+    try {
+      var igOk = igResult && !igResult.error && igResult.phase === 'publish' && igResult.code === 200 && igResult.body && igResult.body.id;
+      var igId = (igResult.body && igResult.body.id) || '';
+      logPost_({
+        channel: 'instagram', post_type: 'reel', video_project: igProject,
+        title: body.title || '', caption: body.caption || '',
+        platform_post_id: igId,
+        permalink: igResult.permalink || '',
+        status: igOk ? 'published' : 'failed', posted_by: 'auto',
+        notes: igOk ? '' : JSON.stringify(igResult)
+      });
+    } catch (logErr) { Logger.log('logPost_ failed (publish_instagram): %s', logErr); }
+    return ContentService.createTextOutput(JSON.stringify({ ok: true, result: igResult }))
       .setMimeType(ContentService.MimeType.JSON);
   }
 
@@ -569,6 +603,110 @@ function fbPublish_(videoUrl, caption) {
   var reel;
   try { reel = fbPublishReel_(videoUrl, caption); } catch (e) { reel = { error: String(e) }; }
   return { reel: reel };
+}
+
+// ---- Instagram publish (Reels) -----------------------------------------------
+//
+// Reuses the same Facebook Page token (fbPageAccessToken_) — no separate
+// OAuth/consent step. The Instagram account must be a Business/Creator
+// account linked to the Facebook Page (Settings → Linked accounts), and the
+// System User behind FB_PAGE_ACCESS_TOKEN must have instagram_basic +
+// instagram_content_publish permission on that Page's assets in Business
+// Manager (added 2026-08-28 alongside the Page permissions — see SETUP.md).
+
+/**
+ * Looks up the Instagram Business Account ID linked to the Facebook Page.
+ * Not cached in Script Properties — this is a cheap GET and the link could
+ * change if the user re-links a different Instagram account later.
+ */
+function igBusinessAccountId_() {
+  var token = fbPageAccessToken_();
+  var pageId = fbPageId_();
+  var url = 'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + pageId +
+    '?fields=instagram_business_account&access_token=' + encodeURIComponent(token);
+  var resp = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
+  var data = safeJsonParse_(resp.getContentText());
+  if (!data || !data.instagram_business_account || !data.instagram_business_account.id) {
+    throw new Error('No linked Instagram Business Account found on this Page: ' + resp.getContentText());
+  }
+  return data.instagram_business_account.id;
+}
+
+/**
+ * Publishes a video to Instagram as a Reel via the Content Publishing API —
+ * a 3-step flow (unlike Facebook's Reels API, this ALWAYS needs the poll
+ * step; Instagram fetches+processes the video async from video_url before it
+ * can be published):
+ *   1. POST /{ig-user-id}/media  (video_url, caption, media_type=REELS)
+ *      → returns a creation_id (container), not yet live.
+ *   2. Poll GET /{creation-id}?fields=status_code until FINISHED — Instagram
+ *      is still downloading/transcoding the video server-side. Capped at 30
+ *      attempts * 5s = 150s; well inside the Apps Script web app time limit.
+ *   3. POST /{ig-user-id}/media_publish (creation_id) → goes live.
+ * If step 2 never reaches FINISHED (still IN_PROGRESS after the cap, or
+ * ERROR), step 3 is skipped and the container's last known status is
+ * returned instead — treat as failed, do not retry publish with a stale id.
+ */
+function igPublishReel_(videoUrl, caption) {
+  var token = fbPageAccessToken_();
+  var igUserId = igBusinessAccountId_();
+
+  var createUrl = 'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + igUserId + '/media';
+  var createResp = UrlFetchApp.fetch(createUrl, {
+    method: 'post',
+    muteHttpExceptions: true,
+    payload: { video_url: videoUrl, caption: caption, media_type: 'REELS', access_token: token }
+  });
+  var createData = safeJsonParse_(createResp.getContentText());
+  if (!createData || !createData.id) {
+    return { phase: 'create', code: createResp.getResponseCode(), body: createData };
+  }
+  var creationId = createData.id;
+
+  var statusUrl = 'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + creationId +
+    '?fields=status_code&access_token=' + encodeURIComponent(token);
+  var statusCode = 'IN_PROGRESS';
+  var attempts = 0;
+  while (statusCode === 'IN_PROGRESS' && attempts < 30) {
+    Utilities.sleep(5000);
+    var statusResp = UrlFetchApp.fetch(statusUrl, { muteHttpExceptions: true });
+    var statusData = safeJsonParse_(statusResp.getContentText());
+    statusCode = statusData && statusData.status_code;
+    attempts++;
+  }
+  if (statusCode !== 'FINISHED') {
+    return { phase: 'process', code: 200, body: { status_code: statusCode }, creation_id: creationId };
+  }
+
+  var publishUrl = 'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + igUserId + '/media_publish';
+  var publishResp = UrlFetchApp.fetch(publishUrl, {
+    method: 'post',
+    muteHttpExceptions: true,
+    payload: { creation_id: creationId, access_token: token }
+  });
+  var publishData = safeJsonParse_(publishResp.getContentText());
+
+  // The id returned by media_publish is NOT the shortcode used in instagram.com
+  // URLs — fetch the real permalink separately (best-effort; publish itself
+  // already succeeded above regardless of whether this lookup works).
+  var permalink = '';
+  if (publishData && publishData.id) {
+    try {
+      var permUrl = 'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + publishData.id +
+        '?fields=permalink&access_token=' + encodeURIComponent(token);
+      var permResp = UrlFetchApp.fetch(permUrl, { muteHttpExceptions: true });
+      var permData = safeJsonParse_(permResp.getContentText());
+      permalink = (permData && permData.permalink) || '';
+    } catch (e5) { /* best-effort only */ }
+  }
+
+  return {
+    phase: 'publish',
+    code: publishResp.getResponseCode(),
+    body: publishData,
+    creation_id: creationId,
+    permalink: permalink
+  };
 }
 
 // ---- YouTube publish (Shorts) -----------------------------------------------
