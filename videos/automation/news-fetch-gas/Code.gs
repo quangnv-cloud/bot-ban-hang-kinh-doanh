@@ -193,7 +193,8 @@ function doGet(e) {
  *     — marks that news item used so later runs don't pick it again.
  * OR:
  *   {"action": "publish_facebook", "video_url": "<public mp4 URL>", "caption": "<text>"}
- *     — publishes to the Page's Feed AND Reels (see fbPublish_ below).
+ *     — publishes to Reels only (see fbPublish_ below — was Feed+Reels until
+ *       2026-08-28, changed after Feed posts turned out to duplicate Reels).
  * OR:
  *   {"action": "publish_facebook_photo", "image_url": "<public jpg/png URL>", "caption": "<text>"}
  *     — publishes a regular photo+caption post ("tin") to the Page's Feed —
@@ -225,14 +226,6 @@ function doPost(e) {
     var publishResult = fbPublish_(body.video_url, body.caption || '');
     var videoProject = body.video || '';
     try {
-      var feedOk = publishResult.feed && !publishResult.feed.error && publishResult.feed.code === 200;
-      logPost_({
-        channel: 'facebook', post_type: 'video_feed', video_project: videoProject,
-        title: body.title || '', caption: body.caption || '',
-        platform_post_id: (publishResult.feed && publishResult.feed.body && publishResult.feed.body.id) || '',
-        permalink: '', status: feedOk ? 'published' : 'failed', posted_by: 'auto',
-        notes: feedOk ? '' : JSON.stringify(publishResult.feed)
-      });
       var reelOk = publishResult.reel && !publishResult.reel.error && publishResult.reel.code === 200;
       logPost_({
         channel: 'facebook', post_type: 'reel', video_project: videoProject,
@@ -352,6 +345,19 @@ function fbPageAccessToken_() {
  * Publishes a video to the Page's regular Feed via `file_url` — Facebook
  * fetches the video server-side from the given public URL (our GitHub raw
  * URL), so Apps Script never has to buffer the video bytes for this one.
+ *
+ * NOT CALLED by fbPublish_ as of 2026-08-28: confirmed via live testing that
+ * Facebook auto-converts any vertical (9:16) video uploaded through this
+ * endpoint into Reel format anyway (permalink comes back as `/reel/...`,
+ * identical in every way to a post made through fbPublishReel_). Calling
+ * BOTH this and fbPublishReel_ for the same video therefore posted the exact
+ * same content twice — two visually identical Reels with the same caption —
+ * which is what the "duplicate posts" report on 2026-08-28 turned out to be.
+ * Fix: fbPublish_ now calls fbPublishReel_ only. Left this function defined
+ * (unused) in case a future need for a true non-Reel Feed video post arises
+ * — don't wire it back into fbPublish_ without re-verifying Facebook's
+ * current behavior first, since a duplicate-post regression is easy to
+ * reintroduce here.
  */
 function fbPublishFeed_(videoUrl, caption) {
   var token = fbPageAccessToken_();
@@ -445,15 +451,14 @@ function safeJsonParse_(text) {
 }
 
 /**
- * Publishes to Feed and Reels independently — one failing does not block or
- * roll back the other. Caller (doPost) returns both results so the routine
- * can report per-target success/failure rather than a single pass/fail.
+ * Publishes the video via Reels only — see note above fbPublishFeed_. Kept as
+ * a thin wrapper (rather than calling fbPublishReel_ directly from doPost) so
+ * the return shape (`{reel: ...}`) and error handling stay in one place.
  */
 function fbPublish_(videoUrl, caption) {
-  var feed, reel;
-  try { feed = fbPublishFeed_(videoUrl, caption); } catch (e) { feed = { error: String(e) }; }
+  var reel;
   try { reel = fbPublishReel_(videoUrl, caption); } catch (e) { reel = { error: String(e) }; }
-  return { feed: feed, reel: reel };
+  return { reel: reel };
 }
 
 // ---- One-time setup helper -------------------------------------------------
