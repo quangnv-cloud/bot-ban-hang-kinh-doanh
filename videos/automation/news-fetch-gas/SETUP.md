@@ -202,5 +202,16 @@ User dùng để tạo token cũng cần được **chỉ định tài sản Ins
 ngoài Trang. Xem `igBusinessAccountId_`/`igPublishReel_` trong `Code.gs`, và action chẩn đoán
 read-only `check_instagram` (không đăng gì) để kiểm tra nhanh khi cần debug lại.
 
+Truyền `thumbnail_url` (trỏ tới `output/thumbnail.jpg` vừa push) làm `cover_url` cho Reel — **bắt
+buộc**, vì nếu không Instagram tự chọn 1 khung hình ngẫu nhiên từ video làm ảnh bìa và có thể rơi
+vào khung hình tối/xấu (đã gặp thực tế 2026-08-28, sửa bằng cách thêm tham số `cover_url` vào
+`igPublishReel_`).
+
+Nếu POST body chứa dấu tiếng Việt và test thủ công qua PowerShell (không phải qua routine cloud),
+PHẢI ép UTF-8 khi gửi — dùng `[System.IO.File]::ReadAllBytes()` đọc file JSON rồi truyền thẳng làm
+`-Body` cho `Invoke-WebRequest` (không truyền chuỗi string thường, PowerShell mặc định có thể encode
+sai và biến dấu thành `?`). Routine tự động chạy trong môi trường cloud (bash/curl) không gặp lỗi
+này.
+
 Nếu bước đăng (Facebook, YouTube, hoặc Instagram) lỗi, routine KHÔNG coi cả lần chạy là thất bại,
 chỉ ghi rõ lỗi vào tóm tắt cuối; nếu bước sản xuất video (1-11) lỗi thì DỪNG LẠI, không đăng gì cả.
