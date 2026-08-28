@@ -192,9 +192,14 @@ function doGet(e) {
  *   {"id": "<id from doGet>", "video": "<optional project folder name>"}
  *     — marks that news item used so later runs don't pick it again.
  * OR:
- *   {"action": "publish_facebook", "video_url": "<public mp4 URL>", "caption": "<text>"}
+ *   {"action": "publish_facebook", "video_url": "<public mp4 URL>", "caption": "<text>",
+ *    "thumbnail_url": "<public jpg/png URL>" (optional)}
  *     — publishes to Reels only (see fbPublish_ below — was Feed+Reels until
  *       2026-08-28, changed after Feed posts turned out to duplicate Reels).
+ *       thumbnail_url, if given, is set as the Reel's cover via
+ *       fbSetThumbnail_ (Facebook otherwise auto-picks its own frame, which
+ *       can land on a near-black moment) — pass the same output/thumbnail.jpg
+ *       used for YouTube/Instagram for a consistent cover.
  * OR:
  *   {"action": "publish_facebook_photo", "image_url": "<public jpg/png URL>", "caption": "<text>"}
  *     — publishes the image as a Page STORY only ("Tin" in the FB Vietnamese
@@ -256,7 +261,7 @@ function doPost(e) {
       return ContentService.createTextOutput(JSON.stringify({ ok: false, error: 'video_url required' }))
         .setMimeType(ContentService.MimeType.JSON);
     }
-    var publishResult = fbPublish_(body.video_url, body.caption || '');
+    var publishResult = fbPublish_(body.video_url, body.caption || '', body.thumbnail_url || '');
     var videoProject = body.video || '';
     try {
       var reelOk = publishResult.reel && !publishResult.reel.error && publishResult.reel.code === 200;
@@ -476,8 +481,16 @@ function fbPublishFeed_(videoUrl, caption) {
  * Publishes a video as a Facebook Reel. Reels do NOT support the simple
  * file_url shortcut — they require the resumable start → upload bytes →
  * finish flow (Meta's Video Reels Publishing API).
+ *
+ * `coverUrl`, if given, is set as the video's cover/thumbnail via
+ * fbSetThumbnail_ after a successful finish — Facebook otherwise
+ * auto-selects a frame from the video itself, which can land on a
+ * near-black moment (same class of issue hit on Instagram, 2026-08-28; the
+ * Facebook Reels tab showed several thumbnails that were solid black). Its
+ * result is attached as `.thumbnail` without affecting the overall success
+ * of the video publish itself.
  */
-function fbPublishReel_(videoUrl, caption) {
+function fbPublishReel_(videoUrl, caption, coverUrl) {
   var token = fbPageAccessToken_();
   var pageId = fbPageId_();
   var base = 'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + pageId + '/video_reels';
@@ -519,12 +532,40 @@ function fbPublishReel_(videoUrl, caption) {
       access_token: token
     }
   });
-  return {
+  var result = {
     phase: 'finish',
     code: finishResp.getResponseCode(),
     body: safeJsonParse_(finishResp.getContentText()),
     video_id: startData.video_id
   };
+
+  if (coverUrl && result.code === 200) {
+    try { result.thumbnail = fbSetThumbnail_(startData.video_id, coverUrl, token); }
+    catch (e) { result.thumbnail = { error: String(e) }; }
+  }
+
+  return result;
+}
+
+/**
+ * Sets a video's (Reel's) cover/thumbnail via POST /{video-id}/thumbnails —
+ * a plain multipart upload (`source` = the image bytes, `is_preferred=true`
+ * so it's actually shown instead of just added to the candidate list).
+ * UrlFetchApp auto-encodes the payload as multipart/form-data because one of
+ * the values is a Blob, same trick used elsewhere in this file for other
+ * multipart calls. See https://developers.facebook.com/docs/graph-api/reference/video-thumbnail/.
+ */
+function fbSetThumbnail_(videoId, coverUrl, token) {
+  var imageBlob = UrlFetchApp.fetch(coverUrl, { muteHttpExceptions: true }).getBlob();
+  var resp = UrlFetchApp.fetch(
+    'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + videoId + '/thumbnails',
+    {
+      method: 'post',
+      muteHttpExceptions: true,
+      payload: { source: imageBlob, is_preferred: 'true', access_token: token }
+    }
+  );
+  return { code: resp.getResponseCode(), body: safeJsonParse_(resp.getContentText()) };
 }
 
 /**
@@ -617,9 +658,9 @@ function safeJsonParse_(text) {
  * a thin wrapper (rather than calling fbPublishReel_ directly from doPost) so
  * the return shape (`{reel: ...}`) and error handling stay in one place.
  */
-function fbPublish_(videoUrl, caption) {
+function fbPublish_(videoUrl, caption, coverUrl) {
   var reel;
-  try { reel = fbPublishReel_(videoUrl, caption); } catch (e) { reel = { error: String(e) }; }
+  try { reel = fbPublishReel_(videoUrl, caption, coverUrl); } catch (e) { reel = { error: String(e) }; }
   return { reel: reel };
 }
 
