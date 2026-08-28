@@ -177,11 +177,22 @@ trên...}` — dùng cho TikTok/YouTube (chưa có pipeline tự động) hoặc
 | BBH auto-video — tối | 20:00 | `0 13 * * *` | `trig_01Y4gS5dsfucSEmBv7HQBL49` |
 
 Cả 3 đều `enabled: true`. Job prompt giống nhau (chỉ khác tên/giờ), bước 13-15 của prompt: sau khi
-sản xuất + commit/push video xong, routine tự viết caption rồi gọi `publish_facebook` (đăng Reels)
-và `publish_facebook_photo` (đăng Story/"Tin", ảnh) qua chính endpoint này — không cần thao tác gì
-thêm, kể cả ghi log vào `posts_log` (tự động). **Nội dung Facebook của mỗi video chỉ gồm đúng 2
-phần: 1 Reel (video, vĩnh viễn) + 1 Story (ảnh, tự hết hạn ~24h) — không đăng thêm bài Feed nào
-khác** (đã thử đăng thêm bài Feed ảnh song song 2026-08-28, user xác nhận không cần, đã revert).
+sản xuất + commit/push video xong, routine tự viết caption rồi gọi `publish_facebook` (đăng Reels,
+kèm `thumbnail_url` — xem ghi chú cover thumbnail bên dưới) và `publish_facebook_photo` (đăng
+Story/"Tin", ảnh) qua chính endpoint này — không cần thao tác gì thêm, kể cả ghi log vào
+`posts_log` (tự động). **Nội dung Facebook của mỗi video chỉ gồm đúng 2 phần: 1 Reel (video, vĩnh
+viễn) + 1 Story (ảnh, tự hết hạn ~24h) — không đăng thêm bài Feed nào khác** (đã thử đăng thêm bài
+Feed ảnh song song 2026-08-28, user xác nhận không cần, đã revert).
+
+**Cover thumbnail cho Facebook Reels — thêm 2026-08-28**: `publish_facebook` giờ nhận thêm
+`thumbnail_url`, set qua `fbSetThumbnail_` (POST `/{video-id}/thumbnails`, multipart,
+`is_preferred=true`) sau khi upload thành công — Facebook otherwise tự chọn 1 khung hình từ video,
+có thể rơi vào khung tối/xấu (gặp thực tế trên 5 Reels đầu tiên, đã sửa lại thủ công qua API bằng
+cách derive Page token từ System User token rồi gọi trực tiếp — xem
+`fix_fb_thumbnails2.ps1` trong scratchpad nếu cần lặp lại thao tác này cho video cũ khác). **Lưu ý
+quan trọng cho MỌI kênh sau này (Threads, TikTok, v.v.)**: nếu API của kênh đó hỗ trợ cover/thumbnail
+riêng cho video, LUÔN truyền `thumbnail_url` trỏ tới `output/thumbnail.jpg` ngay từ đầu khi viết
+tích hợp — đừng để phải sửa lại hàng loạt sau khi đã đăng như trường hợp này.
 
 **Đăng YouTube Shorts tự động — thêm 2026-08-28**: sau bước Facebook, routine gọi thêm
 `publish_youtube` (video "Kinh Tế Số", privacy `public`) với `thumbnail_url` trỏ tới
