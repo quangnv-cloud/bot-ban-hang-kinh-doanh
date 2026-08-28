@@ -369,6 +369,35 @@ function doPost(e) {
       .setMimeType(ContentService.MimeType.JSON);
   }
 
+  if (body.action === 'list_posts') {
+    // Read-only diagnostic — does NOT publish anything. Returns the last N
+    // rows of posts_log as JSON (default 20, optional {"limit": N,
+    // "channel": "facebook"} filter) — added 2026-08-28 to look up
+    // video_project/posted_at for existing posts without having to eyeball
+    // the raw Sheet (columns get visually truncated there for long values).
+    try {
+      var lpSheet = getPostsSheet_();
+      var lpLastRow = lpSheet.getLastRow();
+      var lpRows = [];
+      if (lpLastRow > 1) {
+        var lpData = lpSheet.getRange(2, 1, lpLastRow - 1, POSTS_HEADERS.length).getValues();
+        lpData.forEach(function (row) {
+          var rec = {};
+          POSTS_HEADERS.forEach(function (h, i) { rec[h] = row[i]; });
+          if (body.channel && rec.channel !== body.channel) return;
+          lpRows.push(rec);
+        });
+      }
+      var lpLimit = body.limit || 20;
+      lpRows = lpRows.slice(-lpLimit);
+      return ContentService.createTextOutput(JSON.stringify({ ok: true, rows: lpRows }))
+        .setMimeType(ContentService.MimeType.JSON);
+    } catch (e7) {
+      return ContentService.createTextOutput(JSON.stringify({ ok: false, error: String(e7) }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+  }
+
   if (body.action === 'get_sheet_url') {
     var props0 = PropertiesService.getScriptProperties();
     var ssId0 = props0.getProperty('SPREADSHEET_ID');
