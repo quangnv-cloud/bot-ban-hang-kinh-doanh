@@ -219,7 +219,8 @@ function doGet(e) {
  *       result.thumbnail for its own separate status). Logs to posts_log
  *       automatically.
  * OR:
- *   {"action": "publish_instagram", "video_url": "<public mp4 URL>", "caption": "<text>"}
+ *   {"action": "publish_instagram", "video_url": "<public mp4 URL>", "caption": "<text>",
+ *    "thumbnail_url": "<public jpg/png URL>" (optional)}
  *     — publishes the video as an Instagram Reel on the Business/Creator
  *       account linked to the Facebook Page (see igPublishReel_ below).
  *       Reuses the same FB_PAGE_ACCESS_TOKEN as Facebook — no separate
@@ -227,6 +228,10 @@ function doGet(e) {
  *       instagram_basic + instagram_content_publish permission (see
  *       SETUP.md). Synchronous call — Instagram needs to process the video
  *       before it can publish, so this can take up to ~2.5 minutes.
+ *       thumbnail_url, if given, is passed as the Reel's cover image
+ *       (Instagram otherwise auto-picks its own frame, which can land on a
+ *       near-black moment) — pass the same output/thumbnail.jpg used for
+ *       Facebook/YouTube for a consistent cover.
  * OR:
  *   {"action": "log_post", ...POSTS_HEADERS fields...}
  *     — appends one row directly to posts_log (for channels/backfill not
@@ -328,7 +333,7 @@ function doPost(e) {
     }
     var igProject = body.video || '';
     var igResult;
-    try { igResult = igPublishReel_(body.video_url, body.caption || ''); }
+    try { igResult = igPublishReel_(body.video_url, body.caption || '', body.thumbnail_url || ''); }
     catch (e4) { igResult = { error: String(e4) }; }
     try {
       var igOk = igResult && !igResult.error && igResult.phase === 'publish' && igResult.code === 200 && igResult.body && igResult.body.id;
@@ -650,8 +655,8 @@ function igBusinessAccountId_() {
  * a 3-step flow (unlike Facebook's Reels API, this ALWAYS needs the poll
  * step; Instagram fetches+processes the video async from video_url before it
  * can be published):
- *   1. POST /{ig-user-id}/media  (video_url, caption, media_type=REELS)
- *      → returns a creation_id (container), not yet live.
+ *   1. POST /{ig-user-id}/media  (video_url, caption, media_type=REELS,
+ *      cover_url) → returns a creation_id (container), not yet live.
  *   2. Poll GET /{creation-id}?fields=status_code until FINISHED — Instagram
  *      is still downloading/transcoding the video server-side. Capped at 30
  *      attempts * 5s = 150s; well inside the Apps Script web app time limit.
@@ -659,16 +664,26 @@ function igBusinessAccountId_() {
  * If step 2 never reaches FINISHED (still IN_PROGRESS after the cap, or
  * ERROR), step 3 is skipped and the container's last known status is
  * returned instead — treat as failed, do not retry publish with a stale id.
+ *
+ * `coverUrl`, if given, is passed as `cover_url` so Instagram uses that exact
+ * image as the Reel's cover/thumbnail instead of auto-picking its own frame
+ * (which was landing on a near-black moment — reported 2026-08-28). Pass the
+ * same output/thumbnail.jpg already used for Facebook/YouTube (extracted at
+ * t≈3.5s, after the Hook animation settles) for a consistent cover across
+ * every channel.
  */
-function igPublishReel_(videoUrl, caption) {
+function igPublishReel_(videoUrl, caption, coverUrl) {
   var token = fbPageAccessToken_();
   var igUserId = igBusinessAccountId_();
+
+  var createPayload = { video_url: videoUrl, caption: caption, media_type: 'REELS', access_token: token };
+  if (coverUrl) createPayload.cover_url = coverUrl;
 
   var createUrl = 'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + igUserId + '/media';
   var createResp = UrlFetchApp.fetch(createUrl, {
     method: 'post',
     muteHttpExceptions: true,
-    payload: { video_url: videoUrl, caption: caption, media_type: 'REELS', access_token: token }
+    payload: createPayload
   });
   var createData = safeJsonParse_(createResp.getContentText());
   if (!createData || !createData.id) {
