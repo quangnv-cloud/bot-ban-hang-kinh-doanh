@@ -1,0 +1,164 @@
+<template>
+  <style>
+    @font-face { font-family:'Montserrat'; font-style:normal; font-weight:500; src:url('assets/fonts/Montserrat-500-latin.woff2') format('woff2'); unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+    @font-face { font-family:'Montserrat'; font-style:normal; font-weight:500; src:url('assets/fonts/Montserrat-500-vietnamese.woff2') format('woff2'); unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB; }
+    @font-face { font-family:'Montserrat'; font-style:normal; font-weight:600; src:url('assets/fonts/Montserrat-600-latin.woff2') format('woff2'); unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+    @font-face { font-family:'Montserrat'; font-style:normal; font-weight:600; src:url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2'); unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB; }
+    @font-face { font-family:'Montserrat'; font-style:normal; font-weight:700; src:url('assets/fonts/Montserrat-700-latin.woff2') format('woff2'); unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+    @font-face { font-family:'Montserrat'; font-style:normal; font-weight:700; src:url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2'); unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB; }
+    @font-face { font-family:'Montserrat'; font-style:normal; font-weight:800; src:url('assets/fonts/Montserrat-800-latin.woff2') format('woff2'); unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+    @font-face { font-family:'Montserrat'; font-style:normal; font-weight:800; src:url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2'); unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB; }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: "Montserrat", "Helvetica Neue", sans-serif;
+      background: #111111;
+      color: #ffffff;
+    }
+
+    .im06-map-bg {
+      position: absolute;
+      left: 50%;
+      top: 420px;
+      width: 900px;
+      height: 1350px;
+      margin-left: -450px;
+      opacity: 0;
+      filter: blur(3px);
+    }
+    .im06-map-bg svg { display: block; width: 100%; height: 100%; }
+    .im06-map-outline {
+      fill: rgba(232, 68, 30, 0.05);
+      stroke: rgba(255, 255, 255, 0.1);
+      stroke-width: 2;
+    }
+
+    .im06-kicker {
+      position: absolute;
+      left: 64px;
+      top: 172px;
+      font-weight: 600;
+      font-size: 24px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #e8441e;
+    }
+
+    .im06-card {
+      position: absolute;
+      left: 64px;
+      right: 64px;
+      border-radius: 20px;
+      border: 1.5px solid rgba(232, 68, 30, 0.5);
+      background: rgba(17, 17, 17, 0.72);
+      backdrop-filter: blur(4px);
+      padding: 36px 40px;
+      opacity: 0;
+    }
+
+    .im06-card-1 { top: 300px; }
+    .im06-card-2 { top: 700px; }
+
+    .im06-card-head {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .im06-card-pin {
+      flex: none;
+      width: 46px;
+      height: 46px;
+    }
+    .im06-card-pin svg { width: 100%; height: 100%; }
+    .im06-card-pin-shape {
+      fill: rgba(232, 68, 30, 0.18);
+      stroke: #e8441e;
+      stroke-width: 3;
+    }
+
+    .im06-card-title {
+      font-weight: 800;
+      font-size: 34px;
+      letter-spacing: -0.005em;
+      color: #e8441e;
+    }
+
+    .im06-card-body {
+      font-weight: 600;
+      font-size: 32px;
+      line-height: 1.4;
+      color: #ffffff;
+    }
+
+    .im06-card-body .accent { color: #e8441e; }
+  </style>
+
+  <div data-hf-id="hf-f001" id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-f002" class="clip im06-map-bg" id="im06-map-bg" data-start="0" data-duration="10.3" data-track-index="0">
+      <svg data-hf-id="hf-f003" viewBox="0 0 300 900" preserveAspectRatio="xMidYMid meet">
+        <path data-hf-id="hf-f004" class="im06-map-outline" d="M150,20 C190,20 210,60 200,110 C195,140 175,160 185,200 C200,240 230,260 220,310 C210,350 180,370 175,420 C170,470 180,510 165,560 C150,610 130,630 140,680 C155,720 190,730 200,770 C210,810 190,850 150,870 C110,850 90,810 100,770 C110,730 145,720 130,680 C120,630 100,610 85,560 C70,510 80,470 75,420 C70,370 40,350 30,310 C20,260 50,240 65,200 C75,160 55,140 50,110 C40,60 60,20 100,20 Z"/>
+      </svg>
+    </div>
+
+    <div data-hf-id="hf-f005" class="clip im06-kicker" id="im06-kicker" data-start="0" data-duration="10.3" data-track-index="1">Ý nghĩa</div>
+
+    <div data-hf-id="hf-f006" class="im06-card im06-card-1" id="im06-card-1">
+      <div data-hf-id="hf-f007" class="im06-card-head">
+        <div data-hf-id="hf-f008" class="im06-card-pin">
+          <svg data-hf-id="hf-f009" viewBox="0 0 46 52">
+            <path data-hf-id="hf-f010" class="im06-card-pin-shape" d="M23,2 C33.6,2 42,10.6 42,20.8 C42,31 25.8,49.5 23,52 C20.2,49.5 4,31 4,20.8 C4,10.6 12.4,2 23,2 Z"/>
+          </svg>
+        </div>
+        <div data-hf-id="hf-f011" class="im06-card-title">Đối tác chiến lược</div>
+      </div>
+      <div data-hf-id="hf-f012" class="im06-card-body">Samsung khẳng định Việt Nam không chỉ là cứ điểm sản xuất, mà là <span data-hf-id="hf-f013" class="accent">đối tác chiến lược</span> trong nghiên cứu công nghệ cao.</div>
+    </div>
+
+    <div data-hf-id="hf-f014" class="im06-card im06-card-2" id="im06-card-2">
+      <div data-hf-id="hf-f015" class="im06-card-head">
+        <div data-hf-id="hf-f016" class="im06-card-pin">
+          <svg data-hf-id="hf-f017" viewBox="0 0 46 52">
+            <path data-hf-id="hf-f018" class="im06-card-pin-shape" d="M23,2 C33.6,2 42,10.6 42,20.8 C42,31 25.8,49.5 23,52 C20.2,49.5 4,31 4,20.8 C4,10.6 12.4,2 23,2 Z"/>
+          </svg>
+        </div>
+        <div data-hf-id="hf-f019" class="im06-card-title">Mục tiêu tăng trưởng</div>
+      </div>
+      <div data-hf-id="hf-f020" class="im06-card-body">Samsung đặt mục tiêu tăng trưởng <span data-hf-id="hf-f021" class="accent">hai con số</span> tại Việt Nam đến cuối năm nay.</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#im06-kicker", { y: -12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 0);
+      tl.fromTo("#im06-map-bg", { opacity: 0, scale: 1.05 }, { opacity: 1, scale: 1, duration: 1.0, ease: "power1.out" }, 0.1);
+
+      tl.fromTo(
+        "#im06-card-1",
+        { x: -140, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.55, ease: "power3.out" },
+        1.9,
+      );
+
+      tl.fromTo(
+        "#im06-card-2",
+        { x: 140, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.55, ease: "power3.out" },
+        4.8,
+      );
+
+      // Hold on final composition (cards + brand anchor) through the rest of
+      // the frame — this is the last act, no further motion after landing.
+
+      window.__timelines["06-impact"] = tl;
+    })();
+  </script>
+</template>
