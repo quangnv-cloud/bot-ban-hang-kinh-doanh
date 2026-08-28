@@ -1,0 +1,172 @@
+<template>
+  <style>
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; src: url('assets/fonts/Montserrat-900-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; src: url('assets/fonts/Montserrat-900-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #111111;
+      font-family: "Montserrat", "Arial Black", sans-serif;
+      color: #ffffff;
+    }
+
+    .dm-eyebrow {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 330px;
+      text-align: center;
+      font-family: "Montserrat", "Courier New", monospace;
+      font-weight: 600;
+      font-size: 26px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .dm-ring-box {
+      position: absolute;
+      left: 240px;
+      top: 430px;
+      width: 600px;
+      height: 600px;
+    }
+    .dm-ring-box svg { width: 100%; height: 100%; overflow: visible; }
+    .dm-ring-track { fill: none; stroke: rgba(255, 255, 255, 0.1); stroke-width: 30; }
+    .dm-ring-fill { fill: none; stroke: #e8441e; stroke-width: 30; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 300px 300px; }
+    .dm-ring-tick-dot { fill: #111111; stroke: #ffffff; stroke-width: 5; }
+    .dm-ring-tick-label {
+      position: absolute;
+      font-family: "Montserrat", "Courier New", monospace;
+      font-weight: 700;
+      font-size: 24px;
+      color: #ffffff;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .dm-center {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 610px;
+      text-align: center;
+    }
+    .dm-center-label {
+      font-weight: 600;
+      font-size: 24px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 34px;
+    }
+    .dm-center-number {
+      font-weight: 900;
+      font-size: 148px;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      color: #e8441e;
+    }
+    .dm-center-unit {
+      font-weight: 700;
+      font-size: 30px;
+      color: rgba(255, 255, 255, 0.75);
+      margin-top: 10px;
+    }
+
+    .dm-caption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 1150px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 34px;
+      color: #ffffff;
+    }
+    .dm-caption b { color: #e8441e; font-weight: 900; }
+  </style>
+
+  <div data-hf-id="hf-d001" id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-d002" id="dm-eyebrow" class="clip dm-eyebrow" data-start="0" data-duration="7.01" data-track-index="0">Giá vàng miếng SJC hôm nay</div>
+
+    <div data-hf-id="hf-d003" id="dm-ring-box" class="clip dm-ring-box" data-start="0" data-duration="7.01" data-track-index="1">
+      <svg data-hf-id="hf-d004" viewBox="0 0 600 600">
+        <circle data-hf-id="hf-d005" class="dm-ring-track" cx="300" cy="300" r="260"></circle>
+        <circle data-hf-id="hf-d006" class="dm-ring-fill" id="dm-ring-fill" cx="300" cy="300" r="260" stroke-dasharray="1633.63" stroke-dashoffset="1633.63"></circle>
+        <circle data-hf-id="hf-d007" class="dm-ring-tick-dot" id="dm-ring-tick-dot" cx="75" cy="430" r="9"></circle>
+      </svg>
+      <div data-hf-id="hf-d008" class="dm-ring-tick-label" id="dm-ring-tick-label" style="left: -46px; top: 440px; width: 130px;">MỐC 150</div>
+    </div>
+
+    <div data-hf-id="hf-d009" id="dm-center" class="clip dm-center" data-start="0" data-duration="7.01" data-track-index="2">
+      <div data-hf-id="hf-d010" class="dm-center-label">Giá bán</div>
+      <div data-hf-id="hf-d011" class="dm-center-number" id="dm-center-number">0</div>
+      <div data-hf-id="hf-d012" class="dm-center-unit">triệu đồng/lượng</div>
+    </div>
+
+    <div data-hf-id="hf-d013" id="dm-caption" class="clip dm-caption" data-start="0" data-duration="7.01" data-track-index="3">Chính thức <b>tụt khỏi mốc 150 triệu</b> đồng/lượng</div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#dm-eyebrow", { y: -10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 0);
+      tl.fromTo("#dm-ring-box", { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "power2.out" }, 0.15);
+      tl.fromTo("#dm-center-label", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.4);
+
+      // Ring fills from 0 to the gauge fraction for 149.7 on a 148–151 scale
+      // (illustrative axis for the "just under the 150 mark" gauge reading —
+      // not a spoken percentage claim). fraction = (149.7-148)/3 = 0.5667.
+      tl.fromTo(
+        "#dm-ring-fill",
+        { strokeDashoffset: 1633.63 },
+        { strokeDashoffset: 707.86, duration: 1.4, ease: "power2.inOut" },
+        0.5,
+      );
+
+      // Count-up synced with the ring fill.
+      var counter = { v: 0 };
+      tl.to(
+        counter,
+        {
+          v: 149.7,
+          duration: 1.4,
+          ease: "power2.inOut",
+          onUpdate: function () {
+            document.getElementById("dm-center-number").textContent = counter.v.toFixed(1).replace(".", ",");
+          },
+        },
+        0.5,
+      );
+
+      tl.fromTo("#dm-center-unit", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 1.7);
+
+      tl.fromTo(
+        "#dm-ring-tick-dot",
+        { scale: 0, transformOrigin: "75px 430px" },
+        { scale: 1, duration: 0.28, ease: "back.out(2.6)" },
+        1.95,
+      );
+      tl.fromTo("#dm-ring-tick-label", { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: 0.3 }, 2.05);
+
+      tl.fromTo("#dm-caption", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.34, ease: "power3.out" }, 2.35);
+
+      window.__timelines["04-data-moment"] = tl;
+    })();
+  </script>
+</template>

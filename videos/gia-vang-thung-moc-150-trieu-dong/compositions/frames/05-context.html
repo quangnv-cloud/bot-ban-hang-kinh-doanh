@@ -1,0 +1,201 @@
+<template>
+  <style>
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; src: url('assets/fonts/Montserrat-900-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; src: url('assets/fonts/Montserrat-900-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #111111;
+      font-family: "Montserrat", "Arial Black", sans-serif;
+      color: #ffffff;
+    }
+
+    .cx-eyebrow {
+      position: absolute;
+      left: 64px;
+      top: 150px;
+      font-family: "Montserrat", "Courier New", monospace;
+      font-weight: 600;
+      font-size: 26px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #e8441e;
+    }
+    .cx-title {
+      position: absolute;
+      left: 64px;
+      top: 200px;
+      width: 952px;
+      font-weight: 800;
+      font-size: 48px;
+      line-height: 1.18;
+      color: #ffffff;
+    }
+
+    .cx-line {
+      position: absolute;
+      left: 64px;
+      top: 500px;
+      width: 952px;
+      font-weight: 600;
+      font-size: 32px;
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.82);
+    }
+    .cx-line b { color: #ffffff; font-weight: 800; }
+
+    .cx-grid {
+      position: absolute;
+      left: 64px;
+      top: 700px;
+      width: 952px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .cx-item {
+      width: 210px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .cx-ring-wrap {
+      width: 200px;
+      height: 200px;
+      position: relative;
+    }
+    .cx-ring-wrap svg { width: 100%; height: 100%; }
+    .cx-ring-track { fill: none; stroke: rgba(255, 255, 255, 0.1); stroke-width: 14; }
+    .cx-ring-fill { fill: none; stroke: #e8441e; stroke-width: 14; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 100px 100px; }
+    .cx-ring-value {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 36px;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+      text-align: center;
+      line-height: 1.05;
+    }
+    .cx-ring-value span.small { font-size: 20px; font-weight: 700; display: block; margin-top: 4px; color: rgba(255,255,255,0.7); }
+    .cx-item-label {
+      margin-top: 18px;
+      font-weight: 600;
+      font-size: 21px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.3;
+    }
+
+    .cx-source-note {
+      position: absolute;
+      left: 64px;
+      top: 1170px;
+      width: 952px;
+      font-weight: 500;
+      font-size: 22px;
+      color: rgba(255, 255, 255, 0.45);
+    }
+  </style>
+
+  <div data-hf-id="hf-e001" id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-e002" id="cx-eyebrow" class="clip cx-eyebrow" data-start="0" data-duration="12.68" data-track-index="0">Bối cảnh</div>
+    <div data-hf-id="hf-e003" id="cx-title" class="clip cx-title" data-start="0" data-duration="12.68" data-track-index="1">Đầu tuần từng tăng, nhưng không giữ được đà</div>
+    <div data-hf-id="hf-e004" id="cx-line" class="clip cx-line" data-start="0" data-duration="12.68" data-track-index="2">Thế giới, vàng xuyên thủng mốc 4.600 đô la, giữa lúc thị trường dõi phát biểu <b>Chủ tịch Fed</b> tại <b>Jackson Hole</b>.</div>
+
+    <div data-hf-id="hf-e005" id="cx-grid" class="clip cx-grid" data-start="0" data-duration="12.68" data-track-index="3">
+      <div data-hf-id="hf-e006" class="cx-item" id="cx-item-1">
+        <div data-hf-id="hf-e007" class="cx-ring-wrap">
+          <svg data-hf-id="hf-e008" viewBox="0 0 200 200">
+            <circle data-hf-id="hf-e009" class="cx-ring-track" cx="100" cy="100" r="80"></circle>
+            <circle data-hf-id="hf-e010" class="cx-ring-fill" id="cx-ring-fill-1" cx="100" cy="100" r="80" stroke-dasharray="502.65" stroke-dashoffset="502.65"></circle>
+          </svg>
+          <div data-hf-id="hf-e011" class="cx-ring-value">150,6<span data-hf-id="hf-e012" class="small">triệu</span></div>
+        </div>
+        <div data-hf-id="hf-e013" class="cx-item-label">Đỉnh tuần<br>24–25/8</div>
+      </div>
+
+      <div data-hf-id="hf-e014" class="cx-item" id="cx-item-2">
+        <div data-hf-id="hf-e015" class="cx-ring-wrap">
+          <svg data-hf-id="hf-e016" viewBox="0 0 200 200">
+            <circle data-hf-id="hf-e017" class="cx-ring-track" cx="100" cy="100" r="80"></circle>
+            <circle data-hf-id="hf-e018" class="cx-ring-fill" id="cx-ring-fill-2" cx="100" cy="100" r="80" stroke-dasharray="502.65" stroke-dashoffset="502.65"></circle>
+          </svg>
+          <div data-hf-id="hf-e019" class="cx-ring-value">4.600<span data-hf-id="hf-e020" class="small">USD/oz</span></div>
+        </div>
+        <div data-hf-id="hf-e021" class="cx-item-label">Ngưỡng thế giới<br>bị xuyên thủng</div>
+      </div>
+
+      <div data-hf-id="hf-e022" class="cx-item" id="cx-item-3">
+        <div data-hf-id="hf-e023" class="cx-ring-wrap">
+          <svg data-hf-id="hf-e024" viewBox="0 0 200 200">
+            <circle data-hf-id="hf-e025" class="cx-ring-track" cx="100" cy="100" r="80"></circle>
+            <circle data-hf-id="hf-e026" class="cx-ring-fill" id="cx-ring-fill-3" cx="100" cy="100" r="80" stroke-dasharray="502.65" stroke-dashoffset="502.65"></circle>
+          </svg>
+          <div data-hf-id="hf-e027" class="cx-ring-value">34<span data-hf-id="hf-e028" class="small">%</span></div>
+        </div>
+        <div data-hf-id="hf-e029" class="cx-item-label">Kỳ vọng Fed<br>tăng lãi suất T9</div>
+      </div>
+
+      <div data-hf-id="hf-e030" class="cx-item" id="cx-item-4">
+        <div data-hf-id="hf-e031" class="cx-ring-wrap">
+          <svg data-hf-id="hf-e032" viewBox="0 0 200 200">
+            <circle data-hf-id="hf-e033" class="cx-ring-track" cx="100" cy="100" r="80"></circle>
+            <circle data-hf-id="hf-e034" class="cx-ring-fill" id="cx-ring-fill-4" cx="100" cy="100" r="80" stroke-dasharray="502.65" stroke-dashoffset="502.65"></circle>
+          </svg>
+          <div data-hf-id="hf-e035" class="cx-ring-value">74<span data-hf-id="hf-e036" class="small">%</span></div>
+        </div>
+        <div data-hf-id="hf-e037" class="cx-item-label">Kỳ vọng Fed<br>tăng lãi suất T12</div>
+      </div>
+    </div>
+
+    <div data-hf-id="hf-e038" id="cx-source-note" class="clip cx-source-note" data-start="0" data-duration="12.68" data-track-index="4">Giá vàng từng tăng 3 triệu đồng lên đỉnh 150,6 triệu ngày 24–25/8 trước khi giảm trở lại.</div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#cx-eyebrow", { y: -10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3 }, 0);
+      tl.fromTo("#cx-title", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.36, ease: "power3.out" }, 0.12);
+      tl.fromTo("#cx-line", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.34, ease: "power3.out" }, 0.55);
+
+      var items = [
+        { n: 1, offset: 0, dur: 0.7 },
+        { n: 2, offset: 0, dur: 0.7 },
+        { n: 3, offset: 331.75, dur: 0.6 },
+        { n: 4, offset: 130.69, dur: 0.6 },
+      ];
+      items.forEach(function (it, i) {
+        var t0 = 1.3 + i * 1.05;
+        tl.fromTo("#cx-item-" + it.n, { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, t0);
+        tl.fromTo(
+          "#cx-ring-fill-" + it.n,
+          { strokeDashoffset: 502.65 },
+          { strokeDashoffset: it.offset, duration: it.dur, ease: "power2.out" },
+          t0 + 0.08,
+        );
+      });
+
+      tl.fromTo("#cx-source-note", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 5.9);
+
+      window.__timelines["05-context"] = tl;
+    })();
+  </script>
+</template>
