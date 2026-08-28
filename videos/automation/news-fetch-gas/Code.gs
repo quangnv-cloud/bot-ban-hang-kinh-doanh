@@ -346,6 +346,19 @@ function doPost(e) {
       .setMimeType(ContentService.MimeType.JSON);
   }
 
+  if (body.action === 'check_instagram') {
+    // Read-only diagnostic — does NOT publish anything. Confirms whether the
+    // Facebook Page token can currently see a linked Instagram Business
+    // Account (added 2026-08-28 while debugging the initial "no linked
+    // Instagram Business Account" error before the IG account had been
+    // converted to Business/Creator).
+    var igCheckResult;
+    try { igCheckResult = { ok: true, instagram_business_account_id: igBusinessAccountId_() }; }
+    catch (e6) { igCheckResult = { ok: false, error: String(e6) }; }
+    return ContentService.createTextOutput(JSON.stringify(igCheckResult))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
   if (body.action === 'get_sheet_url') {
     var props0 = PropertiesService.getScriptProperties();
     var ssId0 = props0.getProperty('SPREADSHEET_ID');
