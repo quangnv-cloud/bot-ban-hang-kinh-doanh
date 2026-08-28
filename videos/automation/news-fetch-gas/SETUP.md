@@ -176,7 +176,7 @@ trên...}` — dùng cho TikTok/YouTube (chưa có pipeline tự động) hoặc
 | BBH auto-video — chiều | 13:00 | `0 6 * * *` | `trig_01HWAjgP7cpWSiprRfpJ68ap` |
 | BBH auto-video — tối | 20:00 | `0 13 * * *` | `trig_01Y4gS5dsfucSEmBv7HQBL49` |
 
-Cả 3 đều `enabled: true`. Job prompt giống nhau (chỉ khác tên/giờ), bước 13-14 của prompt: sau khi
+Cả 3 đều `enabled: true`. Job prompt giống nhau (chỉ khác tên/giờ), bước 13-15 của prompt: sau khi
 sản xuất + commit/push video xong, routine tự viết caption rồi gọi `publish_facebook` (đăng Reels)
 và `publish_facebook_photo` (đăng Story/"Tin", ảnh) qua chính endpoint này — không cần thao tác gì
 thêm, kể cả ghi log vào `posts_log` (tự động). **Nội dung Facebook của mỗi video chỉ gồm đúng 2
@@ -190,5 +190,17 @@ khác** (đã thử đăng thêm bài Feed ảnh song song 2026-08-28, user xác
 `403 forbidden` do quyền custom-thumbnail của kênh chưa lan truyền hết sau khi vừa xác minh số điện
 thoại), video vẫn coi là đăng thành công — chỉ thiếu thumbnail tùy chỉnh.
 
-Nếu bước đăng (Facebook hoặc YouTube) lỗi, routine KHÔNG coi cả lần chạy là thất bại, chỉ ghi rõ lỗi
-vào tóm tắt cuối; nếu bước sản xuất video (1-11) lỗi thì DỪNG LẠI, không đăng gì cả.
+**Đăng Instagram Reels tự động — thêm 2026-08-28**: sau bước YouTube, routine gọi thêm
+`publish_instagram` (video @bbhkinhteso, công khai ngay). Tái sử dụng đúng `FB_PAGE_ACCESS_TOKEN`
+— không cần OAuth riêng — nhưng token đó bắt buộc phải có thêm 3 quyền `instagram_basic`,
+`instagram_content_publish`, `instagram_manage_insights` (quyền cuối để đọc chỉ số tương tác sau
+này), và Trang Facebook phải liên kết đúng cách với Instagram Business Account qua **Business
+Manager → Cài đặt doanh nghiệp → Tài khoản → Trang → [Trang] → Kết nối tài sản → Instagram**
+(KHÔNG phải qua "Tài khoản đã liên kết" ở cài đặt cá nhân — link đó nhẹ, chỉ để cross-post thủ
+công qua giao diện, Graph API không nhận diện được `instagram_business_account` từ đó). System
+User dùng để tạo token cũng cần được **chỉ định tài sản Instagram** đó trong Business Manager,
+ngoài Trang. Xem `igBusinessAccountId_`/`igPublishReel_` trong `Code.gs`, và action chẩn đoán
+read-only `check_instagram` (không đăng gì) để kiểm tra nhanh khi cần debug lại.
+
+Nếu bước đăng (Facebook, YouTube, hoặc Instagram) lỗi, routine KHÔNG coi cả lần chạy là thất bại,
+chỉ ghi rõ lỗi vào tóm tắt cuối; nếu bước sản xuất video (1-11) lỗi thì DỪNG LẠI, không đăng gì cả.
