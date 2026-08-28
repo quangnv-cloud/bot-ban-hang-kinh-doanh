@@ -1,0 +1,150 @@
+<template>
+  <style>
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; src: url('assets/fonts/Montserrat-900-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; src: url('assets/fonts/Montserrat-900-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      color: #ffffff;
+      background: #111111;
+    }
+
+    .kf03-kicker {
+      position: absolute;
+      left: 64px;
+      top: 220px;
+      font-weight: 700;
+      font-size: 26px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #e8441e;
+      opacity: 0;
+    }
+
+    .kf03-track {
+      position: absolute;
+      left: 64px;
+      right: 64px;
+      top: 330px;
+    }
+
+    .kf03-axis {
+      position: absolute;
+      left: 32px;
+      top: 0;
+      width: 3px;
+      background: rgba(232, 68, 30, 0.4);
+      transform: scaleY(0);
+      transform-origin: top center;
+    }
+
+    .kf03-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 36px;
+      margin-bottom: 78px;
+      opacity: 0;
+    }
+    .kf03-item:last-child { margin-bottom: 0; }
+
+    .kf03-node {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 3px solid #e8441e;
+      background: #161616;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: none;
+      transform: scale(0);
+    }
+    .kf03-node-inner {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #e8441e;
+    }
+
+    .kf03-text {
+      font-size: 36px;
+      font-weight: 600;
+      line-height: 1.32;
+      padding-top: 10px;
+      max-width: 760px;
+    }
+    .kf03-text .accent {
+      color: #e8441e;
+      font-weight: 800;
+    }
+  </style>
+
+  <div data-hf-id="hf-c001" id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <span data-hf-id="hf-c002" class="kf03-kicker" id="kf03-kicker">Ba điểm chính</span>
+
+    <div data-hf-id="hf-c003" class="kf03-track" id="kf03-track">
+      <div data-hf-id="hf-c004" class="kf03-axis" id="kf03-axis"></div>
+
+      <div data-hf-id="hf-c005" class="kf03-item" id="kf03-item-1">
+        <div data-hf-id="hf-c006" class="kf03-node" id="kf03-node-1"><span data-hf-id="hf-c007" class="kf03-node-inner"></span></div>
+        <div data-hf-id="hf-c008" class="kf03-text">Phiên tăng thứ <span data-hf-id="hf-c009" class="accent">7 liên tiếp</span> — dài nhất năm nay</div>
+      </div>
+
+      <div data-hf-id="hf-c010" class="kf03-item" id="kf03-item-2">
+        <div data-hf-id="hf-c011" class="kf03-node" id="kf03-node-2"><span data-hf-id="hf-c012" class="kf03-node-inner"></span></div>
+        <div data-hf-id="hf-c013" class="kf03-text">Lũy kế 7 phiên: <span data-hf-id="hf-c014" class="accent">+105 điểm</span></div>
+      </div>
+
+      <div data-hf-id="hf-c015" class="kf03-item" id="kf03-item-3">
+        <div data-hf-id="hf-c016" class="kf03-node" id="kf03-node-3"><span data-hf-id="hf-c017" class="kf03-node-inner"></span></div>
+        <div data-hf-id="hf-c018" class="kf03-text">Tháng 8: <span data-hf-id="hf-c019" class="accent">+96 điểm (+5,55%)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      var track = document.getElementById("kf03-track");
+      var axis = document.getElementById("kf03-axis");
+      var node1 = document.getElementById("kf03-node-1");
+      var node3 = document.getElementById("kf03-node-3");
+      var trackRect = track.getBoundingClientRect();
+      var n1Rect = node1.getBoundingClientRect();
+      var n3Rect = node3.getBoundingClientRect();
+      var n1CenterY = n1Rect.top - trackRect.top + n1Rect.height / 2;
+      var n3CenterY = n3Rect.top - trackRect.top + n3Rect.height / 2;
+      axis.style.top = n1CenterY + "px";
+      axis.style.height = (n3CenterY - n1CenterY) + "px";
+
+      tl.fromTo("#kf03-kicker", { y: -10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.28, ease: "power2.out" }, 0);
+      tl.fromTo(axis, { scaleY: 0 }, { scaleY: 1, duration: 2.2, ease: "power1.inOut" }, 0.3);
+
+      tl.fromTo("#kf03-item-1", { x: -16, opacity: 0 }, { x: 0, opacity: 1, duration: 0.32, ease: "power2.out" }, 0.35);
+      tl.fromTo("#kf03-node-1", { scale: 0 }, { scale: 1, duration: 0.36, ease: "back.out(2.4)" }, 0.4);
+
+      tl.fromTo("#kf03-item-2", { x: -16, opacity: 0 }, { x: 0, opacity: 1, duration: 0.32, ease: "power2.out" }, 3.5);
+      tl.fromTo("#kf03-node-2", { scale: 0 }, { scale: 1, duration: 0.36, ease: "back.out(2.4)" }, 3.55);
+
+      tl.fromTo("#kf03-item-3", { x: -16, opacity: 0 }, { x: 0, opacity: 1, duration: 0.32, ease: "power2.out" }, 6.9);
+      tl.fromTo("#kf03-node-3", { scale: 0 }, { scale: 1, duration: 0.36, ease: "back.out(2.4)" }, 6.95);
+
+      window.__timelines["03-key-facts"] = tl;
+    })();
+  </script>
+</template>

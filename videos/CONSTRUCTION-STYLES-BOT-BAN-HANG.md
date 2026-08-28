@@ -33,7 +33,7 @@ tên video vào cùng file. Không bỏ qua bước cập nhật này — nếu 
 | 4 | Split Comparison | Chia đôi màn hình, đường phân cách dọc, đối chiếu 2 vế | `vingroup-von-hoa-ky-luc-1-8-trieu-ty` |
 | 5 | Map & Geo | Bản đồ Việt Nam vector, ghim địa danh | *(chưa dùng)* |
 | 6 | Ring Progress | Vòng tròn tiến trình (radial), số liệu ở tâm | *(chưa dùng)* |
-| 7 | Timeline Chronology | Trục thời gian ngang có mốc/node nối nhau | *(chưa dùng)* |
+| 7 | Timeline Chronology | Trục thời gian ngang có mốc/node nối nhau | `vn-index-chuoi-tang-7-phien-dai-nhat-nam` |
 | 8 | Icon Grid | Lưới ô icon ngành/nhóm kèm số liệu | *(chưa dùng)* |
 | 9 | Editorial Clipping | Mảnh báo cắt dán chồng lớp, dấu ngoặc kép lớn | *(chưa dùng)* |
 | 10 | Stock Terminal | Biểu đồ nến/đường kiểu bảng giá chứng khoán, sparkline | *(chưa dùng)* |
