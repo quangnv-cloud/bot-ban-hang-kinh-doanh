@@ -218,11 +218,45 @@ buộc**, vì nếu không Instagram tự chọn 1 khung hình ngẫu nhiên t�
 vào khung hình tối/xấu (đã gặp thực tế 2026-08-28, sửa bằng cách thêm tham số `cover_url` vào
 `igPublishReel_`).
 
+**Đăng Threads tự động — thêm 2026-08-29**: sau bước Instagram, routine gọi thêm `publish_threads`
+(video @bbhkinhteso, cùng caption dùng cho các kênh khác). Threads API là 1 product Meta RIÊNG,
+App ID/Secret khác với app Facebook/Instagram (dù cùng nằm trong app "Retain Agency AI") — dùng
+`THREADS_ACCESS_TOKEN`/`THREADS_USER_ID`/`THREADS_APP_ID`/`THREADS_APP_SECRET` riêng trong Script
+Properties, không tái sử dụng `FB_PAGE_ACCESS_TOKEN`. Setup 1 lần (đã làm 2026-08-29):
+
+1. Trong app Meta for Developers → Trường hợp sử dụng → Threads API → Cài đặt: lấy Threads App
+   ID + App Secret (khác App ID chính của app).
+2. Mời tài khoản Threads đích làm **Threads Tester**: Vai trò trong ứng dụng → Vai trò → Thêm
+   người → chọn vai trò "Người dùng thử Threads", nhập username. Tài khoản đó phải **chấp nhận**
+   lời mời — thư mời KHÔNG hiện ở tab Hoạt động (Activity) của Threads, mà ở
+   **threads.com/settings/website_permissions → tab "Lời mời"** (mất vài phút để đồng bộ ngược
+   lại trạng thái "Đã chấp nhận" trong Meta Developer Dashboard sau khi accept).
+3. Sau khi tester được xác nhận, vào lại Threads API → Cài đặt → mục "Công cụ tạo mã người dùng"
+   → bấm "Tạo mã truy cập" cạnh tên tester. Token này **đã là long-lived (~60 ngày) sẵn** — KHÔNG
+   cần gọi thêm endpoint exchange `th_exchange_token` (gọi vào sẽ báo lỗi "Session key invalid",
+   vì token không phải dạng short-lived cần đổi).
+4. Lấy Threads user ID qua `GET https://graph.threads.net/v1.0/me?fields=id,username&access_token=<token>`.
+5. Lưu cả 4 giá trị vào Script Properties của Apps Script project.
+
+Flow publish (`threadsPublishReel_` trong `Code.gs`) giống hệt Instagram — 3 bước container async:
+tạo container (`POST /{user-id}/threads`, `media_type=VIDEO`) → poll `GET /{container-id}?fields=
+status,error_message` tới khi `FINISHED` → `POST /{user-id}/threads_publish`. **KHÔNG có tham số
+cover/thumbnail cho video** trên Threads API (đã tra docs xác nhận 2026-08-28) — khác với Facebook/
+Instagram/YouTube, Threads hiện chưa cho tùy chỉnh ảnh bìa Reel qua API; đây là ngoại lệ so với
+"house rule" luôn truyền thumbnail_url — không phải do quên, mà do API chưa hỗ trợ.
+
+**Bảo trì token**: `THREADS_ACCESS_TOKEN` không tự refresh, hết hạn sau ~60 ngày — phải vào lại
+Threads API → Cài đặt → Công cụ tạo mã người dùng, bấm "Tạo mã truy cập" lại cho tester, rồi cập
+nhật Script Property. Đặt nhắc nhở kiểm tra định kỳ (khoảng cuối tháng 10/2026 tính từ lúc tạo).
+
+Test đăng thật đầu tiên (2026-08-29): thành công, xem
+https://www.threads.com/@bbhkinhteso/post/Dcmw68LDVVR
+
 Nếu POST body chứa dấu tiếng Việt và test thủ công qua PowerShell (không phải qua routine cloud),
 PHẢI ép UTF-8 khi gửi — dùng `[System.IO.File]::ReadAllBytes()` đọc file JSON rồi truyền thẳng làm
 `-Body` cho `Invoke-WebRequest` (không truyền chuỗi string thường, PowerShell mặc định có thể encode
 sai và biến dấu thành `?`). Routine tự động chạy trong môi trường cloud (bash/curl) không gặp lỗi
 này.
 
-Nếu bước đăng (Facebook, YouTube, hoặc Instagram) lỗi, routine KHÔNG coi cả lần chạy là thất bại,
+Nếu bước đăng (Facebook, YouTube, Instagram, hoặc Threads) lỗi, routine KHÔNG coi cả lần chạy là thất bại,
 chỉ ghi rõ lỗi vào tóm tắt cuối; nếu bước sản xuất video (1-11) lỗi thì DỪNG LẠI, không đăng gì cả.

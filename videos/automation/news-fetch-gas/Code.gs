@@ -238,14 +238,29 @@ function doGet(e) {
  *       near-black moment) — pass the same output/thumbnail.jpg used for
  *       Facebook/YouTube for a consistent cover.
  * OR:
+ *   {"action": "publish_threads", "video_url": "<public mp4 URL>", "caption": "<text>"}
+ *     — publishes the video to Threads (@bbhkinhteso) via the Threads API
+ *       (separate product/App ID from Facebook/Instagram Graph API — see
+ *       threadsPublishReel_ below). Uses THREADS_ACCESS_TOKEN/THREADS_USER_ID
+ *       Script Properties (a long-lived, 60-day user token generated for the
+ *       Threads Tester account via Meta's built-in User Token Generator —
+ *       dev-mode, no App Review needed; must be regenerated roughly every 60
+ *       days, see SETUP.md). Synchronous — Threads needs to process the video
+ *       before it can publish, same async container flow as Instagram.
+ *       NOTE: unlike Facebook/Instagram, the Threads API has NO cover/
+ *       thumbnail parameter for video posts as of 2026-08-28 — Threads always
+ *       auto-picks its own frame and there is currently no way to override
+ *       it via API.
+ * OR:
  *   {"action": "log_post", ...POSTS_HEADERS fields...}
  *     — appends one row directly to posts_log (for channels/backfill not
  *       covered by the actions above, e.g. TikTok, or a post made manually
  *       outside this script). See POSTS_HEADERS for fields.
  *
- * publish_facebook, publish_facebook_photo, publish_youtube, and
- * publish_instagram log to posts_log automatically on every attempt
- * (success or failure) — no separate log_post call needed for those.
+ * publish_facebook, publish_facebook_photo, publish_youtube,
+ * publish_instagram, and publish_threads log to posts_log automatically on
+ * every attempt (success or failure) — no separate log_post call needed for
+ * those.
  */
 function doPost(e) {
   var body;
@@ -353,6 +368,31 @@ function doPost(e) {
       });
     } catch (logErr) { Logger.log('logPost_ failed (publish_instagram): %s', logErr); }
     return ContentService.createTextOutput(JSON.stringify({ ok: true, result: igResult }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  if (body.action === 'publish_threads') {
+    if (!body.video_url) {
+      return ContentService.createTextOutput(JSON.stringify({ ok: false, error: 'video_url required' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    var thProject = body.video || '';
+    var thResult;
+    try { thResult = threadsPublishReel_(body.video_url, body.caption || ''); }
+    catch (e9) { thResult = { error: String(e9) }; }
+    try {
+      var thOk = thResult && !thResult.error && thResult.phase === 'publish' && thResult.code === 200 && thResult.body && thResult.body.id;
+      var thId = (thResult.body && thResult.body.id) || '';
+      logPost_({
+        channel: 'threads', post_type: 'reel', video_project: thProject,
+        title: body.title || '', caption: body.caption || '',
+        platform_post_id: thId,
+        permalink: thResult.permalink || '',
+        status: thOk ? 'published' : 'failed', posted_by: 'auto',
+        notes: thOk ? '' : JSON.stringify(thResult)
+      });
+    } catch (logErr) { Logger.log('logPost_ failed (publish_threads): %s', logErr); }
+    return ContentService.createTextOutput(JSON.stringify({ ok: true, result: thResult }))
       .setMimeType(ContentService.MimeType.JSON);
   }
 
@@ -796,6 +836,102 @@ function igPublishReel_(videoUrl, caption, coverUrl) {
       var permData = safeJsonParse_(permResp.getContentText());
       permalink = (permData && permData.permalink) || '';
     } catch (e5) { /* best-effort only */ }
+  }
+
+  return {
+    phase: 'publish',
+    code: publishResp.getResponseCode(),
+    body: publishData,
+    creation_id: creationId,
+    permalink: permalink
+  };
+}
+
+// ---- Threads publish -----------------------------------------------------
+//
+// Reads THREADS_ACCESS_TOKEN + THREADS_USER_ID from Script Properties. The
+// Threads API is a separate Meta product (its own App ID/Secret, under the
+// same "Retain Agency AI" app as Facebook/Instagram) — added 2026-08-28.
+// Token is a long-lived (~60-day) user access token generated directly via
+// the Threads API's built-in "User Token Generator" tool for the Threads
+// Tester account @bbhkinhteso (dev-mode; no App Review needed since the
+// target account is a registered tester, not a public user). It does NOT
+// auto-refresh — regenerate via the same tool and update THREADS_ACCESS_TOKEN
+// roughly every 60 days (see SETUP.md). THREADS_APP_ID/THREADS_APP_SECRET are
+// stored for that future maintenance step but are not needed for ordinary
+// publish calls.
+
+var THREADS_GRAPH_VERSION = 'v1.0';
+
+function threadsAccessToken_() {
+  return PropertiesService.getScriptProperties().getProperty('THREADS_ACCESS_TOKEN');
+}
+function threadsUserId_() {
+  return PropertiesService.getScriptProperties().getProperty('THREADS_USER_ID');
+}
+
+/**
+ * Publishes a video to Threads — same 3-step async container flow as
+ * Instagram Reels (igPublishReel_ above):
+ *   1. POST /{threads-user-id}/threads (media_type=VIDEO, video_url, text)
+ *      → returns a creation id (container), not yet live.
+ *   2. Poll GET /{creation-id}?fields=status,error_message until FINISHED —
+ *      Threads is still downloading/transcoding the video server-side.
+ *      Capped at 30 attempts * 5s = 150s.
+ *   3. POST /{threads-user-id}/threads_publish (creation_id) → goes live.
+ * No cover/thumbnail parameter exists for Threads video posts as of
+ * 2026-08-28 — Threads always auto-picks its own cover frame.
+ */
+function threadsPublishReel_(videoUrl, caption) {
+  var token = threadsAccessToken_();
+  var userId = threadsUserId_();
+
+  var createUrl = 'https://graph.threads.net/' + THREADS_GRAPH_VERSION + '/' + userId + '/threads';
+  var createResp = UrlFetchApp.fetch(createUrl, {
+    method: 'post',
+    muteHttpExceptions: true,
+    payload: { media_type: 'VIDEO', video_url: videoUrl, text: caption, access_token: token }
+  });
+  var createData = safeJsonParse_(createResp.getContentText());
+  if (!createData || !createData.id) {
+    return { phase: 'create', code: createResp.getResponseCode(), body: createData };
+  }
+  var creationId = createData.id;
+
+  var statusUrl = 'https://graph.threads.net/' + THREADS_GRAPH_VERSION + '/' + creationId +
+    '?fields=status,error_message&access_token=' + encodeURIComponent(token);
+  var status = 'IN_PROGRESS';
+  var attempts = 0;
+  while (status === 'IN_PROGRESS' && attempts < 30) {
+    Utilities.sleep(5000);
+    var statusResp = UrlFetchApp.fetch(statusUrl, { muteHttpExceptions: true });
+    var statusData = safeJsonParse_(statusResp.getContentText());
+    status = statusData && statusData.status;
+    attempts++;
+  }
+  if (status !== 'FINISHED') {
+    return { phase: 'process', code: 200, body: { status: status }, creation_id: creationId };
+  }
+
+  var publishUrl = 'https://graph.threads.net/' + THREADS_GRAPH_VERSION + '/' + userId + '/threads_publish';
+  var publishResp = UrlFetchApp.fetch(publishUrl, {
+    method: 'post',
+    muteHttpExceptions: true,
+    payload: { creation_id: creationId, access_token: token }
+  });
+  var publishData = safeJsonParse_(publishResp.getContentText());
+
+  // permalink lookup is best-effort — publish itself already succeeded above
+  // regardless of whether this works.
+  var permalink = '';
+  if (publishData && publishData.id) {
+    try {
+      var permUrl = 'https://graph.threads.net/' + THREADS_GRAPH_VERSION + '/' + publishData.id +
+        '?fields=permalink&access_token=' + encodeURIComponent(token);
+      var permResp = UrlFetchApp.fetch(permUrl, { muteHttpExceptions: true });
+      var permData = safeJsonParse_(permResp.getContentText());
+      permalink = (permData && permData.permalink) || '';
+    } catch (e8) { /* best-effort only */ }
   }
 
   return {
