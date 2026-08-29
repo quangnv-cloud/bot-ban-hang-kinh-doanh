@@ -531,6 +531,37 @@ function doPost(e) {
       .setMimeType(ContentService.MimeType.JSON);
   }
 
+  if (body.action === 'refresh_metrics') {
+    // Rebuilds the engagement_metrics sheet tab from posts_log — see
+    // refreshEngagementMetrics() above. Read-only against every platform,
+    // upserts (never appends duplicates) into engagement_metrics.
+    var rmResult;
+    try { rmResult = refreshEngagementMetrics(); }
+    catch (e13) { rmResult = { ok: false, error: String(e13) }; }
+    return ContentService.createTextOutput(JSON.stringify(rmResult))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  if (body.action === 'threads_delete_content') {
+    // Deletes ONE Threads post by id via DELETE /{id} — added 2026-08-29
+    // alongside fb_delete_content, same cleanup-utility pattern. Requires an
+    // explicit id; never bulk-deletes. Uses THREADS_ACCESS_TOKEN.
+    if (!body.id) {
+      return ContentService.createTextOutput(JSON.stringify({ ok: false, error: 'id required' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    var tdcResult;
+    try {
+      var tdcToken = threadsAccessToken_();
+      var tdcUrl = 'https://graph.threads.net/' + THREADS_GRAPH_VERSION + '/' + body.id +
+        '?access_token=' + encodeURIComponent(tdcToken);
+      var tdcResp = UrlFetchApp.fetch(tdcUrl, { method: 'delete', muteHttpExceptions: true });
+      tdcResult = { ok: true, code: tdcResp.getResponseCode(), body: safeJsonParse_(tdcResp.getContentText()) };
+    } catch (e12) { tdcResult = { ok: false, error: String(e12) }; }
+    return ContentService.createTextOutput(JSON.stringify(tdcResult))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
   if (body.action === 'check_instagram') {
     // Read-only diagnostic — does NOT publish anything. Confirms whether the
     // Facebook Page token can currently see a linked Instagram Business
@@ -1193,6 +1224,275 @@ function ytSetThumbnail_(videoId, thumbnailUrl, token) {
     }
   );
   return { code: resp.getResponseCode(), body: safeJsonParse_(resp.getContentText()) };
+}
+
+// ---- Engagement metrics tracker --------------------------------------------
+//
+// Separate sheet tab ("engagement_metrics") tracking views/likes/comments/
+// shares per published video across all 4 channels — added 2026-08-29.
+// Refreshed on demand via {"action":"refresh_metrics"} (doPost), or
+// automatically once installDailyMetricsTrigger() has been run once. One row
+// per (channel, video_project) — only the primary video post_type per
+// channel is tracked (facebook: 'reel', youtube: 'short', instagram: 'reel',
+// threads: 'reel') since Stories/photo companion posts expire after 24h and
+// aren't comparable video metrics anyway. Each platform call is wrapped in
+// its own try/catch so one platform's API/permission hiccup never blocks the
+// others — a metric that couldn't be fetched is left blank with the raw
+// error noted in the 'notes' column instead of aborting the whole refresh
+// (e.g. views/shares need extra insights permissions — pages_read_engagement
+// + read_insights for Facebook, instagram_manage_insights for Instagram,
+// threads_manage_insights for Threads — that may not be granted yet; likes/
+// comments use more basic fields and are more likely to work regardless).
+
+var ENGAGEMENT_SHEET_NAME = 'engagement_metrics';
+var ENGAGEMENT_HEADERS = [
+  'video_project', 'channel', 'post_type', 'platform_post_id', 'permalink',
+  'title', 'posted_at', 'views', 'likes', 'comments', 'shares',
+  'last_checked', 'notes'
+];
+
+// Only this post_type per channel counts as "the video" for metrics — keeps
+// the sheet to one row per channel per video instead of also tracking
+// Stories/photo companion posts.
+var ENGAGEMENT_TRACKED_POST_TYPE = {
+  facebook: 'reel', youtube: 'short', instagram: 'reel', threads: 'reel'
+};
+
+function getEngagementSheet_() {
+  var props = PropertiesService.getScriptProperties();
+  var ssId = props.getProperty('SPREADSHEET_ID');
+  var ss = ssId ? SpreadsheetApp.openById(ssId) : SpreadsheetApp.create('BBH News Queue');
+  if (!ssId) props.setProperty('SPREADSHEET_ID', ss.getId());
+  var sheet = ss.getSheetByName(ENGAGEMENT_SHEET_NAME);
+  if (!sheet) {
+    sheet = ss.insertSheet(ENGAGEMENT_SHEET_NAME);
+    sheet.appendRow(ENGAGEMENT_HEADERS);
+    sheet.setFrozenRows(1);
+  }
+  return sheet;
+}
+
+function fbVideoMetrics_(videoId, token) {
+  var out = { views: '', likes: '', comments: '', shares: '', notes: '' };
+  try {
+    var url = 'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + videoId +
+      '?fields=likes.summary(true).limit(0),comments.summary(true).limit(0)' +
+      '&access_token=' + encodeURIComponent(token);
+    var resp = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
+    var data = safeJsonParse_(resp.getContentText());
+    if (data && !data.error) {
+      out.likes = (data.likes && data.likes.summary && data.likes.summary.total_count) || 0;
+      out.comments = (data.comments && data.comments.summary && data.comments.summary.total_count) || 0;
+    } else {
+      out.notes += 'engagement:' + JSON.stringify(data && data.error) + ';';
+    }
+  } catch (e) { out.notes += 'engagement:' + String(e) + ';'; }
+
+  // 'shares' isn't a valid field on every video node (errors the whole
+  // request if combined with the fields above) — fetched separately so a
+  // rejection here never costs us likes/comments.
+  try {
+    var sUrl = 'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + videoId +
+      '?fields=shares&access_token=' + encodeURIComponent(token);
+    var sResp = UrlFetchApp.fetch(sUrl, { muteHttpExceptions: true });
+    var sData = safeJsonParse_(sResp.getContentText());
+    if (sData && !sData.error) {
+      out.shares = (sData.shares && sData.shares.count) || 0;
+    } else {
+      out.notes += 'shares:' + JSON.stringify(sData && sData.error) + ';';
+    }
+  } catch (e3) { out.notes += 'shares:' + String(e3) + ';'; }
+
+  // Reels use 'blue_reels_play_count', not the older 'total_video_views' —
+  // request both and take whichever one actually has data.
+  try {
+    var vUrl = 'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + videoId +
+      '/video_insights?metric=blue_reels_play_count,total_video_views&access_token=' +
+      encodeURIComponent(token);
+    var vResp = UrlFetchApp.fetch(vUrl, { muteHttpExceptions: true });
+    var vData = safeJsonParse_(vResp.getContentText());
+    var found = false;
+    if (vData && vData.data) {
+      vData.data.forEach(function (m) {
+        var v = m.values && m.values[0] && m.values[0].value;
+        if (v || v === 0) { out.views = v; found = true; }
+      });
+    }
+    if (!found) out.notes += 'views:' + JSON.stringify(vData) + ';';
+  } catch (e2) { out.notes += 'views:' + String(e2) + ';'; }
+
+  return out;
+}
+
+function igMediaMetrics_(mediaId, token) {
+  var out = { views: '', likes: '', comments: '', shares: '', notes: '' };
+  try {
+    var url = 'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + mediaId +
+      '?fields=like_count,comments_count&access_token=' + encodeURIComponent(token);
+    var resp = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
+    var data = safeJsonParse_(resp.getContentText());
+    if (data && !data.error) {
+      out.likes = data.like_count || 0;
+      out.comments = data.comments_count || 0;
+    } else {
+      out.notes += 'engagement:' + JSON.stringify(data && data.error) + ';';
+    }
+  } catch (e) { out.notes += 'engagement:' + String(e) + ';'; }
+
+  try {
+    // 'plays' is deprecated — current metric name is 'views' (confirmed
+    // live 2026-08-29: the old name errors with the full valid-metric list,
+    // which includes 'views' but not 'plays').
+    var iUrl = 'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + mediaId +
+      '/insights?metric=views,shares&access_token=' + encodeURIComponent(token);
+    var iResp = UrlFetchApp.fetch(iUrl, { muteHttpExceptions: true });
+    var iData = safeJsonParse_(iResp.getContentText());
+    if (iData && iData.data) {
+      iData.data.forEach(function (m) {
+        var v = m.values && m.values[0] && m.values[0].value;
+        if (m.name === 'views') out.views = v || 0;
+        if (m.name === 'shares') out.shares = v || 0;
+      });
+    } else {
+      out.notes += 'views:' + JSON.stringify(iData) + ';';
+    }
+  } catch (e2) { out.notes += 'views:' + String(e2) + ';'; }
+
+  return out;
+}
+
+function threadsMediaMetrics_(mediaId, token) {
+  var out = { views: '', likes: '', comments: '', shares: '', notes: '' };
+  try {
+    var url = 'https://graph.threads.net/' + THREADS_GRAPH_VERSION + '/' + mediaId +
+      '/insights?metric=views,likes,replies,reposts&access_token=' + encodeURIComponent(token);
+    var resp = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
+    var data = safeJsonParse_(resp.getContentText());
+    if (data && data.data) {
+      data.data.forEach(function (m) {
+        var v = m.values && m.values[0] && m.values[0].value;
+        if (m.name === 'views') out.views = v || 0;
+        if (m.name === 'likes') out.likes = v || 0;
+        if (m.name === 'replies') out.comments = v || 0;
+        if (m.name === 'reposts') out.shares = v || 0;
+      });
+    } else {
+      out.notes += JSON.stringify(data) + ';';
+    }
+  } catch (e) { out.notes += String(e) + ';'; }
+  return out;
+}
+
+function ytVideoMetrics_(videoId, token) {
+  var out = { views: '', likes: '', comments: '', shares: '', notes: '' };
+  try {
+    var url = 'https://www.googleapis.com/youtube/v3/videos?part=statistics&id=' +
+      encodeURIComponent(videoId);
+    var resp = UrlFetchApp.fetch(url, {
+      headers: { Authorization: 'Bearer ' + token }, muteHttpExceptions: true
+    });
+    var data = safeJsonParse_(resp.getContentText());
+    var stats = data && data.items && data.items[0] && data.items[0].statistics;
+    if (stats) {
+      out.views = stats.viewCount || 0;
+      out.likes = stats.likeCount || 0;
+      out.comments = stats.commentCount || 0;
+    } else {
+      out.notes += JSON.stringify(data) + ';';
+    }
+  } catch (e) { out.notes += String(e) + ';'; }
+  return out;
+}
+
+/**
+ * Rebuilds engagement_metrics from posts_log — one row per (channel,
+ * video_project), keyed on the channel's tracked post_type (see
+ * ENGAGEMENT_TRACKED_POST_TYPE). Skips rows with status !== 'published' or a
+ * blank platform_post_id. Upserts: an existing (channel, video_project) row
+ * is updated in place, a new one is appended — so the sheet never grows past
+ * one row per video per channel no matter how many times this runs.
+ */
+function refreshEngagementMetrics() {
+  var postsSheet = getPostsSheet_();
+  var lastRow = postsSheet.getLastRow();
+  var candidates = {}; // key: channel|video_project -> latest matching row
+  if (lastRow > 1) {
+    var data = postsSheet.getRange(2, 1, lastRow - 1, POSTS_HEADERS.length).getValues();
+    data.forEach(function (row) {
+      var rec = {};
+      POSTS_HEADERS.forEach(function (h, i) { rec[h] = row[i]; });
+      if (rec.status !== 'published') return;
+      if (!rec.platform_post_id) return;
+      if (ENGAGEMENT_TRACKED_POST_TYPE[rec.channel] !== rec.post_type) return;
+      var key = rec.channel + '|' + rec.video_project;
+      if (!candidates[key] || rec.posted_at > candidates[key].posted_at) candidates[key] = rec;
+    });
+  }
+
+  var fbToken, threadsToken, ytToken;
+  var results = [];
+  Object.keys(candidates).forEach(function (key) {
+    var rec = candidates[key];
+    var m = { views: '', likes: '', comments: '', shares: '', notes: '' };
+    try {
+      if (rec.channel === 'facebook') {
+        fbToken = fbToken || fbPageAccessToken_();
+        m = fbVideoMetrics_(rec.platform_post_id, fbToken);
+      } else if (rec.channel === 'instagram') {
+        fbToken = fbToken || fbPageAccessToken_();
+        m = igMediaMetrics_(rec.platform_post_id, fbToken);
+      } else if (rec.channel === 'threads') {
+        threadsToken = threadsToken || threadsAccessToken_();
+        m = threadsMediaMetrics_(rec.platform_post_id, threadsToken);
+      } else if (rec.channel === 'youtube') {
+        ytToken = ytToken || ytAccessToken_();
+        m = ytVideoMetrics_(rec.platform_post_id, ytToken);
+      }
+    } catch (e) { m.notes = String(e); }
+
+    results.push({
+      video_project: rec.video_project, channel: rec.channel, post_type: rec.post_type,
+      platform_post_id: rec.platform_post_id, permalink: rec.permalink, title: rec.title,
+      posted_at: rec.posted_at, views: m.views, likes: m.likes, comments: m.comments,
+      shares: m.shares, last_checked: new Date().toISOString(), notes: m.notes
+    });
+  });
+
+  var sheet = getEngagementSheet_();
+  var eLastRow = sheet.getLastRow();
+  var existingByKey = {}; // key -> sheet row index (1-based)
+  if (eLastRow > 1) {
+    var eData = sheet.getRange(2, 1, eLastRow - 1, ENGAGEMENT_HEADERS.length).getValues();
+    eData.forEach(function (row, i) {
+      var key = row[1] + '|' + row[0]; // channel|video_project
+      existingByKey[key] = i + 2;
+    });
+  }
+
+  results.forEach(function (r) {
+    var key = r.channel + '|' + r.video_project;
+    var rowValues = ENGAGEMENT_HEADERS.map(function (h) { return r[h] === undefined ? '' : r[h]; });
+    if (existingByKey[key]) {
+      sheet.getRange(existingByKey[key], 1, 1, ENGAGEMENT_HEADERS.length).setValues([rowValues]);
+    } else {
+      sheet.appendRow(rowValues);
+    }
+  });
+
+  return { ok: true, updated: results.length };
+}
+
+/**
+ * Run this ONCE manually from the Apps Script editor to install a daily
+ * trigger that keeps engagement_metrics fresh automatically (6am). Re-running
+ * is safe — removes any prior trigger for this function first.
+ */
+function installDailyMetricsTrigger() {
+  ScriptApp.getProjectTriggers().forEach(function (t) {
+    if (t.getHandlerFunction() === 'refreshEngagementMetrics') ScriptApp.deleteTrigger(t);
+  });
+  ScriptApp.newTrigger('refreshEngagementMetrics').timeBased().everyDays(1).atHour(6).create();
+  Logger.log('Daily engagement metrics refresh trigger installed (6am).');
 }
 
 // ---- One-time setup helper -------------------------------------------------
