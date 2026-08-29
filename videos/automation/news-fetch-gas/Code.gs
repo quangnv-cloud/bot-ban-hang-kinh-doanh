@@ -1245,9 +1245,13 @@ function ytSetThumbnail_(videoId, thumbnailUrl, token) {
 // comments use more basic fields and are more likely to work regardless).
 
 var ENGAGEMENT_SHEET_NAME = 'engagement_metrics';
+// channel is column A on purpose — rows are grouped by channel (see the sort
+// in refreshEngagementMetrics), so keeping it first makes that grouping
+// visually obvious when the sheet is opened.
 var ENGAGEMENT_HEADERS = [
-  'video_project', 'channel', 'post_type', 'platform_post_id', 'permalink',
-  'title', 'posted_at', 'views', 'likes', 'reactions', 'comments', 'shares',
+  'channel', 'video_project', 'post_type', 'platform_post_id', 'permalink',
+  'title', 'posted_at', 'posted_date', 'posted_time',
+  'views', 'likes', 'reactions', 'comments', 'shares',
   'last_checked', 'notes'
 ];
 // views/likes/reactions/comments/shares are always numeric in the sheet —
@@ -1256,11 +1260,27 @@ var ENGAGEMENT_HEADERS = [
 var ENGAGEMENT_NUMERIC_FIELDS = ['views', 'likes', 'reactions', 'comments', 'shares'];
 function numOrZero_(v) { return (v === '' || v === undefined || v === null) ? 0 : v; }
 
-// Only this post_type per channel counts as "the video" for metrics — keeps
+// Capitalized display name written into the sheet's channel column — the
+// lowercase form (posts_log's own convention) is used everywhere else
+// (candidate matching, token selection) and only swapped to this at the
+// point of writing a row.
+var CHANNEL_DISPLAY_NAMES = {
+  facebook: 'Facebook', instagram: 'Instagram', youtube: 'YouTube', threads: 'Threads'
+};
+// Fixed group order the sheet is sorted into — every row for one channel
+// sits together instead of interleaved by posting time.
+var CHANNEL_SORT_ORDER = ['facebook', 'instagram', 'youtube', 'threads'];
+
+// Which post_type(s) per channel count as "the video" for metrics — keeps
 // the sheet to one row per channel per video instead of also tracking
-// Stories/photo companion posts.
+// Stories/photo companion posts. Facebook accepts more than just 'reel':
+// 'video_feed'/'video' are older post types from before the channel's
+// Reels-only policy (see SETUP.md) — several early videos only ever
+// published under those types (or their 'reel' has since been deleted),
+// so restricting to 'reel' alone silently dropped them from the tracker.
 var ENGAGEMENT_TRACKED_POST_TYPE = {
-  facebook: 'reel', youtube: 'short', instagram: 'reel', threads: 'reel'
+  facebook: ['reel', 'video_feed', 'video'],
+  youtube: ['short'], instagram: ['reel'], threads: ['reel']
 };
 
 function getEngagementSheet_() {
@@ -1419,11 +1439,11 @@ function ytVideoMetrics_(videoId, token) {
 
 /**
  * Rebuilds engagement_metrics from posts_log — one row per (channel,
- * video_project), keyed on the channel's tracked post_type (see
+ * video_project), keyed on the channel's tracked post_type(s) (see
  * ENGAGEMENT_TRACKED_POST_TYPE). Skips rows with status !== 'published' or a
- * blank platform_post_id. Upserts: an existing (channel, video_project) row
- * is updated in place, a new one is appended — so the sheet never grows past
- * one row per video per channel no matter how many times this runs.
+ * blank platform_post_id. Clears and rewrites all data rows every run
+ * (rather than upserting in place) so the channel grouping stays correct as
+ * new videos appear — see CHANNEL_SORT_ORDER.
  */
 function refreshEngagementMetrics() {
   var postsSheet = getPostsSheet_();
@@ -1436,7 +1456,8 @@ function refreshEngagementMetrics() {
       POSTS_HEADERS.forEach(function (h, i) { rec[h] = row[i]; });
       if (rec.status !== 'published') return;
       if (!rec.platform_post_id) return;
-      if (ENGAGEMENT_TRACKED_POST_TYPE[rec.channel] !== rec.post_type) return;
+      var trackedTypes = ENGAGEMENT_TRACKED_POST_TYPE[rec.channel] || [];
+      if (trackedTypes.indexOf(rec.post_type) === -1) return;
       var key = rec.channel + '|' + rec.video_project;
       if (!candidates[key] || rec.posted_at > candidates[key].posted_at) candidates[key] = rec;
     });
@@ -1463,10 +1484,15 @@ function refreshEngagementMetrics() {
       }
     } catch (e) { m.notes = String(e); }
 
+    var posted = rec.posted_at ? new Date(rec.posted_at) : null;
     results.push({
-      video_project: rec.video_project, channel: rec.channel, post_type: rec.post_type,
+      channel: CHANNEL_DISPLAY_NAMES[rec.channel] || rec.channel,
+      channelSort: CHANNEL_SORT_ORDER.indexOf(rec.channel),
+      video_project: rec.video_project, post_type: rec.post_type,
       platform_post_id: rec.platform_post_id, permalink: rec.permalink, title: rec.title,
       posted_at: rec.posted_at,
+      posted_date: posted ? Utilities.formatDate(posted, 'Asia/Ho_Chi_Minh', 'dd/MM/yyyy') : '',
+      posted_time: posted ? Utilities.formatDate(posted, 'Asia/Ho_Chi_Minh', 'HH:mm') : '',
       views: numOrZero_(m.views), likes: numOrZero_(m.likes),
       reactions: numOrZero_(m.reactions), comments: numOrZero_(m.comments),
       shares: numOrZero_(m.shares),
@@ -1474,26 +1500,25 @@ function refreshEngagementMetrics() {
     });
   });
 
+  // Full rebuild every time (not an incremental upsert) — the sheet is
+  // small (one row per channel per video) and this is the simplest way to
+  // guarantee the channel grouping below stays correct as new videos are
+  // added, rather than new rows always landing at the bottom regardless of
+  // channel.
+  results.sort(function (a, b) {
+    if (a.channelSort !== b.channelSort) return a.channelSort - b.channelSort;
+    return a.posted_at < b.posted_at ? -1 : a.posted_at > b.posted_at ? 1 : 0;
+  });
+
   var sheet = getEngagementSheet_();
   var eLastRow = sheet.getLastRow();
-  var existingByKey = {}; // key -> sheet row index (1-based)
-  if (eLastRow > 1) {
-    var eData = sheet.getRange(2, 1, eLastRow - 1, ENGAGEMENT_HEADERS.length).getValues();
-    eData.forEach(function (row, i) {
-      var key = row[1] + '|' + row[0]; // channel|video_project
-      existingByKey[key] = i + 2;
+  if (eLastRow > 1) sheet.getRange(2, 1, eLastRow - 1, ENGAGEMENT_HEADERS.length).clearContent();
+  if (results.length) {
+    var rows = results.map(function (r) {
+      return ENGAGEMENT_HEADERS.map(function (h) { return r[h] === undefined ? '' : r[h]; });
     });
+    sheet.getRange(2, 1, rows.length, ENGAGEMENT_HEADERS.length).setValues(rows);
   }
-
-  results.forEach(function (r) {
-    var key = r.channel + '|' + r.video_project;
-    var rowValues = ENGAGEMENT_HEADERS.map(function (h) { return r[h] === undefined ? '' : r[h]; });
-    if (existingByKey[key]) {
-      sheet.getRange(existingByKey[key], 1, 1, ENGAGEMENT_HEADERS.length).setValues([rowValues]);
-    } else {
-      sheet.appendRow(rowValues);
-    }
-  });
 
   return { ok: true, updated: results.length };
 }

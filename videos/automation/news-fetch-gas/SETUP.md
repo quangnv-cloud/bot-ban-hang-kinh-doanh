@@ -296,11 +296,56 @@ liệu (lý do cụ thể vẫn được ghi vào cột `notes`).
   khi phát hiện và điền lại đủ 4 giá trị. **Bài học**: khi sửa 1 property trong Script Properties,
   kiểm tra lại toàn bộ danh sách sau khi lưu, đừng chỉ nhìn property vừa sửa.
 
-**Lưu ý dữ liệu cũ**: phát hiện 2 dòng `posts_log` (video Vingroup + Samsung, kênh Facebook) có
-`status: published` nhưng `platform_post_id` trỏ tới video **đã bị xoá thật** (từ đợt dọn trùng
-trước đó — dòng `deleted` được thêm mới thay vì sửa dòng gốc). `refresh_metrics` báo lỗi "does not
-exist" cho 2 dòng này — vô hại (chỉ hiện 0 trong `engagement_metrics`), nhưng nếu muốn sạch dữ
-liệu, sửa `status` của 2 dòng gốc đó trong `posts_log` thành `deleted`.
+## Cấu trúc engagement_metrics — cập nhật 2026-08-29 (theo yêu cầu user)
+
+- Thêm cột `posted_date` (dd/MM/yyyy) + `posted_time` (HH:mm), tính theo giờ Việt Nam
+  (`Utilities.formatDate(..., 'Asia/Ho_Chi_Minh', ...)`) từ `posted_at` (UTC).
+- Cột `channel` chuyển sang **cột A** và viết hoa tên hiển thị (`Facebook`, `Instagram`,
+  `YouTube`, `Threads` — map qua `CHANNEL_DISPLAY_NAMES`, giá trị gốc trong `posts_log` vẫn
+  viết thường như cũ, không đổi). `refreshEngagementMetrics()` giờ **xoá sạch + ghi lại toàn bộ**
+  dữ liệu mỗi lần chạy (thay vì upsert từng dòng) và sort theo `CHANNEL_SORT_ORDER` — đảm bảo các
+  dòng cùng kênh luôn nằm liền nhau, kể cả khi có video mới thêm vào sau này.
+- `ENGAGEMENT_TRACKED_POST_TYPE.facebook` mở rộng từ chỉ `'reel'` thành
+  `['reel', 'video_feed', 'video']` — vài video đời đầu (trước khi kênh chuyển sang chính sách
+  chỉ đăng Reel) chỉ tồn tại dưới dạng `video_feed`/`video`, bị bỏ sót hoàn toàn nếu chỉ lọc
+  `'reel'`.
+- **Đổi header sheet → phải xoá tab `engagement_metrics` cũ rồi chạy lại `refresh_metrics`** để
+  header dòng 1 được ghi lại đúng thứ tự cột mới (code chỉ ghi header khi TẠO MỚI sheet, không
+  tự sửa header của sheet đã tồn tại).
+
+## Điều tra "thiếu bài" — 2026-08-29 (báo cáo cho user, đối chiếu API thật)
+
+User nghi ngờ dữ liệu bị thiếu. Đối chiếu `posts_log` với danh sách video/post **thật đang sống**
+trên từng nền tảng (`list_fb_content`, YouTube/Threads trực tiếp) phát hiện:
+
+**Đã tìm ra nguyên nhân + sửa xong:**
+- **Vingroup + Samsung (Facebook)**: Reel gốc của cả 2 video này **đã bị xoá thật** từ đợt dọn
+  bài trùng trước đó (đợt cleanup ghi thêm dòng `status: deleted` MỚI thay vì sửa dòng
+  `published` gốc → dòng gốc vẫn bị coi là "còn sống", khiến `refresh_metrics` cứ trỏ vào video đã
+  chết). May mắn là cả 2 video vẫn còn 1 bài `video_feed` (kiểu đăng cũ, trước khi chuyển hẳn sang
+  Reel-only) **còn sống** — đã sửa `status` của 3 dòng Reel-đã-chết trong `posts_log` thành
+  `deleted` (kèm ghi chú `notes` giải thích + trỏ sang ID còn sống), và mở rộng
+  `ENGAGEMENT_TRACKED_POST_TYPE` để bắt được `video_feed`. Kết quả: Vingroup/Samsung giờ hiện đúng
+  số liệu thật (Vingroup: 233 views/2 likes; Samsung: 247 views/1 like — tính đến 2026-08-29).
+- **12 ngân hàng tín dụng 408 nghìn tỷ (Facebook)**: video đăng dưới `post_type: 'video'` (không
+  phải `'reel'`) nên bị bỏ sót hoàn toàn khỏi tracker trước đây — đã fix bằng cách mở rộng
+  `ENGAGEMENT_TRACKED_POST_TYPE` như trên. Giờ hiện đúng số liệu (26 views/2 likes).
+
+**Mất dữ liệu thật, KHÔNG sửa được bằng cách trỏ lại (cần user quyết định có đăng lại không):**
+- **Samsung — YouTube Short**: cả **3 lần upload đều đã bị xoá** (`dNojkWKXl5U`, `1dMIO0dlK4E`,
+  `9J9q6yImvHo` — xác nhận trực tiếp trên youtube.com, cả 3 đều báo "Video không có sẵn — Người
+  tải lên đã xoá video này"). Kênh này hiện **không còn video YouTube nào sống** cho Samsung. Nếu
+  muốn có lại, phải đăng lại thủ công (không tự động re-upload).
+- **Giá vàng thủng mốc 150 triệu — Instagram**: chưa từng đăng (không có dòng `instagram` nào
+  trong `posts_log` cho video này) — không phải lỗi tracker, là chưa đăng thật.
+- **1 video Facebook chưa xác định danh tính**: `platform_post_id 1370315634754047`
+  (`https://www.facebook.com/122094334605467175/videos/1370315634754047`, dài 19s, đăng
+  2026-08-27T08:17:28Z — giữa lúc đăng video "12 ngân hàng" và "Vingroup") — không khớp bất kỳ
+  dòng nào trong `posts_log`, không xem được nội dung qua tài khoản trình duyệt hiện tại (cần
+  đăng nhập tài khoản quản trị Trang). Nghi là 1 bản test/nháp còn sót lại từ giai đoạn debug đầu
+  tiên. **Chưa xoá** — cần user tự kiểm tra/xoá thủ công nếu xác nhận đó là rác.
+- Vingroup + 12-ngân-hàng không có bài YouTube/Instagram/Threads nào (video này được đăng TRƯỚC
+  khi 3 kênh đó được tích hợp vào routine) — không phải lỗi, chỉ là chưa tồn tại lúc đó.
 
 **Bảo trì token**: `THREADS_ACCESS_TOKEN` không tự refresh, hết hạn sau ~60 ngày — phải vào lại
 Threads API → Cài đặt → Công cụ tạo mã người dùng, bấm "Tạo mã truy cập" lại cho tester, rồi cập
