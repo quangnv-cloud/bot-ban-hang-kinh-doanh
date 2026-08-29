@@ -1247,9 +1247,14 @@ function ytSetThumbnail_(videoId, thumbnailUrl, token) {
 var ENGAGEMENT_SHEET_NAME = 'engagement_metrics';
 var ENGAGEMENT_HEADERS = [
   'video_project', 'channel', 'post_type', 'platform_post_id', 'permalink',
-  'title', 'posted_at', 'views', 'likes', 'comments', 'shares',
+  'title', 'posted_at', 'views', 'likes', 'reactions', 'comments', 'shares',
   'last_checked', 'notes'
 ];
+// views/likes/reactions/comments/shares are always numeric in the sheet —
+// a metric that couldn't be fetched (permission gap, deleted post, etc.)
+// shows as 0 rather than a blank cell (the 'notes' column still records why).
+var ENGAGEMENT_NUMERIC_FIELDS = ['views', 'likes', 'reactions', 'comments', 'shares'];
+function numOrZero_(v) { return (v === '' || v === undefined || v === null) ? 0 : v; }
 
 // Only this post_type per channel counts as "the video" for metrics — keeps
 // the sheet to one row per channel per video instead of also tracking
@@ -1273,7 +1278,7 @@ function getEngagementSheet_() {
 }
 
 function fbVideoMetrics_(videoId, token) {
-  var out = { views: '', likes: '', comments: '', shares: '', notes: '' };
+  var out = { views: '', likes: '', reactions: '', comments: '', shares: '', notes: '' };
   try {
     var url = 'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + videoId +
       '?fields=likes.summary(true).limit(0),comments.summary(true).limit(0)' +
@@ -1286,6 +1291,11 @@ function fbVideoMetrics_(videoId, token) {
     } else {
       out.notes += 'engagement:' + JSON.stringify(data && data.error) + ';';
     }
+    out.reactions = out.likes; // confirmed live 2026-08-29: 'reactions' is NOT
+    // a valid field on a video/Reels node ("(#100) Tried accessing
+    // nonexistent field (reactions)") — only the classic 'likes' edge works
+    // here, unlike a Feed post node which does expose full reaction-type
+    // breakdown. Mirroring likes is the closest available number.
   } catch (e) { out.notes += 'engagement:' + String(e) + ';'; }
 
   // 'shares' isn't a valid field on every video node (errors the whole
@@ -1325,7 +1335,7 @@ function fbVideoMetrics_(videoId, token) {
 }
 
 function igMediaMetrics_(mediaId, token) {
-  var out = { views: '', likes: '', comments: '', shares: '', notes: '' };
+  var out = { views: '', likes: '', reactions: '', comments: '', shares: '', notes: '' };
   try {
     var url = 'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + mediaId +
       '?fields=like_count,comments_count&access_token=' + encodeURIComponent(token);
@@ -1333,6 +1343,7 @@ function igMediaMetrics_(mediaId, token) {
     var data = safeJsonParse_(resp.getContentText());
     if (data && !data.error) {
       out.likes = data.like_count || 0;
+      out.reactions = out.likes; // Instagram has one reaction type (heart) — same as likes
       out.comments = data.comments_count || 0;
     } else {
       out.notes += 'engagement:' + JSON.stringify(data && data.error) + ';';
@@ -1362,7 +1373,7 @@ function igMediaMetrics_(mediaId, token) {
 }
 
 function threadsMediaMetrics_(mediaId, token) {
-  var out = { views: '', likes: '', comments: '', shares: '', notes: '' };
+  var out = { views: '', likes: '', reactions: '', comments: '', shares: '', notes: '' };
   try {
     var url = 'https://graph.threads.net/' + THREADS_GRAPH_VERSION + '/' + mediaId +
       '/insights?metric=views,likes,replies,reposts&access_token=' + encodeURIComponent(token);
@@ -1376,6 +1387,7 @@ function threadsMediaMetrics_(mediaId, token) {
         if (m.name === 'replies') out.comments = v || 0;
         if (m.name === 'reposts') out.shares = v || 0;
       });
+      out.reactions = out.likes; // Threads has one reaction type (heart) — same as likes
     } else {
       out.notes += JSON.stringify(data) + ';';
     }
@@ -1384,7 +1396,7 @@ function threadsMediaMetrics_(mediaId, token) {
 }
 
 function ytVideoMetrics_(videoId, token) {
-  var out = { views: '', likes: '', comments: '', shares: '', notes: '' };
+  var out = { views: '', likes: '', reactions: '', comments: '', shares: '', notes: '' };
   try {
     var url = 'https://www.googleapis.com/youtube/v3/videos?part=statistics&id=' +
       encodeURIComponent(videoId);
@@ -1396,6 +1408,7 @@ function ytVideoMetrics_(videoId, token) {
     if (stats) {
       out.views = stats.viewCount || 0;
       out.likes = stats.likeCount || 0;
+      out.reactions = out.likes; // YouTube has one reaction type (thumbs-up) — same as likes
       out.comments = stats.commentCount || 0;
     } else {
       out.notes += JSON.stringify(data) + ';';
@@ -1433,7 +1446,7 @@ function refreshEngagementMetrics() {
   var results = [];
   Object.keys(candidates).forEach(function (key) {
     var rec = candidates[key];
-    var m = { views: '', likes: '', comments: '', shares: '', notes: '' };
+    var m = { views: '', likes: '', reactions: '', comments: '', shares: '', notes: '' };
     try {
       if (rec.channel === 'facebook') {
         fbToken = fbToken || fbPageAccessToken_();
@@ -1453,8 +1466,11 @@ function refreshEngagementMetrics() {
     results.push({
       video_project: rec.video_project, channel: rec.channel, post_type: rec.post_type,
       platform_post_id: rec.platform_post_id, permalink: rec.permalink, title: rec.title,
-      posted_at: rec.posted_at, views: m.views, likes: m.likes, comments: m.comments,
-      shares: m.shares, last_checked: new Date().toISOString(), notes: m.notes
+      posted_at: rec.posted_at,
+      views: numOrZero_(m.views), likes: numOrZero_(m.likes),
+      reactions: numOrZero_(m.reactions), comments: numOrZero_(m.comments),
+      shares: numOrZero_(m.shares),
+      last_checked: new Date().toISOString(), notes: m.notes
     });
   });
 

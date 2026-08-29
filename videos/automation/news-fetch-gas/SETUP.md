@@ -242,45 +242,6 @@ Properties, không tái sử dụng `FB_PAGE_ACCESS_TOKEN`. Setup 1 lần (đã 
 lỗi `"Application does not have permission for this action"` (code 10). Chưa thêm quyền này vào
 app vì chỉ dùng 1 lần để dọn bài trùng — nếu cần xóa lại, xóa thủ công trong app Threads (mở bài →
 "..." → Xóa) thay vì thêm quyền mới không thực sự cần cho việc đăng bài.
-
-## Theo dõi tương tác (views/likes/comments/shares) — thêm 2026-08-29
-
-Tab mới `engagement_metrics` trong cùng Google Sheet (`posts_log`) theo dõi lượt xem/thích/bình
-luận/chia sẻ cho **1 video mỗi kênh** (post_type chính: `reel` cho Facebook/Instagram/Threads,
-`short` cho YouTube — bỏ qua Story/ảnh vì hết hạn 24h và không so sánh được). Mỗi lần refresh sẽ
-**cập nhật đè** (upsert theo `channel + video_project`), không bao giờ append trùng dòng.
-
-- Gọi thủ công: `{"action": "refresh_metrics"}` (POST tới endpoint chính).
-- Tự động: đã cài trigger chạy mỗi ngày 6h sáng (`installDailyMetricsTrigger`, chạy 1 lần thủ
-  công trong Apps Script editor lúc 2026-08-29, không cần chạy lại trừ khi trigger bị xoá).
-
-**Tình trạng từng kênh (xác minh live 2026-08-29):**
-- ✅ **Threads**: views/likes/comments/shares đều lấy được đầy đủ ngay từ đầu.
-- ✅ **Facebook**: likes/comments/views hoạt động sau khi sửa 2 lỗi field — xem "Bài học" bên
-  dưới. `shares` vẫn lỗi field cho Reels (`(#100) Tried accessing nonexistent field (shares)`) —
-  không chặn các số liệu khác, chỉ để trống + ghi lỗi vào cột `notes`.
-- ✅ **Instagram**: likes/comments/views hoạt động sau khi sửa tên metric `plays` → `views`.
-- ❌ **YouTube**: `views/likes/comments` báo lỗi 403 `"Request had insufficient authentication
-  scopes"` — refresh token hiện tại (Script Property `YOUTUBE_REFRESH_TOKEN`) chỉ có scope
-  `youtube.upload` (đủ để đăng video, KHÔNG đủ để đọc `videos.list?part=statistics`). Cần làm lại
-  bước OAuth consent (OAuth Playground hoặc tương tự) với thêm scope `youtube.readonly`, đăng nhập
-  bằng tài khoản Google của kênh, rồi cập nhật `YOUTUBE_REFRESH_TOKEN` — **chưa làm**, cần user
-  thực hiện vì cần đăng nhập tương tác bằng tài khoản kênh.
-
-**Bài học (lỗi field/metric đã gặp và cách sửa):**
-- Facebook: gọi `fields=likes.summary(true).limit(0),comments.summary(true).limit(0),shares`
-  trong 1 request — nếu `shares` không hợp lệ trên video đó, **CẢ request lỗi**, mất luôn
-  likes/comments. Sửa: tách `shares` thành request riêng, wrap try/catch riêng.
-- Facebook Reels: metric `total_video_views` (đúng cho video thường) trả về rỗng cho Reels — Reels
-  dùng metric riêng `blue_reels_play_count`. Code hiện gọi cả 2 metric, lấy metric nào có data.
-- Instagram: metric `plays` đã deprecated, Meta trả lỗi liệt kê đầy đủ danh sách hợp lệ hiện tại
-  (bao gồm `views`) — đổi sang `metric=views,shares`.
-
-**Lưu ý dữ liệu cũ**: phát hiện 2 dòng `posts_log` (video Vingroup + Samsung, kênh Facebook) có
-`status: published` nhưng `platform_post_id` trỏ tới video **đã bị xoá thật** (từ đợt dọn trùng
-trước đó — dòng `deleted` được thêm mới thay vì sửa dòng gốc). `refresh_metrics` báo lỗi "does not
-exist" cho 2 dòng này — vô hại (chỉ để trống trong `engagement_metrics`), nhưng nếu muốn sạch dữ
-liệu, sửa `status` của 2 dòng gốc đó trong `posts_log` thành `deleted`.
 4. Lấy Threads user ID qua `GET https://graph.threads.net/v1.0/me?fields=id,username&access_token=<token>`.
 5. Lưu cả 4 giá trị vào Script Properties của Apps Script project.
 
@@ -290,6 +251,56 @@ status,error_message` tới khi `FINISHED` → `POST /{user-id}/threads_publish`
 cover/thumbnail cho video** trên Threads API (đã tra docs xác nhận 2026-08-28) — khác với Facebook/
 Instagram/YouTube, Threads hiện chưa cho tùy chỉnh ảnh bìa Reel qua API; đây là ngoại lệ so với
 "house rule" luôn truyền thumbnail_url — không phải do quên, mà do API chưa hỗ trợ.
+
+## Theo dõi tương tác (views/likes/reactions/comments/shares) — thêm 2026-08-29
+
+Tab mới `engagement_metrics` trong cùng Google Sheet (`posts_log`) theo dõi lượt xem/thích/reaction/
+bình luận/chia sẻ cho **1 video mỗi kênh** (post_type chính: `reel` cho Facebook/Instagram/Threads,
+`short` cho YouTube — bỏ qua Story/ảnh vì hết hạn 24h và không so sánh được). Mỗi lần refresh sẽ
+**cập nhật đè** (upsert theo `channel + video_project`), không bao giờ append trùng dòng. Mọi cột số
+(`views/likes/reactions/comments/shares`) luôn hiện **0** thay vì để trống khi không lấy được số
+liệu (lý do cụ thể vẫn được ghi vào cột `notes`).
+
+- Gọi thủ công: `{"action": "refresh_metrics"}` (POST tới endpoint chính).
+- Tự động: đã cài trigger chạy mỗi ngày 6h sáng (`installDailyMetricsTrigger`, chạy 1 lần thủ
+  công trong Apps Script editor lúc 2026-08-29, không cần chạy lại trừ khi trigger bị xoá).
+
+**Tình trạng từng kênh (xác minh live 2026-08-29):**
+- ✅ **Threads**: views/likes/comments/shares đều lấy được đầy đủ ngay từ đầu.
+- ✅ **Facebook**: likes/comments/views hoạt động sau khi sửa 2 lỗi field — xem "Bài học" bên
+  dưới. `shares` vẫn lỗi field cho Reels (`(#100) Tried accessing nonexistent field (shares)`), và
+  `reactions` (full Love/Haha/Wow breakdown) cũng không phải field hợp lệ trên video node — cả 2
+  không chặn các số liệu khác; `reactions` được gán bằng `likes` thay thế, `shares` để 0 + ghi lỗi
+  vào cột `notes`.
+- ✅ **Instagram**: likes/comments/views hoạt động sau khi sửa tên metric `plays` → `views`.
+  `reactions` = `likes` (Instagram chỉ có 1 loại reaction — trái tim).
+- ✅ **YouTube**: đã sửa xong (2026-08-29) — refresh token ban đầu chỉ có scope `youtube.upload`
+  (đủ đăng video, KHÔNG đủ đọc `videos.list?part=statistics`) → 403 "insufficient authentication
+  scopes". Khắc phục: làm lại OAuth consent qua OAuth Playground với thêm scope
+  `youtube.readonly`, đăng nhập bằng tài khoản Google của kênh, cập nhật `YOUTUBE_REFRESH_TOKEN`.
+  `reactions` = `likes` (YouTube chỉ có 1 loại reaction — thumbs-up).
+
+**Bài học (lỗi field/metric đã gặp và cách sửa):**
+- Facebook: gọi `fields=likes.summary(true).limit(0),comments.summary(true).limit(0),shares`
+  trong 1 request — nếu `shares` không hợp lệ trên video đó, **CẢ request lỗi**, mất luôn
+  likes/comments. Sửa: tách `shares` thành request riêng, wrap try/catch riêng. Cùng lỗi với
+  `reactions` — Facebook Graph API không hỗ trợ edge `reactions` (full breakdown) trên node
+  video/Reels, chỉ hỗ trợ trên node bài Feed thường; chỉ `likes` (thumbs-up cổ điển) dùng được.
+- Facebook Reels: metric `total_video_views` (đúng cho video thường) trả về rỗng cho Reels — Reels
+  dùng metric riêng `blue_reels_play_count`. Code hiện gọi cả 2 metric, lấy metric nào có data.
+- Instagram: metric `plays` đã deprecated, Meta trả lỗi liệt kê đầy đủ danh sách hợp lệ hiện tại
+  (bao gồm `views`) — đổi sang `metric=views,shares`.
+- **Sự cố mất Script Properties (2026-08-29)**: lúc sửa `YOUTUBE_REFRESH_TOKEN` trong giao diện
+  Chỉnh sửa thuộc tính của tập lệnh, 4 property `THREADS_*` bị mất (khả năng bấm nhầm nút "X" bên
+  cạnh dòng). Threads báo lỗi `"Invalid OAuth access token - Cannot parse access token"` cho tới
+  khi phát hiện và điền lại đủ 4 giá trị. **Bài học**: khi sửa 1 property trong Script Properties,
+  kiểm tra lại toàn bộ danh sách sau khi lưu, đừng chỉ nhìn property vừa sửa.
+
+**Lưu ý dữ liệu cũ**: phát hiện 2 dòng `posts_log` (video Vingroup + Samsung, kênh Facebook) có
+`status: published` nhưng `platform_post_id` trỏ tới video **đã bị xoá thật** (từ đợt dọn trùng
+trước đó — dòng `deleted` được thêm mới thay vì sửa dòng gốc). `refresh_metrics` báo lỗi "does not
+exist" cho 2 dòng này — vô hại (chỉ hiện 0 trong `engagement_metrics`), nhưng nếu muốn sạch dữ
+liệu, sửa `status` của 2 dòng gốc đó trong `posts_log` thành `deleted`.
 
 **Bảo trì token**: `THREADS_ACCESS_TOKEN` không tự refresh, hết hạn sau ~60 ngày — phải vào lại
 Threads API → Cài đặt → Công cụ tạo mã người dùng, bấm "Tạo mã truy cập" lại cho tester, rồi cập
