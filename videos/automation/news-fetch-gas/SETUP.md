@@ -258,5 +258,26 @@ PHẢI ép UTF-8 khi gửi — dùng `[System.IO.File]::ReadAllBytes()` đọc f
 sai và biến dấu thành `?`). Routine tự động chạy trong môi trường cloud (bash/curl) không gặp lỗi
 này.
 
+**Chống đăng trùng bài — thêm 2026-08-29 (sự cố + khắc phục)**: phát hiện Fanpage có 2 Reel
+trùng cho cùng 1 video (Samsung 500 tỷ USD) — 1 bài chuẩn (00:36) + 1 bài test còn sót lại từ
+lúc debug tính năng thumbnail (10:02, caption cụt "#Reels"). Nguyên nhân: `publish_facebook`
+(và các action publish_* khác) trước đây KHÔNG có cơ chế nào chặn đăng trùng — 1 lệnh test thủ
+công gọi thẳng vào token/Page thật sẽ tạo bài live thật, không có cảnh báo. Đã khắc phục 2 lớp:
+
+1. **Dọn ngay**: xóa bài Reel test trùng (`1620469633423581`) qua Graph API thật (action
+   `fb_delete_content`, không chỉ sửa log) — xem `Code.gs`.
+2. **Chặn tận gốc**: thêm `alreadyPublished_(channel, videoProject, postType)` — mọi action
+   `publish_facebook`/`publish_facebook_photo`/`publish_youtube`/`publish_instagram`/
+   `publish_threads` giờ kiểm tra `posts_log` TRƯỚC khi đăng: nếu đã có 1 dòng
+   `status: "published"` khớp đúng `channel` + `video` (video_project) + loại nội dung
+   (reel/story/short), lệnh bị từ chối ngay với `{"ok": false, "error": "already
+   published..."}`, KHÔNG gọi API nền tảng nào cả — chặn được cả trigger tự động chạy đè lẫn
+   lệnh test thủ công gọi nhầm vào production. Muốn cố tình đăng lại (hiếm khi cần) thì truyền
+   thêm `"force": true` trong request body để bỏ qua kiểm tra này.
+
+**Quy tắc cho lần sau khi cần test thủ công publish_* trên môi trường thật**: luôn dùng
+`video_project` giả (ví dụ tiền tố `test-`) thay vì tên `video_project` thật của 1 video đã/
+sẽ lên sóng chính thức — vừa tránh bị guard chặn nhầm, vừa dễ nhận ra và dọn dẹp nếu quên xóa.
+
 Nếu bước đăng (Facebook, YouTube, Instagram, hoặc Threads) lỗi, routine KHÔNG coi cả lần chạy là thất bại,
 chỉ ghi rõ lỗi vào tóm tắt cuối; nếu bước sản xuất video (1-11) lỗi thì DỪNG LẠI, không đăng gì cả.

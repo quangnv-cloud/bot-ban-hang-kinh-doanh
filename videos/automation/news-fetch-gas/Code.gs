@@ -94,6 +94,36 @@ function logPost_(fields) {
   sheet.appendRow(row);
 }
 
+/**
+ * Idempotency guard — added 2026-08-29 after a duplicate-posting incident
+ * (a manual test call during thumbnail debugging left a second live Reel on
+ * the Facebook Page for the same video, undetected because nothing checked
+ * posts_log before publishing). Scans posts_log for an existing row with
+ * this exact channel + video_project + post_type combo already marked
+ * 'published'. Returns that row (as a plain object) if found, else null.
+ * A 'failed' or 'deleted' row for the same combo does NOT block — only a
+ * live 'published' one does, so a genuine retry after a real failure still
+ * works. Every publish_* action in doPost calls this first; a caller can
+ * force through anyway with {"force": true} in the request body (e.g. a
+ * deliberate intentional re-post), which skips the check entirely.
+ */
+function alreadyPublished_(channel, videoProject, postType) {
+  if (!videoProject) return null; // nothing to key on — can't guard, let it through
+  var sheet = getPostsSheet_();
+  var lastRow = sheet.getLastRow();
+  if (lastRow <= 1) return null;
+  var data = sheet.getRange(2, 1, lastRow - 1, POSTS_HEADERS.length).getValues();
+  for (var i = data.length - 1; i >= 0; i--) { // most recent first
+    var rec = {};
+    POSTS_HEADERS.forEach(function (h, j) { rec[h] = data[i][j]; });
+    if (rec.channel === channel && rec.video_project === videoProject &&
+        rec.post_type === postType && rec.status === 'published') {
+      return rec;
+    }
+  }
+  return null;
+}
+
 // ---- Fetch + store --------------------------------------------------------
 
 /**
@@ -261,6 +291,16 @@ function doGet(e) {
  * publish_instagram, and publish_threads log to posts_log automatically on
  * every attempt (success or failure) — no separate log_post call needed for
  * those.
+ *
+ * All 5 publish_* actions above also run an idempotency guard
+ * (alreadyPublished_) before doing anything: if posts_log already has a
+ * 'published' row for this exact channel + video (the "video" field in the
+ * request body) + content type (reel/story/short), the call is refused with
+ * {"ok": false, "error": "already published..."} instead of creating a real
+ * duplicate post — added 2026-08-29 after a manual test call left a
+ * duplicate Reel live on the Facebook Page. Pass {"force": true} in the
+ * request body to bypass this and publish anyway (for a genuine deliberate
+ * re-post).
  */
 function doPost(e) {
   var body;
@@ -275,6 +315,15 @@ function doPost(e) {
     if (!body.video_url) {
       return ContentService.createTextOutput(JSON.stringify({ ok: false, error: 'video_url required' }))
         .setMimeType(ContentService.MimeType.JSON);
+    }
+    if (!body.force) {
+      var fbDup = alreadyPublished_('facebook', body.video || '', 'reel');
+      if (fbDup) {
+        return ContentService.createTextOutput(JSON.stringify({
+          ok: false, error: 'already published — skipping duplicate (pass {"force":true} to override)',
+          existing: fbDup
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
     }
     var publishResult = fbPublish_(body.video_url, body.caption || '', body.thumbnail_url || '');
     var videoProject = body.video || '';
@@ -296,6 +345,15 @@ function doPost(e) {
     if (!body.image_url) {
       return ContentService.createTextOutput(JSON.stringify({ ok: false, error: 'image_url required' }))
         .setMimeType(ContentService.MimeType.JSON);
+    }
+    if (!body.force) {
+      var fbpDup = alreadyPublished_('facebook', body.video || '', 'story');
+      if (fbpDup) {
+        return ContentService.createTextOutput(JSON.stringify({
+          ok: false, error: 'already published — skipping duplicate (pass {"force":true} to override)',
+          existing: fbpDup
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
     }
     var photoProject = body.video || '';
     var photoResult;
@@ -321,6 +379,15 @@ function doPost(e) {
     if (!body.video_url) {
       return ContentService.createTextOutput(JSON.stringify({ ok: false, error: 'video_url required' }))
         .setMimeType(ContentService.MimeType.JSON);
+    }
+    if (!body.force) {
+      var ytDup = alreadyPublished_('youtube', body.video || '', 'short');
+      if (ytDup) {
+        return ContentService.createTextOutput(JSON.stringify({
+          ok: false, error: 'already published — skipping duplicate (pass {"force":true} to override)',
+          existing: ytDup
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
     }
     var ytProject = body.video || '';
     var ytResult;
@@ -351,6 +418,15 @@ function doPost(e) {
       return ContentService.createTextOutput(JSON.stringify({ ok: false, error: 'video_url required' }))
         .setMimeType(ContentService.MimeType.JSON);
     }
+    if (!body.force) {
+      var igDup = alreadyPublished_('instagram', body.video || '', 'reel');
+      if (igDup) {
+        return ContentService.createTextOutput(JSON.stringify({
+          ok: false, error: 'already published — skipping duplicate (pass {"force":true} to override)',
+          existing: igDup
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
+    }
     var igProject = body.video || '';
     var igResult;
     try { igResult = igPublishReel_(body.video_url, body.caption || '', body.thumbnail_url || ''); }
@@ -376,6 +452,15 @@ function doPost(e) {
       return ContentService.createTextOutput(JSON.stringify({ ok: false, error: 'video_url required' }))
         .setMimeType(ContentService.MimeType.JSON);
     }
+    if (!body.force) {
+      var thDup = alreadyPublished_('threads', body.video || '', 'reel');
+      if (thDup) {
+        return ContentService.createTextOutput(JSON.stringify({
+          ok: false, error: 'already published — skipping duplicate (pass {"force":true} to override)',
+          existing: thDup
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
+    }
     var thProject = body.video || '';
     var thResult;
     try { thResult = threadsPublishReel_(body.video_url, body.caption || ''); }
@@ -393,6 +478,56 @@ function doPost(e) {
       });
     } catch (logErr) { Logger.log('logPost_ failed (publish_threads): %s', logErr); }
     return ContentService.createTextOutput(JSON.stringify({ ok: true, result: thResult }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  if (body.action === 'list_fb_content') {
+    // Read-only diagnostic — does NOT publish/delete anything. Lists the
+    // Page's actual live videos + posts straight from the Graph API (added
+    // 2026-08-29 to investigate a reported duplicate-posting issue — the
+    // posts_log sheet's own 'deleted' status only reflects what was manually
+    // corrected in the SHEET, not necessarily what still exists live on the
+    // Page, so this cross-checks against the real source of truth).
+    var lfcResult;
+    try {
+      var lfcToken = fbPageAccessToken_();
+      var lfcPageId = fbPageId_();
+      var lfcVideosUrl = 'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + lfcPageId +
+        '/videos?fields=id,title,description,created_time,length,permalink_url&limit=' + (body.limit || 25) +
+        '&access_token=' + encodeURIComponent(lfcToken);
+      var lfcVideosResp = UrlFetchApp.fetch(lfcVideosUrl, { muteHttpExceptions: true });
+      var lfcPostsUrl = 'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + lfcPageId +
+        '/posts?fields=id,created_time,message,permalink_url,status_type&limit=' + (body.limit || 25) +
+        '&access_token=' + encodeURIComponent(lfcToken);
+      var lfcPostsResp = UrlFetchApp.fetch(lfcPostsUrl, { muteHttpExceptions: true });
+      lfcResult = {
+        ok: true,
+        videos: safeJsonParse_(lfcVideosResp.getContentText()),
+        posts: safeJsonParse_(lfcPostsResp.getContentText())
+      };
+    } catch (e10) { lfcResult = { ok: false, error: String(e10) }; }
+    return ContentService.createTextOutput(JSON.stringify(lfcResult))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  if (body.action === 'fb_delete_content') {
+    // Deletes ONE Facebook video/post by id via DELETE /{id} — added
+    // 2026-08-29 to clean up a duplicate-posting incident (see SETUP.md).
+    // Requires an explicit id; never bulk-deletes. Uses the same derived
+    // Page token as every other publish call — no separate credential.
+    if (!body.id) {
+      return ContentService.createTextOutput(JSON.stringify({ ok: false, error: 'id required' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    var fdcResult;
+    try {
+      var fdcToken = fbPageAccessToken_();
+      var fdcUrl = 'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + body.id +
+        '?access_token=' + encodeURIComponent(fdcToken);
+      var fdcResp = UrlFetchApp.fetch(fdcUrl, { method: 'delete', muteHttpExceptions: true });
+      fdcResult = { ok: true, code: fdcResp.getResponseCode(), body: safeJsonParse_(fdcResp.getContentText()) };
+    } catch (e11) { fdcResult = { ok: false, error: String(e11) }; }
+    return ContentService.createTextOutput(JSON.stringify(fdcResult))
       .setMimeType(ContentService.MimeType.JSON);
   }
 
