@@ -531,6 +531,46 @@ function doPost(e) {
       .setMimeType(ContentService.MimeType.JSON);
   }
 
+  if (body.action === 'list_yt_content') {
+    // Read-only diagnostic — does NOT publish/delete anything. Lists the
+    // channel's actual live videos straight from the YouTube Data API
+    // (search.list forMine=true) — added 2026-08-29 to find videos that
+    // were uploaded manually (outside this script, so never logged in
+    // posts_log) and are therefore invisible to refresh_metrics.
+    var lycResult;
+    try {
+      var lycToken = ytAccessToken_();
+      var lycUrl = 'https://www.googleapis.com/youtube/v3/search?part=snippet&forMine=true' +
+        '&type=video&order=date&maxResults=' + (body.limit || 50);
+      var lycResp = UrlFetchApp.fetch(lycUrl, {
+        headers: { Authorization: 'Bearer ' + lycToken }, muteHttpExceptions: true
+      });
+      lycResult = { ok: true, data: safeJsonParse_(lycResp.getContentText()) };
+    } catch (e11) { lycResult = { ok: false, error: String(e11) }; }
+    return ContentService.createTextOutput(JSON.stringify(lycResult))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  if (body.action === 'list_yt_content') {
+    // Read-only diagnostic — does NOT publish/delete anything. Lists the
+    // channel's actual live videos straight from the YouTube Data API
+    // (search.list forMine=true) — added 2026-08-29 to find videos that
+    // were uploaded manually (outside this script, so never logged in
+    // posts_log) and are therefore invisible to refresh_metrics.
+    var lycResult;
+    try {
+      var lycToken = ytAccessToken_();
+      var lycUrl = 'https://www.googleapis.com/youtube/v3/search?part=snippet&forMine=true' +
+        '&type=video&order=date&maxResults=' + (body.limit || 50);
+      var lycResp = UrlFetchApp.fetch(lycUrl, {
+        headers: { Authorization: 'Bearer ' + lycToken }, muteHttpExceptions: true
+      });
+      lycResult = { ok: true, data: safeJsonParse_(lycResp.getContentText()) };
+    } catch (e11) { lycResult = { ok: false, error: String(e11) }; }
+    return ContentService.createTextOutput(JSON.stringify(lycResult))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
   if (body.action === 'refresh_metrics') {
     // Rebuilds the engagement_metrics sheet tab from posts_log — see
     // refreshEngagementMetrics() above. Read-only against every platform,

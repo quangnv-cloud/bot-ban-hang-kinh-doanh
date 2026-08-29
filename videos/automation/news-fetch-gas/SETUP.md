@@ -332,10 +332,23 @@ trên từng nền tảng (`list_fb_content`, YouTube/Threads trực tiếp) ph�
   `ENGAGEMENT_TRACKED_POST_TYPE` như trên. Giờ hiện đúng số liệu (26 views/2 likes).
 
 **Mất dữ liệu thật, KHÔNG sửa được bằng cách trỏ lại (cần user quyết định có đăng lại không):**
-- **Samsung — YouTube Short**: cả **3 lần upload đều đã bị xoá** (`dNojkWKXl5U`, `1dMIO0dlK4E`,
-  `9J9q6yImvHo` — xác nhận trực tiếp trên youtube.com, cả 3 đều báo "Video không có sẵn — Người
-  tải lên đã xoá video này"). Kênh này hiện **không còn video YouTube nào sống** cho Samsung. Nếu
-  muốn có lại, phải đăng lại thủ công (không tự động re-upload).
+- **YouTube — 3 video đăng thủ công ngoài pipeline, không có trong `posts_log`** (đã sửa
+  2026-08-29): user báo số liệu trên sheet lệch với số liệu thật trên kênh YouTube. Đối chiếu
+  qua action mới `list_yt_content` (YouTube Data API `search.list forMine=true` — liệt kê toàn bộ
+  video thật của kênh) phát hiện kênh có **6 video** nhưng `posts_log` trước đó chỉ biết **3**
+  (Giá vàng, VN-Index, Saigon Marina — đăng qua `publish_youtube`). 3 video còn lại (Samsung,
+  Vingroup, "12 ngân hàng") đã được **đăng thủ công trực tiếp trên YouTube** (ngoài pipeline tự
+  động) nên chưa từng được ghi log — đã bổ sung cả 3 vào `posts_log` qua action `log_post`
+  (`platform_post_id`: Samsung=`EBkE7Sv8b2w`, Vingroup=`hqI48h0ZqhU`, 12-ngân-hàng=`4sVCLyPIoN8`).
+  Riêng Samsung: cả **3 video YouTube cũ** (`dNojkWKXl5U`, `1dMIO0dlK4E`, `9J9q6yImvHo`) **đã bị
+  xoá thật** (xác nhận trên youtube.com: "Video không có sẵn — Người tải lên đã xoá video này")
+  nhưng vẫn mang `status: published` trong log với `posted_at` **muộn hơn** video thật mới phát
+  hiện — khiến tracker (chọn `posted_at` mới nhất) cứ trỏ nhầm vào video đã chết dù video thật đã
+  được thêm vào. Đã sửa `status` cả 3 dòng cũ thành `deleted`. Sau khi sửa, số liệu khớp với kênh
+  thật (vd. Samsung 44 views ≈ 43 trên kênh, chênh nhỏ do view tăng theo thời gian thực).
+  **Lưu ý cho lần sau**: nếu đăng thủ công 1 video ngoài pipeline (không qua `publish_*`), nhớ gọi
+  thêm `{"action": "log_post", ...}` để ghi vào `posts_log`, nếu không tracker sẽ không biết video
+  đó tồn tại.
 - **Giá vàng thủng mốc 150 triệu — Instagram**: chưa từng đăng (không có dòng `instagram` nào
   trong `posts_log` cho video này) — không phải lỗi tracker, là chưa đăng thật.
 - **1 video Facebook chưa xác định danh tính**: `platform_post_id 1370315634754047`
