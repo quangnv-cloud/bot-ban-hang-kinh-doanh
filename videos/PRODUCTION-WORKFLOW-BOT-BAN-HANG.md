@@ -463,6 +463,17 @@ token trang không liên quan.
    trước khi code) và YouTube Shorts (cần OAuth Client ID/Secret + refresh_token, "Testing mode" là
    đủ, không cần Google duyệt app).
 
+**[2026-08-29 — bài học `publish_threads`] Giới hạn 500 ký tự cho caption Threads**: gọi
+`publish_threads` với `caption` = nguyên văn `CAPTION.md` (thường 900-1200 ký tự, gồm cả hashtag)
+bị Threads API từ chối ngay ở bước tạo container: `"Param text must be at most 500 characters
+long."` (HTTP 500 từ Graph API, `phase: "create"`). Facebook/Instagram/YouTube không có giới hạn
+này nên `CAPTION.md` đầy đủ vẫn dùng được cho 4/5 kênh — chỉ riêng Threads cần bản rút gọn. Cách xử
+lý đã áp dụng: soạn thêm 1 bản caption ngắn (giữ đúng số liệu/nguồn, cắt bớt đoạn giải thích chi
+tiết + bớt hashtag) dưới 500 ký tự (kể cả emoji/khoảng trắng), chỉ dùng riêng cho lệnh
+`publish_threads`, rồi gọi lại — thành công ngay lần thử thứ 2. **Việc nên làm cho các video sau**:
+khi soạn `CAPTION.md` ở bước 12, luôn kèm theo 1 bản "Threads-safe" (≤500 ký tự) ngay từ đầu thay vì
+đợi lỗi rồi mới rút gọn, để tránh gọi API 2 lần.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
