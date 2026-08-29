@@ -1,0 +1,182 @@
+<template>
+  <style>
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; src: url('assets/fonts/Montserrat-400-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; src: url('assets/fonts/Montserrat-400-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; src: url('assets/fonts/Montserrat-900-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; src: url('assets/fonts/Montserrat-900-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      color: #ffffff;
+      background: #111111;
+    }
+
+    .imp06-stage {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 300px;
+      padding: 0 64px;
+    }
+
+    .imp06-kicker {
+      font-weight: 700;
+      font-size: 25px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #e8441e;
+      margin-bottom: 18px;
+      opacity: 0;
+    }
+
+    .imp06-headline {
+      font-weight: 800;
+      font-size: 50px;
+      line-height: 1.16;
+      letter-spacing: -0.01em;
+      max-width: 952px;
+      margin-bottom: 56px;
+      opacity: 0;
+    }
+
+    .imp06-grid {
+      display: flex;
+      gap: 20px;
+      width: 952px;
+    }
+    .imp06-cell {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 44px 34px;
+      min-height: 760px;
+      border-radius: 22px;
+      border: 1.5px solid rgba(255, 255, 255, 0.16);
+      background: linear-gradient(165deg, #191919 0%, #101010 100%);
+      opacity: 0;
+    }
+    .imp06-cell-icon-wrap {
+      width: 76px;
+      height: 76px;
+      border-radius: 16px;
+      border: 1.5px solid rgba(232, 68, 30, 0.5);
+      background: rgba(232, 68, 30, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 34px;
+      flex: none;
+    }
+    .imp06-cell-icon {
+      width: 42px;
+      height: 42px;
+    }
+    .imp06-cell-title {
+      font-weight: 800;
+      font-size: 36px;
+      letter-spacing: -0.01em;
+      line-height: 1.16;
+      color: #ffffff;
+      margin-bottom: 24px;
+    }
+    .imp06-cell-title .accent { color: #e8441e; }
+    .imp06-cell-rule {
+      width: 44px;
+      height: 3px;
+      background: rgba(232, 68, 30, 0.6);
+      margin-bottom: 24px;
+      flex: none;
+    }
+    .imp06-cell-body {
+      font-weight: 500;
+      font-size: 23px;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.72);
+    }
+    .imp06-cell-body .accent { color: #e8441e; font-weight: 700; }
+  </style>
+
+  <div data-hf-id="hf-f001" id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-f002" id="imp06-stage" class="clip imp06-stage" data-start="0" data-duration="10.3" data-track-index="0">
+      <div data-hf-id="hf-f003" class="imp06-kicker" id="imp06-kicker">Góc nhìn toàn cảnh</div>
+      <div data-hf-id="hf-f004" class="imp06-headline" id="imp06-headline">Biểu tượng bên sông Sài Gòn, gánh khoản nợ nghìn tỷ</div>
+
+      <div data-hf-id="hf-f005" class="imp06-grid">
+        <div data-hf-id="hf-f006" class="imp06-cell" id="imp06-cell-1">
+          <div data-hf-id="hf-f006a" class="imp06-cell-icon-wrap">
+            <svg data-hf-id="hf-f006b" class="imp06-cell-icon" viewBox="0 0 42 42" fill="none">
+              <rect data-hf-id="hf-f006c" x="12" y="4" width="18" height="34" rx="1.5" stroke="#e8441e" stroke-width="3"></rect>
+              <path data-hf-id="hf-f006d" d="M12 38V38C8 38 6 38 6 34V20L12 16" stroke="#e8441e" stroke-width="3" stroke-linejoin="round"></path>
+              <path data-hf-id="hf-f006e" d="M30 38V38C34 38 36 38 36 34V20L30 16" stroke="#e8441e" stroke-width="3" stroke-linejoin="round"></path>
+              <path data-hf-id="hf-f006f" d="M17 10H25M17 16H25M17 22H25M17 28H25" stroke="#e8441e" stroke-width="2" stroke-linecap="round"></path>
+            </svg>
+          </div>
+          <div data-hf-id="hf-f007" class="imp06-cell-title" id="imp06-cell1-title">55 tầng nổi<br>5 tầng hầm</div>
+          <div data-hf-id="hf-f007a" class="imp06-cell-rule"></div>
+          <div data-hf-id="hf-f008" class="imp06-cell-body">Hơn <span data-hf-id="hf-f008a" class="accent">106.000 m²</span> sàn — đường Tôn Đức Thắng, Thành phố Hồ Chí Minh</div>
+        </div>
+
+        <div data-hf-id="hf-f009" class="imp06-cell" id="imp06-cell-2">
+          <div data-hf-id="hf-f009a" class="imp06-cell-icon-wrap">
+            <svg data-hf-id="hf-f009b" class="imp06-cell-icon" viewBox="0 0 42 42" fill="none">
+              <path data-hf-id="hf-f009c" d="M6 36H36" stroke="#e8441e" stroke-width="3" stroke-linecap="round"></path>
+              <rect data-hf-id="hf-f009d" x="9" y="24" width="8" height="12" stroke="#e8441e" stroke-width="3"></rect>
+              <rect data-hf-id="hf-f009e" x="17" y="14" width="8" height="22" stroke="#e8441e" stroke-width="3"></rect>
+              <rect data-hf-id="hf-f009f" x="25" y="20" width="8" height="16" stroke="#e8441e" stroke-width="3"></rect>
+            </svg>
+          </div>
+          <div data-hf-id="hf-f010" class="imp06-cell-title" id="imp06-cell2-title">Top 3 tòa <span data-hf-id="hf-f010a" class="accent">cao nhất</span> Việt Nam</div>
+          <div data-hf-id="hf-f010b" class="imp06-cell-rule"></div>
+          <div data-hf-id="hf-f011" class="imp06-cell-body">Lỗ lũy kế gần <span data-hf-id="hf-f011a" class="accent">500 tỷ đồng</span> · Dư nợ trái phiếu hơn <span data-hf-id="hf-f011b" class="accent">10.000 tỷ đồng</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      function fitLine(id, text, baseSize, minSize, weight, maxWidth) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        if (window.__hyperframes && window.__hyperframes.fitTextFontSize) {
+          var fit = window.__hyperframes.fitTextFontSize(text, {
+            fontFamily: "Montserrat",
+            fontWeight: weight,
+            maxWidth: maxWidth || 940,
+            baseFontSize: baseSize,
+            minFontSize: minSize,
+          });
+          el.style.fontSize = fit.fontSize + "px";
+        } else {
+          el.style.fontSize = baseSize + "px";
+        }
+      }
+      fitLine("imp06-headline", "Biểu tượng bên sông Sài Gòn, gánh khoản nợ nghìn tỷ", 50, 34, 800);
+
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#imp06-kicker", { y: -10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.28, ease: "power2.out" }, 0);
+      tl.fromTo("#imp06-headline", { y: 16, opacity: 0, filter: "blur(6px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.38, ease: "power3.out" }, 0.22);
+
+      tl.fromTo("#imp06-cell-1", { y: 30, opacity: 0, scale: 0.96 }, { y: 0, opacity: 1, scale: 1, duration: 0.44, ease: "power3.out" }, 0.7);
+      tl.fromTo("#imp06-cell-2", { y: 30, opacity: 0, scale: 0.96 }, { y: 0, opacity: 1, scale: 1, duration: 0.44, ease: "power3.out" }, 0.92);
+
+      window.__timelines["06-impact"] = tl;
+    })();
+  </script>
+</template>

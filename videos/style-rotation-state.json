@@ -11,7 +11,7 @@
     "9-editorial-clipping",
     "10-stock-terminal"
   ],
-  "last_used_index": 6,
+  "last_used_index": 7,
   "log": [
     {
       "index": 0,
@@ -54,6 +54,12 @@
       "style": "7-timeline-chronology",
       "project": "vn-index-chuoi-tang-7-phien-dai-nhat-nam",
       "date": "2026-08-28"
+    },
+    {
+      "index": 7,
+      "style": "8-icon-grid",
+      "project": "saigon-marina-ifc-lo-201-ty-dong",
+      "date": "2026-08-29"
     }
   ]
 }
