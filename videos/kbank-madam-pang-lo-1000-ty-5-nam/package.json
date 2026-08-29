@@ -1,0 +1,15 @@
+{
+  "name": "kbank-madam-pang-lo-1000-ty-5-nam",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.8.17 preview",
+    "check": "npx --yes hyperframes@0.8.17 check",
+    "render": "npx --yes hyperframes@0.8.17 render",
+    "publish": "npx --yes hyperframes@0.8.17 publish"
+  },
+  "dependencies": {
+    "@hyperframes/core": "^0.8.17",
+    "gsap": "^3.14.2"
+  }
+}
