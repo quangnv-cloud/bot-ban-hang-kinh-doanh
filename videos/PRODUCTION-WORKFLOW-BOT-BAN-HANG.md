@@ -474,6 +474,28 @@ tiết + bớt hashtag) dưới 500 ký tự (kể cả emoji/khoảng trắng),
 khi soạn `CAPTION.md` ở bước 12, luôn kèm theo 1 bản "Threads-safe" (≤500 ký tự) ngay từ đầu thay vì
 đợi lỗi rồi mới rút gọn, để tránh gọi API 2 lần.
 
+**[2026-08-30 — sự cố 2 routine chạy song song chọn trùng tin + trùng style]**: hai phiên chạy
+routine gần như đồng thời (cách nhau ~30 phút, cùng trong khung 13h-14h UTC 30/8/2026) đều tự chọn
+tin từ cùng 1 báo cáo tài chính bán niên 2026 của Vingroup (1 chọn góc "lãi từ VinFast", 1 chọn góc
+"khách trả trước 144.000 tỷ") — cả hai đều đọc `style-rotation-state.json` lúc `last_used_index: 8`
+gần như cùng lúc (trước khi bên nào commit), nên cả hai đều tính ra cùng style tiếp theo (index 9,
+**10-stock-terminal**) và dựng xong toàn bộ video trước khi phát hiện xung đột. Phiên chạy xong
+trước (`vingroup-lai-12500-ty-tu-vinfast`, commit `e33fa85`, 13:49 UTC) push thành công; phiên chạy
+sau bị `git push` từ chối (remote đã có commit mới) — đúng lúc phát hiện thì mới thấy cả 2 video
+trùng công ty (Vingroup) VÀ trùng style (Stock Terminal), phát trong cùng 1 buổi. Quyết định: phiên
+chạy sau (`vingroup-khach-tra-truoc-144-nghin-ty`) **không merge vào `master`, không đăng mạng xã
+hội** — giữ lại trên nhánh `wip/vingroup-khach-tra-truoc-144-nghin-ty` (đã push lên GitHub) để tái
+sử dụng sau nếu cần, tránh kênh phát 2 video na ná nhau (cùng công ty, cùng report, cùng ẩn dụ hình
+ảnh) chỉ cách nhau nửa tiếng. Coi bước 11 (commit+push) là "thất bại" theo đúng tinh thần mục 17 —
+dừng lại, không tiếp tục bước 12-16, báo cáo rõ trong tóm tắt thay vì force-push đè hoặc merge liều.
+**Việc cần làm để tránh lặp lại** (chưa làm, đề xuất cho người vận hành): (1) không chạy 2 lần cho
+cùng 1 khung giờ theo lịch (kiểm tra lại cấu hình cron/trigger, đặc biệt tránh gọi tay `fire_trigger`
+hoặc override đúng lúc lịch tự động cũng sắp chạy); (2) cân nhắc thêm bước "kiểm tra commit mới nhất
+trên `origin/master` có timestamp trong X phút gần đây không" ngay sau bước 1 (chọn tin) — nếu có,
+dừng sớm thay vì tốn toàn bộ chi phí ElevenLabs/Lyria/render trước khi mới phát hiện xung đột ở cuối;
+(3) `style-rotation-state.json` hiện không có cơ chế khoá (lock) chống đọc-ghi đồng thời — 2 routine
+đọc cùng giá trị `last_used_index` trước khi bên nào ghi lại là nguyên nhân gốc.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
