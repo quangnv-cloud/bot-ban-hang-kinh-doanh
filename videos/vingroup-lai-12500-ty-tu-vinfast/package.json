@@ -1,0 +1,15 @@
+{
+  "name": "vingroup-lai-12500-ty-tu-vinfast",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.8.20 preview",
+    "check": "npx --yes hyperframes@0.8.20 check",
+    "render": "npx --yes hyperframes@0.8.20 render",
+    "publish": "npx --yes hyperframes@0.8.20 publish"
+  },
+  "dependencies": {
+    "@hyperframes/core": "^0.8.17",
+    "gsap": "^3.14.2"
+  }
+}

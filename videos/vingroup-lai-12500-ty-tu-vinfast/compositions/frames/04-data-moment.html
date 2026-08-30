@@ -1,0 +1,215 @@
+<template>
+  <style>
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; src: url('assets/fonts/Montserrat-400-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; src: url('assets/fonts/Montserrat-400-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; src: url('assets/fonts/Montserrat-900-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; src: url('assets/fonts/Montserrat-900-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      color: #ffffff;
+      background: #111111;
+    }
+
+    .st04-stage {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .st04-kicker {
+      position: relative;
+      z-index: 1;
+      font-weight: 700;
+      font-size: 26px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #e8441e;
+      margin-bottom: 26px;
+      opacity: 0;
+      text-align: center;
+      max-width: 860px;
+    }
+
+    .st04-chart-wrap {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -54%);
+      width: 760px;
+      height: 300px;
+      z-index: 0;
+      opacity: 0;
+    }
+    .st04-chart-wrap path {
+      fill: none;
+      stroke: rgba(232, 68, 30, 0.4);
+      stroke-width: 5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .st04-chart-dot {
+      opacity: 0;
+    }
+
+    .st04-number-row {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+    }
+    .st04-number {
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 0.9;
+      color: #ffffff;
+      font-size: 176px;
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+    .st04-number-unit {
+      font-weight: 700;
+      font-size: 48px;
+      letter-spacing: 0.01em;
+      color: #e8441e;
+      opacity: 0;
+    }
+
+    .st04-sub-label {
+      position: relative;
+      z-index: 1;
+      margin-top: 44px;
+      display: inline-flex;
+      align-items: center;
+      padding: 16px 30px;
+      border-radius: 100px;
+      border: 1.5px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.04);
+      opacity: 0;
+    }
+    .st04-sub-label span {
+      font-weight: 600;
+      font-size: 26px;
+      letter-spacing: 0.01em;
+      color: #ffffff;
+    }
+    .st04-sub-label .accent {
+      color: #e8441e;
+      font-weight: 800;
+    }
+  </style>
+
+  <div id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+    <div id="st04-stage" class="clip st04-stage" data-start="0" data-duration="9.7" data-track-index="0">
+      <div class="st04-kicker" id="st04-kicker">Khoản lãi từ thương vụ VinFast</div>
+
+      <svg class="st04-chart-wrap" id="st04-chart-wrap" viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg">
+        <path id="st04-chart-path" d="M10,250 C 90,240 140,230 190,210 C 250,186 280,150 340,160 C 400,170 420,120 480,100 C 540,80 580,60 640,40 C 680,26 700,18 730,10"></path>
+        <circle class="st04-chart-dot" id="st04-chart-dot" cx="730" cy="10" r="9" fill="#e8441e"></circle>
+      </svg>
+
+      <div class="st04-number-row">
+        <span class="st04-number" id="st04-number">0</span><span class="st04-number-unit" id="st04-number-unit">tỷ đồng</span>
+      </div>
+
+      <div class="st04-sub-label" id="st04-sub-label">
+        <span>Lợi nhuận trước thuế 6 tháng: <span class="accent">34.400 tỷ đồng</span></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      function formatVN(n) {
+        var s = Math.round(n).toString();
+        var out = "";
+        var count = 0;
+        for (var i = s.length - 1; i >= 0; i--) {
+          out = s.charAt(i) + out;
+          count++;
+          if (count % 3 === 0 && i !== 0) out = "." + out;
+        }
+        return out;
+      }
+
+      var path = document.getElementById("st04-chart-path");
+      var pathLen = path.getTotalLength();
+      path.style.strokeDasharray = pathLen;
+      path.style.strokeDashoffset = pathLen;
+
+      var numberEl = document.getElementById("st04-number");
+      var counter = { val: 0 };
+
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#st04-kicker", { y: -12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 0);
+
+      tl.fromTo(
+        "#st04-chart-wrap",
+        { opacity: 0 },
+        { opacity: 1, duration: 0.2, ease: "none" },
+        0.3,
+      );
+      tl.fromTo(
+        path,
+        { strokeDashoffset: pathLen },
+        { strokeDashoffset: 0, duration: 1.6, ease: "power1.inOut" },
+        0.3,
+      );
+
+      tl.fromTo(
+        "#st04-number",
+        { scale: 0.92, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.3, ease: "power2.out" },
+        0.3,
+      );
+      tl.to(
+        counter,
+        {
+          val: 12542,
+          duration: 1.6,
+          ease: "power2.out",
+          onUpdate: function () {
+            numberEl.textContent = formatVN(counter.val);
+          },
+        },
+        0.3,
+      );
+
+      tl.fromTo(
+        "#st04-chart-dot",
+        { opacity: 0, scale: 0, transformOrigin: "50% 50%" },
+        { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" },
+        1.85,
+      );
+
+      tl.fromTo("#st04-number-unit", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 1.95);
+      tl.fromTo(
+        "#st04-sub-label",
+        { y: 16, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.34, ease: "power2.out" },
+        2.25,
+      );
+
+      window.__timelines["04-data-moment"] = tl;
+    })();
+  </script>
+</template>

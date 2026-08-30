@@ -11,7 +11,7 @@
     "9-editorial-clipping",
     "10-stock-terminal"
   ],
-  "last_used_index": 8,
+  "last_used_index": 9,
   "log": [
     {
       "index": 0,
@@ -66,6 +66,12 @@
       "style": "9-editorial-clipping",
       "project": "kbank-madam-pang-lo-1000-ty-5-nam",
       "date": "2026-08-29"
+    },
+    {
+      "index": 9,
+      "style": "10-stock-terminal",
+      "project": "vingroup-lai-12500-ty-tu-vinfast",
+      "date": "2026-08-30"
     }
   ]
 }
