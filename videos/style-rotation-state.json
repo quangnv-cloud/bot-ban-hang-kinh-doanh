@@ -11,7 +11,7 @@
     "9-editorial-clipping",
     "10-stock-terminal"
   ],
-  "last_used_index": 0,
+  "last_used_index": 1,
   "log": [
     {
       "index": 0,
@@ -77,6 +77,12 @@
       "index": 0,
       "style": "1-card-and-bar",
       "project": "bao-hiem-nhan-tho-lai-tang-manh-nua-dau-nam",
+      "date": "2026-08-31"
+    },
+    {
+      "index": 1,
+      "style": "2-chip-and-leaderboard",
+      "project": "xuat-khau-rau-qua-1-ty-usd-thang-8",
       "date": "2026-08-31"
     }
   ]

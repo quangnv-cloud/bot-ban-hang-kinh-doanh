@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; src: url('assets/fonts/Montserrat-400-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; src: url('assets/fonts/Montserrat-400-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; src: url('assets/fonts/Montserrat-900-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; src: url('assets/fonts/Montserrat-900-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          font-family: "Montserrat", Arial, sans-serif;
+          color: #ffffff;
+          background: #111111;
+        }
+
+        /* Signature of Style 2 — Chip & Leaderboard: a giant rank watermark behind the spotlight number. */
+        .dm-watermark {
+          position: absolute;
+          left: 50%; top: 580px;
+          transform: translateX(-50%);
+          font-weight: 900;
+          font-size: 760px;
+          line-height: 1;
+          color: #e8441e;
+          opacity: 0;
+          font-variant-numeric: tabular-nums;
+          user-select: none;
+        }
+
+        .dm-stage { position: absolute; left: 0; right: 0; top: 420px; display: flex; flex-direction: column; align-items: center; padding: 0 64px; text-align: center; }
+
+        .dm-chip {
+          display: inline-flex; align-items: center; gap: 10px;
+          padding: 10px 22px;
+          border-radius: 100px;
+          border: 1.5px solid #e8441e;
+          background: rgba(232,68,30,0.12);
+          margin-bottom: 40px;
+          opacity: 0;
+        }
+        .dm-chip span { font-weight: 700; font-size: 22px; letter-spacing: 0.08em; text-transform: uppercase; color: #ffffff; white-space: nowrap; }
+
+        .dm-number-row { display: flex; align-items: baseline; gap: 20px; margin-bottom: 40px; }
+        .dm-number {
+          font-weight: 900;
+          font-size: 220px;
+          line-height: 1.15;
+          color: #ffffff;
+          letter-spacing: -0.03em;
+          font-variant-numeric: tabular-nums;
+          opacity: 0;
+        }
+        .dm-unit { font-weight: 700; font-size: 44px; color: #e8441e; opacity: 0; }
+
+        .dm-label { font-weight: 700; font-size: 30px; letter-spacing: 0.02em; color: rgba(255,255,255,0.88); margin-bottom: 34px; max-width: 880px; opacity: 0; }
+
+        .dm-pct-chip {
+          display: inline-flex; align-items: center; padding: 12px 26px; border-radius: 100px;
+          background: #e8441e; margin-bottom: 30px; opacity: 0;
+        }
+        .dm-pct-chip span { font-weight: 800; font-size: 30px; color: #ffffff; }
+
+        .dm-sub { font-weight: 600; font-size: 26px; color: rgba(255,255,255,0.65); max-width: 780px; opacity: 0; }
+      </style>
+
+      <div id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+        <div class="clip dm-watermark" id="dm-watermark" data-start="0" data-duration="9.6" data-track-index="0" data-layout-allow-overflow="true">01</div>
+
+        <div id="dm-stage" class="clip dm-stage" data-start="0" data-duration="9.6" data-track-index="1">
+          <div class="dm-chip" id="dm-chip"><span>Sầu riêng · Tháng 7/2026</span></div>
+
+          <div class="dm-number-row">
+            <span class="dm-number" id="dm-number">681</span>
+            <span class="dm-unit" id="dm-unit">triệu USD</span>
+          </div>
+
+          <div class="dm-label" id="dm-label">Kim ngạch xuất khẩu sầu riêng</div>
+
+          <div class="dm-pct-chip" id="dm-pct-chip"><span>+81% so với cùng kỳ</span></div>
+
+          <div class="dm-sub" id="dm-sub">Chiếm 36,98% tổng kim ngạch xuất khẩu rau quả</div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo("#dm-watermark", { opacity: 0, scale: 0.92 }, { opacity: 0.1, scale: 1, duration: 0.9, ease: "power2.out" }, 0);
+
+          tl.fromTo("#dm-chip", { y: -14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 0.15);
+
+          var counter = { val: 0 };
+          tl.fromTo(
+            "#dm-number",
+            { opacity: 0, y: 24, scale: 1.06 },
+            { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power2.out" },
+            0.5,
+          );
+          tl.to(
+            counter,
+            {
+              val: 681,
+              duration: 0.85,
+              ease: "power2.out",
+              onUpdate: function () {
+                document.getElementById("dm-number").textContent = Math.round(counter.val);
+              },
+            },
+            0.5,
+          );
+
+          tl.fromTo("#dm-unit", { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.28, ease: "power2.out" }, 1.05);
+          tl.fromTo("#dm-label", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 1.5);
+          tl.fromTo("#dm-pct-chip", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.36, ease: "back.out(1.7)" }, 1.95);
+          tl.fromTo("#dm-sub", { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 2.45);
+
+          window.__timelines["04-data-moment"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
