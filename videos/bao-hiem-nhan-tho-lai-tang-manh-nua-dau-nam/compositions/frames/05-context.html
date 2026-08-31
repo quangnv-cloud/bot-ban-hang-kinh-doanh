@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; src: url('assets/fonts/Montserrat-400-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; src: url('assets/fonts/Montserrat-400-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; src: url('assets/fonts/Montserrat-900-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; src: url('assets/fonts/Montserrat-900-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          font-family: "Montserrat", Arial, sans-serif;
+          color: #ffffff;
+          background: #111111;
+        }
+
+        .cx-stage {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 200px 64px 0 64px;
+        }
+
+        .cx-kicker-row { display: flex; align-items: center; gap: 16px; margin-bottom: 100px; opacity: 0; }
+        .cx-kicker { font-weight: 700; font-size: 25px; letter-spacing: 0.16em; text-transform: uppercase; color: #e8441e; }
+        .cx-badge {
+          display: inline-flex; align-items: center; padding: 7px 16px; border-radius: 8px;
+          border: 1.5px solid rgba(255, 255, 255, 0.3);
+          font-weight: 600; font-size: 19px; letter-spacing: 0.05em; color: #ffffff; white-space: nowrap;
+        }
+
+        .cx-chart { display: flex; align-items: flex-end; justify-content: center; gap: 130px; }
+        .cx-bar-col { display: flex; flex-direction: column; align-items: center; width: 190px; }
+
+        .cx-bar-growth {
+          display: inline-flex;
+          padding: 5px 14px;
+          border-radius: 100px;
+          border: 1.5px solid rgba(232, 68, 30, 0.7);
+          font-weight: 700;
+          font-size: 17px;
+          color: #e8441e;
+          margin-bottom: 14px;
+          opacity: 0;
+        }
+        .cx-bar-value { text-align: center; margin-bottom: 18px; opacity: 0; }
+        .cx-bar-value .num { font-weight: 800; font-size: 33px; color: #ffffff; }
+        .cx-bar-value .unit { font-weight: 600; font-size: 18px; color: rgba(255, 255, 255, 0.6); margin-left: 4px; }
+
+        .cx-bar-track {
+          width: 140px;
+          height: 480px;
+          display: flex;
+          align-items: flex-end;
+          border-bottom: 2px solid rgba(255, 255, 255, 0.25);
+        }
+        .cx-bar {
+          width: 100%;
+          background: linear-gradient(180deg, #ff6a3d 0%, #e8441e 100%);
+          border-radius: 10px 10px 0 0;
+          transform-origin: bottom center;
+        }
+
+        .cx-bar-name {
+          margin-top: 20px;
+          font-weight: 700;
+          font-size: 19px;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.75);
+          text-align: center;
+          opacity: 0;
+        }
+
+        .cx-chip-row { display: flex; justify-content: center; gap: 20px; margin-top: 60px; opacity: 0; flex-wrap: wrap; }
+        .cx-chip {
+          display: inline-flex; align-items: center; gap: 10px;
+          padding: 15px 24px;
+          border-radius: 100px;
+          border: 1.5px solid rgba(255, 255, 255, 0.22);
+          background: rgba(255, 255, 255, 0.04);
+        }
+        .cx-chip span { font-weight: 600; font-size: 20px; color: #ffffff; }
+        .cx-chip .accent { color: #e8441e; font-weight: 700; }
+      </style>
+
+      <div id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+        <div id="cx-stage" class="clip cx-stage" data-start="0" data-duration="13.1" data-track-index="0">
+          <div class="cx-kicker-row" id="cx-kicker-row">
+            <span class="cx-kicker">Nguyên nhân</span>
+            <span class="cx-badge">Hoạt động tài chính</span>
+          </div>
+
+          <div class="cx-chart">
+            <div class="cx-bar-col">
+              <div class="cx-bar-growth" id="cx-growth-1">+44%</div>
+              <div class="cx-bar-value" id="cx-value-1"><span class="num">6.077</span><span class="unit">tỷ đồng</span></div>
+              <div class="cx-bar-track"><div class="cx-bar" id="cx-bar-1" style="height: 381px;"></div></div>
+              <div class="cx-bar-name" id="cx-name-1">Prudential</div>
+            </div>
+            <div class="cx-bar-col">
+              <div class="cx-bar-growth" id="cx-growth-2">+29%</div>
+              <div class="cx-bar-value" id="cx-value-2"><span class="num">7.650</span><span class="unit">tỷ đồng</span></div>
+              <div class="cx-bar-track"><div class="cx-bar" id="cx-bar-2" style="height: 480px;"></div></div>
+              <div class="cx-bar-name" id="cx-name-2">Bảo Việt Nhân thọ</div>
+            </div>
+          </div>
+
+          <div class="cx-chip-row" id="cx-chip-row">
+            <div class="cx-chip"><span>Generali <span class="accent">chuyển lỗ thành lãi</span></span></div>
+            <div class="cx-chip"><span>Sun Life <span class="accent">giảm lỗ gần 85%</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo("#cx-kicker-row", { y: -12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 0);
+
+          // Bar 1 — Prudential, timed to the first click-soft SFX cue.
+          tl.fromTo("#cx-growth-1", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.28, ease: "power2.out" }, 1.0);
+          tl.fromTo("#cx-value-1", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.28, ease: "power2.out" }, 1.05);
+          tl.fromTo("#cx-bar-1", { scaleY: 0 }, { scaleY: 1, duration: 0.85, ease: "power2.out" }, 1.2);
+          tl.fromTo("#cx-name-1", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 1.75);
+
+          // Bar 2 — Bảo Việt Nhân thọ, timed to the second click-soft SFX cue.
+          tl.fromTo("#cx-growth-2", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.28, ease: "power2.out" }, 4.3);
+          tl.fromTo("#cx-value-2", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.28, ease: "power2.out" }, 4.35);
+          tl.fromTo("#cx-bar-2", { scaleY: 0 }, { scaleY: 1, duration: 0.85, ease: "power2.out" }, 4.5);
+          tl.fromTo("#cx-name-2", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 5.05);
+
+          tl.fromTo("#cx-chip-row", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }, 7.0);
+
+          // One finite emphasis pulse mid-hold — not a loop, single keyframed beat
+          // per element (individual tweens, not a shared-keyframes group selector).
+          tl.to(
+            "#cx-growth-1",
+            { keyframes: [{ scale: 1.1, duration: 0.3 }, { scale: 1, duration: 0.3 }], ease: "power1.inOut" },
+            9.5,
+          );
+          tl.to(
+            "#cx-growth-2",
+            { keyframes: [{ scale: 1.1, duration: 0.3 }, { scale: 1, duration: 0.3 }], ease: "power1.inOut" },
+            9.5,
+          );
+
+          window.__timelines["05-context"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -11,7 +11,7 @@
     "9-editorial-clipping",
     "10-stock-terminal"
   ],
-  "last_used_index": 9,
+  "last_used_index": 0,
   "log": [
     {
       "index": 0,
@@ -72,6 +72,12 @@
       "style": "10-stock-terminal",
       "project": "vingroup-lai-12500-ty-tu-vinfast",
       "date": "2026-08-30"
+    },
+    {
+      "index": 0,
+      "style": "1-card-and-bar",
+      "project": "bao-hiem-nhan-tho-lai-tang-manh-nua-dau-nam",
+      "date": "2026-08-31"
     }
   ]
 }
