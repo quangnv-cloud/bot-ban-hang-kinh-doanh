@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; src: url('assets/fonts/Montserrat-900-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; src: url('assets/fonts/Montserrat-900-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          background: #111111;
+          font-family: "Montserrat", Arial, sans-serif;
+          color: #ffffff;
+        }
+        .kf-scanlines {
+          position: absolute; inset: 0;
+          background-image: repeating-linear-gradient(180deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 4px);
+          opacity: 0.5;
+        }
+        .kf-kicker {
+          position: absolute; left: 64px; top: 214px;
+          font-weight: 700; font-size: 24px; letter-spacing: 0.14em; text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.78);
+          opacity: 0;
+        }
+        .kf-rows { position: absolute; left: 64px; right: 64px; top: 296px; }
+        .kf-row { position: relative; padding: 46px 0 34px 0; border-bottom: 1.5px solid rgba(255, 255, 255, 0.14); }
+        .kf-row:last-child { border-bottom: none; }
+        .kf-row-inner { display: flex; align-items: flex-start; gap: 22px; }
+        .kf-arrow { font-weight: 900; font-size: 40px; line-height: 1; color: #e8441e; flex: none; opacity: 0; transform: scale(0.4); }
+        .kf-text {
+          font-weight: 700; font-size: 29px; line-height: 1.34; letter-spacing: 0.005em; text-transform: uppercase;
+          color: #ffffff;
+          max-width: 850px;
+        }
+        .kf-text span { opacity: 0; }
+        .kf-cursor {
+          display: inline-block; width: 6px; height: 32px; background: #e8441e; margin-left: 4px;
+          vertical-align: -4px; opacity: 0;
+        }
+        .kf-footer {
+          position: absolute; left: 64px; bottom: 154px;
+          font-weight: 600; font-size: 21px; letter-spacing: 0.06em; text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.5);
+          opacity: 0;
+        }
+      </style>
+
+      <div id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+        <div id="kf-bg" class="clip" data-start="0" data-duration="10.2" data-track-index="0" style="position:absolute;inset:0;"></div>
+        <div class="kf-scanlines"></div>
+
+        <div id="kf-kicker" class="clip kf-kicker" data-start="0" data-duration="10.2" data-track-index="1">TP.HCM · Định hướng phát triển đô thị</div>
+
+        <div class="kf-rows">
+          <div class="kf-row">
+            <div class="kf-row-inner">
+              <span class="kf-arrow" id="kf-arrow-1">▲</span>
+              <span class="kf-text" id="kf-text-1">Nghị Quyết 31: TP.HCM top tài chính châu Á 2045<span class="kf-cursor" id="kf-cursor-1"></span></span>
+            </div>
+          </div>
+          <div class="kf-row">
+            <div class="kf-row-inner">
+              <span class="kf-arrow" id="kf-arrow-2">▲</span>
+              <span class="kf-text" id="kf-text-2">Quốc Hội thông qua Luật Phát Triển Đô Thị<span class="kf-cursor" id="kf-cursor-2"></span></span>
+            </div>
+          </div>
+          <div class="kf-row">
+            <div class="kf-row-inner">
+              <span class="kf-arrow" id="kf-arrow-3">▲</span>
+              <span class="kf-text" id="kf-text-3">Động lực mới: tri thức, dữ liệu, công nghệ<span class="kf-cursor" id="kf-cursor-3"></span></span>
+            </div>
+          </div>
+        </div>
+
+        <div id="kf-footer" class="clip kf-footer" data-start="0" data-duration="10.2" data-track-index="2">Diễn đàn phát triển đô thị TP.HCM</div>
+      </div>
+
+      <script>
+        (function () {
+          document.getElementById("kf-bg").style.background = "#111111";
+
+          function typewriterize(id) {
+            var el = document.getElementById(id);
+            var cursor = el.querySelector(".kf-cursor");
+            var text = "";
+            el.childNodes.forEach(function (n) {
+              if (n.nodeType === 3) text += n.textContent;
+            });
+            // Clear text nodes, keep cursor element.
+            Array.from(el.childNodes).forEach(function (n) {
+              if (n.nodeType === 3) el.removeChild(n);
+            });
+            var frag = document.createDocumentFragment();
+            text.split("").forEach(function (ch) {
+              var span = document.createElement("span");
+              span.textContent = ch === " " ? " " : ch;
+              frag.appendChild(span);
+            });
+            el.insertBefore(frag, cursor);
+            return el.querySelectorAll("span:not(.kf-cursor)");
+          }
+
+          var spans1 = typewriterize("kf-text-1");
+          var spans2 = typewriterize("kf-text-2");
+          var spans3 = typewriterize("kf-text-3");
+
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo("#kf-kicker", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 0.1);
+
+          function typeRow(arrowId, spans, cursorId, start, charStagger) {
+            tl.fromTo(
+              "#" + arrowId,
+              { opacity: 0, scale: 0.4 },
+              { opacity: 1, scale: 1, duration: 0.22, ease: "back.out(3)" },
+              start,
+            );
+            tl.to(spans, { opacity: 1, duration: 0.01, stagger: charStagger }, start + 0.12);
+            var typeEnd = start + 0.12 + spans.length * charStagger;
+            tl.set("#" + cursorId, { opacity: 1 }, typeEnd);
+            tl.to("#" + cursorId, { opacity: 0, duration: 0.16, repeat: 3, yoyo: true }, typeEnd);
+          }
+
+          typeRow("kf-arrow-1", spans1, "kf-cursor-1", 0.55, 0.021);
+          typeRow("kf-arrow-2", spans2, "kf-cursor-2", 2.5, 0.021);
+          typeRow("kf-arrow-3", spans3, "kf-cursor-3", 4.35, 0.021);
+
+          tl.fromTo("#kf-footer", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 6.3);
+
+          window.__timelines["03-key-facts"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
