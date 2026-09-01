@@ -533,6 +533,16 @@ lần này dừng lại ngay ở bước 1 (trước cả khi chọn tin/gọi P
 cho lần chạy sau khi allowlist được sửa), không thử thêm domain mới, không dựng project mới, không
 lặp lại toàn bộ nội dung chẩn đoán đã ghi ở mục trên — chỉ xác nhận lại bằng dữ liệu mới nhất.
 
+**[2026-09-01 — lần chạy thứ 3 trong ngày, VẪN bị chặn y hệt, việc-cần-làm (1)-(3) vẫn chưa làm]**:
+re-test nhanh 7 domain CDN ảnh đã biết trước khi chọn tin (đúng quy trình đã thiết lập) — kết quả
+**vẫn 7/7 bị chặn**, cùng kiểu lỗi (timeout/reset/403/502) như 2 lần trước trong ngày, trong khi
+`script.google.com`/`api.elevenlabs.io`/`vnexpress.net`/`github.com` vẫn hoạt động bình thường. Đây
+là lần thứ 3 liên tiếp trong cùng ngày 2026-09-01 routine dừng ở đúng bước 1 vì cùng 1 nguyên nhân hạ
+tầng chưa được người vận hành xử lý. Dừng lại ngay, không chọn/đánh dấu tin, không dựng project,
+không lặp lại chẩn đoán chi tiết (đã đủ ở 2 mục ngay trên). **Việc-cần-làm (1)-(3) ở mục
+"2026-09-01" phía trên vẫn là hành động cần người vận hành thực hiện trước khi routine tiếp theo có
+thể sản xuất được video** — không có gì mới để bổ sung ngoài việc xác nhận lần 3.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
