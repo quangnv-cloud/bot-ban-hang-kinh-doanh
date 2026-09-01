@@ -521,6 +521,18 @@ lịch (`trig_01RdHP4oNHzaYm5UMjuZxWzb`/`trig_01HWAjgP7cpWSiprRfpJ68ap`/`trig_01
 khác); (3) sau khi xác nhận allowlist đúng, `fire_trigger` thử lại 1 trigger để verify tải ảnh
 thành công trước khi tin tưởng lịch tự động tiếp theo.
 
+**[2026-09-01 06:14 UTC — lần chạy kế tiếp trong cùng ngày, VẪN bị chặn y hệt, chưa được khắc phục]**:
+routine tự động lần tiếp theo (phiên khác, cùng ngày) test lại TRƯỚC KHI chọn tin/viết BRIEF (đúng
+đề xuất "test reachability sớm" ở mục việc-cần-làm bên trên) bằng `curl` trực tiếp tới 7 domain CDN
+ảnh đã liệt kê — kết quả **cả 7/7 vẫn bị chặn**, y hệt lần trước (`vnecdn.net`/timeout,
+`cdnphoto.dantri.com.vn`/reset, `cdnweb.dantri.com.vn`/403, `zadn.vn`/timeout, `vnncdn.net`/502,
+`photo.znews.vn`/403, `i1-kinhdoanh.vnecdn.net`/403) — trong khi domain API/HTML gốc (Apps Script,
+GitHub) vẫn hoạt động bình thường (test qua chính lần lấy tin ở bước 1). Xác nhận đây KHÔNG phải sự
+cố thoáng qua của 1 lần chạy — việc-cần-làm (1)-(3) ở mục ngay trên vẫn CHƯA được thực hiện. Routine
+lần này dừng lại ngay ở bước 1 (trước cả khi chọn tin/gọi POST đánh dấu `used`, để tin vẫn còn nguyên
+cho lần chạy sau khi allowlist được sửa), không thử thêm domain mới, không dựng project mới, không
+lặp lại toàn bộ nội dung chẩn đoán đã ghi ở mục trên — chỉ xác nhận lại bằng dữ liệu mới nhất.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
