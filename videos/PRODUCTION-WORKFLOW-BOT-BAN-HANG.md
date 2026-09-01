@@ -496,6 +496,31 @@ dừng sớm thay vì tốn toàn bộ chi phí ElevenLabs/Lyria/render trước
 (3) `style-rotation-state.json` hiện không có cơ chế khoá (lock) chống đọc-ghi đồng thời — 2 routine
 đọc cùng giá trị `last_used_index` trước khi bên nào ghi lại là nguyên nhân gốc.
 
+**[2026-09-01 — mọi domain CDN ảnh bài báo lại bị chặn ở tầng egress proxy, dù mục 3/12 ghi đã fix]**:
+lần chạy này (chọn tin giá dầu tăng vọt sau vụ Mỹ tập kích Iran, VnExpress) dừng lại ngay ở bước 1
+(chọn tin/viết BRIEF) vì KHÔNG tải được ảnh minh họa thật của bài báo — test trực tiếp bằng `curl`
+VÀ bằng `WebFetch` (báo lỗi `EGRESS_BLOCKED`) đều bị chặn ở tầng CONNECT của proxy (403 "policy
+denial", không phải lỗi từ origin server) cho TẤT CẢ domain CDN ảnh đã test: `vcdn1-kinhdoanh.vnecdn.net`
+(và biến thể `vnecdn.net`, `i1-kinhdoanh.vnecdn.net`), `cdnphoto.dantri.com.vn`,
+`cdnweb.dantri.com.vn`, `zadn.vn`, `vnncdn.net`, `photo.znews.vn` (domain ảnh Znews mới phát hiện,
+chưa từng thêm) — trong khi domain HTML gốc (`vnexpress.net`, `dantri.com.vn`, `znews.vn`) và toàn
+bộ domain API (`api.elevenlabs.io`, `generativelanguage.googleapis.com`, `script.google.com`,
+`registry.npmjs.org`, `github.com`, `raw.githubusercontent.com`) đều hoạt động bình thường. Nghĩa
+là allowlist domain ảnh đã cấu hình ở mục 3/12 (2026-08-27, `env_01Prtq2F5hNPLxk3EW2maFA8`) KHÔNG
+còn hiệu lực ở môi trường chạy routine lần này — có thể do allowlist bị reset, hoặc routine đang
+chạy trên một environment khác với environment đã cấu hình trước đó. **Quyết định**: coi đây là
+thất bại hạ tầng ở bước 1 (không có ảnh thật = không thể tuân thủ brand system "Article Image
+Card"), dừng lại ngay, KHÔNG dùng ảnh stock/giả thay ảnh bài báo thật, KHÔNG dựng lại 1 endpoint
+proxy-fetch-ảnh để né allowlist (đã từng bị từ chối đúng ở mục 9, giữ nguyên lập trường đó) — chỉ
+ghi lại đây rồi báo người vận hành. **Việc cần làm** (chờ người dùng): (1) xác nhận routine 3
+lịch (`trig_01RdHP4oNHzaYm5UMjuZxWzb`/`trig_01HWAjgP7cpWSiprRfpJ68ap`/`trig_01Y4gS5dsfucSEmBv7HQBL49`)
+đang chạy trên đúng environment `env_01Prtq2F5hNPLxk3EW2maFA8` hay đã đổi sang environment khác;
+(2) vào Custom network allowlist của environment đang dùng thật, thêm lại đầy đủ: `vnecdn.net`,
+`cdnphoto.dantri.com.vn`, `cdnweb.dantri.com.vn`, `zadn.vn`, `vnncdn.net`, và domain mới
+`photo.znews.vn` (ảnh Znews — trước đây chưa từng cần vì các video Znews trước dùng ảnh nguồn
+khác); (3) sau khi xác nhận allowlist đúng, `fire_trigger` thử lại 1 trigger để verify tải ảnh
+thành công trước khi tin tưởng lịch tự động tiếp theo.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
