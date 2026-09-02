@@ -543,6 +543,20 @@ không lặp lại chẩn đoán chi tiết (đã đủ ở 2 mục ngay trên).
 "2026-09-01" phía trên vẫn là hành động cần người vận hành thực hiện trước khi routine tiếp theo có
 thể sản xuất được video** — không có gì mới để bổ sung ngoài việc xác nhận lần 3.
 
+**[2026-09-02 — lần chạy tiếp theo (ngày mới), VẪN bị chặn y hệt, việc-cần-làm (1)-(3) VẪN chưa làm,
+4 lần liên tiếp]**: re-test nhanh 7 domain CDN ảnh đã biết trước khi chọn tin — kết quả **vẫn 7/7 bị
+chặn** (`vnecdn.net`/timeout, `cdnphoto.dantri.com.vn`/403, `cdnweb.dantri.com.vn`/403 CONNECT,
+`zadn.vn`/timeout, `vnncdn.net`/502 CONNECT, `photo.znews.vn`/403 CONNECT, `i1-kinhdoanh.vnecdn.net`/
+403 CONNECT), trong khi `script.google.com` (302), `api.elevenlabs.io` (401 — nghĩa là reachable,
+chỉ thiếu auth header của lệnh test), `github.com` (400 — reachable) đều hoạt động bình thường. Đây
+là lần thứ 4 liên tiếp (3 lần ngày 2026-09-01 + lần này ngày 2026-09-02) routine dừng ở đúng bước 1
+vì cùng 1 nguyên nhân hạ tầng chưa được người vận hành xử lý — đã kéo dài hơn 24 giờ không có tiến
+triển. Dừng lại ngay, không chọn/đánh dấu tin, không dựng project, không lặp lại chẩn đoán chi tiết
+(đã đủ ở các mục ngay trên). Đã gửi push notification cho người vận hành ở lần chạy này (chưa từng
+làm ở 3 lần trước, có thể là lý do chưa được xử lý) để nêu rõ việc-cần-làm (1)-(3) ở mục "2026-09-01"
+phía trên cần người vận hành trực tiếp vào Custom network allowlist của environment
+`env_01Prtq2F5hNPLxk3EW2maFA8` (claude.ai/code → environment settings) thêm lại các domain đã liệt kê.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
