@@ -557,6 +557,17 @@ làm ở 3 lần trước, có thể là lý do chưa được xử lý) để n
 phía trên cần người vận hành trực tiếp vào Custom network allowlist của environment
 `env_01Prtq2F5hNPLxk3EW2maFA8` (claude.ai/code → environment settings) thêm lại các domain đã liệt kê.
 
+**[2026-09-02 — lần chạy kế tiếp trong cùng ngày, VẪN bị chặn y hệt, lần thứ 5 liên tiếp]**: re-test
+nhanh 7 domain CDN ảnh trước khi chọn tin — kết quả **vẫn 7/7 bị chặn** (`vnecdn.net`/timeout,
+`cdnphoto.dantri.com.vn`/403, `cdnweb.dantri.com.vn`/403 CONNECT, `zadn.vn`/timeout,
+`vnncdn.net`/502 CONNECT, `photo.znews.vn`/403 CONNECT, `i1-kinhdoanh.vnecdn.net`/403 CONNECT),
+trong khi `script.google.com` (302) và `github.com` (400) vẫn reachable bình thường — cùng kiểu lỗi,
+không phải sự cố thoáng qua. Dừng lại ngay ở bước 1 như quy trình, không chọn/đánh dấu tin, không
+dựng project, không lặp lại chẩn đoán chi tiết. **KHÔNG gửi thêm push notification lần này** — một
+notification đã gửi rất gần đây (lần chạy ngay trước, cùng ngày) cho đúng vấn đề chưa thay đổi; gửi
+lại ngay lập tức là dư thừa. Việc-cần-làm (1)-(3) ở mục "2026-09-01" phía trên vẫn nguyên giá trị,
+chưa có gì mới để bổ sung ngoài xác nhận lần thứ 5.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
