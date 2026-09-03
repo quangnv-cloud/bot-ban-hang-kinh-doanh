@@ -586,6 +586,30 @@ allowlist ổn định lâu dài dựa trên 1 lần thành công) — nếu v�
 động, ưu tiên chọn tin nguồn Dân Trí; nếu domain khác cũng phục hồi, điều đó xác nhận allowlist đã
 được khôi phục đầy đủ.
 
+**[2026-09-03 — sự cố 2 routine chạy song song lần thứ hai, trùng style slot]**: y hệt cơ chế đã
+ghi ở mục "2026-08-30" phía trên — hai phiên chạy gần như đồng thời (trong khung giờ 06h-08h UTC
+3/9/2026) đều đọc `style-rotation-state.json` lúc `last_used_index: 3` trước khi bên nào commit,
+nên cả hai đều tính ra cùng style tiếp theo (index 4, **5-map-and-geo**). Lần này 2 tin được CHỌN
+KHÁC NHAU (không trùng công ty như lần trước): phiên chạy xong trước dựng
+`xuat-nhap-khau-ky-luc-770-ty-usd` (xuất nhập khẩu Việt Nam lập kỷ lục 770 tỷ USD), commit
+`2b25233` (06:38 UTC) rồi `ccc0d58` (06:39 UTC, thêm caption), push thành công lên `master`, đăng
+đủ cả 5 kênh. Phiên chạy sau dựng `gia-vang-mat-100-usd-sjc-giam-3-trieu` (giá vàng thế giới mất
+hơn 100 USD, vàng miếng SJC giảm tiếp), hoàn tất render + verify đầy đủ 4 bước, nhưng khi `git push`
+lên `master` thì bị từ chối (remote đã có `ccc0d58`) — đúng lúc đó mới phát hiện xung đột style
+(cả hai đều Map & Geo, dù nội dung tin không trùng). Quyết định (đúng tiền lệ mục "2026-08-30"):
+KHÔNG force-push/merge vào `master`, tạo nhánh `wip/gia-vang-mat-100-usd-sjc-giam-3-trieu` từ commit
+đã có sẵn (đã push lên GitHub), reset `master` cục bộ về khớp `origin/master`, coi bước 11
+(commit+push) là "thất bại" theo đúng tinh thần mục 17 của quy trình sản xuất — KHÔNG thực hiện
+bước 12-16 (không viết caption chính thức dùng để đăng, không đăng mạng xã hội) dù đã có
+`CAPTION.md` soạn sẵn trong nhánh wip, để tránh kênh phát 2 video cùng "cách dựng" Map & Geo trong
+cùng buổi (dù khác chủ đề, trùng ẩn dụ hình ảnh liên tiếp vẫn làm giảm cảm giác "mỗi video một
+kiểu" mà cơ chế xoay vòng hướng tới). **Việc-cần-làm (1)-(3) ở mục "2026-08-30" phía trên (không
+chạy 2 lần cùng khung giờ, kiểm tra commit mới trên `origin/master` trước khi tốn chi phí sản xuất,
+thêm cơ chế khoá cho `style-rotation-state.json`) VẪN CHƯA được triển khai — đây là lần thứ hai sự
+cố cùng nguyên nhân gốc tái diễn, mức độ ưu tiên xử lý nên tăng lên.** Nhánh wip có thể tái sử dụng
+cho lần chạy kế tiếp (dựng lại từ index đúng của vòng xoay, ví dụ index 5 — Ring Progress) nếu người
+vận hành muốn giữ lại tin giá vàng này, hoặc bỏ qua vì tin đã hơi cũ theo giờ chạy tiếp theo.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
