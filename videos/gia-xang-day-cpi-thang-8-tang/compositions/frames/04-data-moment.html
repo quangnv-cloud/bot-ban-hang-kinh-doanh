@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; src: url('assets/fonts/Montserrat-400-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; src: url('assets/fonts/Montserrat-400-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; src: url('assets/fonts/Montserrat-900-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; src: url('assets/fonts/Montserrat-900-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          background: #111111;
+          font-family: "Montserrat", Arial, sans-serif;
+          color: #ffffff;
+        }
+
+        .dm-eyebrow {
+          position: absolute; left: 0; right: 0; top: 264px; text-align: center;
+          font-weight: 700; font-size: 25px; letter-spacing: 0.16em; text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.6);
+        }
+
+        .dm-ring-box { position: absolute; left: 190px; top: 380px; width: 700px; height: 700px; }
+        .dm-ring-box svg { width: 100%; height: 100%; overflow: visible; }
+        .dm-ring-track { fill: none; stroke: rgba(255, 255, 255, 0.09); stroke-width: 34; }
+        .dm-ring-fill { fill: none; stroke: #e8441e; stroke-width: 34; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 350px 350px; }
+
+        .dm-center {
+          position: absolute; left: 270px; width: 540px; top: 588px; text-align: center;
+        }
+        .dm-center-label {
+          font-weight: 600; font-size: 24px; letter-spacing: 0.05em; text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.62); margin-bottom: 20px;
+        }
+        .dm-center-number {
+          display: inline-block;
+          /* Hardcoded (not fitTextFontSize — see script comment): 118px keeps "22,15%" clear
+             of the ring stroke at r=300/stroke-width 34, verified via Studio thumbnail. */
+          font-weight: 900; font-size: 118px; letter-spacing: -0.02em; line-height: 1; color: #e8441e;
+          font-variant-numeric: tabular-nums;
+        }
+        .dm-center-sub {
+          margin-top: 22px; font-weight: 700; font-size: 27px; letter-spacing: 0.01em;
+          color: rgba(255, 255, 255, 0.8);
+        }
+
+        .dm-side-tag {
+          position: absolute; left: 686px; top: 950px;
+          display: inline-flex; align-items: center; gap: 10px;
+          padding: 12px 20px; border-radius: 100px;
+          background: rgba(17, 17, 17, 0.85);
+          border: 1.5px solid rgba(232, 68, 30, 0.6);
+        }
+        .dm-side-dot { width: 9px; height: 9px; border-radius: 50%; background: #e8441e; flex: none; }
+        .dm-side-tag span { font-weight: 700; font-size: 22px; letter-spacing: 0.02em; color: #ffffff; white-space: nowrap; }
+
+        .dm-caption {
+          position: absolute; left: 64px; right: 64px; top: 1600px; text-align: center;
+          font-weight: 600; font-size: 31px; line-height: 1.35; color: rgba(255, 255, 255, 0.85);
+        }
+      </style>
+
+      <div id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+        <div class="clip dm-eyebrow" id="dm-eyebrow" data-start="0" data-duration="9.13" data-track-index="0">Giá nhiên liệu tháng 8/2026</div>
+
+        <div class="clip dm-ring-box" id="dm-ring-box" data-start="0" data-duration="9.13" data-track-index="1">
+          <svg viewBox="0 0 700 700">
+            <circle class="dm-ring-track" cx="350" cy="350" r="300"></circle>
+            <circle class="dm-ring-fill" id="dm-ring-fill" cx="350" cy="350" r="300" stroke-dasharray="1884.96" stroke-dashoffset="1884.96"></circle>
+          </svg>
+        </div>
+
+        <div class="clip dm-center" id="dm-center" data-start="0" data-duration="9.13" data-track-index="2">
+          <div class="dm-center-label" id="dm-center-label">Dầu diesel tăng trong tháng 8</div>
+          <div class="dm-center-number" id="dm-center-number">0,00%</div>
+          <div class="dm-center-sub" id="dm-center-sub">Nguyên nhân chính đẩy CPI đi lên</div>
+        </div>
+
+        <div class="clip dm-side-tag" id="dm-side-tag" data-start="0" data-duration="9.13" data-track-index="3">
+          <span class="dm-side-dot"></span>
+          <span>Giá xăng ▲ +9,53%</span>
+        </div>
+
+        <div class="clip dm-caption" id="dm-caption" data-start="0" data-duration="9.13" data-track-index="4">Nhiên liệu là nguyên nhân chính đẩy CPI đi lên</div>
+      </div>
+
+      <script>
+        (function () {
+          // Ring r=300: circumference 2*pi*300 = 1884.96.
+          // SCALE (Data moment): trần hiển thị 25% (không phải 100%) — 22,15% (dầu diesel) là
+          // mức tăng giá lớn nhất trong toàn bộ câu chuyện; chọn trần hơi cao hơn giá trị thực để
+          // vòng gần đầy (đúng vai trò "hero ring" — điểm nhấn số liệu quan trọng nhất) nhưng
+          // không chạm mốc 100% tuyệt đối, tránh ngộ nhận "đã hoàn tất/đạt trần".
+          // fraction = 22.15 / 25 = 0.886 ; offset = 1884.96 * (1 - 0.886) = 214.89.
+          var RING_C = 1884.96;
+          var RING_OFFSET = 214.89;
+          var TARGET = 22.15;
+
+          // Hero number font-size is hardcoded in CSS (not fitTextFontSize — see BRAND-SYSTEM
+          // "bài học kỹ thuật": the fit helper under-measured this exact bold/tracked numeral
+          // case, verified by a real render frame where the returned size still crossed the
+          // ring stroke). 118px confirmed clear via a fresh Studio thumbnail re-check below.
+
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo("#dm-eyebrow", { y: -10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 0);
+          tl.fromTo("#dm-ring-box", { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.42, ease: "power2.out" }, 0.16);
+          tl.fromTo("#dm-center-label", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.4);
+
+          tl.fromTo(
+            "#dm-ring-fill",
+            { strokeDashoffset: RING_C },
+            { strokeDashoffset: RING_OFFSET, duration: 1.55, ease: "power2.inOut" },
+            0.55,
+          );
+
+          var counter = { v: 0 };
+          tl.to(
+            counter,
+            {
+              v: TARGET,
+              duration: 1.55,
+              ease: "power2.inOut",
+              onUpdate: function () {
+                document.getElementById("dm-center-number").textContent = counter.v.toFixed(2).replace(".", ",") + "%";
+              },
+            },
+            0.55,
+          );
+
+          tl.fromTo("#dm-center-sub", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.3 }, 2.25);
+
+          tl.fromTo(
+            "#dm-side-tag",
+            { scale: 0.7, opacity: 0 },
+            { scale: 1, opacity: 1, duration: 0.32, ease: "back.out(2.2)" },
+            2.45,
+          );
+
+          tl.fromTo("#dm-caption", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.34, ease: "power3.out" }, 2.85);
+
+          window.__timelines["04-data-moment"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
