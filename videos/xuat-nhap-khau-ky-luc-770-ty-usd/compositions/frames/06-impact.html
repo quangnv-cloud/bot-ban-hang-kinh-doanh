@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; src: url('assets/fonts/Montserrat-400-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; src: url('assets/fonts/Montserrat-400-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; src: url('assets/fonts/Montserrat-900-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; src: url('assets/fonts/Montserrat-900-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          background: #111111;
+          font-family: "Montserrat", Arial, sans-serif;
+          color: #ffffff;
+        }
+
+        .i6-globe { position: absolute; left: 50%; top: 960px; width: 1500px; height: 1500px; transform: translate(-50%, -50%); opacity: 0; }
+        .i6-globe svg { width: 100%; height: 100%; }
+
+        .i6-kicker {
+          position: absolute; left: 0; right: 0; top: 200px; text-align: center;
+          font-weight: 700; font-size: 24px; letter-spacing: 0.14em; text-transform: uppercase;
+          color: rgba(255,255,255,0.68); opacity: 0;
+        }
+
+        .i6-card { position: absolute; left: 64px; right: 64px; border-radius: 20px; padding: 40px 44px; background: rgba(17,17,17,0.72); border: 1.5px solid rgba(232,68,30,0.55); box-shadow: 0 20px 44px rgba(0,0,0,0.4); opacity: 0; }
+        .i6-card-1 { top: 480px; }
+        .i6-card-2 { top: 900px; }
+        .i6-card-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+        .i6-card-tag { font-weight: 700; font-size: 22px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+        .i6-card-arrow { width: 46px; height: 46px; flex: none; }
+        .i6-card-label { margin-top: 18px; font-weight: 700; font-size: 26px; color: #ffffff; }
+        .i6-card-value { margin-top: 8px; font-weight: 900; font-size: 60px; letter-spacing: -0.02em; color: #e8441e; font-variant-numeric: tabular-nums; }
+
+        .i6-foot { position: absolute; left: 64px; right: 64px; top: 1360px; text-align: center; font-weight: 600; font-size: 26px; line-height: 1.4; color: rgba(255,255,255,0.7); opacity: 0; }
+      </style>
+
+      <div id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+        <div class="i6-globe clip" id="i6-globe" data-start="0" data-duration="10.5" data-track-index="0" data-layout-allow-overflow="true">
+          <svg viewBox="0 0 1500 1500" fill="none">
+            <circle cx="750" cy="750" r="660" stroke="#ffffff" stroke-width="1.5" opacity="0.1"/>
+            <circle cx="750" cy="750" r="480" stroke="#ffffff" stroke-width="1.5" opacity="0.09"/>
+            <ellipse cx="750" cy="750" rx="660" ry="240" stroke="#ffffff" stroke-width="1.2" opacity="0.08"/>
+          </svg>
+        </div>
+
+        <div class="i6-kicker clip" id="i6-kicker" data-start="0" data-duration="10.5" data-track-index="1">Cán cân thương mại đảo chiều</div>
+
+        <div class="i6-card i6-card-1 clip" id="i6-card-1" data-start="0" data-duration="10.5" data-track-index="2">
+          <div class="i6-card-row">
+            <span class="i6-card-tag">Cùng kỳ 2025</span>
+            <svg class="i6-card-arrow" viewBox="0 0 24 24" fill="none"><path d="M12 19V5M12 5l-6 6M12 5l6 6" stroke="#e8441e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="i6-card-label">Xuất siêu</div>
+          <div class="i6-card-value">14,02 tỷ USD</div>
+        </div>
+
+        <div class="i6-card i6-card-2 clip" id="i6-card-2" data-start="0" data-duration="10.5" data-track-index="3">
+          <div class="i6-card-row">
+            <span class="i6-card-tag">8 tháng 2026</span>
+            <svg class="i6-card-arrow" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M12 19l-6-6M12 19l6-6" stroke="#e8441e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="i6-card-label">Nhập siêu</div>
+          <div class="i6-card-value">20,46 tỷ USD</div>
+        </div>
+
+        <div class="i6-foot clip" id="i6-foot" data-start="0" data-duration="10.5" data-track-index="4">Cán cân thương mại đảo chiều so với cùng kỳ năm trước</div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo("#i6-globe", { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.9, ease: "power2.out" }, 0);
+          tl.fromTo("#i6-kicker", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.1);
+
+          tl.fromTo("#i6-card-1", { opacity: 0, x: -70 }, { opacity: 1, x: 0, duration: 0.46, ease: "power3.out" }, 0.45);
+          tl.fromTo("#i6-card-2", { opacity: 0, x: 70 }, { opacity: 1, x: 0, duration: 0.46, ease: "power3.out" }, 0.85);
+
+          tl.fromTo("#i6-foot", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.34, ease: "power2.out" }, 1.4);
+
+          window.__timelines["06-impact"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
