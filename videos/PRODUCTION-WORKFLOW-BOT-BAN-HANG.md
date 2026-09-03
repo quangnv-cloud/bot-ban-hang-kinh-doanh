@@ -568,6 +568,24 @@ notification đã gửi rất gần đây (lần chạy ngay trước, cùng ng�
 lại ngay lập tức là dư thừa. Việc-cần-làm (1)-(3) ở mục "2026-09-01" phía trên vẫn nguyên giá trị,
 chưa có gì mới để bổ sung ngoài xác nhận lần thứ 5.
 
+**[2026-09-03 — CDN ảnh Dân Trí (`cdnphoto.dantri.com.vn`) hoạt động trở lại, chuỗi 5 lần chặn liên
+tiếp kết thúc]**: re-test 7 domain CDN ảnh trước khi chọn tin, theo đúng quy trình đã thiết lập —
+`cdnphoto.dantri.com.vn` (và `vnecdn.net`, `zadn.vn` — dù 2 domain này vẫn treo/reset ở tầng TLS
+handshake khi test path gốc "/", KHÔNG coi là "hoạt động" như `cdnphoto.dantri.com.vn`) đã qua được
+tầng CONNECT; xác nhận `cdnphoto.dantri.com.vn` tải được ảnh bài báo thật đầy đủ (HTTP 200, JPEG
+1200×630, ~150KB). `cdnweb.dantri.com.vn`, `vnncdn.net`, `photo.znews.vn`, `i1-kinhdoanh.vnecdn.net`
+vẫn bị chặn (403/502) — KHÔNG phải toàn bộ allowlist đã được khôi phục, chỉ riêng domain ảnh chính
+của Dân Trí. Không rõ nguyên nhân chuyển biến (operator có thể đã sửa allowlist của đúng environment
+đang chạy — xem việc-cần-làm (1)-(3) ở mục "2026-09-01" — hoặc allowlist tự đồng bộ lại), routine
+không có cách xác minh phía ngoài. Đã chọn tin Dân Trí (đúng domain ảnh đang hoạt động), dựng xong
+video `tphcm-4900-ty-du-lich-quoc-khanh` (style 4 — Split Comparison), render + verify đầy đủ 4
+bước, đăng thành công cả 5 kênh (Facebook Reel + Story, YouTube, Instagram, Threads) — lần đầu tiên
+routine tự động chạy trọn vẹn từ đầu đến cuối kể từ khi phát hiện lỗ hổng CDN ảnh ngày 2026-09-01.
+**Việc nên làm cho lần chạy sau**: vẫn re-test nhanh domain ảnh trước khi chọn tin (đừng giả định
+allowlist ổn định lâu dài dựa trên 1 lần thành công) — nếu vẫn chỉ `cdnphoto.dantri.com.vn` hoạt
+động, ưu tiên chọn tin nguồn Dân Trí; nếu domain khác cũng phục hồi, điều đó xác nhận allowlist đã
+được khôi phục đầy đủ.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
