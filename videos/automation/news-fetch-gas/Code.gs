@@ -551,23 +551,45 @@ function doPost(e) {
       .setMimeType(ContentService.MimeType.JSON);
   }
 
-  if (body.action === 'list_yt_content') {
-    // Read-only diagnostic — does NOT publish/delete anything. Lists the
-    // channel's actual live videos straight from the YouTube Data API
-    // (search.list forMine=true) — added 2026-08-29 to find videos that
-    // were uploaded manually (outside this script, so never logged in
-    // posts_log) and are therefore invisible to refresh_metrics.
-    var lycResult;
+  if (body.action === 'yt_set_thumbnail') {
+    // Utility — calls ytSetThumbnail_ directly against an already-live video
+    // and returns the RAW result (code + body), unlike publish_youtube whose
+    // doPost handler silently drops thumbnail-specific errors into an empty
+    // 'notes' column whenever the video upload itself succeeded (added
+    // 2026-09-02 to diagnose why 4 recent videos kept YouTube's own
+    // auto-picked thumbnail instead of the branded one). Params:
+    // {"video_id": "<id>", "thumbnail_url": "<public jpg url>"}.
+    if (!body.video_id || !body.thumbnail_url) {
+      return ContentService.createTextOutput(JSON.stringify({ ok: false, error: 'video_id and thumbnail_url required' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    var ystResult;
     try {
-      var lycToken = ytAccessToken_();
-      var lycUrl = 'https://www.googleapis.com/youtube/v3/search?part=snippet&forMine=true' +
-        '&type=video&order=date&maxResults=' + (body.limit || 50);
-      var lycResp = UrlFetchApp.fetch(lycUrl, {
-        headers: { Authorization: 'Bearer ' + lycToken }, muteHttpExceptions: true
-      });
-      lycResult = { ok: true, data: safeJsonParse_(lycResp.getContentText()) };
-    } catch (e11) { lycResult = { ok: false, error: String(e11) }; }
-    return ContentService.createTextOutput(JSON.stringify(lycResult))
+      var ystToken = ytAccessToken_();
+      ystResult = { ok: true, result: ytSetThumbnail_(body.video_id, body.thumbnail_url, ystToken) };
+    } catch (e12) { ystResult = { ok: false, error: String(e12) }; }
+    return ContentService.createTextOutput(JSON.stringify(ystResult))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  if (body.action === 'yt_set_thumbnail_b64') {
+    // Same as yt_set_thumbnail but takes the image as inline base64 instead
+    // of a public URL — added 2026-09-03 as a one-off recovery path (e.g.
+    // restoring a thumbnail from an image that only exists client-side).
+    // Params: {"video_id": "<id>", "image_base64": "<base64 bytes, no data:
+    // URI prefix>", "mime_type": "image/jpeg" (optional, defaults to jpeg)}.
+    if (!body.video_id || !body.image_base64) {
+      return ContentService.createTextOutput(JSON.stringify({ ok: false, error: 'video_id and image_base64 required' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    var ystbResult;
+    try {
+      var ystbToken = ytAccessToken_();
+      var ystbBytes = Utilities.base64Decode(body.image_base64);
+      var ystbBlob = Utilities.newBlob(ystbBytes, body.mime_type || 'image/jpeg', 'thumb.jpg');
+      ystbResult = { ok: true, result: ytSetThumbnailFromBlob_(body.video_id, ystbBlob, ystbToken) };
+    } catch (e12b) { ystbResult = { ok: false, error: String(e12b) }; }
+    return ContentService.createTextOutput(JSON.stringify(ystbResult))
       .setMimeType(ContentService.MimeType.JSON);
   }
 
@@ -1253,6 +1275,17 @@ function ytPublishVideo_(videoUrl, title, description, privacy, thumbnailUrl) {
  */
 function ytSetThumbnail_(videoId, thumbnailUrl, token) {
   var imageBlob = UrlFetchApp.fetch(thumbnailUrl, { muteHttpExceptions: true }).getBlob();
+  return ytSetThumbnailFromBlob_(videoId, imageBlob, token);
+}
+
+/**
+ * Same as ytSetThumbnail_ but takes an already-in-hand Blob instead of
+ * fetching one from a public URL — used by the yt_set_thumbnail_b64 doPost
+ * action (2026-09-03) to restore/set a thumbnail from raw image bytes sent
+ * directly in the request body, for the rare case where the source image
+ * only exists client-side and isn't reachable at a public URL.
+ */
+function ytSetThumbnailFromBlob_(videoId, imageBlob, token) {
   var resp = UrlFetchApp.fetch(
     'https://www.googleapis.com/upload/youtube/v3/thumbnails/set?videoId=' + encodeURIComponent(videoId),
     {
