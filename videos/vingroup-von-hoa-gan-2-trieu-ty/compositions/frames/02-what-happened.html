@@ -1,0 +1,118 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+    .w02-bg { position: absolute; inset: 0; background: #111111; }
+
+    .w02-card-wrap {
+      position: absolute;
+      left: 64px; right: 64px;
+      top: 210px;
+      height: 700px;
+    }
+    .w02-card {
+      position: relative;
+      width: 100%; height: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1.5px solid rgba(255,255,255,0.14);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.45);
+      background: #0c0c0c;
+    }
+    .w02-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }
+    .w02-card-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.72) 100%); }
+    .w02-card-badge {
+      position: absolute; right: 20px; top: 20px;
+      padding: 8px 14px; border-radius: 100px;
+      background: rgba(17,17,17,0.65);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .w02-card-badge span { font-weight: 700; font-size: 17px; letter-spacing: 0.04em; color: #ffffff; }
+    .w02-card-caption { position: absolute; left: 20px; bottom: 18px; font-weight: 500; font-size: 20px; color: rgba(255,255,255,0.85); }
+
+    .w02-kicker-row { position: absolute; left: 64px; top: 960px; display: flex; align-items: center; gap: 14px; }
+    .w02-kicker {
+      font-weight: 700; font-size: 24px; letter-spacing: 0.16em; text-transform: uppercase; color: #e8441e;
+    }
+
+    .w02-headline {
+      position: absolute; left: 64px; right: 64px; top: 1015px;
+      font-weight: 800; font-size: 58px; line-height: 1.14; letter-spacing: -0.015em; color: #ffffff;
+    }
+    .w02-headline .accent { color: #e8441e; }
+
+    /* Icon Grid signature: 2 ô vuông icon + số liệu, thay chip pill của style 2. */
+    .w02-grid { position: absolute; left: 64px; right: 64px; top: 1290px; display: flex; gap: 24px; }
+    .w02-box {
+      flex: 1;
+      border: 1.5px solid rgba(255,255,255,0.16);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .w02-box-icon { width: 46px; height: 46px; }
+    .w02-box-value { font-weight: 800; font-size: 40px; line-height: 1.15; color: #ffffff; letter-spacing: -0.01em; }
+    .w02-box-value .accent { color: #e8441e; }
+    .w02-box-label { font-weight: 600; font-size: 20px; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+  </style>
+
+  <div id="root" data-composition-id="02-what-happened" data-width="1080" data-height="1920">
+    <div id="w02-bg" class="clip w02-bg" data-start="0" data-duration="9.88" data-track-index="0"></div>
+
+    <div id="w02-card-wrap" class="clip w02-card-wrap" data-start="0" data-duration="9.88" data-track-index="1">
+      <div class="w02-card" id="w02-card">
+        <img src="assets/img/article-hero.jpg" alt="">
+        <div class="w02-card-scrim"></div>
+        <div class="w02-card-badge"><span>BOT BÁN HÀNG</span></div>
+        <div class="w02-card-caption">Nguồn: Znews</div>
+      </div>
+    </div>
+
+    <div id="w02-kicker-row" class="clip w02-kicker-row" data-start="0" data-duration="9.88" data-track-index="2">
+      <span class="w02-kicker">Phiên giao dịch 4/9/2026</span>
+    </div>
+
+    <div id="w02-headline" class="clip w02-headline" data-start="0" data-duration="9.88" data-track-index="3">Dòng tiền đổ vào nhóm <span class="accent">Vingroup</span>, VN-Index bứt phá</div>
+
+    <div id="w02-grid" class="clip w02-grid" data-start="0" data-duration="9.88" data-track-index="4">
+      <div class="w02-box" id="w02-box-1">
+        <svg class="w02-box-icon" viewBox="0 0 48 48" fill="none">
+          <path d="M6 34 L18 22 L26 30 L42 12" stroke="#e8441e" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M30 12 H42 V24" stroke="#e8441e" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="w02-box-value"><span class="accent">+25,36</span> điểm</div>
+        <div class="w02-box-label">VN-Index (+1,4%)</div>
+      </div>
+      <div class="w02-box" id="w02-box-2">
+        <svg class="w02-box-icon" viewBox="0 0 48 48" fill="none">
+          <rect x="8" y="26" width="7" height="14" stroke="#e8441e" stroke-width="3" stroke-linejoin="round"/>
+          <rect x="20.5" y="18" width="7" height="22" stroke="#e8441e" stroke-width="3" stroke-linejoin="round"/>
+          <rect x="33" y="8" width="7" height="32" stroke="#e8441e" stroke-width="3" stroke-linejoin="round"/>
+        </svg>
+        <div class="w02-box-value">1.853,08</div>
+        <div class="w02-box-label">Điểm chốt phiên</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#w02-card", { opacity: 0, scale: 1.04 }, { opacity: 1, scale: 1, duration: 0.5, ease: "power2.out" }, 0);
+      tl.fromTo("#w02-card-badge", { opacity: 0, y: -8 }, { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" }, 0.35);
+      tl.fromTo("#w02-kicker-row", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.34, ease: "power3.out" }, 0.55);
+      tl.fromTo("#w02-headline", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.42, ease: "power3.out" }, 0.75);
+      tl.fromTo("#w02-box-1", { opacity: 0, y: 24, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.6)" }, 1.25);
+      tl.fromTo("#w02-box-2", { opacity: 0, y: 24, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.6)" }, 1.45);
+
+      window.__timelines["02-what-happened"] = tl;
+    })();
+  </script>
+</template>

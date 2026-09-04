@@ -115,6 +115,12 @@
       "style": "7-timeline-chronology",
       "project": "vn-index-thung-1800-diem-vingroup-cuu",
       "date": "2026-09-04"
+    },
+    {
+      "index": 7,
+      "style": "8-icon-grid",
+      "project": "vingroup-von-hoa-gan-2-trieu-ty",
+      "date": "2026-09-04"
     }
   ]
 }

@@ -1,0 +1,116 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+    .k03-bg { position: absolute; inset: 0; background: #111111; }
+    .k03-bg::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(232,68,30,0.10) 0%, rgba(17,17,17,0) 55%);
+    }
+
+    .k03-kicker-row { position: absolute; left: 64px; top: 210px; }
+    .k03-kicker {
+      font-weight: 700; font-size: 24px; letter-spacing: 0.16em; text-transform: uppercase; color: #e8441e;
+    }
+    .k03-headline {
+      position: absolute; left: 64px; right: 64px; top: 260px;
+      font-weight: 800; font-size: 56px; line-height: 1.16; letter-spacing: -0.015em; color: #ffffff;
+    }
+
+    /* Icon Grid signature — lưới 1x3 dọc, mỗi ô icon riêng, border mảnh, KHÔNG số thứ tự. */
+    .k03-grid {
+      position: absolute; left: 64px; right: 64px; top: 620px;
+      display: flex; flex-direction: column; gap: 28px;
+    }
+    .k03-cell {
+      display: flex; align-items: center; gap: 32px;
+      border: 1.5px solid rgba(255,255,255,0.16);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.03);
+      padding: 34px 36px;
+    }
+    .k03-cell-icon-wrap {
+      flex: none;
+      width: 92px; height: 92px;
+      border-radius: 14px;
+      border: 1.5px solid rgba(232,68,30,0.45);
+      background: rgba(232,68,30,0.08);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .k03-cell-icon { width: 46px; height: 46px; }
+    .k03-cell-text { display: flex; flex-direction: column; gap: 8px; }
+    .k03-cell-label { font-weight: 600; font-size: 21px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+    .k03-cell-value { font-weight: 800; font-size: 42px; line-height: 1.12; color: #ffffff; letter-spacing: -0.01em; }
+    .k03-cell-value .accent { color: #e8441e; }
+  </style>
+
+  <div id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <div id="k03-bg" class="clip k03-bg" data-start="0" data-duration="11.32" data-track-index="0"></div>
+
+    <div id="k03-kicker-row" class="clip k03-kicker-row" data-start="0" data-duration="11.32" data-track-index="1">
+      <span class="k03-kicker">Ba con số chốt phiên</span>
+    </div>
+    <div id="k03-headline" class="clip k03-headline" data-start="0" data-duration="11.32" data-track-index="2">VIC lập đỉnh, kéo cả nhóm vốn hóa lớn đi lên</div>
+
+    <div id="k03-grid" class="clip k03-grid" data-start="0" data-duration="11.32" data-track-index="3">
+      <div class="k03-cell" id="k03-cell-1">
+        <div class="k03-cell-icon-wrap">
+          <svg class="k03-cell-icon" viewBox="0 0 48 48" fill="none">
+            <path d="M9 30 L20 19 L27 26 L39 12" stroke="#e8441e" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="39" cy="12" r="3" fill="#e8441e"/>
+          </svg>
+        </div>
+        <div class="k03-cell-text">
+          <div class="k03-cell-label">Cổ phiếu VIC</div>
+          <div class="k03-cell-value"><span class="accent">256.100 đ</span>/CP · đỉnh lịch sử</div>
+        </div>
+      </div>
+
+      <div class="k03-cell" id="k03-cell-2">
+        <div class="k03-cell-icon-wrap">
+          <svg class="k03-cell-icon" viewBox="0 0 48 48" fill="none">
+            <rect x="7" y="27" width="7" height="13" stroke="#e8441e" stroke-width="3" stroke-linejoin="round"/>
+            <rect x="20.5" y="19" width="7" height="21" stroke="#e8441e" stroke-width="3" stroke-linejoin="round"/>
+            <rect x="34" y="9" width="7" height="31" stroke="#e8441e" stroke-width="3" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="k03-cell-text">
+          <div class="k03-cell-label">VN30-Index</div>
+          <div class="k03-cell-value"><span class="accent">+23 điểm</span>, lên 1.984 điểm</div>
+        </div>
+      </div>
+
+      <div class="k03-cell" id="k03-cell-3">
+        <div class="k03-cell-icon-wrap">
+          <svg class="k03-cell-icon" viewBox="0 0 48 48" fill="none">
+            <path d="M8 24 H40" stroke="#e8441e" stroke-width="3.4" stroke-linecap="round"/>
+            <path d="M8 24 C 8 15, 16 10, 24 10 C 32 10, 40 15, 40 24" stroke="#e8441e" stroke-width="3.4" stroke-linecap="round" fill="none"/>
+            <circle cx="24" cy="24" r="3" fill="#e8441e"/>
+          </svg>
+        </div>
+        <div class="k03-cell-text">
+          <div class="k03-cell-label">Thanh khoản 3 sàn</div>
+          <div class="k03-cell-value">Dưới <span class="accent">18.000 tỷ đồng</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#k03-kicker-row", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.32, ease: "power3.out" }, 0);
+      tl.fromTo("#k03-headline", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.22);
+      tl.fromTo("#k03-cell-1", { opacity: 0, y: 26, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.6)" }, 0.85);
+      tl.fromTo("#k03-cell-2", { opacity: 0, y: 26, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.6)" }, 1.35);
+      tl.fromTo("#k03-cell-3", { opacity: 0, y: 26, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.6)" }, 1.85);
+
+      window.__timelines["03-key-facts"] = tl;
+    })();
+  </script>
+</template>

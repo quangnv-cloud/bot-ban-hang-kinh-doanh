@@ -1,0 +1,87 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+    .i06-bg { position: absolute; inset: 0; background: #111111; }
+    .i06-bg::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 50% 55%, rgba(232,68,30,0.10) 0%, rgba(17,17,17,0) 60%);
+    }
+
+    .i06-kicker { position: absolute; left: 64px; top: 210px; font-weight: 700; font-size: 24px; letter-spacing: 0.16em; text-transform: uppercase; color: #e8441e; }
+    .i06-headline {
+      position: absolute; left: 64px; right: 64px; top: 262px;
+      font-weight: 800; font-size: 54px; line-height: 1.16; letter-spacing: -0.015em; color: #ffffff;
+    }
+
+    /* Icon Grid signature — lưới 2 ô lớn cạnh nhau, icon lớn phía trên tiêu đề mỗi ô. */
+    .i06-grid { position: absolute; left: 64px; right: 64px; top: 720px; display: flex; gap: 24px; }
+    .i06-box {
+      flex: 1;
+      border: 1.5px solid rgba(255,255,255,0.16);
+      border-radius: 20px;
+      background: rgba(255,255,255,0.03);
+      padding: 44px 32px;
+      display: flex; flex-direction: column; align-items: flex-start; gap: 20px;
+    }
+    .i06-box-icon-wrap {
+      width: 76px; height: 76px;
+      border-radius: 16px;
+      border: 1.5px solid rgba(232,68,30,0.45);
+      background: rgba(232,68,30,0.08);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .i06-box-icon { width: 38px; height: 38px; }
+    .i06-box-hero { font-weight: 900; font-size: 56px; line-height: 1.05; color: #e8441e; letter-spacing: -0.015em; }
+    .i06-box-label { font-weight: 600; font-size: 21px; line-height: 1.4; letter-spacing: 0.02em; color: rgba(255,255,255,0.72); }
+  </style>
+
+  <div id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <div id="i06-bg" class="clip i06-bg" data-start="0" data-duration="7.74" data-track-index="0"></div>
+
+    <div id="i06-kicker" class="clip i06-kicker" data-start="0" data-duration="7.74" data-track-index="1">Khối ngoại quay lại mua ròng</div>
+    <div id="i06-headline" class="clip i06-headline" data-start="0" data-duration="7.74" data-track-index="2">Dòng tiền ngoại đảo chiều, gom mạnh cổ phiếu Vingroup</div>
+
+    <div id="i06-grid" class="clip i06-grid" data-start="0" data-duration="7.74" data-track-index="3">
+      <div class="i06-box" id="i06-box-1">
+        <div class="i06-box-icon-wrap">
+          <svg class="i06-box-icon" viewBox="0 0 48 48" fill="none">
+            <path d="M24 8 V32" stroke="#e8441e" stroke-width="3.4" stroke-linecap="round"/>
+            <path d="M14 22 L24 32 L34 22" stroke="#e8441e" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M10 38 H38" stroke="#e8441e" stroke-width="3.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="i06-box-hero" id="i06-hero-1">+110 tỷ</div>
+        <div class="i06-box-label">Khối ngoại mua ròng<br>toàn thị trường</div>
+      </div>
+
+      <div class="i06-box" id="i06-box-2">
+        <div class="i06-box-icon-wrap">
+          <svg class="i06-box-icon" viewBox="0 0 48 48" fill="none">
+            <path d="M9 30 L20 19 L27 26 L39 12" stroke="#e8441e" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M30 12 H39 V21" stroke="#e8441e" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="i06-box-hero" id="i06-hero-2">~154 tỷ</div>
+        <div class="i06-box-label">Riêng cổ phiếu VIC<br>được mua ròng</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#i06-kicker", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.3, ease: "power3.out" }, 0);
+      tl.fromTo("#i06-headline", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.2);
+      tl.fromTo("#i06-box-1", { opacity: 0, y: 26, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.42, ease: "back.out(1.6)" }, 0.85);
+      tl.fromTo("#i06-box-2", { opacity: 0, y: 26, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.42, ease: "back.out(1.6)" }, 1.2);
+
+      window.__timelines["06-impact"] = tl;
+    })();
+  </script>
+</template>

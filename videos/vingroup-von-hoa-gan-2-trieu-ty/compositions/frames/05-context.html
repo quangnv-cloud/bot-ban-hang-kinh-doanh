@@ -1,0 +1,101 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+    .c05-bg { position: absolute; inset: 0; background: #111111; }
+
+    .c05-kicker { position: absolute; left: 64px; top: 210px; font-weight: 700; font-size: 24px; letter-spacing: 0.16em; text-transform: uppercase; color: #e8441e; }
+    .c05-headline {
+      position: absolute; left: 64px; right: 64px; top: 262px;
+      font-weight: 800; font-size: 54px; line-height: 1.16; letter-spacing: -0.015em; color: #ffffff;
+    }
+
+    /* Icon Grid signature — lưới 2x3, 6 ô icon+số liệu, mô phỏng dashboard nhiều chỉ số. */
+    .c05-grid {
+      position: absolute; left: 64px; right: 64px; top: 640px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    }
+    .c05-cell {
+      border: 1.5px solid rgba(255,255,255,0.16);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      padding: 26px 24px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .c05-cell-top { display: flex; align-items: center; justify-content: space-between; }
+    .c05-cell-ticker { font-weight: 700; font-size: 26px; letter-spacing: 0.04em; color: #ffffff; }
+    .c05-cell-icon { width: 30px; height: 30px; }
+    .c05-cell-pct { font-weight: 800; font-size: 34px; color: #e8441e; letter-spacing: -0.01em; }
+  </style>
+
+  <div id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div id="c05-bg" class="clip c05-bg" data-start="0" data-duration="10.43" data-track-index="0"></div>
+
+    <div id="c05-kicker" class="clip c05-kicker" data-start="0" data-duration="10.43" data-track-index="1">Cả nhóm cổ phiếu vốn hóa lớn cùng tăng</div>
+    <div id="c05-headline" class="clip c05-headline" data-start="0" data-duration="10.43" data-track-index="2">Không chỉ VIC, cả hệ sinh thái đồng loạt bứt phá</div>
+
+    <div id="c05-grid" class="clip c05-grid" data-start="0" data-duration="10.43" data-track-index="3">
+      <div class="c05-cell" id="c05-cell-1">
+        <div class="c05-cell-top">
+          <span class="c05-cell-ticker">VIC</span>
+          <svg class="c05-cell-icon" viewBox="0 0 24 24" fill="none"><path d="M4 16 L10 10 L14 14 L20 6" stroke="#e8441e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="c05-cell-pct">+4,7%</div>
+      </div>
+      <div class="c05-cell" id="c05-cell-2">
+        <div class="c05-cell-top">
+          <span class="c05-cell-ticker">VHM</span>
+          <svg class="c05-cell-icon" viewBox="0 0 24 24" fill="none"><path d="M4 16 L10 10 L14 14 L20 6" stroke="#e8441e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="c05-cell-pct">+2,5%</div>
+      </div>
+      <div class="c05-cell" id="c05-cell-3">
+        <div class="c05-cell-top">
+          <span class="c05-cell-ticker">VPB</span>
+          <svg class="c05-cell-icon" viewBox="0 0 24 24" fill="none"><path d="M4 16 L10 10 L14 14 L20 6" stroke="#e8441e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="c05-cell-pct">+3,2%</div>
+      </div>
+      <div class="c05-cell" id="c05-cell-4">
+        <div class="c05-cell-top">
+          <span class="c05-cell-ticker">STB</span>
+          <svg class="c05-cell-icon" viewBox="0 0 24 24" fill="none"><path d="M4 16 L10 10 L14 14 L20 6" stroke="#e8441e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="c05-cell-pct">+3,8%</div>
+      </div>
+      <div class="c05-cell" id="c05-cell-5">
+        <div class="c05-cell-top">
+          <span class="c05-cell-ticker">TCB</span>
+          <svg class="c05-cell-icon" viewBox="0 0 24 24" fill="none"><path d="M4 16 L10 10 L14 14 L20 6" stroke="#e8441e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="c05-cell-pct">+1,6%</div>
+      </div>
+      <div class="c05-cell" id="c05-cell-6">
+        <div class="c05-cell-top">
+          <span class="c05-cell-ticker">VNM</span>
+          <svg class="c05-cell-icon" viewBox="0 0 24 24" fill="none"><path d="M4 16 L10 10 L14 14 L20 6" stroke="#e8441e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="c05-cell-pct">+1,1%</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#c05-kicker", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.3, ease: "power3.out" }, 0);
+      tl.fromTo("#c05-headline", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.2);
+
+      var cells = ["#c05-cell-1", "#c05-cell-2", "#c05-cell-3", "#c05-cell-4", "#c05-cell-5", "#c05-cell-6"];
+      cells.forEach(function (sel, i) {
+        tl.fromTo(sel, { opacity: 0, y: 20, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.34, ease: "back.out(1.6)" }, 0.75 + i * 0.16);
+      });
+
+      window.__timelines["05-context"] = tl;
+    })();
+  </script>
+</template>

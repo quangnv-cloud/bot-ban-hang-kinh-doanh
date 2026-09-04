@@ -1,0 +1,14 @@
+{
+  "name": "vingroup-von-hoa-gan-2-trieu-ty",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.8.27 preview",
+    "check": "npx --yes hyperframes@0.8.27 check",
+    "render": "npx --yes hyperframes@0.8.27 render",
+    "publish": "npx --yes hyperframes@0.8.27 publish"
+  },
+  "devDependencies": {
+    "@hyperframes/core": "^0.8.27"
+  }
+}

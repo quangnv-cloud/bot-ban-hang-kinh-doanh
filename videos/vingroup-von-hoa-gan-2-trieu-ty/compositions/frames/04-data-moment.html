@@ -1,0 +1,107 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+    .d04-bg { position: absolute; inset: 0; background: #111111; }
+    .d04-bg::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 50% 42%, rgba(232,68,30,0.14) 0%, rgba(17,17,17,0) 58%);
+    }
+
+    .d04-kicker { position: absolute; left: 64px; top: 210px; font-weight: 700; font-size: 24px; letter-spacing: 0.16em; text-transform: uppercase; color: #e8441e; }
+
+    /* Icon Grid signature — bố cục 1 ô chính + 2 ô phụ (không phải số đơn độc giữa khung). */
+    .d04-grid { position: absolute; left: 64px; right: 64px; top: 700px; display: flex; align-items: stretch; gap: 20px; }
+
+    .d04-side {
+      flex: none;
+      width: 220px;
+      border: 1.5px solid rgba(255,255,255,0.14);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      padding: 26px 22px;
+      display: flex; flex-direction: column; justify-content: center; gap: 10px;
+      opacity: 0.75;
+    }
+    .d04-side-label { font-weight: 600; font-size: 17px; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.55); }
+    .d04-side-value { font-weight: 800; font-size: 34px; color: #ffffff; letter-spacing: -0.01em; }
+    .d04-side-value .accent { color: #e8441e; }
+
+    .d04-main {
+      flex: 1;
+      min-width: 0;
+      border: 2px solid rgba(232,68,30,0.55);
+      border-radius: 22px;
+      background: rgba(232,68,30,0.07);
+      padding: 56px 24px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+      text-align: center;
+    }
+    .d04-main-eyebrow { font-weight: 700; font-size: 20px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.65); }
+    .d04-main-hero { font-weight: 900; font-size: 72px; line-height: 1; color: #e8441e; letter-spacing: -0.02em; white-space: nowrap; }
+    .d04-main-unit { font-weight: 700; font-size: 30px; letter-spacing: 0.02em; color: #ffffff; }
+  </style>
+
+  <div id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+    <div id="d04-bg" class="clip d04-bg" data-start="0" data-duration="8.03" data-track-index="0"></div>
+    <div id="d04-kicker" class="clip d04-kicker" data-start="0" data-duration="8.03" data-track-index="1">Cột mốc vốn hóa</div>
+
+    <div id="d04-grid" class="clip d04-grid" data-start="0" data-duration="8.03" data-track-index="2">
+      <div class="d04-side" id="d04-side-left">
+        <div class="d04-side-label">Mã cổ phiếu</div>
+        <div class="d04-side-value"><span class="accent">VIC ▲</span> +4,7%</div>
+      </div>
+
+      <div class="d04-main" id="d04-main">
+        <div class="d04-main-eyebrow">Vốn hóa Vingroup</div>
+        <div class="d04-main-hero" id="d04-hero">~0 triệu tỷ</div>
+        <div class="d04-main-unit">Kỷ lục lịch sử thị trường</div>
+      </div>
+
+      <div class="d04-side" id="d04-side-right">
+        <div class="d04-side-label">Giá cổ phiếu</div>
+        <div class="d04-side-value">256.100<br>đ/CP</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var heroEl = document.getElementById("d04-hero");
+      var mainEl = document.getElementById("d04-main");
+      if (heroEl && window.__hyperframes && window.__hyperframes.fitTextFontSize) {
+        var innerWidth = mainEl ? (mainEl.clientWidth - 48) : 380;
+        var fit = window.__hyperframes.fitTextFontSize(
+          "~2 triệu tỷ",
+          { fontFamily: "Montserrat", fontWeight: 900, maxWidth: innerWidth, baseFontSize: 72, minFontSize: 40 }
+        );
+        heroEl.style.fontSize = fit.fontSize + "px";
+      }
+
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#d04-kicker", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0);
+      tl.fromTo("#d04-side-left", { opacity: 0, x: -20 }, { opacity: 0.75, x: 0, duration: 0.34, ease: "power3.out" }, 0.3);
+      tl.fromTo("#d04-main", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(1.5)" }, 0.7);
+
+      var counter = { v: 0 };
+      tl.to(counter, {
+        v: 2,
+        duration: 0.9,
+        ease: "power2.out",
+        onUpdate: function () {
+          heroEl.textContent = "~" + Math.round(counter.v) + " triệu tỷ";
+        }
+      }, 1.0);
+      tl.set(heroEl, { textContent: "~2 triệu tỷ" }, 1.9);
+
+      tl.fromTo("#d04-side-right", { opacity: 0, x: 20 }, { opacity: 0.75, x: 0, duration: 0.34, ease: "power3.out" }, 2.1);
+
+      window.__timelines["04-data-moment"] = tl;
+    })();
+  </script>
+</template>
