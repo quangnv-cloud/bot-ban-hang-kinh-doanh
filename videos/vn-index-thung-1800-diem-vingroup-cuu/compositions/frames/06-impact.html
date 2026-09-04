@@ -1,0 +1,91 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+    .i06-bg { position: absolute; inset: 0; background: #111111; }
+
+    .i06-kicker {
+      position: absolute; left: 64px; top: 250px;
+      font-weight: 700; font-size: 26px; letter-spacing: 0.16em; text-transform: uppercase; color: #e8441e;
+    }
+    .i06-headline {
+      position: absolute; left: 64px; right: 64px; top: 302px;
+      font-weight: 800; font-size: 50px; line-height: 1.18; color: #ffffff;
+    }
+
+    .i06-track-line {
+      position: absolute; left: 64px; right: 64px; top: 700px; height: 3px;
+      background: rgba(255,255,255,0.16);
+    }
+
+    .i06-panels { position: absolute; left: 64px; right: 64px; top: 760px; bottom: 120px; display: flex; gap: 32px; }
+
+    .i06-panel {
+      flex: 1; border-radius: 20px; border: 1.5px solid rgba(232,68,30,0.35);
+      background: rgba(232,68,30,0.06);
+      padding: 44px 38px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .i06-node-dot {
+      width: 26px; height: 26px; border-radius: 50%; background: #e8441e;
+      margin-bottom: 26px;
+    }
+
+    .i06-panel-left .i06-hero { font-weight: 900; font-size: 96px; letter-spacing: -0.02em; color: #e8441e; line-height: 0.95; }
+    .i06-panel-left .i06-hero-label {
+      margin-top: 20px; font-weight: 700; font-size: 25px; line-height: 1.4; color: rgba(255,255,255,0.85);
+    }
+
+    .i06-panel-right .i06-list-title {
+      font-weight: 700; font-size: 22px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.6);
+      margin-bottom: 22px;
+    }
+    .i06-list-row { display: flex; align-items: baseline; justify-content: space-between; padding: 14px 0; border-top: 1px solid rgba(255,255,255,0.12); }
+    .i06-list-row:first-of-type { border-top: none; }
+    .i06-list-sym { font-weight: 800; font-size: 32px; color: #ffffff; }
+    .i06-list-val { font-weight: 700; font-size: 28px; color: #e8441e; }
+  </style>
+
+  <div data-hf-id="hf-i601" id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-i602" class="clip i06-bg" data-start="0" data-duration="9.09" data-track-index="0"></div>
+
+    <div data-hf-id="hf-i603" id="i06-kicker" class="clip i06-kicker" data-start="0" data-duration="9.09" data-track-index="1">Diễn biến khối ngoại</div>
+    <div data-hf-id="hf-i604" id="i06-headline" class="clip i06-headline" data-start="0" data-duration="9.09" data-track-index="2">Khối ngoại quay lại bán ròng nhóm ngân hàng</div>
+
+    <div data-hf-id="hf-i605" id="i06-track" class="clip i06-track-line" data-start="0" data-duration="9.09" data-track-index="3" style="transform-origin: left;"></div>
+
+    <div data-hf-id="hf-i606" id="i06-panels" class="clip i06-panels" data-start="0" data-duration="9.09" data-track-index="4">
+      <div data-hf-id="hf-i607" id="i06-panel-left" class="i06-panel i06-panel-left" style="opacity: 0;">
+        <div data-hf-id="hf-i608" class="i06-node-dot"></div>
+        <span data-hf-id="hf-i609" class="i06-hero">696 tỷ</span>
+        <span data-hf-id="hf-i610" class="i06-hero-label">Khối ngoại bán ròng, tập trung nhóm ngân hàng</span>
+      </div>
+
+      <div data-hf-id="hf-i611" id="i06-panel-right" class="i06-panel i06-panel-right" style="opacity: 0;">
+        <div data-hf-id="hf-i612" class="i06-node-dot"></div>
+        <div data-hf-id="hf-i613" class="i06-list-title">Bị bán ròng nhiều nhất</div>
+        <div data-hf-id="hf-i614" class="i06-list-row"><span data-hf-id="hf-i615" class="i06-list-sym">VCB</span><span data-hf-id="hf-i616" class="i06-list-val">-215 tỷ</span></div>
+        <div data-hf-id="hf-i617" class="i06-list-row"><span data-hf-id="hf-i618" class="i06-list-sym">VPB</span><span data-hf-id="hf-i619" class="i06-list-val">-173 tỷ</span></div>
+        <div data-hf-id="hf-i620" class="i06-list-row"><span data-hf-id="hf-i621" class="i06-list-sym">TCB</span><span data-hf-id="hf-i622" class="i06-list-val">-155 tỷ</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#i06-kicker", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.28, ease: "power3.out" }, 0);
+      tl.fromTo("#i06-headline", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.36, ease: "power3.out" }, 0.16);
+      tl.fromTo("#i06-track", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power1.inOut" }, 0.5);
+
+      tl.fromTo("#i06-panel-left", { opacity: 0, y: 20, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power2.out" }, 0.85);
+      tl.fromTo("#i06-panel-right", { opacity: 0, y: 20, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power2.out" }, 1.05);
+
+      window.__timelines["06-impact"] = tl;
+    })();
+  </script>
+</template>

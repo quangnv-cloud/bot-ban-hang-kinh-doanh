@@ -1,0 +1,116 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+    .d04-bg { position: absolute; inset: 0; background: #111111; }
+
+    .d04-kicker {
+      position: absolute; left: 64px; top: 260px; width: 952px;
+      font-weight: 700; font-size: 26px; letter-spacing: 0.16em; text-transform: uppercase; color: #e8441e;
+      text-align: center;
+    }
+    .d04-headline {
+      position: absolute; left: 64px; right: 64px; top: 312px;
+      font-weight: 800; font-size: 50px; line-height: 1.16; color: #ffffff; text-align: center;
+    }
+
+    .d04-axis-wrap { position: absolute; left: 0; right: 0; top: 780px; height: 500px; }
+
+    /* Centering rows use flexbox (no CSS transform), so the inner element is free for
+       GSAP transform tweens (scale/y) without a gsap_css_transform_conflict. */
+    .d04-center-row { position: absolute; left: 0; right: 0; display: flex; justify-content: center; }
+
+    .d04-ticker {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 10px 22px; border-radius: 8px;
+      border: 1.5px solid rgba(232,68,30,0.7); background: rgba(232,68,30,0.1);
+    }
+    .d04-ticker span { font-weight: 700; font-size: 26px; letter-spacing: 0.04em; }
+    .d04-ticker .sym { color: #ffffff; }
+    .d04-ticker .chg { color: #e8441e; }
+
+    .d04-node-wrap {
+      width: 420px; height: 420px; border-radius: 50%;
+      border: 5px solid #e8441e;
+      display: flex; align-items: center; justify-content: center; flex-direction: column;
+      background: radial-gradient(circle, rgba(232,68,30,0.12) 0%, rgba(17,17,17,0) 70%);
+    }
+    .d04-hero-num { font-weight: 900; font-size: 168px; letter-spacing: -0.03em; color: #e8441e; line-height: 0.9; }
+    .d04-hero-unit { font-weight: 700; font-size: 24px; letter-spacing: 0.06em; text-transform: uppercase; color: #ffffff; text-align: center; max-width: 320px; margin-top: 12px; }
+
+    .d04-sub {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-weight: 600; font-size: 30px; color: rgba(255,255,255,0.82);
+    }
+    .d04-sub .up { color: #e8441e; font-weight: 800; }
+  </style>
+
+  <div data-hf-id="hf-d401" id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-d402" class="clip d04-bg" data-start="0" data-duration="8.11" data-track-index="0"></div>
+
+    <div data-hf-id="hf-d403" id="d04-kicker" class="clip d04-kicker" data-start="0" data-duration="8.11" data-track-index="1">Động lực chính</div>
+    <div data-hf-id="hf-d404" id="d04-headline" class="clip d04-headline" data-start="0" data-duration="8.11" data-track-index="2">Vingroup kéo chỉ số hồi phục</div>
+
+    <div data-hf-id="hf-d405" id="d04-axis" class="clip d04-axis-wrap" data-start="0" data-duration="8.11" data-track-index="3">
+      <svg data-hf-id="hf-d406" width="1080" height="500" viewBox="0 0 1080 500" style="position:absolute; inset:0;">
+        <line data-hf-id="hf-d407" id="d04-line-left" x1="70" y1="370" x2="330" y2="370" stroke="rgba(255,255,255,0.25)" stroke-width="3"></line>
+        <line data-hf-id="hf-d408" id="d04-line-right" x1="750" y1="370" x2="1010" y2="370" stroke="rgba(255,255,255,0.25)" stroke-width="3"></line>
+      </svg>
+
+      <div data-hf-id="hf-d409b" class="d04-center-row" style="top: 40px;">
+        <div data-hf-id="hf-d409" id="d04-ticker" class="d04-ticker" style="opacity: 0;">
+          <span data-hf-id="hf-d410" class="sym">VIC</span><span data-hf-id="hf-d411" class="chg">▲ +3,6%</span>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-d412b" class="d04-center-row" style="top: 160px;">
+        <div data-hf-id="hf-d412" id="d04-node" class="d04-node-wrap" style="opacity: 0;">
+          <span data-hf-id="hf-d413" class="d04-hero-num" id="d04-hero-num">~15</span>
+          <span data-hf-id="hf-d414" class="d04-hero-unit">Điểm VN-Index từ nhóm Vingroup</span>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-d415b" class="d04-center-row" style="top: 620px;">
+        <div data-hf-id="hf-d415" id="d04-sub" class="d04-sub" style="opacity: 0;">
+          <span data-hf-id="hf-d416">VHM (Vinhomes)</span><span data-hf-id="hf-d417" class="up">▲ +0,55%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#d04-kicker", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.28, ease: "power3.out" }, 0);
+      tl.fromTo("#d04-headline", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.36, ease: "power3.out" }, 0.16);
+
+      var leftLine = document.getElementById("d04-line-left");
+      var rightLine = document.getElementById("d04-line-right");
+      [leftLine, rightLine].forEach(function (lineEl) {
+        var len = lineEl.getTotalLength();
+        lineEl.style.strokeDasharray = len;
+        lineEl.style.strokeDashoffset = len;
+      });
+      tl.to(leftLine, { strokeDashoffset: 0, duration: 0.6, ease: "power1.inOut" }, 0.5);
+      tl.to(rightLine, { strokeDashoffset: 0, duration: 0.6, ease: "power1.inOut" }, 0.5);
+
+      tl.fromTo("#d04-ticker", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" }, 0.7);
+      tl.fromTo("#d04-node", { opacity: 0, scale: 0.55 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 1.05);
+
+      var counter = { val: 0 };
+      var numEl = document.getElementById("d04-hero-num");
+      tl.to(counter, {
+        val: 15, duration: 0.9, ease: "power2.out",
+        onUpdate: function () { numEl.textContent = "~" + Math.round(counter.val); },
+      }, 1.35);
+
+      tl.fromTo("#d04-sub", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 2.3);
+
+      window.__timelines["04-data-moment"] = tl;
+    })();
+  </script>
+</template>

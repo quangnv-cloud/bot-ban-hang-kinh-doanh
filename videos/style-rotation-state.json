@@ -11,7 +11,7 @@
     "9-editorial-clipping",
     "10-stock-terminal"
   ],
-  "last_used_index": 5,
+  "last_used_index": 6,
   "log": [
     {
       "index": 0,
@@ -108,6 +108,12 @@
       "style": "6-ring-progress",
       "project": "gia-xang-day-cpi-thang-8-tang",
       "date": "2026-09-03"
+    },
+    {
+      "index": 6,
+      "style": "7-timeline-chronology",
+      "project": "vn-index-thung-1800-diem-vingroup-cuu",
+      "date": "2026-09-04"
     }
   ]
 }

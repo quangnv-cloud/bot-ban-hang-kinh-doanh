@@ -1,0 +1,100 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+    .k03-bg { position: absolute; inset: 0; background: #111111; }
+
+    .k03-kicker {
+      position: absolute; left: 64px; top: 220px;
+      font-weight: 700; font-size: 26px; letter-spacing: 0.16em; text-transform: uppercase; color: #e8441e;
+    }
+    .k03-headline {
+      position: absolute; left: 64px; right: 64px; top: 272px;
+      font-weight: 800; font-size: 52px; line-height: 1.16; color: #ffffff;
+    }
+
+    .k03-axis-wrap { position: absolute; left: 96px; top: 560px; width: 920px; height: 900px; }
+    .k03-axis-line {
+      position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+      background: rgba(255,255,255,0.16);
+    }
+
+    .k03-row { position: absolute; left: 0; display: flex; align-items: center; gap: 34px; }
+    .k03-node {
+      position: relative; left: -19px;
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 4px solid #e8441e; background: #111111;
+      flex: none;
+    }
+    .k03-node-fill { position: absolute; inset: 6px; border-radius: 50%; background: #e8441e; opacity: 0; }
+
+    .k03-text { display: flex; flex-direction: column; gap: 6px; }
+    .k03-label {
+      font-weight: 700; font-size: 24px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.62);
+    }
+    .k03-value { font-weight: 800; font-size: 56px; letter-spacing: -0.01em; color: #ffffff; }
+  </style>
+
+  <div data-hf-id="hf-k301" id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-k302" class="clip k03-bg" data-start="0" data-duration="10.67" data-track-index="0"></div>
+
+    <div data-hf-id="hf-k303" id="k03-kicker" class="clip k03-kicker" data-start="0" data-duration="10.67" data-track-index="1">Kết quả chốt phiên</div>
+    <div data-hf-id="hf-k304" id="k03-headline" class="clip k03-headline" data-start="0" data-duration="10.67" data-track-index="2">Ba chỉ số cùng dừng lại trong sắc đỏ nhẹ</div>
+
+    <div data-hf-id="hf-k305" id="k03-axis" class="clip k03-axis-wrap" data-start="0" data-duration="10.67" data-track-index="3">
+      <div data-hf-id="hf-k306" class="k03-axis-line" id="k03-axis-line" style="transform-origin: top;"></div>
+
+      <div data-hf-id="hf-k307" class="k03-row" id="k03-row-1" style="top: 0px; opacity: 0;">
+        <div data-hf-id="hf-k308" class="k03-node" id="k03-node-1"><div data-hf-id="hf-k309" class="k03-node-fill" id="k03-node-1-fill"></div></div>
+        <div data-hf-id="hf-k310" class="k03-text">
+          <span data-hf-id="hf-k311" class="k03-label">HNX</span>
+          <span data-hf-id="hf-k312" class="k03-value">282,24 điểm</span>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-k313" class="k03-row" id="k03-row-2" style="top: 280px; opacity: 0;">
+        <div data-hf-id="hf-k314" class="k03-node" id="k03-node-2"><div data-hf-id="hf-k315" class="k03-node-fill" id="k03-node-2-fill"></div></div>
+        <div data-hf-id="hf-k316" class="k03-text">
+          <span data-hf-id="hf-k317" class="k03-label">UPCoM</span>
+          <span data-hf-id="hf-k318" class="k03-value">127,84 điểm</span>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-k319" class="k03-row" id="k03-row-3" style="top: 560px; opacity: 0;">
+        <div data-hf-id="hf-k320" class="k03-node" id="k03-node-3"><div data-hf-id="hf-k321" class="k03-node-fill" id="k03-node-3-fill"></div></div>
+        <div data-hf-id="hf-k322" class="k03-text">
+          <span data-hf-id="hf-k323" class="k03-label">Thanh khoản ba sàn</span>
+          <span data-hf-id="hf-k324" class="k03-value">~18.000 tỷ đồng</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#k03-kicker", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.28, ease: "power3.out" }, 0);
+      tl.fromTo("#k03-headline", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.36, ease: "power3.out" }, 0.18);
+
+      tl.fromTo("#k03-axis-line", { scaleY: 0 }, { scaleY: 1, duration: 2.6, ease: "power1.inOut" }, 0.5);
+
+      tl.fromTo("#k03-row-1", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }, 0.7);
+      tl.fromTo("#k03-node-1", { scale: 0 }, { scale: 1, duration: 0.34, ease: "back.out(2.4)" }, 0.7);
+      tl.fromTo("#k03-node-1-fill", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 0.9);
+
+      tl.fromTo("#k03-row-2", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }, 1.7);
+      tl.fromTo("#k03-node-2", { scale: 0 }, { scale: 1, duration: 0.34, ease: "back.out(2.4)" }, 1.7);
+      tl.fromTo("#k03-node-2-fill", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 1.9);
+
+      tl.fromTo("#k03-row-3", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }, 2.7);
+      tl.fromTo("#k03-node-3", { scale: 0 }, { scale: 1, duration: 0.34, ease: "back.out(2.4)" }, 2.7);
+      tl.fromTo("#k03-node-3-fill", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 2.9);
+
+      window.__timelines["03-key-facts"] = tl;
+    })();
+  </script>
+</template>
