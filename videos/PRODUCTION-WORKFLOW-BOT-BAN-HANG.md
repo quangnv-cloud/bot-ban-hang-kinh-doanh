@@ -212,6 +212,18 @@ tĩnh dùng làm bìa/ảnh đại diện video (đăng TikTok/YouTube Shorts...
   logo, nguồn, tiêu đề/số) đều hiển thị đầy đủ, rõ nét, không bị cắt/mờ/tràn. Nếu còn thiếu, thử
   `t` khác trong cửa sổ 3–5s rồi chụp lại — không giao ảnh thumbnail chưa đạt.
 
+**[2026-09-04 — ảnh bìa YouTube không dính, đã fix ở Apps Script bản 34]**: 2 video gần nhất
+(`Pi1GXOCdUxw`, `SuSmwab4JTc`) hiển thị khung giữa video YouTube tự chọn thay vì ảnh bìa thương
+hiệu, dù routine báo "thumbnail thành công". Nguyên nhân: `ytPublishVideo_` set thumbnail đúng 1
+lần ngay sau `videos.insert` — lúc video còn đang xử lý nên YouTube từ chối/bỏ qua. Bản 34 thử
+lại tới 5 lần (chờ 0/25/45/60/60s, dừng khi `code:200`); phản hồi có `result.thumbnail_attempts`.
+**Nếu vẫn sai**, set lại thủ công (video đã xử lý xong nên chắc chắn dính):
+```
+POST <exec> {"action":"yt_set_thumbnail","video_id":"<id YouTube>",
+  "thumbnail_url":"https://raw.githubusercontent.com/quangnv-cloud/bot-ban-hang-kinh-doanh/master/videos/<slug-tin>/output/thumbnail.jpg"}
+```
+trả `code:200` + `youtube#thumbnailSetResponse` là xong.
+
 ## 8. Giao video
 
 - `SendUserFile` file mp4 VÀ file thumbnail (`output/thumbnail.jpg`) kèm caption ngắn.
