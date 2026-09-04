@@ -1509,7 +1509,13 @@ function ytAccessToken_() {
  * what case the caller sends.
  * `thumbnailUrl`, if given, is set via ytSetThumbnail_ after a successful
  * upload; its result is attached as `.thumbnail` without affecting the
- * overall success of the video upload itself.
+ * overall success of the video upload itself. The set is RETRIED with a
+ * growing delay (2026-09-04): a thumbnail set fired the instant videos.insert
+ * returns often 4xx's or gets discarded because the video is still processing
+ * — the CPI + VN-Index videos both ended up showing a YouTube auto-picked
+ * mid-frame despite the routine reporting success. Retrying over ~3 min lets
+ * processing settle. A later manual {"action":"yt_set_thumbnail"} still works
+ * as a fallback if all retries fail.
  */
 function ytPublishVideo_(videoUrl, title, description, privacy, thumbnailUrl) {
   var token = ytAccessToken_();
@@ -1547,8 +1553,26 @@ function ytPublishVideo_(videoUrl, title, description, privacy, thumbnailUrl) {
   var result = { code: resp.getResponseCode(), body: safeJsonParse_(resp.getContentText()) };
 
   if (thumbnailUrl && result.code === 200 && result.body && result.body.id) {
-    try { result.thumbnail = ytSetThumbnail_(result.body.id, thumbnailUrl, token); }
-    catch (e) { result.thumbnail = { error: String(e) }; }
+    var thumbBlob;
+    try { thumbBlob = UrlFetchApp.fetch(thumbnailUrl, { muteHttpExceptions: true }).getBlob(); }
+    catch (e) { thumbBlob = null; }
+    var attempts = [];
+    // First try immediately, then wait 25/45/60s before the next tries — a thumbnail set right
+    // after upload frequently fails or gets dropped while the video is still processing. Total
+    // sleep ~130s keeps the whole doPost well under Apps Script's 6-minute execution limit.
+    var waits = [0, 25000, 45000, 60000];
+    for (var t = 0; t < waits.length; t++) {
+      if (waits[t]) Utilities.sleep(waits[t]);
+      var tr;
+      try {
+        tr = thumbBlob ? ytSetThumbnailFromBlob_(result.body.id, thumbBlob, token)
+                       : ytSetThumbnail_(result.body.id, thumbnailUrl, token);
+      } catch (e) { tr = { error: String(e) }; }
+      attempts.push(tr);
+      result.thumbnail = tr;
+      if (tr && tr.code === 200) break;
+    }
+    result.thumbnail_attempts = attempts.length;
   }
 
   return result;
