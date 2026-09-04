@@ -12,6 +12,18 @@ cần bước 1-2 rồi đăng nhập lại đúng tài khoản Google/mạng x�
 (`Code.gs` + `SETUP.md`). Các folder video project khác trong repo (vd. `100-doanh-nghiep-...`)
 là dữ liệu render của tuyến cũ, không liên quan tuyến mới, rất nặng (hàng nghìn file cache).
 
+Link lấy 2 file (repo public, không cần đăng nhập):
+- `Code.gs`: `https://raw.githubusercontent.com/quangnv-cloud/bot-ban-hang-kinh-doanh/master/videos/automation/news-fetch-gas/Code.gs`
+- `SETUP.md`: `https://raw.githubusercontent.com/quangnv-cloud/bot-ban-hang-kinh-doanh/master/videos/automation/news-fetch-gas/SETUP.md`
+
+**[Cập nhật 2026-09-04 — Code.gs đã đơn giản hơn cho tuyến mới]**:
+- Ảnh bài báo giờ TỰ ĐỘNG: `Code.gs` parse URL ảnh từ RSS, và route `GET <exec>?image=<news_id>`
+  tải + cache ảnh phía Google. **Tuyến mới KHÔNG cần đụng gì tới egress allowlist ảnh** — bỏ qua
+  toàn bộ phần "domain CDN ảnh" trong `SETUP.md` (đó là cách cũ, đã bỏ).
+- Trước khi dán `Code.gs`: sửa `var STYLE_CURSOR_SEED = 6;` → `= 9` (để video đầu tiên của tuyến
+  mới dùng style index 0). Có thể đổi `NEWS_IMAGE_FOLDER_NAME` sang tên riêng của tuyến nếu muốn.
+- Khi chạy `fetchAndStore` lần đầu, Google sẽ xin thêm quyền Google Drive (để cache ảnh) — cứ cấp.
+
 ---
 
 ## A. Máy mới — cài phần mềm (1 lần/máy)
@@ -32,16 +44,20 @@ là dữ liệu render của tuyến cũ, không liên quan tuyến mới, rất
 ## C. Apps Script project mới (1 lần/tuyến) — làm theo `SETUP.md` mục "Các bước (làm 1 lần)"
 
 - [ ] `script.google.com` → **Dự án mới** (standalone, không cần tạo Sheet trước).
-- [ ] Dán `Code.gs` vào, **sửa mảng `FEEDS`** cho đúng nguồn tin của tuyến mới (RSS phù hợp chủ
-      đề/thị trường mới — đây là chỗ DUY NHẤT trong code bắt buộc phải sửa nội dung, phần còn lại
-      là logic dùng chung).
-- [ ] Chạy `fetchAndStore` 1 lần (cấp quyền lần đầu) → xác nhận log "added N new item(s)".
+- [ ] Dán `Code.gs` vào. **Sửa 2 chỗ nội dung** (phần còn lại là logic dùng chung, KHÔNG đụng):
+      (1) mảng `FEEDS` — đổi sang RSS phù hợp chủ đề/thị trường của tuyến mới;
+      (2) `var STYLE_CURSOR_SEED = 6;` → `= 9` (video đầu tuyến mới bắt đầu từ style index 0).
+- [ ] Chạy `fetchAndStore` 1 lần → cấp quyền (lần này có cả quyền Google Drive để cache ảnh, cứ
+      cấp) → xác nhận log "added N new item(s)".
 - [ ] Chạy `installHourlyTrigger` 1 lần.
 - [ ] **Deploy → New deployment** → Web app, Execute as: Me, Who has access: Anyone → copy
       **exec URL mới** (khác hẳn URL của tuyến BOT BÁN HÀNG · KINH DOANH — 2 tuyến 2 URL riêng).
 - [ ] Verify URL trả JSON `{"items":[...]}` — nhớ test **từ đúng môi trường routine sẽ chạy**
       (cloud sandbox), test từ máy cá nhân có thể báo lỗi sai (xem "Ghi chú kỹ thuật" trong
       `SETUP.md`).
+- [ ] Verify thêm: mỗi item có `hasImage`/`imageUrl`; `GET <exec>?image=<id 1 tin có hasImage:true>`
+      trả `{"ok":true,...,"data":"<base64>"}`. `POST <exec> {"action":"style_state"}` trả
+      `last_used_index: 9, next_index: 0`.
 
 ## D. Đăng ký app cho từng nền tảng đăng bài (1 lần/tuyến, chỉ làm cho kênh nào tuyến mới thật sự dùng)
 
