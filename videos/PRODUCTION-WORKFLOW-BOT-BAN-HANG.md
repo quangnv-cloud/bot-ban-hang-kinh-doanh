@@ -610,6 +610,24 @@ cố cùng nguyên nhân gốc tái diễn, mức độ ưu tiên xử lý nên 
 cho lần chạy kế tiếp (dựng lại từ index đúng của vòng xoay, ví dụ index 5 — Ring Progress) nếu người
 vận hành muốn giữ lại tin giá vàng này, hoặc bỏ qua vì tin đã hơi cũ theo giờ chạy tiếp theo.
 
+**[2026-09-04 — CDN ảnh lại bị chặn ở tầng egress proxy, TÁI PHÁT sau khi đã hoạt động ở
+2026-09-03]**: re-test 7 domain CDN ảnh trước khi chọn tin, theo đúng quy trình — kết quả **7/7 bị
+chặn ở tầng CONNECT/TLS** (`vnecdn.net`/timeout, `cdnphoto.dantri.com.vn`/403 origin hoặc "Recv
+failure: Connection reset by peer" xen kẽ giữa các lần thử — kể cả domain vừa xác nhận hoạt động
+hôm 2026-09-03, `cdnweb.dantri.com.vn`/403 CONNECT, `zadn.vn`/timeout, `vnncdn.net`/502 CONNECT,
+`photo.znews.vn`/403 CONNECT, `i1-kinhdoanh.vnecdn.net`/403 CONNECT — xác nhận qua log proxy nội bộ
+(`recentRelayFailures`, toàn bộ ghi "policy denial or upstream failure" hoặc tunnel bị đóng giữa
+chừng), trong khi `script.google.com`/`api.elevenlabs.io`/`github.com` vẫn reachable bình thường.
+Xác nhận `git log` không có commit nào mới trong ~9 giờ gần nhất trước khi test (loại trừ khả năng
+xung đột 2 routine chạy song song). Dừng lại ngay ở bước 1 như quy trình — không chọn/đánh dấu tin,
+không dựng project. Đây là lần tái phát MỚI sau khi vấn đề đã tự hết ở 2026-09-03 (không phải tiếp
+diễn chuỗi 5 lần cũ), nên đã gửi push notification cho người vận hành ở lần chạy này (khác quy tắc
+"không gửi lặp lại" áp dụng cho cùng 1 chuỗi chưa đổi trạng thái). Việc-cần-làm (1)-(3) ở mục
+"2026-09-01" phía trên (xác nhận đúng environment, khôi phục allowlist domain ảnh, verify lại bằng
+`fire_trigger`) vẫn là hướng xử lý đúng — allowlist tiếp tục cho thấy dấu hiệu KHÔNG bền vững qua các
+lần chạy (khi thì hoạt động, khi thì chặn lại hoàn toàn), gợi ý nguyên nhân gốc chưa được khắc phục
+dứt điểm ở tầng cấu hình.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
