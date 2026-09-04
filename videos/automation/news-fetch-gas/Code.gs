@@ -6,6 +6,13 @@
  * (running 7h/12h30/19h30) can pull unused candidate headlines and mark the
  * one it picks as used — without needing an MCP connector or local access.
  *
+ * Also serves, through the same always-reachable script.google.com endpoint:
+ *  - GET ?image=<newsId>       the article's lead photo (fetched + cached
+ *                              server-side, so the sandbox never hits a news
+ *                              CDN — see the News-image cache section)
+ *  - POST {"action":"claim_style"}  the next construction-style slot, handed
+ *                              out under a lock so parallel runs don't collide
+ *
  * Setup: see SETUP.md in this same folder.
  */
 
@@ -28,7 +35,30 @@ var FEEDS = [
 
 var SHEET_NAME = 'news_queue';
 var MAX_AGE_HOURS_FOR_API = 30; // doGet only returns items published within this window
-var HEADERS = ['id', 'title', 'link', 'source', 'category', 'pubDate', 'fetchedAt', 'used', 'usedAt', 'usedByVideo'];
+// 'imageUrl'   — lead photo URL parsed straight from the RSS item (enclosure / <img> in
+//                description). Filled at fetchAndStore time.
+// 'imageFileId'— Drive file id of that photo once it has been cached server-side (lazily, on
+//                the first GET ?image=<id> request). Blank until then.
+var HEADERS = ['id', 'title', 'link', 'source', 'category', 'pubDate', 'fetchedAt', 'used', 'usedAt', 'usedByVideo', 'imageUrl', 'imageFileId'];
+var NEWS_IMAGE_FOLDER_NAME = 'BBH_NEWS_IMAGES';
+var NEWS_IMAGE_MAX_AGE_DAYS = 7; // cached photos older than this are purged on each fetchAndStore run
+
+// ---- Construction-style rotation --------------------------------------------
+// Source of truth for "which of the 10 construction styles the next video uses" — moved here
+// 2026-09-04 from videos/style-rotation-state.json in the repo, because two routines running
+// close together kept reading the same last_used_index from the file before either committed,
+// so both picked the same style slot (incidents 2026-08-30 and 2026-09-03). The Apps Script
+// claim_style action hands out the next index under a LockService lock, so concurrent runs get
+// distinct slots. The JSON file is kept as a human-readable mirror/log only.
+var STYLE_ROTATION = [
+  '1-card-and-bar', '2-chip-and-leaderboard', '3-ticker-tape', '4-split-comparison',
+  '5-map-and-geo', '6-ring-progress', '7-timeline-chronology', '8-icon-grid',
+  '9-editorial-clipping', '10-stock-terminal'
+];
+// Seed used only if the STYLE_CURSOR Script Property has never been set. 6 = the last index the
+// JSON file recorded as used (style 7 — Timeline Chronology, video vn-index-thung-1800-diem,
+// 2026-09-04), so the first claim_style call returns index 7 (style 8 — Icon Grid).
+var STYLE_CURSOR_SEED = 6;
 
 // Cross-channel posting log (Facebook + future TikTok/YouTube) — same
 // spreadsheet as news_queue, separate tab. See logPost_ + POSTS_HEADERS below.
@@ -55,6 +85,16 @@ function getSheet_() {
     sheet = ss.insertSheet(SHEET_NAME);
     sheet.appendRow(HEADERS);
     sheet.setFrozenRows(1);
+    return sheet;
+  }
+  // Reconcile the header row so a sheet created before a column was added still lines up with
+  // HEADERS (existing data rows just carry blanks in the new columns). Only ever appends new
+  // header cells at the end — never reorders or renames — so column indexes stay stable.
+  var width = sheet.getLastColumn();
+  var current = width > 0 ? sheet.getRange(1, 1, 1, width).getValues()[0] : [];
+  if (current.length < HEADERS.length) {
+    var missing = HEADERS.slice(current.length);
+    sheet.getRange(1, current.length + 1, 1, missing.length).setValues([missing]);
   }
   return sheet;
 }
@@ -170,6 +210,8 @@ function fetchAndStore() {
           now.toISOString(),
           false,
           '',
+          '',
+          extractImageUrl_(item),
           ''
         ]);
         existingLinks[link] = true;
@@ -183,6 +225,195 @@ function fetchAndStore() {
     sheet.getRange(sheet.getLastRow() + 1, 1, newRows.length, HEADERS.length).setValues(newRows);
   }
   Logger.log('fetchAndStore: added %s new item(s)', newRows.length);
+
+  try { purgeOldNewsImages_(); } catch (pErr) { Logger.log('purgeOldNewsImages_ failed: %s', pErr); }
+}
+
+/**
+ * Pulls the lead-photo URL out of one RSS <item>. VnExpress and Tuổi Trẻ put it in
+ * <enclosure url="..." type="image/*">, Dân Trí and Znews embed a single <img src="..."> at the
+ * top of the CDATA <description>, and some feeds use the Media RSS <media:content>/<media:thumbnail>.
+ * Returns '' if none is found. The host is always a news-site image CDN
+ * (icdn.dantri.com.vn, i1-*.vnecdn.net, cdn*.tuoitre.vn, photo.znews.vn, ...) — it is only ever
+ * fetched later, server-side, by serveNewsImage_ for an item this feed itself selected.
+ */
+function extractImageUrl_(item) {
+  try {
+    var enc = item.getChild('enclosure');
+    if (enc) {
+      var typeAttr = enc.getAttribute('type');
+      var urlAttr = enc.getAttribute('url');
+      if (urlAttr && (!typeAttr || /^image\//i.test(typeAttr.getValue()))) {
+        return urlAttr.getValue().trim();
+      }
+    }
+  } catch (e) {}
+
+  try {
+    var mediaNs = XmlService.getNamespace('http://search.yahoo.com/mrss/');
+    var mc = item.getChild('content', mediaNs) || item.getChild('thumbnail', mediaNs);
+    if (mc && mc.getAttribute('url')) return mc.getAttribute('url').getValue().trim();
+  } catch (e) {}
+
+  var blobs = [];
+  try { blobs.push(item.getChildText('description') || ''); } catch (e) {}
+  try {
+    var contentNs = XmlService.getNamespace('http://purl.org/rss/1.0/modules/content/');
+    blobs.push(item.getChildText('encoded', contentNs) || '');
+  } catch (e) {}
+  for (var i = 0; i < blobs.length; i++) {
+    var m = blobs[i].match(/<img[^>]+src=["']([^"']+)["']/i);
+    if (m && /^https?:\/\//i.test(m[1])) return m[1].trim();
+  }
+  return '';
+}
+
+// ---- News-image cache ----------------------------------------------------
+//
+// The video routine used to curl the article photo straight off the news CDN
+// (icdn.dantri.com.vn, i1-*.vnecdn.net, cdn*.tuoitre.vn, photo.znews.vn, ...) from the cloud
+// sandbox. That sandbox goes through an egress proxy with a hostname allowlist, and those exact
+// CDN subdomains kept being off it / unstable — every few days a whole run would abort at step 1
+// with no photo (2026-09-01..02 five in a row, again 2026-09-04). Fix: fetch the photo here
+// instead. Apps Script runs on Google's own IPs (not the sandbox, not the proxy) and the news
+// CDNs serve those fine — same reason all the social publishing already goes through this script.
+
+function getNewsImageFolder_() {
+  var props = PropertiesService.getScriptProperties();
+  var fid = props.getProperty('NEWS_IMAGE_FOLDER_ID');
+  if (fid) {
+    try { return DriveApp.getFolderById(fid); } catch (e) { /* fall through and recreate */ }
+  }
+  var it = DriveApp.getFoldersByName(NEWS_IMAGE_FOLDER_NAME);
+  var folder = it.hasNext() ? it.next() : DriveApp.createFolder(NEWS_IMAGE_FOLDER_NAME);
+  props.setProperty('NEWS_IMAGE_FOLDER_ID', folder.getId());
+  return folder;
+}
+
+/**
+ * GET ?image=<newsId> handler. Looks the id up in news_queue, returns the item's lead photo as
+ * base64 in JSON. Fetches + caches to Drive on first call, serves the cached copy after.
+ */
+function serveNewsImage_(newsId) {
+  var out = function (obj) {
+    return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
+  };
+  var sheet = getSheet_();
+  var lastRow = sheet.getLastRow();
+  if (lastRow < 2) return out({ ok: false, error: 'news_queue empty' });
+
+  var idIdx = HEADERS.indexOf('id');
+  var urlIdx = HEADERS.indexOf('imageUrl');
+  var fileIdx = HEADERS.indexOf('imageFileId');
+  var data = sheet.getRange(2, 1, lastRow - 1, HEADERS.length).getValues();
+  var rowNum = -1, rec = null;
+  for (var i = 0; i < data.length; i++) {
+    if (String(data[i][idIdx]) === newsId) { rowNum = i + 2; rec = data[i]; break; }
+  }
+  if (rowNum === -1) return out({ ok: false, error: 'news id not found: ' + newsId });
+
+  var cachedId = rec[fileIdx];
+  if (cachedId) {
+    try {
+      var f = DriveApp.getFileById(cachedId);
+      var b = f.getBlob();
+      return out({ ok: true, mime: b.getContentType() || 'image/jpeg', filename: f.getName(),
+        cached: true, data: Utilities.base64Encode(b.getBytes()) });
+    } catch (e) { /* cached file gone — re-fetch below */ }
+  }
+
+  var imageUrl = String(rec[urlIdx] || '').trim();
+  if (!imageUrl) return out({ ok: false, error: 'no imageUrl parsed from the RSS item for ' + newsId });
+
+  var resp;
+  try {
+    resp = UrlFetchApp.fetch(imageUrl, { muteHttpExceptions: true, followRedirects: true });
+  } catch (e) {
+    return out({ ok: false, error: 'fetch threw: ' + e, imageUrl: imageUrl });
+  }
+  if (resp.getResponseCode() !== 200) {
+    return out({ ok: false, error: 'source returned HTTP ' + resp.getResponseCode(), imageUrl: imageUrl });
+  }
+  var blob = resp.getBlob();
+  var ct = (blob.getContentType() || '').toLowerCase();
+  if (ct && ct.indexOf('image/') !== 0) {
+    return out({ ok: false, error: 'source is not an image (content-type ' + ct + ')', imageUrl: imageUrl });
+  }
+  var ext = ct.indexOf('png') > -1 ? 'png' : (ct.indexOf('webp') > -1 ? 'webp' : 'jpg');
+  try {
+    var file = getNewsImageFolder_().createFile(blob.setName(newsId + '.' + ext));
+    sheet.getRange(rowNum, fileIdx + 1).setValue(file.getId());
+    cachedId = file.getId();
+  } catch (e) {
+    Logger.log('serveNewsImage_: Drive cache failed (%s) — serving bytes without caching', e);
+  }
+  return out({ ok: true, mime: ct || 'image/jpeg', filename: newsId + '.' + ext,
+    cached: !!cachedId, data: Utilities.base64Encode(blob.getBytes()) });
+}
+
+/**
+ * Trashes cached photos for news_queue rows older than NEWS_IMAGE_MAX_AGE_DAYS and clears their
+ * imageFileId cell. Called at the end of fetchAndStore (hourly). Bounded work — only touches
+ * rows that actually have a cached file id.
+ */
+function purgeOldNewsImages_() {
+  var sheet = getSheet_();
+  var lastRow = sheet.getLastRow();
+  if (lastRow < 2) return;
+  var fetchedIdx = HEADERS.indexOf('fetchedAt');
+  var fileIdx = HEADERS.indexOf('imageFileId');
+  var data = sheet.getRange(2, 1, lastRow - 1, HEADERS.length).getValues();
+  var cutoff = Date.now() - NEWS_IMAGE_MAX_AGE_DAYS * 24 * 3600 * 1000;
+  var purged = 0;
+  for (var i = 0; i < data.length; i++) {
+    var fid = data[i][fileIdx];
+    if (!fid) continue;
+    var fetchedAt = new Date(data[i][fetchedIdx]).getTime();
+    if (isNaN(fetchedAt) || fetchedAt >= cutoff) continue;
+    try { DriveApp.getFileById(fid).setTrashed(true); } catch (e) {}
+    sheet.getRange(i + 2, fileIdx + 1).setValue('');
+    purged++;
+  }
+  if (purged) Logger.log('purgeOldNewsImages_: trashed %s cached photo(s)', purged);
+}
+
+// ---- Construction-style rotation cursor --------------------------------------
+
+function styleState_() {
+  var cur = parseInt(PropertiesService.getScriptProperties().getProperty('STYLE_CURSOR'), 10);
+  if (isNaN(cur)) cur = STYLE_CURSOR_SEED;
+  var next = (cur + 1) % STYLE_ROTATION.length;
+  return { ok: true, last_used_index: cur, last_used_style: STYLE_ROTATION[cur],
+    next_index: next, next_style: STYLE_ROTATION[next], rotation: STYLE_ROTATION };
+}
+
+/**
+ * Atomically hands out the next construction-style slot. POST {"action":"claim_style",
+ * "video":"<slug>"} → {"ok":true,"index":N,"style":"N-name"}. LockService serialises concurrent
+ * routine runs so they can't both grab the same slot. A claimed slot that never ships a video
+ * (run aborts later) is simply skipped — acceptable, the rotation just advances one extra.
+ */
+function claimStyle_(videoSlug) {
+  var lock = LockService.getScriptLock();
+  try {
+    lock.waitLock(30000);
+  } catch (e) {
+    return { ok: false, error: 'could not acquire style lock (another run holds it) — retry shortly' };
+  }
+  try {
+    var props = PropertiesService.getScriptProperties();
+    var cur = parseInt(props.getProperty('STYLE_CURSOR'), 10);
+    if (isNaN(cur)) cur = STYLE_CURSOR_SEED;
+    var next = (cur + 1) % STYLE_ROTATION.length;
+    props.setProperty('STYLE_CURSOR', String(next));
+    var log = [];
+    try { log = JSON.parse(props.getProperty('STYLE_CLAIM_LOG') || '[]'); } catch (e) {}
+    log.push({ index: next, style: STYLE_ROTATION[next], video: videoSlug || '', at: new Date().toISOString() });
+    props.setProperty('STYLE_CLAIM_LOG', JSON.stringify(log.slice(-20)));
+    return { ok: true, index: next, style: STYLE_ROTATION[next], claimed_at: new Date().toISOString() };
+  } finally {
+    lock.releaseLock();
+  }
 }
 
 // ---- HTTP API -------------------------------------------------------------
@@ -192,6 +423,23 @@ function fetchAndStore() {
  * Returns unused items published within MAX_AGE_HOURS_FOR_API, newest first.
  */
 function doGet(e) {
+  // GET ?image=<news id from the items list> — returns that item's lead photo as
+  //   {"ok": true, "mime": "image/jpeg", "filename": "...", "data": "<base64>"}.
+  // The photo is fetched server-side (from Google's IPs, which the news CDNs don't block) and
+  // cached to Drive on first request. This is what the video routine calls for the Hook photo —
+  // it never touches a news CDN directly, so the cloud sandbox's egress allowlist is irrelevant.
+  // NOT an arbitrary-URL proxy: the parameter is an opaque 12-char row id that must already
+  // exist in news_queue; the URL actually fetched is the one this script parsed from its own
+  // hardcoded RSS feeds at ingest, never anything the caller supplies.
+  if (e && e.parameter && e.parameter.image) {
+    return serveNewsImage_(String(e.parameter.image));
+  }
+  // GET ?style_state — read-only peek at the construction-style rotation cursor (diagnostic).
+  if (e && e.parameter && e.parameter.style_state) {
+    return ContentService.createTextOutput(JSON.stringify(styleState_()))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
   var sheet = getSheet_();
   var lastRow = sheet.getLastRow();
   var result = [];
@@ -207,6 +455,10 @@ function doGet(e) {
       if (rec.used === true || rec.used === 'TRUE') return;
       if (new Date(rec.pubDate) < cutoff) return;
       if (categoryFilter && rec.category !== categoryFilter) return;
+      // 'hasImage' tells the routine whether an article photo is available for this item
+      // (fetch the bytes with GET ?image=<id>); imageFileId is an internal Drive id, not exposed.
+      rec.hasImage = !!String(rec.imageUrl || '').trim();
+      delete rec.imageFileId;
       result.push(rec);
     });
 
@@ -286,6 +538,17 @@ function doGet(e) {
  *     — appends one row directly to posts_log (for channels/backfill not
  *       covered by the actions above, e.g. TikTok, or a post made manually
  *       outside this script). See POSTS_HEADERS for fields.
+ * OR:
+ *   {"action": "claim_style", "video": "<slug>"}
+ *     — atomically returns the next construction-style slot
+ *       ({"ok":true,"index":N,"style":"N-name"}), serialised across concurrent
+ *       routine runs by LockService. The routine calls this instead of reading
+ *       videos/style-rotation-state.json. See claimStyle_ / STYLE_ROTATION.
+ *   {"action": "style_state"} — read-only peek at the rotation cursor.
+ *   {"action": "set_style_cursor", "index": N} — admin: force the cursor.
+ *
+ * (GET side: ?image=<newsId> returns that item's article photo as base64 JSON;
+ *  ?style_state mirrors the style_state action.)
  *
  * publish_facebook, publish_facebook_photo, publish_youtube,
  * publish_instagram, and publish_threads log to posts_log automatically on
@@ -664,6 +927,30 @@ function doPost(e) {
       return ContentService.createTextOutput(JSON.stringify({ ok: false, error: String(e7) }))
         .setMimeType(ContentService.MimeType.JSON);
     }
+  }
+
+  if (body.action === 'claim_style') {
+    // Atomic construction-style slot handout — see claimStyle_ / STYLE_ROTATION above.
+    return ContentService.createTextOutput(JSON.stringify(claimStyle_(body.video || '')))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  if (body.action === 'style_state') {
+    return ContentService.createTextOutput(JSON.stringify(styleState_()))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  if (body.action === 'set_style_cursor') {
+    // Admin recovery: force the rotation cursor to a specific last-used index.
+    // {"action":"set_style_cursor","index":N}
+    var sci = parseInt(body.index, 10);
+    if (isNaN(sci) || sci < 0 || sci >= STYLE_ROTATION.length) {
+      return ContentService.createTextOutput(JSON.stringify({ ok: false, error: 'index must be 0..' + (STYLE_ROTATION.length - 1) }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    PropertiesService.getScriptProperties().setProperty('STYLE_CURSOR', String(sci));
+    return ContentService.createTextOutput(JSON.stringify(styleState_()))
+      .setMimeType(ContentService.MimeType.JSON);
   }
 
   if (body.action === 'get_sheet_url') {

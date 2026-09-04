@@ -53,6 +53,9 @@ editorial riêng của kênh (border/shadow nhẹ/rounded corner vừa phải, c
 "BOT BÁN HÀNG" ở góc (không che nội dung ảnh, không biến ảnh thành quảng cáo). Không copy layout
 website nguồn, không tái tạo giao diện web, không đổi nội dung/số liệu/headline gốc.
 
+**Lấy ảnh ở đâu** (routine tự động): `GET <exec>?image=<id tin>` — KHÔNG tải thẳng từ CDN báo.
+Xem `PRODUCTION-WORKFLOW-BOT-BAN-HANG.md` §1 bước 5.
+
 ## Fixed Elements (toàn bộ video, 0 → hết video)
 
 - **Logo BOT BÁN HÀNG** — góc dưới-phải. Fixed position/size/margin. Không animation liên tục, không đổi vị trí giữa scene, không che nội dung.

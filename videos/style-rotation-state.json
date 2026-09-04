@@ -1,4 +1,5 @@
 {
+  "_note": "2026-09-04: nguồn sự thật của con trỏ xoay vòng đã chuyển vào Apps Script (Script Property STYLE_CURSOR, cấp qua POST {action:'claim_style'} dưới LockService — xem automation/news-fetch-gas/Code.gs). File này giờ CHỈ là bản sao cho người đọc; routine vẫn thêm 1 dòng vào log sau mỗi video nhưng KHÔNG đọc last_used_index ở đây nữa.",
   "styles": [
     "1-card-and-bar",
     "2-chip-and-leaderboard",

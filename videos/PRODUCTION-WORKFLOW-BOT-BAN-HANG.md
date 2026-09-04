@@ -49,8 +49,23 @@ liệu/tác động kinh tế rõ hơn.
    trong `BRAND-SYSTEM-BOT-BAN-HANG.md`: act cuối cùng phải là sự thật/số liệu đã xảy ra, KHÔNG
    dùng câu kiểu "liệu xu hướng này có tiếp tục..." — bài học rút ra sau khi video 2 phải cắt bỏ
    act "Takeaway" mang tính nhận định).
-4. Đọc `style-rotation-state.json` để biết "cách dựng" (construction style) cần dùng cho video
-   này, theo đúng con trỏ xoay vòng — xem chi tiết mục 3 bên dưới.
+4. **Nhận "cách dựng" (construction style) cho video này** bằng cách gọi
+   `POST <exec> {"action":"claim_style","video":"<slug-tin>"}` → trả về `{"ok":true,"index":N,
+   "style":"N-tên"}`. Endpoint này cấp chỉ số style kế tiếp trong vòng xoay dưới 1 khoá
+   (LockService), nên 2 routine chạy gần nhau không bao giờ nhận trùng slot (sự cố 2026-08-30 +
+   2026-09-03). **KHÔNG đọc `style-rotation-state.json` để lấy chỉ số nữa** — file đó giờ chỉ là
+   bản sao cho người đọc. Xem chi tiết từng style ở `CONSTRUCTION-STYLES-BOT-BAN-HANG.md`, mục 3
+   bên dưới. Gọi `claim_style` NGAY SAU khi đã chốt tin (bước 1) và đánh dấu `used`, trước khi
+   dựng — nếu run hỏng sau đó, slot bị "cháy" (vòng xoay nhảy thêm 1) là chấp nhận được.
+5. **Ảnh minh hoạ bài báo** (bắt buộc theo brand — Hook + Article Image Card + thumbnail): mỗi
+   item trong danh sách trả về từ bước 1 có `hasImage: true/false` và `imageUrl`. Với tin đã
+   chọn, tải ảnh bằng `GET <exec>?image=<id tin>` → trả JSON
+   `{"ok":true,"mime":"image/jpeg","filename":"...","data":"<base64>"}`. Giải mã base64 ra file
+   (`... | jq -r .data | base64 -d > hook-photo.jpg`). **KHÔNG curl thẳng CDN báo**
+   (`icdn.dantri.com.vn`, `i1-*.vnecdn.net`, `cdn*.tuoitre.vn`, `photo.znews.vn`...) — các domain
+   này chập chờn/không nằm trong egress allowlist của sandbox, đó là nguyên nhân hàng loạt lần
+   routine chết ở bước 1 (2026-09-01→09-04). Apps Script tải ảnh hộ từ IP Google (không bị chặn)
+   và cache lại. Nếu `?image=` trả `ok:false` (ảnh gốc 404/lỗi), chọn tin khác có `hasImage:true`.
 
 ## 2. Sinh giọng đọc (ElevenLabs)
 
@@ -71,14 +86,17 @@ Xem chi tiết đầy đủ (voice_id, lý do bắt buộc `eleven_v3`, cách ve
 2. Dựng từng frame theo cấu trúc **7 act** (xem bảng trong `BRAND-SYSTEM-BOT-BAN-HANG.md`) —
    act cuối cùng (Impact) là điểm kết video, giữ hình + brand anchor tới hết, KHÔNG thêm act
    đóng bằng nhận định/dự báo.
-3. **Mỗi video dùng đúng 1 "cách dựng" theo con trỏ xoay vòng** (`style-rotation-state.json` +
-   `CONSTRUCTION-STYLES-BOT-BAN-HANG.md`, 10 style tổng cộng) — không tự chọn style khác, không
+3. **Mỗi video dùng đúng 1 "cách dựng" — là style đã nhận từ `claim_style` ở §1 bước 4**
+   (`CONSTRUCTION-STYLES-BOT-BAN-HANG.md`, 10 style tổng cộng) — không tự chọn style khác, không
    copy-paste HTML/CSS của một frame cũ rồi chỉ đổi chữ. Hook + Brand Anchor luôn cố định (không
    thuộc style nào), 5 act còn lại (What happened/Key facts/Data moment/Context/Impact) dựng theo
    đúng định hướng ẩn dụ hình ảnh của style đang xoay tới, nhưng vẫn phải tự thiết kế HTML/CSS/
    GSAP thật — mô tả trong file style chỉ là định hướng, không phải đặc tả đủ để bỏ qua thiết kế.
-   **Sau khi dựng xong, cập nhật `last_used_index` + thêm 1 dòng vào `log` trong
-   `style-rotation-state.json`** — bước này bắt buộc, quên sẽ làm vòng xoay bị lệch/lặp style.
+   **Nguồn sự thật của con trỏ xoay vòng giờ nằm trong Apps Script** (Script Property
+   `STYLE_CURSOR`, cấp qua `claim_style` — xem `automation/news-fetch-gas/Code.gs`). Vẫn nên cập
+   nhật `last_used_index` + thêm 1 dòng `log` vào `style-rotation-state.json` cho commit để người
+   đọc theo dõi được, nhưng file đó KHÔNG còn là nơi routine đọc/ghi chỉ số — không lo 2 routine
+   ghi đè nhau, không lo quên cập nhật làm lệch vòng xoay.
 4. **`data-duration` của mỗi frame = độ dài file voice thật (đo ở bước 2) + đệm ~0.3–0.5s** —
    không dùng khung giờ cố định copy từ video trước. Sau khi rút ngắn khung, rà lại TOÀN BỘ mốc
    animation nội bộ (`tl.fromTo(..., t)`) để nhịp cuối vẫn kịp hạ cánh trước khi khung kết thúc.
@@ -627,6 +645,23 @@ diễn chuỗi 5 lần cũ), nên đã gửi push notification cho người vậ
 `fire_trigger`) vẫn là hướng xử lý đúng — allowlist tiếp tục cho thấy dấu hiệu KHÔNG bền vững qua các
 lần chạy (khi thì hoạt động, khi thì chặn lại hoàn toàn), gợi ý nguyên nhân gốc chưa được khắc phục
 dứt điểm ở tầng cấu hình.
+
+**[2026-09-04 — XỬ LÝ DỨT ĐIỂM: chuyển việc lấy ảnh sang Apps Script, bỏ hẳn phụ thuộc CDN]**:
+điều tra kỹ (kiểm tra RSS thật của 4 báo) cho thấy 2 nguyên nhân chồng nhau: (a) host ảnh THẬT
+trong RSS là subdomain khác hẳn cái đã thêm vào allowlist — Dân Trí dùng `icdn.dantri.com.vn`
+(không phải `cdnphoto`/`cdnweb`), VnExpress dùng `i1-kinhdoanh.vnecdn.net` (không phải apex
+`vnecdn.net`), Tuổi Trẻ `cdn2.tuoitre.vn`, Znews `photo.znews.vn` → allowlist "khớp" hay "trượt"
+tuỳ bài báo, tạo ra vẻ chập chờn; (b) một số CDN báo VN tự chặn IP datacenter nước ngoài. Thay vì
+đuổi theo allowlist mãi, **routine không còn tự tải ảnh CDN nữa** — `Code.gs` giờ: (1) parse
+`imageUrl` từ RSS ngay lúc `fetchAndStore`, lưu vào cột `imageUrl` của `news_queue`; (2) route mới
+`GET <exec>?image=<news_id>` tải ảnh đó từ phía Google (IP không bị chặn), cache vào Drive, trả về
+base64 JSON; (3) `?image=` KHÔNG phải proxy fetch URL tuỳ ý — tham số là id nội bộ 12 ký tự phải
+có sẵn trong `news_queue`, URL fetch là cái script tự parse từ RSS cứng của nó, không phải cái
+caller đưa vào. Routine chỉ còn cần với tới `script.google.com` (như đăng bài đã làm từ lâu). Cùng
+đợt: sự cố "2 routine trùng style slot" (2026-08-30 + 2026-09-03) cũng đã xử lý — chỉ số style giờ
+cấp qua `POST {"action":"claim_style"}` dưới LockService, `style-rotation-state.json` chỉ còn là
+bản sao. Deploy: Apps Script bản 33, cùng exec URL. **Allowlist domain ảnh CDN giờ không còn ý
+nghĩa — có thể xoá.**
 
 ---
 
