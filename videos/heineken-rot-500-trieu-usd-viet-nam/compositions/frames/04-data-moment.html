@@ -1,0 +1,83 @@
+<template>
+  <style>
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+
+    .dm-kicker { position: absolute; left: 0; right: 0; top: 210px; display: flex; justify-content: center; align-items: center; gap: 12px; opacity: 0; }
+    .dm-kicker-bar { width: 36px; height: 4px; background: #e8441e; flex: none; }
+    .dm-kicker span { font-weight: 700; font-size: 26px; letter-spacing: 0.16em; text-transform: uppercase; color: #e8441e; }
+
+    .dm-hero { position: absolute; left: 0; right: 0; top: 290px; text-align: center; opacity: 0; }
+    .dm-hero-num { font-weight: 800; font-size: 224px; line-height: 1; color: #e8441e; }
+    .dm-hero-unit { font-weight: 700; font-size: 40px; letter-spacing: 0.12em; text-transform: uppercase; color: #ffffff; margin-top: 26px; }
+
+    .dm-chart { position: absolute; left: 90px; right: 90px; bottom: 200px; height: 620px; display: flex; align-items: flex-end; justify-content: center; gap: 140px; }
+    .dm-col { display: flex; flex-direction: column; align-items: center; width: 240px; }
+    .dm-val { font-weight: 800; font-size: 40px; color: #ffffff; margin-bottom: 14px; opacity: 0; }
+    .dm-val .accent { color: #e8441e; }
+    .dm-bar { width: 128px; border-radius: 12px 12px 0 0; background: linear-gradient(180deg, rgba(232,68,30,0.95) 0%, rgba(232,68,30,0.55) 100%); }
+    .dm-bar.muted { background: linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.22) 100%); }
+    .dm-label { font-weight: 500; font-size: 24px; color: rgba(255,255,255,0.72); margin-top: 20px; text-align: center; line-height: 1.3; opacity: 0; }
+    .dm-baseline { position: absolute; left: 90px; right: 90px; bottom: 200px; height: 2px; background: rgba(255,255,255,0.18); }
+  </style>
+
+  <div id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+    <div class="dm-kicker">
+      <div class="dm-kicker-bar"></div>
+      <span>Số liệu đáng chú ý</span>
+    </div>
+
+    <div class="dm-hero">
+      <div class="dm-hero-num" id="dm-num">0</div>
+      <div class="dm-hero-unit">Triệu đô la Mỹ</div>
+    </div>
+
+    <div class="dm-baseline"></div>
+    <div class="dm-chart">
+      <div class="dm-col">
+        <div class="dm-val" id="dm-val-1">~1.000tr</div>
+        <div class="dm-bar muted" id="dm-bar-1" style="height:420px;"></div>
+        <div class="dm-label" id="dm-lbl-1">Lũy kế 1991&ndash;2026</div>
+      </div>
+      <div class="dm-col">
+        <div class="dm-val" id="dm-val-2"><span class="accent">500tr</span></div>
+        <div class="dm-bar" id="dm-bar-2" style="height:210px;"></div>
+        <div class="dm-label" id="dm-lbl-2">Cam kết mới 2026&ndash;2036</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    const root = document.querySelector('[data-composition-id="04-data-moment"]');
+    const numEl = root.querySelector('#dm-num');
+    const counter = { v: 0 };
+
+    tl.fromTo('.dm-kicker', { autoAlpha: 0, y: -12 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: 'power2.out' }, 0.05);
+    tl.fromTo('.dm-hero', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.1 }, 0.25);
+    tl.fromTo(counter, { v: 0 }, {
+      v: 500, duration: 0.85, ease: 'power1.out',
+      onUpdate() { numEl.textContent = Math.round(counter.v).toString(); }
+    }, 0.25);
+
+    tl.fromTo('#dm-bar-1', { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: 'power2.out', transformOrigin: 'bottom' }, 1.5);
+    tl.fromTo('#dm-val-1', { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.3 }, 1.85);
+    tl.fromTo('#dm-lbl-1', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 1.85);
+
+    tl.fromTo('#dm-bar-2', { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: 'power2.out', transformOrigin: 'bottom' }, 2.2);
+    tl.fromTo('#dm-val-2', { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.3 }, 2.55);
+    tl.fromTo('#dm-lbl-2', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 2.55);
+
+    window.__timelines['04-data-moment'] = tl;
+  </script>
+</template>
