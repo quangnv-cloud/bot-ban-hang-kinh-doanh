@@ -1,0 +1,106 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+    .k03-bg { position: absolute; inset: 0; background: #111111; }
+    .k03-quote {
+      position: absolute; right: 10px; top: 40px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 700; font-size: 360px; line-height: 0.6;
+      color: #e8441e; opacity: 0.07; pointer-events: none; user-select: none;
+    }
+
+    .k03-kicker-row { position: absolute; left: 64px; top: 130px; display: flex; align-items: center; gap: 14px; }
+    .k03-kicker { font-weight: 700; font-size: 24px; letter-spacing: 0.16em; text-transform: uppercase; color: #e8441e; }
+    .k03-headline {
+      position: absolute; left: 64px; right: 64px; top: 178px;
+      font-weight: 800; font-size: 46px; line-height: 1.18; letter-spacing: -0.01em; color: #ffffff;
+    }
+
+    /* Editorial Clipping signature: overlapping torn paper scraps, each rotated at a
+       different angle, with a soft drop shadow — no numbered list, no straight rule. */
+    .k03-stack { position: absolute; inset: 0; }
+    .k03-scrap {
+      position: absolute;
+      left: 96px; right: 96px;
+      height: 296px;
+      background: #fdfdfb;
+      box-shadow: 0 22px 50px rgba(0,0,0,0.5);
+      padding: 34px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .k03-scrap::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 8px;
+      background: #e8441e;
+    }
+    .k03-scrap-1 { top: 707px; transform: rotate(-2.2deg); z-index: 3; }
+    .k03-scrap-2 { top: 957px; transform: rotate(1.6deg); z-index: 2; }
+    .k03-scrap-3 { top: 1207px; transform: rotate(-1.1deg); z-index: 1; }
+
+    .k03-scrap-value {
+      font-weight: 900;
+      font-size: 62px;
+      letter-spacing: -0.02em;
+      color: #111111;
+      line-height: 1.05;
+      margin-left: 24px;
+    }
+    .k03-scrap-value .accent { color: #e8441e; }
+    .k03-scrap-label {
+      font-weight: 600;
+      font-size: 25px;
+      color: #4a4a4a;
+      margin-left: 24px;
+      margin-top: 10px;
+    }
+  </style>
+
+  <div id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <div id="k03-bg" class="clip k03-bg" data-start="0" data-duration="11.084" data-track-index="0"></div>
+    <div id="k03-quote" class="clip k03-quote" data-start="0" data-duration="11.084" data-track-index="1" data-layout-allow-occlusion="true" data-layout-allow-overflow="true">&#8221;</div>
+
+    <div id="k03-kicker-row" class="clip k03-kicker-row" data-start="0" data-duration="11.084" data-track-index="2">
+      <span class="k03-kicker">Ba con số đáng chú ý</span>
+    </div>
+    <div id="k03-headline" class="clip k03-headline" data-start="0" data-duration="11.084" data-track-index="3">Lợi nhuận và vốn chủ sở hữu cùng tăng vọt</div>
+
+    <div id="k03-stack" class="clip k03-stack" data-start="0" data-duration="11.084" data-track-index="4">
+      <div class="k03-scrap k03-scrap-1" id="k03-scrap-1">
+        <div class="k03-scrap-value"><span class="accent">30.042</span> tỷ đồng</div>
+        <div class="k03-scrap-label">Lợi nhuận sau thuế — gấp gần 5 lần cùng kỳ</div>
+      </div>
+      <div class="k03-scrap k03-scrap-2" id="k03-scrap-2">
+        <div class="k03-scrap-value">98.814 <span class="accent">tỷ đồng</span></div>
+        <div class="k03-scrap-label">Vốn chủ sở hữu — tăng 58%</div>
+      </div>
+      <div class="k03-scrap k03-scrap-3" id="k03-scrap-3">
+        <div class="k03-scrap-value">64.560 <span class="accent">tỷ đồng</span></div>
+        <div class="k03-scrap-label">Vốn đầu tư chủ sở hữu (từ 32.561 tỷ)</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#k03-quote", { opacity: 0 }, { opacity: 0.07, duration: 0.6, ease: "power1.out" }, 0);
+      tl.fromTo("#k03-kicker-row", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.32, ease: "power3.out" }, 0.1);
+      tl.fromTo("#k03-headline", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.3);
+
+      tl.fromTo("#k03-scrap-1", { opacity: 0, y: 40, rotate: 4, scale: 0.94 }, { opacity: 1, y: 0, rotate: -2.2, scale: 1, duration: 0.48, ease: "back.out(1.5)" }, 0.85);
+      tl.fromTo("#k03-scrap-2", { opacity: 0, y: 40, rotate: -6, scale: 0.94 }, { opacity: 1, y: 0, rotate: 1.6, scale: 1, duration: 0.48, ease: "back.out(1.5)" }, 1.35);
+      tl.fromTo("#k03-scrap-3", { opacity: 0, y: 40, rotate: 5, scale: 0.94 }, { opacity: 1, y: 0, rotate: -1.1, scale: 1, duration: 0.48, ease: "back.out(1.5)" }, 1.85);
+
+      window.__timelines["03-key-facts"] = tl;
+    })();
+  </script>
+</template>

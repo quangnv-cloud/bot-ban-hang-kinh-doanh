@@ -1,0 +1,92 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+    .c05-quote {
+      position: absolute; left: -30px; top: 130px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 700; font-size: 380px; line-height: 0.6;
+      color: #e8441e; opacity: 0.08; pointer-events: none; user-select: none;
+    }
+
+    .c05-kicker-row { position: absolute; left: 64px; top: 150px; display: flex; align-items: center; gap: 14px; }
+    .c05-kicker { font-weight: 700; font-size: 24px; letter-spacing: 0.16em; text-transform: uppercase; color: #e8441e; }
+    .c05-headline {
+      position: absolute; left: 64px; right: 64px; top: 198px;
+      font-weight: 800; font-size: 46px; line-height: 1.18; letter-spacing: -0.01em; color: #ffffff;
+    }
+
+    /* Editorial Clipping signature: pull-quote block, each line marked with a
+       clipping-style dash — not a bar chart, not a leaderboard. */
+    .c05-quotes { position: absolute; left: 0; right: 0; top: 470px; }
+    .c05-line {
+      position: relative;
+      margin: 0 64px 30px 64px;
+      padding: 26px 0 26px 40px;
+      border-left: 5px solid #e8441e;
+    }
+    .c05-line-value { font-weight: 800; font-size: 44px; letter-spacing: -0.01em; color: #ffffff; line-height: 1.2; }
+    .c05-line-value .accent { color: #e8441e; }
+    .c05-line-label { font-weight: 500; font-size: 24px; color: rgba(255,255,255,0.6); margin-top: 4px; }
+
+    .c05-footer {
+      position: absolute; left: 64px; right: 64px; bottom: 150px;
+      padding: 26px 32px;
+      background: #fdfdfb;
+      transform: rotate(-1deg);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+    .c05-footer span { font-weight: 700; font-size: 24px; letter-spacing: 0.05em; color: #111111; }
+    .c05-footer .accent { color: #e8441e; }
+  </style>
+
+  <div id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div id="c05-quote" class="clip c05-quote" data-start="0" data-duration="11.476" data-track-index="0" data-layout-allow-overflow="true">&#8221;</div>
+
+    <div id="c05-kicker-row" class="clip c05-kicker-row" data-start="0" data-duration="11.476" data-track-index="1">
+      <span class="c05-kicker">Mặt sau của khoản lãi</span>
+    </div>
+    <div id="c05-headline" class="clip c05-headline" data-start="0" data-duration="11.476" data-track-index="2">Nợ phải trả cũng phình to theo quy mô dự án</div>
+
+    <div id="c05-quotes" class="clip c05-quotes" data-start="0" data-duration="11.476" data-track-index="3">
+      <div class="c05-line" id="c05-line-1">
+        <div class="c05-line-value">Tổng nợ phải trả: <span class="accent">355.592</span> tỷ đồng</div>
+        <div class="c05-line-label">Tính đến cuối tháng 6/2026</div>
+      </div>
+      <div class="c05-line" id="c05-line-2">
+        <div class="c05-line-value">Vay ngân hàng: 26.860 tỷ đồng</div>
+      </div>
+      <div class="c05-line" id="c05-line-3">
+        <div class="c05-line-value">Trái phiếu: 22.241 tỷ đồng</div>
+      </div>
+      <div class="c05-line" id="c05-line-4">
+        <div class="c05-line-value">Phải trả khác: 306.491 tỷ đồng</div>
+      </div>
+    </div>
+
+    <div id="c05-footer" class="clip c05-footer" data-start="0" data-duration="11.476" data-track-index="4">
+      <span>Quy mô dự án: <span class="accent">10 tỷ USD</span> · 2.870ha · khởi công 4/2025</span>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#c05-quote", { opacity: 0 }, { opacity: 0.08, duration: 0.6, ease: "power1.out" }, 0);
+      tl.fromTo("#c05-kicker-row", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.32, ease: "power3.out" }, 0.1);
+      tl.fromTo("#c05-headline", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.3);
+
+      tl.fromTo("#c05-line-1", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, 0.85);
+      tl.fromTo("#c05-line-2", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.36, ease: "power2.out" }, 1.35);
+      tl.fromTo("#c05-line-3", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.36, ease: "power2.out" }, 1.75);
+      tl.fromTo("#c05-line-4", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.36, ease: "power2.out" }, 2.15);
+      tl.fromTo("#c05-footer", { opacity: 0, y: 20, rotate: 3 }, { opacity: 1, y: 0, rotate: -1, duration: 0.42, ease: "back.out(1.5)" }, 2.65);
+
+      window.__timelines["05-context"] = tl;
+    })();
+  </script>
+</template>

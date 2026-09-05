@@ -1,0 +1,98 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .d04-quote {
+      position: absolute; left: 50%; top: 46%;
+      transform: translate(-50%, -50%);
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 700; font-size: 900px; line-height: 0.5;
+      color: #e8441e; opacity: 0.1; pointer-events: none; user-select: none;
+      white-space: nowrap;
+    }
+
+    .d04-center {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 90px;
+    }
+    .d04-label {
+      font-weight: 700;
+      font-size: 26px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #e8441e;
+      margin-bottom: 30px;
+    }
+    .d04-number {
+      font-weight: 900;
+      font-size: 132px;
+      letter-spacing: -0.025em;
+      line-height: 1.0;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+    .d04-underline { margin-top: 14px; }
+    .d04-sub {
+      margin-top: 34px;
+      display: inline-flex;
+      align-items: center;
+      padding: 14px 30px;
+      border-radius: 8px;
+      border: 1.5px solid rgba(232, 68, 30, 0.75);
+      background: rgba(232, 68, 30, 0.08);
+    }
+    .d04-sub span { font-weight: 700; font-size: 28px; letter-spacing: 0.02em; color: #ffffff; white-space: nowrap; }
+  </style>
+
+  <div id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+    <div id="d04-quote" class="clip d04-quote" data-start="0" data-duration="5.964" data-track-index="0">&#8220;</div>
+
+    <div id="d04-center" class="clip d04-center" data-start="0" data-duration="5.964" data-track-index="1" data-layout-allow-overflow="true">
+      <div class="d04-label" id="d04-label">Lợi nhuận sau thuế hợp nhất</div>
+      <div class="d04-number" id="d04-number">30.042 tỷ đồng</div>
+      <!-- Hand-drawn underline: an irregular SVG path, not a straight <line>. -->
+      <svg class="d04-underline" id="d04-underline-svg" width="820" height="34" viewBox="0 0 820 34" fill="none">
+        <path id="d04-underline-path" d="M8 20 C 140 8, 260 26, 400 14 S 660 6, 812 18" stroke="#e8441e" stroke-width="7" stroke-linecap="round" fill="none"/>
+      </svg>
+      <div class="d04-sub" id="d04-sub"><span>Gấp ~5 lần cùng kỳ 2025</span></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var numEl = document.getElementById("d04-number");
+      if (numEl && window.__hyperframes && window.__hyperframes.fitTextFontSize) {
+        var fitNum = window.__hyperframes.fitTextFontSize(
+          "30.042 tỷ đồng",
+          { fontFamily: "Montserrat", fontWeight: 900, maxWidth: 900, baseFontSize: 132, minFontSize: 84 }
+        );
+        numEl.style.fontSize = fitNum.fontSize + "px";
+      }
+
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#d04-quote", { opacity: 0, scale: 0.9 }, { opacity: 0.1, scale: 1, duration: 0.6, ease: "power1.out" }, 0);
+      tl.fromTo("#d04-label", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.32, ease: "power2.out" }, 0.15);
+      tl.fromTo("#d04-number", { opacity: 0, y: 24, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out" }, 0.4);
+
+      var path = document.getElementById("d04-underline-path");
+      if (path && path.getTotalLength) {
+        var len = path.getTotalLength();
+        gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
+        tl.to(path, { strokeDashoffset: 0, duration: 0.5, ease: "power2.inOut" }, 0.95);
+      }
+
+      tl.fromTo("#d04-sub", { opacity: 0, y: 16, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.6)" }, 1.5);
+
+      window.__timelines["04-data-moment"] = tl;
+    })();
+  </script>
+</template>
