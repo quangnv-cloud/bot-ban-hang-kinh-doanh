@@ -1,0 +1,108 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+    .w02-bg { position: absolute; inset: 0; background: #111111; }
+
+    /* Stock Terminal signature: standard editorial card (no rotation/paper motif —
+       that belongs to style 9), a thin market-code strip introduces the "terminal" tone. */
+    .w02-card-wrap {
+      position: absolute;
+      left: 64px;
+      top: 176px;
+      width: 952px;
+      height: 700px;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #0c0c0c;
+      box-shadow: 0 26px 60px rgba(0,0,0,0.5);
+    }
+    .w02-card-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 54% 40%; }
+    .w02-card-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 56%, rgba(0,0,0,0.72) 100%); }
+    .w02-card-badge {
+      position: absolute; right: 20px; top: 20px;
+      padding: 8px 16px; border-radius: 100px;
+      background: rgba(17,17,17,0.7);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .w02-card-badge span { font-weight: 700; font-size: 17px; letter-spacing: 0.04em; color: #ffffff; }
+    .w02-card-caption {
+      position: absolute; left: 20px; bottom: 16px;
+      font-weight: 600; font-size: 20px; color: #ffffff;
+    }
+
+    /* Decorative market-code strip — texture only, values drawn from real BRIEF numbers. */
+    .w02-ticker {
+      position: absolute; left: 64px; top: 906px;
+      display: flex; align-items: center; gap: 18px;
+    }
+    .w02-ticker-item { display: flex; align-items: center; gap: 6px; }
+    .w02-ticker-item .code { font-weight: 700; font-size: 19px; letter-spacing: 0.05em; color: rgba(255,255,255,0.55); }
+    .w02-ticker-item .val { font-weight: 700; font-size: 19px; letter-spacing: 0.02em; }
+    .w02-ticker-item .val.up { color: #e8441e; }
+    .w02-ticker-item .val.down { color: rgba(255,255,255,0.72); }
+    .w02-ticker-div { width: 1px; height: 18px; background: rgba(255,255,255,0.18); }
+
+    .w02-kicker-row { position: absolute; left: 64px; top: 966px; display: flex; align-items: center; gap: 14px; }
+    .w02-kicker {
+      font-weight: 700; font-size: 24px; letter-spacing: 0.16em; text-transform: uppercase; color: #e8441e;
+    }
+
+    .w02-headline {
+      position: absolute; left: 64px; right: 64px; top: 1024px;
+      font-weight: 800; font-size: 54px; line-height: 1.16; letter-spacing: -0.015em; color: #ffffff;
+    }
+    .w02-headline .accent { color: #e8441e; }
+
+    .w02-sub {
+      position: absolute; left: 64px; right: 64px; top: 1320px;
+      font-weight: 500; font-size: 27px; line-height: 1.5; color: rgba(255,255,255,0.72);
+    }
+    .w02-sub b { color: #ffffff; font-weight: 700; }
+  </style>
+
+  <div id="root" data-composition-id="02-what-happened" data-width="1080" data-height="1920">
+    <div id="w02-bg" class="clip w02-bg" data-start="0" data-duration="7.743" data-track-index="0"></div>
+
+    <div id="w02-card-wrap" class="clip w02-card-wrap" data-start="0" data-duration="7.743" data-track-index="1">
+      <img src="assets/img/hook-photo.jpg" alt="">
+      <div class="w02-card-scrim"></div>
+      <div class="w02-card-badge" id="w02-card-badge"><span>BOT BÁN HÀNG</span></div>
+      <div class="w02-card-caption">Nguồn: Dân Trí</div>
+    </div>
+
+    <div id="w02-ticker" class="clip w02-ticker" data-start="0" data-duration="7.743" data-track-index="2">
+      <div class="w02-ticker-item"><span class="code">DIESEL</span><span class="val up">▲ 5,85</span></div>
+      <div class="w02-ticker-div"></div>
+      <div class="w02-ticker-item"><span class="code">BRENT</span><span class="val down">▼ 96</span></div>
+      <div class="w02-ticker-div"></div>
+      <div class="w02-ticker-item"><span class="code">RBOB</span><span class="val down">▼ 4,07</span></div>
+    </div>
+
+    <div id="w02-kicker-row" class="clip w02-kicker-row" data-start="0" data-duration="7.743" data-track-index="3">
+      <span class="w02-kicker">05/09/2026</span>
+    </div>
+
+    <div id="w02-headline" class="clip w02-headline" data-start="0" data-duration="7.743" data-track-index="4">Diesel Mỹ vượt <span class="accent">kỷ lục cũ</span> lập năm 2022</div>
+
+    <div id="w02-sub" class="clip w02-sub" data-start="0" data-duration="7.743" data-track-index="5">Mức giá bán lẻ đã vượt kỷ lục cũ <b>5,816 USD/gallon</b>, thiết lập hồi tháng 6/2022.</div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#w02-card-wrap", { opacity: 0, y: 26, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.48, ease: "power2.out" }, 0.05);
+      tl.fromTo("#w02-card-badge", { opacity: 0, y: -8 }, { opacity: 1, y: 0, duration: 0.26, ease: "power2.out" }, 0.4);
+      tl.fromTo("#w02-ticker", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.62);
+      tl.fromTo("#w02-kicker-row", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.32, ease: "power3.out" }, 0.86);
+      tl.fromTo("#w02-headline", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 1.06);
+      tl.fromTo("#w02-sub", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.38, ease: "power2.out" }, 1.42);
+
+      window.__timelines["02-what-happened"] = tl;
+    })();
+  </script>
+</template>

@@ -1,0 +1,89 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+    .k03-bg { position: absolute; inset: 0; background: #111111; }
+
+    .k03-kicker-row { position: absolute; left: 64px; top: 168px; display: flex; align-items: center; gap: 14px; }
+    .k03-kicker { font-weight: 700; font-size: 24px; letter-spacing: 0.16em; text-transform: uppercase; color: #e8441e; }
+
+    .k03-title {
+      position: absolute; left: 64px; right: 64px; top: 218px;
+      font-weight: 800; font-size: 46px; line-height: 1.18; letter-spacing: -0.01em; color: #ffffff;
+    }
+
+    .k03-rows { position: absolute; left: 64px; right: 64px; top: 420px; display: flex; flex-direction: column; gap: 28px; }
+    .k03-row {
+      display: flex; align-items: center; gap: 28px;
+      padding: 30px 32px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .k03-idx { font-weight: 700; font-size: 22px; letter-spacing: 0.05em; color: rgba(255,255,255,0.4); width: 40px; flex: none; }
+    .k03-candle { width: 30px; height: 64px; flex: none; }
+    .k03-candle .k03-wick { stroke: currentColor; stroke-width: 2.5; opacity: 0; }
+    .k03-candle.up { color: #e8441e; }
+    .k03-candle.down { color: rgba(255,255,255,0.6); }
+
+    .k03-text { display: flex; flex-direction: column; gap: 6px; }
+    .k03-num { font-weight: 800; font-size: 34px; letter-spacing: -0.01em; color: #ffffff; }
+    .k03-label { font-weight: 500; font-size: 22px; line-height: 1.4; color: rgba(255,255,255,0.68); max-width: 700px; }
+  </style>
+
+  <div id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <div id="k03-bg" class="clip k03-bg" data-start="0" data-duration="8.709" data-track-index="0"></div>
+
+    <div id="k03-kicker-row" class="clip k03-kicker-row" data-start="0" data-duration="8.709" data-track-index="1">
+      <span class="k03-kicker">Số liệu chính</span>
+    </div>
+    <div id="k03-title" class="clip k03-title" data-start="0" data-duration="8.709" data-track-index="2">Diesel tăng ngược chiều dầu thô</div>
+
+    <div id="k03-rows" class="clip k03-rows" data-start="0" data-duration="8.709" data-track-index="3">
+      <div class="k03-row" id="k03-row-1">
+        <span class="k03-idx">01</span>
+        <svg class="k03-candle up" viewBox="0 0 30 64"><line class="k03-wick" x1="15" y1="4" x2="15" y2="60"/><rect class="k03-body" x="5" y="20" width="20" height="30" rx="2" fill="currentColor"/></svg>
+        <div class="k03-text"><span class="k03-num">5,816 → 5,85 USD</span><span class="k03-label">Kỷ lục cũ tháng 6/2022 vừa bị phá</span></div>
+      </div>
+      <div class="k03-row" id="k03-row-2">
+        <span class="k03-idx">02</span>
+        <svg class="k03-candle up" viewBox="0 0 30 64"><line class="k03-wick" x1="15" y1="4" x2="15" y2="60"/><rect class="k03-body" x="5" y="14" width="20" height="38" rx="2" fill="currentColor"/></svg>
+        <div class="k03-text"><span class="k03-num">+40%</span><span class="k03-label">Mức tăng của diesel trong chưa đầy 2 tháng</span></div>
+      </div>
+      <div class="k03-row" id="k03-row-3">
+        <span class="k03-idx">03</span>
+        <svg class="k03-candle down" viewBox="0 0 30 64"><line class="k03-wick" x1="15" y1="4" x2="15" y2="60"/><rect class="k03-body" x="5" y="26" width="20" height="22" rx="2" fill="currentColor"/></svg>
+        <div class="k03-text"><span class="k03-num">Brent −42 USD/thùng</span><span class="k03-label">Dầu thô giảm so với đỉnh tháng 4, diesel vẫn tăng</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#k03-kicker-row", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.3, ease: "power3.out" }, 0.05);
+      tl.fromTo("#k03-title", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.38, ease: "power3.out" }, 0.24);
+
+      var rows = ["#k03-row-1", "#k03-row-2", "#k03-row-3"];
+      rows.forEach(function (sel, i) {
+        var t = 0.65 + i * 0.42;
+        var bodyEl = document.querySelector(sel + " .k03-body");
+        var finalY = parseFloat(bodyEl.getAttribute("y"));
+        var finalH = parseFloat(bodyEl.getAttribute("height"));
+        var baseline = finalY + finalH;
+        bodyEl.setAttribute("y", baseline);
+        bodyEl.setAttribute("height", 0);
+
+        tl.fromTo(sel, { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.32, ease: "power2.out" }, t);
+        tl.to(sel + " .k03-wick", { opacity: 1, duration: 0.18, ease: "none" }, t + 0.06);
+        tl.to(bodyEl, { attr: { y: finalY, height: finalH }, duration: 0.3, ease: "power2.out" }, t + 0.1);
+      });
+
+      window.__timelines["03-key-facts"] = tl;
+    })();
+  </script>
+</template>

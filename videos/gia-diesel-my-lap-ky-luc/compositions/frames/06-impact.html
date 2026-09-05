@@ -1,0 +1,91 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+    .i06-bg { position: absolute; inset: 0; background: #111111; }
+
+    .i06-kicker-row { position: absolute; left: 64px; top: 220px; display: flex; align-items: center; gap: 14px; }
+    .i06-kicker { font-weight: 700; font-size: 24px; letter-spacing: 0.16em; text-transform: uppercase; color: #e8441e; }
+
+    .i06-title {
+      position: absolute; left: 64px; right: 64px; top: 270px;
+      font-weight: 800; font-size: 46px; line-height: 1.2; letter-spacing: -0.01em; color: #ffffff;
+    }
+
+    .i06-rows { position: absolute; left: 64px; right: 64px; top: 620px; display: flex; flex-direction: column; gap: 56px; }
+    .i06-row {
+      padding: 36px 36px 30px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .i06-row-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 20px; }
+    .i06-row-label { font-weight: 700; font-size: 24px; letter-spacing: 0.06em; text-transform: uppercase; color: #ffffff; }
+    .i06-row-tag { font-weight: 700; font-size: 20px; letter-spacing: 0.04em; color: #e8441e; opacity: 0; white-space: nowrap; }
+    .i06-row-sub { font-weight: 500; font-size: 22px; color: rgba(255,255,255,0.62); margin-top: 14px; }
+
+    .i06-spark { width: 100%; height: 90px; display: block; }
+    .i06-spark path { fill: none; stroke: #e8441e; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+
+  <div id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <div id="i06-bg" class="clip i06-bg" data-start="0" data-duration="7.814" data-track-index="0"></div>
+
+    <div id="i06-kicker-row" class="clip i06-kicker-row" data-start="0" data-duration="7.814" data-track-index="1">
+      <span class="i06-kicker">Tác động</span>
+    </div>
+    <div id="i06-title" class="clip i06-title" data-start="0" data-duration="7.814" data-track-index="2">Chi phí lan tỏa từ trạm xăng đến bàn ăn</div>
+
+    <div id="i06-rows" class="clip i06-rows" data-start="0" data-duration="7.814" data-track-index="3">
+      <div class="i06-row" id="i06-row-1">
+        <div class="i06-row-head">
+          <span class="i06-row-label">Chi phí vận tải</span>
+          <span class="i06-row-tag">Tăng theo giá diesel</span>
+        </div>
+        <svg class="i06-spark" viewBox="0 0 952 90" preserveAspectRatio="none">
+          <path id="i06-spark-1" d="M 0 78 C 140 74, 240 60, 340 50 S 540 30, 660 20 L 952 8" />
+        </svg>
+        <div class="i06-row-sub">Xe tải, máy nông nghiệp và máy xây dựng đều chạy diesel</div>
+      </div>
+      <div class="i06-row" id="i06-row-2">
+        <div class="i06-row-head">
+          <span class="i06-row-label">Giá bán lẻ thực phẩm</span>
+          <span class="i06-row-tag">Sữa · bánh mì · ngũ cốc</span>
+        </div>
+        <svg class="i06-spark" viewBox="0 0 952 90" preserveAspectRatio="none">
+          <path id="i06-spark-2" d="M 0 78 C 160 76, 260 66, 380 58 S 580 38, 700 26 L 952 12" />
+        </svg>
+        <div class="i06-row-sub">Chi phí vận chuyển nông sản đã được cộng thẳng vào giá bán lẻ</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      ["i06-spark-1", "i06-spark-2"].forEach(function (id) {
+        var p = document.getElementById(id);
+        var len = p.getTotalLength();
+        p.style.strokeDasharray = len;
+        p.style.strokeDashoffset = len;
+      });
+
+      tl.fromTo("#i06-kicker-row", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.3, ease: "power3.out" }, 0.05);
+      tl.fromTo("#i06-title", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.36, ease: "power3.out" }, 0.24);
+
+      tl.fromTo("#i06-row-1", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.34, ease: "power2.out" }, 0.68);
+      tl.to("#i06-spark-1", { strokeDashoffset: 0, duration: 0.9, ease: "power1.inOut" }, 0.9);
+      tl.to("#i06-row-1 .i06-row-tag", { opacity: 1, duration: 0.24, ease: "power1.out" }, 1.7);
+
+      tl.fromTo("#i06-row-2", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.34, ease: "power2.out" }, 2.15);
+      tl.to("#i06-spark-2", { strokeDashoffset: 0, duration: 0.9, ease: "power1.inOut" }, 2.35);
+      tl.to("#i06-row-2 .i06-row-tag", { opacity: 1, duration: 0.24, ease: "power1.out" }, 3.15);
+
+      window.__timelines["06-impact"] = tl;
+    })();
+  </script>
+</template>

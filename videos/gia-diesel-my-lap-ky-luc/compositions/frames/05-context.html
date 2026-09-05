@@ -1,0 +1,116 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+    .c05-bg { position: absolute; inset: 0; background: #111111; }
+
+    .c05-kicker-row { position: absolute; left: 64px; top: 152px; display: flex; align-items: center; gap: 14px; }
+    .c05-kicker { font-weight: 700; font-size: 24px; letter-spacing: 0.16em; text-transform: uppercase; color: #e8441e; }
+
+    .c05-title {
+      position: absolute; left: 64px; right: 64px; top: 202px;
+      font-weight: 800; font-size: 46px; line-height: 1.2; letter-spacing: -0.01em; color: #ffffff;
+    }
+
+    .c05-panels { position: absolute; left: 64px; right: 64px; top: 500px; display: flex; gap: 0; height: 720px; }
+    .c05-panel-left { flex: 1 1 auto; padding-right: 32px; }
+    .c05-panel-right { flex: none; width: 220px; padding-left: 32px; display: flex; flex-direction: column; align-items: center; }
+    .c05-divider { width: 1px; background: rgba(255,255,255,0.14); align-self: stretch; }
+
+    .c05-panel-head { font-weight: 700; font-size: 19px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 28px; text-align: center; }
+
+    .c05-bars { display: flex; align-items: flex-end; gap: 22px; height: 520px; justify-content: center; }
+    .c05-bar-col { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 84px; }
+    .c05-bar-val { font-weight: 700; font-size: 20px; color: rgba(255,255,255,0.8); opacity: 0; }
+    .c05-bar-svg { width: 26px; }
+    .c05-bar-svg .wick { stroke: currentColor; stroke-width: 2.5; opacity: 0; }
+    .c05-bar-col.gray .c05-bar-svg { color: rgba(255,255,255,0.55); }
+    .c05-bar-mon { font-weight: 600; font-size: 18px; color: rgba(255,255,255,0.45); }
+
+    .c05-right-val { font-weight: 800; font-size: 40px; color: #e8441e; margin-top: 24px; opacity: 0; }
+    .c05-right-tag { font-weight: 700; font-size: 18px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-top: 8px; opacity: 0; }
+    .c05-right-svg { color: #e8441e; width: 40px; }
+    .c05-right-svg .wick { stroke: currentColor; stroke-width: 3; opacity: 0; }
+
+    .c05-caption {
+      position: absolute; left: 64px; right: 64px; top: 1290px;
+      font-weight: 500; font-size: 24px; line-height: 1.55; color: rgba(255,255,255,0.7);
+      opacity: 0;
+    }
+    .c05-caption b { color: #ffffff; font-weight: 700; }
+  </style>
+
+  <div id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div id="c05-bg" class="clip c05-bg" data-start="0" data-duration="10.224" data-track-index="0"></div>
+
+    <div id="c05-kicker-row" class="clip c05-kicker-row" data-start="0" data-duration="10.224" data-track-index="1">
+      <span class="c05-kicker">Nguyên nhân</span>
+    </div>
+    <div id="c05-title" class="clip c05-title" data-start="0" data-duration="10.224" data-track-index="2">Lọc dầu chạm trần công suất, tồn kho thấp kỷ lục</div>
+
+    <div id="c05-panels" class="clip c05-panels" data-start="0" data-duration="10.224" data-track-index="3">
+      <div class="c05-panel-left">
+        <div class="c05-panel-head">Brent (USD/thùng)</div>
+        <div class="c05-bars">
+          <div class="c05-bar-col gray" id="c05-bar-1"><span class="c05-bar-val">138</span><svg class="c05-bar-svg" viewBox="0 0 26 220"><line class="wick" x1="13" y1="4" x2="13" y2="216"/><rect class="body" x="3" y="6" width="20" height="208" rx="2" fill="currentColor"/></svg><span class="c05-bar-mon">T4</span></div>
+          <div class="c05-bar-col gray" id="c05-bar-2"><span class="c05-bar-val">125</span><svg class="c05-bar-svg" viewBox="0 0 26 220"><line class="wick" x1="13" y1="4" x2="13" y2="216"/><rect class="body" x="3" y="46" width="20" height="168" rx="2" fill="currentColor"/></svg><span class="c05-bar-mon">T6</span></div>
+          <div class="c05-bar-col gray" id="c05-bar-3"><span class="c05-bar-val">112</span><svg class="c05-bar-svg" viewBox="0 0 26 220"><line class="wick" x1="13" y1="4" x2="13" y2="216"/><rect class="body" x="3" y="80" width="20" height="134" rx="2" fill="currentColor"/></svg><span class="c05-bar-mon">T7</span></div>
+          <div class="c05-bar-col gray" id="c05-bar-4"><span class="c05-bar-val">104</span><svg class="c05-bar-svg" viewBox="0 0 26 220"><line class="wick" x1="13" y1="4" x2="13" y2="216"/><rect class="body" x="3" y="106" width="20" height="108" rx="2" fill="currentColor"/></svg><span class="c05-bar-mon">T8</span></div>
+          <div class="c05-bar-col gray" id="c05-bar-5"><span class="c05-bar-val">96</span><svg class="c05-bar-svg" viewBox="0 0 26 220"><line class="wick" x1="13" y1="4" x2="13" y2="216"/><rect class="body" x="3" y="128" width="20" height="86" rx="2" fill="currentColor"/></svg><span class="c05-bar-mon">T9</span></div>
+        </div>
+      </div>
+      <div class="c05-divider"></div>
+      <div class="c05-panel-right">
+        <div class="c05-panel-head">Diesel<br>(USD/gallon)</div>
+        <svg class="c05-right-svg" id="c05-right-svg" viewBox="0 0 40 260"><line class="wick" x1="20" y1="4" x2="20" y2="256"/><rect class="body" x="6" y="10" width="28" height="246" rx="3" fill="currentColor"/></svg>
+        <span class="c05-right-val" id="c05-right-val">5,85</span>
+        <span class="c05-right-tag">Kỷ lục</span>
+      </div>
+    </div>
+
+    <div id="c05-caption" class="clip c05-caption" data-start="0" data-duration="10.224" data-track-index="4">Rủi ro <b>Trung Đông & Nga</b> · lọc dầu chạy ~100% công suất · tồn kho Mỹ thấp kỷ lục</div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#c05-kicker-row", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.3, ease: "power3.out" }, 0.05);
+      tl.fromTo("#c05-title", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.36, ease: "power3.out" }, 0.24);
+
+      var bars = ["#c05-bar-1", "#c05-bar-2", "#c05-bar-3", "#c05-bar-4", "#c05-bar-5"];
+      bars.forEach(function (sel, i) {
+        var t = 0.65 + i * 0.34;
+        var bodyEl = document.querySelector(sel + " .body");
+        var finalY = parseFloat(bodyEl.getAttribute("y"));
+        var finalH = parseFloat(bodyEl.getAttribute("height"));
+        var baseline = finalY + finalH;
+        bodyEl.setAttribute("y", baseline);
+        bodyEl.setAttribute("height", 0);
+
+        tl.to(sel + " .wick", { opacity: 1, duration: 0.16, ease: "none" }, t);
+        tl.to(bodyEl, { attr: { y: finalY, height: finalH }, duration: 0.26, ease: "power2.out" }, t + 0.04);
+        tl.to(sel + " .c05-bar-val", { opacity: 1, duration: 0.2, ease: "power1.out" }, t + 0.22);
+      });
+
+      var rightT = 0.65 + bars.length * 0.34 + 0.2;
+      var rightBodyEl = document.querySelector("#c05-right-svg .body");
+      var rightFinalY = parseFloat(rightBodyEl.getAttribute("y"));
+      var rightFinalH = parseFloat(rightBodyEl.getAttribute("height"));
+      var rightBaseline = rightFinalY + rightFinalH;
+      rightBodyEl.setAttribute("y", rightBaseline);
+      rightBodyEl.setAttribute("height", 0);
+      tl.to("#c05-right-svg .wick", { opacity: 1, duration: 0.16, ease: "none" }, rightT);
+      tl.to(rightBodyEl, { attr: { y: rightFinalY, height: rightFinalH }, duration: 0.34, ease: "power2.out" }, rightT + 0.04);
+      tl.to("#c05-right-val", { opacity: 1, duration: 0.22, ease: "power1.out" }, rightT + 0.3);
+      tl.to(".c05-right-tag", { opacity: 1, duration: 0.22, ease: "power1.out" }, rightT + 0.42);
+
+      tl.fromTo("#c05-caption", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.34, ease: "power2.out" }, rightT + 0.7);
+
+      window.__timelines["05-context"] = tl;
+    })();
+  </script>
+</template>
