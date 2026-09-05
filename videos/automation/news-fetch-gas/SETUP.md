@@ -142,9 +142,18 @@ cụ thể, giảm rủi ro lộ token trang khác không liên quan.
 
 ## Nhật ký đăng bài đa kênh — tab `posts_log` (thêm 2026-08-27)
 
-Cùng 1 Google Sheet với `news_queue` ("BBH News Queue"), thêm tab `posts_log` để theo dõi mọi bài
-đã đăng trên Facebook/TikTok/YouTube ở 1 chỗ. Link Sheet:
-`https://docs.google.com/spreadsheets/d/1crUZGUuX4jA9PvHo-0USpLf6J5KPJycMQLZcwrA6boM/edit`
+Cùng 1 Google Sheet với `news_queue` ("Bản sao của BBH News Queue"), thêm tab `posts_log` để theo
+dõi mọi bài đã đăng trên Facebook/TikTok/YouTube ở 1 chỗ. Link Sheet:
+`https://docs.google.com/spreadsheets/d/1isvFaqM9g6F8hFb3Fu5pvMg2Jgj017Nsh6R0OgHsof0/edit`
+
+**[Cập nhật 2026-09-05] ⚠️ 2 Sheet cùng tồn tại — đừng sửa nhầm cái cũ.** File Sheet thật đang
+chạy (mà `SPREADSHEET_ID` trong Script Properties của Apps Script trỏ tới) là
+`1isvFaqM9g6F8hFb3Fu5pvMg2Jgj017Nsh6R0OgHsof0` ("**Bản sao của** BBH News Queue"), chủ sở hữu
+`quangnv@botbanhang.vn`, đã share edit cho `minhanhh1108@gmail.com`. File `1crUZGUuX4jA9PvHo-
+0USpLf6J5KPJycMQLZcwrA6boM` ("BBH News Queue", không có "Bản sao của") là **bản cũ đã bỏ**, không
+còn được script ghi vào — nhưng vẫn còn dữ liệu cũ trông y hệt thật, dễ nhầm khi mở link cũ hoặc
+tìm trong Drive. **Luôn xác nhận đúng Sheet bằng `POST <exec> {"action":"get_sheet_url"}` trước
+khi sửa tay bất kỳ ô nào** — đừng tự suy ra từ URL cũ trong tài liệu hay lịch sử trình duyệt.
 
 Cột: `posted_at, channel, post_type, video_project, title, caption, platform_post_id, permalink,
 status, posted_by, notes`.

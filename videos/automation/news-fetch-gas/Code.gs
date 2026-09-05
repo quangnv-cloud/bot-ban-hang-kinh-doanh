@@ -1638,6 +1638,17 @@ var ENGAGEMENT_HEADERS = [
   'views', 'likes', 'reactions', 'comments', 'shares',
   'last_checked', 'notes'
 ];
+// Vietnamese display labels for row 1 — same order/length as ENGAGEMENT_HEADERS (index i here
+// labels column i there). Internal code always keys off ENGAGEMENT_HEADERS (English, stable);
+// this array only ever touches what a human/Looker Studio sees in the header row. Added
+// 2026-09-05 at user request — sentence case (first letter only), Vietnamese except loanwords
+// ("video") / acronyms ("UTC") that read fine as-is.
+var ENGAGEMENT_HEADER_LABELS = [
+  'Kênh', 'Dự án video', 'Loại bài đăng', 'Mã bài đăng', 'Liên kết bài đăng',
+  'Tiêu đề', 'Thời gian đăng (UTC)', 'Ngày đăng', 'Giờ đăng',
+  'Lượt xem', 'Lượt thích', 'Cảm xúc', 'Bình luận', 'Lượt chia sẻ',
+  'Lần kiểm tra cuối', 'Ghi chú'
+];
 // views/likes/reactions/comments/shares are always numeric in the sheet —
 // a metric that couldn't be fetched (permission gap, deleted post, etc.)
 // shows as 0 rather than a blank cell (the 'notes' column still records why).
@@ -1672,12 +1683,23 @@ function getEngagementSheet_() {
   var ssId = props.getProperty('SPREADSHEET_ID');
   var ss = ssId ? SpreadsheetApp.openById(ssId) : SpreadsheetApp.create('BBH News Queue');
   if (!ssId) props.setProperty('SPREADSHEET_ID', ss.getId());
+  // Pin the spreadsheet's own locale/timezone to Vietnam — added 2026-09-05. Root cause of
+  // `posted_date` showing up wrong in Looker Studio: refreshEngagementMetrics() used to write
+  // posted_date as a formatted STRING ("dd/MM/yyyy"), which Sheets then re-parses into an actual
+  // date using the SPREADSHEET's OWN locale — if that locale defaults to en_US, "03/09/2026" gets
+  // read back as MM/DD (March 9) instead of the intended DD/MM (September 3). Idempotent, cheap,
+  // safe to call every refresh; only this function ever writes real Date values into the sheet
+  // (news_queue/posts_log store plain ISO strings, unaffected).
+  try { ss.setSpreadsheetLocale('vi_VN'); } catch (e) {}
+  try { ss.setSpreadsheetTimeZone('Asia/Ho_Chi_Minh'); } catch (e) {}
   var sheet = ss.getSheetByName(ENGAGEMENT_SHEET_NAME);
   if (!sheet) {
     sheet = ss.insertSheet(ENGAGEMENT_SHEET_NAME);
-    sheet.appendRow(ENGAGEMENT_HEADERS);
     sheet.setFrozenRows(1);
   }
+  // Always (re)write the header row, not just on first creation — lets a header-label change
+  // (like this Vietnamese pass) apply to the sheet in production without deleting/recreating it.
+  sheet.getRange(1, 1, 1, ENGAGEMENT_HEADER_LABELS.length).setValues([ENGAGEMENT_HEADER_LABELS]);
   return sheet;
 }
 
@@ -1875,7 +1897,10 @@ function refreshEngagementMetrics() {
       video_project: rec.video_project, post_type: rec.post_type,
       platform_post_id: rec.platform_post_id, permalink: rec.permalink, title: rec.title,
       posted_at: rec.posted_at,
-      posted_date: posted ? Utilities.formatDate(posted, 'Asia/Ho_Chi_Minh', 'dd/MM/yyyy') : '',
+      // Real Date object, NOT a formatted string — see the locale note on getEngagementSheet_().
+      // Writing a string here would just re-trigger the same DD/MM-vs-MM/DD ambiguity on Sheets'
+      // side when it re-parses it; a genuine Date value has no parsing step to get ambiguous.
+      posted_date: posted || '',
       posted_time: posted ? Utilities.formatDate(posted, 'Asia/Ho_Chi_Minh', 'HH:mm') : '',
       views: numOrZero_(m.views), likes: numOrZero_(m.likes),
       reactions: numOrZero_(m.reactions), comments: numOrZero_(m.comments),
@@ -1902,6 +1927,10 @@ function refreshEngagementMetrics() {
       return ENGAGEMENT_HEADERS.map(function (h) { return r[h] === undefined ? '' : r[h]; });
     });
     sheet.getRange(2, 1, rows.length, ENGAGEMENT_HEADERS.length).setValues(rows);
+    // Explicit display format for the real-Date posted_date column — independent of whatever
+    // locale/format a viewer's own Sheets UI defaults to, always renders zero-padded dd/MM/yyyy.
+    var postedDateCol = ENGAGEMENT_HEADERS.indexOf('posted_date') + 1;
+    sheet.getRange(2, postedDateCol, rows.length, 1).setNumberFormat('dd/mm/yyyy');
   }
 
   return { ok: true, updated: results.length };
