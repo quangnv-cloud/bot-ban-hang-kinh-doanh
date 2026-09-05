@@ -405,3 +405,25 @@ sẽ lên sóng chính thức — vừa tránh bị guard chặn nhầm, vừa d
 
 Nếu bước đăng (Facebook, YouTube, Instagram, hoặc Threads) lỗi, routine KHÔNG coi cả lần chạy là thất bại,
 chỉ ghi rõ lỗi vào tóm tắt cuối; nếu bước sản xuất video (1-11) lỗi thì DỪNG LẠI, không đăng gì cả.
+
+## Theo dõi lượt theo dõi/đăng ký (follower/subscriber) — thêm 2026-09-05
+
+Tab mới `audience_growth` (cùng Sheet với `news_queue`/`posts_log`/`engagement_metrics`) — khác
+`engagement_metrics` ở chỗ đây là chỉ số **cấp kênh/trang** (không gắn với 1 video cụ thể), nên
+**append thêm dòng mỗi lần chạy** (không đè), tạo thành lịch sử theo thời gian để vẽ biểu đồ tăng
+trưởng sau này. Chạy tự động ăn theo trigger 6h sáng có sẵn của `engagement_metrics`
+(`refreshAudienceGrowth_()` gọi trong `refreshEngagementMetrics()`), hoặc gọi tay qua
+`POST <NEWS_FEED_URL> {"action": "refresh_audience"}`.
+
+- **YouTube**: `subscriberCount` qua `channels.list?part=statistics&mine=true` — dùng đúng token
+  OAuth hiện có (`youtube.readonly` đủ), không cần quyền mới.
+- **Facebook**: `followers_count`/`fan_count` trên Page node — token hiện có đủ quyền.
+- **Instagram**: `followers_count` trên IG User node — token hiện có đủ quyền (tái dùng
+  `FB_PAGE_ACCESS_TOKEN`).
+- **Threads**: Threads API chưa công khai field follower-count nào (tính đến 2026-09) — cột
+  `followers` để trống, cột `notes` ghi rõ đây là giới hạn nền tảng chứ không phải lỗi.
+
+**KHÔNG bao gồm** tuổi/giới tính/thiết bị xem (audience demographics) — xem lý do đầy đủ ở mục
+"Điều tra khả năng lấy demographics" trong `PRODUCTION-WORKFLOW-BOT-BAN-HANG.md`: YouTube cần
+scope OAuth mới (`yt-analytics.readonly`), Facebook/Instagram chỉ có ở cấp toàn trang/tài khoản
+(không theo từng video), Threads chưa hỗ trợ.

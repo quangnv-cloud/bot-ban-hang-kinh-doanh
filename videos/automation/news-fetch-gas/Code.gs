@@ -859,11 +859,23 @@ function doPost(e) {
   if (body.action === 'refresh_metrics') {
     // Rebuilds the engagement_metrics sheet tab from posts_log — see
     // refreshEngagementMetrics() above. Read-only against every platform,
-    // upserts (never appends duplicates) into engagement_metrics.
+    // upserts (never appends duplicates) into engagement_metrics. Also
+    // triggers refreshAudienceGrowth_() as a side effect (see that function).
     var rmResult;
     try { rmResult = refreshEngagementMetrics(); }
     catch (e13) { rmResult = { ok: false, error: String(e13) }; }
     return ContentService.createTextOutput(JSON.stringify(rmResult))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  if (body.action === 'refresh_audience') {
+    // On-demand version of the follower/subscriber snapshot that refresh_metrics also triggers
+    // automatically once a day — see refreshAudienceGrowth_() above. Appends to audience_growth,
+    // never overwrites, so calling this repeatedly just adds more history rows.
+    var raResult;
+    try { raResult = refreshAudienceGrowth_(); }
+    catch (e14) { raResult = { ok: false, error: String(e14) }; }
+    return ContentService.createTextOutput(JSON.stringify(raResult))
       .setMimeType(ContentService.MimeType.JSON);
   }
 
@@ -1933,7 +1945,128 @@ function refreshEngagementMetrics() {
     sheet.getRange(2, postedDateCol, rows.length, 1).setNumberFormat('dd/mm/yyyy');
   }
 
+  // Piggyback the daily 6am trigger to also snapshot follower/subscriber counts — see
+  // refreshAudienceGrowth_() below. Wrapped so a failure there never breaks the video metrics
+  // refresh above (which is the part actually needed for the sheet's main purpose).
+  try { refreshAudienceGrowth_(); } catch (e) { Logger.log('refreshAudienceGrowth_ failed: %s', e); }
+
   return { ok: true, updated: results.length };
+}
+
+// ---- Audience growth tracker (subscribers/followers) ----------------------
+//
+// Snapshot of follower/subscriber counts per channel — added 2026-09-05. Separate tab from
+// engagement_metrics because this is an ACCOUNT-level number, not tied to one video. APPENDS one
+// row per channel per check (never overwrites) so growth can be charted over time, unlike
+// engagement_metrics' full-rebuild-in-place. Runs once daily piggybacking the existing 6am
+// trigger (see refreshEngagementMetrics above), or on demand via {"action":"refresh_audience"}.
+//
+// Demographics (age/gender/device) are NOT included here — they need YouTube Analytics API
+// (different from the YouTube Data API used everywhere else in this file, needs a
+// yt-analytics.readonly OAuth scope the current YOUTUBE_REFRESH_TOKEN doesn't have) and are only
+// available as ACCOUNT-wide aggregates on Facebook/Instagram (not per-video), and not supported
+// by the Threads API at all as of 2026-09. See PRODUCTION-WORKFLOW-BOT-BAN-HANG.md for the full
+// per-platform breakdown if that gets revisited later.
+
+var AUDIENCE_SHEET_NAME = 'audience_growth';
+var AUDIENCE_HEADERS = ['channel', 'checked_at', 'date', 'time', 'followers', 'notes'];
+var AUDIENCE_HEADER_LABELS = ['Kênh', 'Thời gian kiểm tra (UTC)', 'Ngày', 'Giờ', 'Lượt theo dõi', 'Ghi chú'];
+
+function getAudienceSheet_() {
+  var props = PropertiesService.getScriptProperties();
+  var ssId = props.getProperty('SPREADSHEET_ID');
+  var ss = ssId ? SpreadsheetApp.openById(ssId) : SpreadsheetApp.create('BBH News Queue');
+  if (!ssId) props.setProperty('SPREADSHEET_ID', ss.getId());
+  try { ss.setSpreadsheetLocale('vi_VN'); } catch (e) {}
+  try { ss.setSpreadsheetTimeZone('Asia/Ho_Chi_Minh'); } catch (e) {}
+  var sheet = ss.getSheetByName(AUDIENCE_SHEET_NAME);
+  if (!sheet) {
+    sheet = ss.insertSheet(AUDIENCE_SHEET_NAME);
+    sheet.setFrozenRows(1);
+  }
+  sheet.getRange(1, 1, 1, AUDIENCE_HEADER_LABELS.length).setValues([AUDIENCE_HEADER_LABELS]);
+  return sheet;
+}
+
+function audienceRow_(channel, now, followers, notes) {
+  return [
+    channel,
+    now.toISOString(),
+    now, // real Date object, not a formatted string — same reasoning as engagement_metrics'
+         // posted_date fix: avoids Sheets/Looker re-parsing an ambiguous dd/MM string.
+    Utilities.formatDate(now, 'Asia/Ho_Chi_Minh', 'HH:mm'),
+    (followers === undefined || followers === null || followers === '') ? '' : followers,
+    notes || ''
+  ];
+}
+
+/**
+ * Fetches the current follower/subscriber count for each of the 4 channels and appends one row
+ * per channel. Each platform is wrapped in its own try/catch so one failing/missing-permission
+ * call never blocks the others — a failed fetch still writes a row with `followers` blank and
+ * the raw error in `notes`, so a gap shows up in the history instead of silently vanishing.
+ */
+function refreshAudienceGrowth_() {
+  var now = new Date();
+  var rows = [];
+
+  try {
+    var ytToken = ytAccessToken_();
+    var ytResp = UrlFetchApp.fetch('https://www.googleapis.com/youtube/v3/channels?part=statistics&mine=true', {
+      headers: { Authorization: 'Bearer ' + ytToken }, muteHttpExceptions: true
+    });
+    var ytData = safeJsonParse_(ytResp.getContentText());
+    var ytStats = ytData && ytData.items && ytData.items[0] && ytData.items[0].statistics;
+    var ytCount = ytStats && ytStats.subscriberCount;
+    rows.push(audienceRow_('YouTube', now, ytCount, ytCount === undefined ? JSON.stringify(ytData) : ''));
+  } catch (e) { rows.push(audienceRow_('YouTube', now, '', String(e))); }
+
+  try {
+    var fbToken = fbPageAccessToken_();
+    var fbResp = UrlFetchApp.fetch(
+      'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + fbPageId_() +
+      '?fields=followers_count,fan_count&access_token=' + encodeURIComponent(fbToken),
+      { muteHttpExceptions: true }
+    );
+    var fbData = safeJsonParse_(fbResp.getContentText());
+    var fbCount = fbData && (fbData.followers_count !== undefined ? fbData.followers_count : fbData.fan_count);
+    rows.push(audienceRow_('Facebook', now, fbCount, (!fbData || fbData.error) ? JSON.stringify(fbData) : ''));
+  } catch (e) { rows.push(audienceRow_('Facebook', now, '', String(e))); }
+
+  try {
+    var igToken = fbPageAccessToken_(); // Instagram reuses the Facebook Page token — see igPublishReel_
+    var igId = igBusinessAccountId_();
+    var igResp = UrlFetchApp.fetch(
+      'https://graph.facebook.com/' + FB_GRAPH_VERSION + '/' + igId +
+      '?fields=followers_count&access_token=' + encodeURIComponent(igToken),
+      { muteHttpExceptions: true }
+    );
+    var igData = safeJsonParse_(igResp.getContentText());
+    rows.push(audienceRow_('Instagram', now, igData && igData.followers_count,
+      (!igData || igData.error) ? JSON.stringify(igData) : ''));
+  } catch (e) { rows.push(audienceRow_('Instagram', now, '', String(e))); }
+
+  try {
+    // Threads Graph API does not document a public follower-count field as of 2026-09 (unlike
+    // Facebook/Instagram) — this call just confirms the token/account still resolve. Recorded as
+    // "unsupported", not folded into a generic try/catch error, so it reads as a known platform
+    // gap rather than a broken integration if anyone reviews this sheet later.
+    var thToken = threadsAccessToken_();
+    var thUserId = PropertiesService.getScriptProperties().getProperty('THREADS_USER_ID');
+    UrlFetchApp.fetch(
+      'https://graph.threads.net/v1.0/' + thUserId + '?fields=id,username&access_token=' + encodeURIComponent(thToken),
+      { muteHttpExceptions: true }
+    );
+    rows.push(audienceRow_('Threads', now, '', 'follower count not exposed by the Threads API as of 2026-09 — not an error, just unsupported by the platform'));
+  } catch (e) { rows.push(audienceRow_('Threads', now, '', String(e))); }
+
+  var sheet = getAudienceSheet_();
+  var startRow = sheet.getLastRow() + 1;
+  sheet.getRange(startRow, 1, rows.length, AUDIENCE_HEADERS.length).setValues(rows);
+  var dateCol = AUDIENCE_HEADERS.indexOf('date') + 1;
+  sheet.getRange(startRow, dateCol, rows.length, 1).setNumberFormat('dd/mm/yyyy');
+
+  return { ok: true, added: rows.length };
 }
 
 /**

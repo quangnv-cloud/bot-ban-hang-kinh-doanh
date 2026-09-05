@@ -675,6 +675,25 @@ cấp qua `POST {"action":"claim_style"}` dưới LockService, `style-rotation-s
 bản sao. Deploy: Apps Script bản 33, cùng exec URL. **Allowlist domain ảnh CDN giờ không còn ý
 nghĩa — có thể xoá.**
 
+## 12. Đo lường tăng trưởng & khả năng lấy demographics — [2026-09-05]
+
+Ngoài `engagement_metrics` (views/likes/reactions/comments/shares theo TỪNG video, xem SETUP.md),
+thêm tab `audience_growth` theo dõi **lượt theo dõi/đăng ký cấp kênh** (không gắn video cụ thể) —
+chi tiết implementation ở mục "Theo dõi lượt theo dõi/đăng ký" trong SETUP.md.
+
+**Điều tra khả năng lấy demographics (tuổi/giới tính/thiết bị xem)** — kết luận theo từng nền tảng:
+
+| Chỉ số | YouTube | Facebook | Instagram | Threads |
+| --- | --- | --- | --- | --- |
+| Follower/subscriber | ✅ đã làm (`audience_growth`) | ✅ đã làm | ✅ đã làm | ❌ API chưa lộ field |
+| Tuổi/giới tính | ⚠️ có, nhưng cần **YouTube Analytics API** (khác Data API đang dùng) + scope OAuth mới `yt-analytics.readonly` — `YOUTUBE_REFRESH_TOKEN` hiện tại KHÔNG có scope này, phải làm lại OAuth Playground | ⚠️ từng có (`page_fans_gender_age`) nhưng chỉ **cấp Trang tổng**, không theo từng video; Meta đã thu hẹp quyền này qua nhiều năm, cần test lại quyền token hiện có | ⚠️ có (`follower_demographics`, breakdown age/gender) nhưng chỉ **cấp toàn tài khoản**, cần tối thiểu ~100 follower mới trả dữ liệu | ❌ Threads Insights API chưa hỗ trợ demographic (2026-09) |
+| Thiết bị xem | ⚠️ có qua YouTube Analytics API, cùng scope mới ở trên, theo từng video | ❌ không còn public qua Graph API (Meta đã rút khỏi API tổ chức nhiều năm trước) | ❌ không public | ❌ không hỗ trợ |
+
+**Kết luận**: demographics chỉ khả thi ở cấp TOÀN kênh/trang (không gắn được vào 1 dòng video trong
+`engagement_metrics`), và YouTube (nền tảng duy nhất có device breakdown) cần người vận hành tự làm
+lại OAuth Playground một lần để thêm scope `yt-analytics.readonly` trước khi code có thể lấy được —
+chưa làm vì cần quyết định của người dùng có đáng đánh đổi công sức OAuth mới không.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
