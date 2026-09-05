@@ -2001,10 +2001,14 @@ function audienceRow_(channel, now, followers, notes) {
 }
 
 /**
- * Fetches the current follower/subscriber count for each of the 4 channels and appends one row
- * per channel. Each platform is wrapped in its own try/catch so one failing/missing-permission
- * call never blocks the others — a failed fetch still writes a row with `followers` blank and
- * the raw error in `notes`, so a gap shows up in the history instead of silently vanishing.
+ * Fetches the current follower/subscriber count for each of the 4 channels and UPSERTS one row
+ * per channel per calendar day (Asia/Ho_Chi_Minh) — a second call on the same day (a manual test,
+ * or the daily trigger somehow firing twice) overwrites that channel's row in place instead of
+ * appending a duplicate. Added 2026-09-05 after exactly that happened (two manual test calls the
+ * same day left 2 rows per channel) and Looker Studio's SUM rollup double-counted the day's
+ * followers as a result. Each platform is wrapped in its own try/catch so one failing/missing-
+ * permission call never blocks the others — a failed fetch still writes a row with `followers`
+ * blank and the raw error in `notes`, so a gap shows up in the history instead of vanishing.
  */
 function refreshAudienceGrowth_() {
   var now = new Date();
@@ -2061,12 +2065,33 @@ function refreshAudienceGrowth_() {
   } catch (e) { rows.push(audienceRow_('Threads', now, '', String(e))); }
 
   var sheet = getAudienceSheet_();
-  var startRow = sheet.getLastRow() + 1;
-  sheet.getRange(startRow, 1, rows.length, AUDIENCE_HEADERS.length).setValues(rows);
-  var dateCol = AUDIENCE_HEADERS.indexOf('date') + 1;
-  sheet.getRange(startRow, dateCol, rows.length, 1).setNumberFormat('dd/mm/yyyy');
+  var channelIdx = AUDIENCE_HEADERS.indexOf('channel');
+  var dateIdx = AUDIENCE_HEADERS.indexOf('date');
+  var dateCol = dateIdx + 1;
+  var todayKey = Utilities.formatDate(now, 'Asia/Ho_Chi_Minh', 'yyyy-MM-dd');
 
-  return { ok: true, added: rows.length };
+  // Find, for each channel, an existing row already dated today (if any) to overwrite instead of
+  // appending — see the function comment above for why this has to be an upsert, not a plain append.
+  var existingRowForToday = {};
+  var lastRow = sheet.getLastRow();
+  if (lastRow > 1) {
+    var existingData = sheet.getRange(2, 1, lastRow - 1, AUDIENCE_HEADERS.length).getValues();
+    existingData.forEach(function (r, i) {
+      var d = r[dateIdx];
+      var key = d instanceof Date ? Utilities.formatDate(d, 'Asia/Ho_Chi_Minh', 'yyyy-MM-dd') : '';
+      if (key === todayKey) existingRowForToday[r[channelIdx]] = i + 2; // sheet row number
+    });
+  }
+
+  var appended = 0, updated = 0;
+  rows.forEach(function (row) {
+    var rowNum = existingRowForToday[row[channelIdx]];
+    if (rowNum) { updated++; } else { rowNum = sheet.getLastRow() + 1; appended++; }
+    sheet.getRange(rowNum, 1, 1, AUDIENCE_HEADERS.length).setValues([row]);
+    sheet.getRange(rowNum, dateCol, 1, 1).setNumberFormat('dd/mm/yyyy');
+  });
+
+  return { ok: true, appended: appended, updated: updated };
 }
 
 /**
