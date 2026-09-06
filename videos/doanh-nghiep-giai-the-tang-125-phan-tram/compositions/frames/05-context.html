@@ -1,0 +1,112 @@
+<template>
+  <style>
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; src: url('assets/fonts/Montserrat-400-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; src: url('assets/fonts/Montserrat-400-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+
+    .cx-content { position: absolute; left: 64px; right: 64px; top: 208px; }
+    .cx-kicker { font-weight: 700; font-size: 27px; letter-spacing: 0.12em; text-transform: uppercase; color: #e8441e; opacity: 0; }
+    .cx-headline { font-weight: 700; font-size: 46px; line-height: 1.24; color: #ffffff; margin-top: 16px; max-width: 950px; opacity: 0; }
+
+    .cx-leaderboard { margin-top: 44px; display: flex; flex-direction: column; gap: 28px; }
+    .cx-row { opacity: 0; }
+    .cx-row-label { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+    .cx-row-name { font-weight: 600; font-size: 24px; color: rgba(255,255,255,0.88); }
+    .cx-row-value { font-weight: 800; font-size: 28px; }
+    .cx-row-value.orange { color: #e8441e; }
+    .cx-row-value.white { color: #ffffff; }
+    .cx-bar-track { width: 952px; height: 48px; border-radius: 10px; background: rgba(255,255,255,0.08); overflow: hidden; }
+    .cx-bar-fill { height: 100%; border-radius: 10px; width: 0%; }
+    .cx-bar-fill.orange { background: #e8441e; }
+    .cx-bar-fill.white { background: rgba(255,255,255,0.4); }
+
+    .cx-reason-label { margin-top: 46px; font-weight: 600; font-size: 24px; line-height: 1.4; color: rgba(255,255,255,0.85); max-width: 950px; opacity: 0; }
+
+    .cx-chips { margin-top: 26px; display: flex; gap: 32px; }
+    .cx-chip {
+      flex: 1; padding: 30px 28px; border-radius: 18px;
+      border: 2px solid rgba(232, 68, 30, 0.55); background: rgba(232, 68, 30, 0.08);
+      opacity: 0; transform: translateY(16px);
+    }
+    .cx-chip-num { font-weight: 800; font-size: 52px; line-height: 1; color: #e8441e; white-space: nowrap; }
+    .cx-chip-label { font-weight: 600; font-size: 21px; line-height: 1.4; color: #ffffff; margin-top: 12px; }
+  </style>
+
+  <div id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div class="cx-content">
+      <div class="cx-kicker">Vì sao số giải thể tăng đột biến?</div>
+      <div class="cx-headline">Tỷ lệ doanh nghiệp mới vẫn tăng qua từng năm</div>
+
+      <div class="cx-leaderboard">
+        <div class="cx-row" id="cx-row-1">
+          <div class="cx-row-label">
+            <div class="cx-row-name">2024</div>
+            <div class="cx-row-value white">Gấp 6 lần</div>
+          </div>
+          <div class="cx-bar-track"><div class="cx-bar-fill white" id="cx-bar-1"></div></div>
+        </div>
+        <div class="cx-row" id="cx-row-2">
+          <div class="cx-row-label">
+            <div class="cx-row-name">2025</div>
+            <div class="cx-row-value white">Gấp 4,5 lần</div>
+          </div>
+          <div class="cx-bar-track"><div class="cx-bar-fill white" id="cx-bar-2"></div></div>
+        </div>
+        <div class="cx-row" id="cx-row-3">
+          <div class="cx-row-label">
+            <div class="cx-row-name">2026 (8 tháng)</div>
+            <div class="cx-row-value orange">Gấp 6,8 lần</div>
+          </div>
+          <div class="cx-bar-track"><div class="cx-bar-fill orange" id="cx-bar-3"></div></div>
+        </div>
+      </div>
+
+      <div class="cx-reason-label">Cục Thuế: từ giữa tháng 5/2026, ngành thuế triển khai chiến dịch làm sạch dữ liệu doanh nghiệp</div>
+
+      <div class="cx-chips">
+        <div class="cx-chip" id="cx-chip-a">
+          <div class="cx-chip-num">72.000</div>
+          <div class="cx-chip-label">Hồ sơ tồn đọng từ các năm trước, nay mới hoàn tất xử lý</div>
+        </div>
+        <div class="cx-chip" id="cx-chip-b">
+          <div class="cx-chip-num">23.000</div>
+          <div class="cx-chip-label">Hồ sơ phát sinh mới từ ngày 1/1/2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo('.cx-kicker', { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0.1);
+    tl.fromTo('.cx-headline', { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 0.3);
+
+    tl.fromTo('#cx-row-1', { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: 'power2.out' }, 0.85);
+    tl.fromTo('#cx-bar-1', { width: '0%' }, { width: '88.2%', duration: 0.6, ease: 'power2.out' }, 0.9);
+
+    tl.fromTo('#cx-row-2', { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: 'power2.out' }, 1.55);
+    tl.fromTo('#cx-bar-2', { width: '0%' }, { width: '66.2%', duration: 0.6, ease: 'power2.out' }, 1.6);
+
+    tl.fromTo('#cx-row-3', { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: 'power2.out' }, 2.25);
+    tl.fromTo('#cx-bar-3', { width: '0%' }, { width: '100%', duration: 0.6, ease: 'power2.out' }, 2.3);
+
+    tl.fromTo('.cx-reason-label', { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 3.4);
+
+    tl.fromTo('#cx-chip-a', { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 4.1);
+    tl.fromTo('#cx-chip-b', { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 4.35);
+
+    window.__timelines['05-context'] = tl;
+  </script>
+</template>

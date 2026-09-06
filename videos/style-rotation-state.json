@@ -139,6 +139,12 @@
       "style": "1-card-and-bar",
       "project": "heineken-rot-500-trieu-usd-viet-nam",
       "date": "2026-09-05"
+    },
+    {
+      "index": 1,
+      "style": "2-chip-and-leaderboard",
+      "project": "doanh-nghiep-giai-the-tang-125-phan-tram",
+      "date": "2026-09-06"
     }
   ]
 }

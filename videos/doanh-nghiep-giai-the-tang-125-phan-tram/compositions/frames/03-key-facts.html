@@ -1,0 +1,95 @@
+<template>
+  <style>
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; src: url('assets/fonts/Montserrat-400-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; src: url('assets/fonts/Montserrat-400-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+
+    .kf-content { position: absolute; left: 64px; right: 64px; top: 224px; }
+    .kf-kicker { font-weight: 700; font-size: 27px; letter-spacing: 0.12em; text-transform: uppercase; color: #e8441e; opacity: 0; }
+    .kf-headline { font-weight: 700; font-size: 50px; line-height: 1.24; color: #ffffff; margin-top: 18px; max-width: 950px; opacity: 0; }
+
+    .kf-chips { display: flex; flex-direction: column; gap: 30px; margin-top: 56px; }
+    .kf-chip {
+      position: relative;
+      display: flex; align-items: center; gap: 30px;
+      width: 952px; padding: 36px 38px; border-radius: 20px;
+      border: 2px solid rgba(232, 68, 30, 0.55); background: rgba(232, 68, 30, 0.08);
+      opacity: 0; transform: translateX(-24px);
+    }
+    .kf-chip-num-wrap { flex: none; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+    .kf-chip-num { font-weight: 800; font-size: 72px; line-height: 1; color: #e8441e; white-space: nowrap; }
+    .kf-chip-delta { display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 100px; background: #e8441e; }
+    .kf-chip-delta span { font-weight: 700; font-size: 20px; color: #ffffff; white-space: nowrap; }
+    .kf-chip-divider { width: 2px; align-self: stretch; background: rgba(255,255,255,0.16); flex: none; }
+    .kf-chip-label { flex: 1; font-weight: 600; font-size: 25px; line-height: 1.4; color: #ffffff; }
+  </style>
+
+  <div id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <div class="kf-content">
+      <div class="kf-kicker">Ba con số đáng chú ý</div>
+      <div class="kf-headline">Bức tranh doanh nghiệp rời thị trường 8 tháng đầu năm</div>
+
+      <div class="kf-chips">
+        <div class="kf-chip" id="kf-chip-1">
+          <div class="kf-chip-num-wrap">
+            <div class="kf-chip-num" id="kf-num-1">0</div>
+            <div class="kf-chip-delta"><span>+125%</span></div>
+          </div>
+          <div class="kf-chip-divider"></div>
+          <div class="kf-chip-label">Doanh nghiệp hoàn tất giải thể, 8 tháng đầu năm (Cục Thống kê)</div>
+        </div>
+
+        <div class="kf-chip" id="kf-chip-2">
+          <div class="kf-chip-num-wrap">
+            <div class="kf-chip-num" id="kf-num-2">0</div>
+            <div class="kf-chip-delta"><span>+151%</span></div>
+          </div>
+          <div class="kf-chip-divider"></div>
+          <div class="kf-chip-label">Doanh nghiệp giải thể riêng trong tháng 8</div>
+        </div>
+
+        <div class="kf-chip" id="kf-chip-3">
+          <div class="kf-chip-num-wrap">
+            <div class="kf-chip-num" id="kf-num-3">0</div>
+          </div>
+          <div class="kf-chip-divider"></div>
+          <div class="kf-chip-label">Mã số thuế chấm dứt hiệu lực — gồm cả doanh nghiệp và tổ chức khác (Cục Thuế)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    const root = document.querySelector('[data-composition-id="03-key-facts"]');
+    const num1 = root.querySelector('#kf-num-1');
+    const num2 = root.querySelector('#kf-num-2');
+    const num3 = root.querySelector('#kf-num-3');
+    const c1 = { v: 0 }, c2 = { v: 0 }, c3 = { v: 0 };
+
+    tl.fromTo('.kf-kicker', { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0.1);
+    tl.fromTo('.kf-headline', { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 0.3);
+
+    tl.fromTo('#kf-chip-1', { autoAlpha: 0, x: -24 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: 'power2.out' }, 0.85);
+    tl.fromTo(c1, { v: 0 }, { v: 40800, duration: 0.7, ease: 'power1.out', onUpdate() { num1.textContent = Math.round(c1.v).toLocaleString('vi-VN'); } }, 0.9);
+
+    tl.fromTo('#kf-chip-2', { autoAlpha: 0, x: -24 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: 'power2.out' }, 3.1);
+    tl.fromTo(c2, { v: 0 }, { v: 9600, duration: 0.7, ease: 'power1.out', onUpdate() { num2.textContent = Math.round(c2.v).toLocaleString('vi-VN'); } }, 3.15);
+
+    tl.fromTo('#kf-chip-3', { autoAlpha: 0, x: -24 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: 'power2.out' }, 5.5);
+    tl.fromTo(c3, { v: 0 }, { v: 95000, duration: 0.7, ease: 'power1.out', onUpdate() { num3.textContent = Math.round(c3.v).toLocaleString('vi-VN'); } }, 5.55);
+
+    window.__timelines['03-key-facts'] = tl;
+  </script>
+</template>
