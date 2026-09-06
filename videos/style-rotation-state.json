@@ -145,6 +145,12 @@
       "style": "2-chip-and-leaderboard",
       "project": "doanh-nghiep-giai-the-tang-125-phan-tram",
       "date": "2026-09-06"
+    },
+    {
+      "index": 2,
+      "style": "3-ticker-tape",
+      "project": "vinasun-lan-dau-lo-sau-5-nam",
+      "date": "2026-09-06"
     }
   ]
 }
