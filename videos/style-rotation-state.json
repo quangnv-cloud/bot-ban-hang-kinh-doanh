@@ -151,6 +151,12 @@
       "style": "3-ticker-tape",
       "project": "vinasun-lan-dau-lo-sau-5-nam",
       "date": "2026-09-06"
+    },
+    {
+      "index": 3,
+      "style": "4-split-comparison",
+      "project": "volkswagen-cat-giam-50000-viec-lam",
+      "date": "2026-09-06"
     }
   ]
 }
