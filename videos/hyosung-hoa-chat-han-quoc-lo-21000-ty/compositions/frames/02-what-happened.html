@@ -1,0 +1,90 @@
+<template>
+  <style>
+    #root-02 {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+
+    .wh-wrap { position: absolute; inset: 0; padding: 232px 64px 0; display: flex; flex-direction: column; }
+
+    .wh-kicker {
+      display: flex; align-items: center; gap: 10px; opacity: 0;
+    }
+    .wh-kicker-bar { width: 28px; height: 4px; background: #e8441e; border-radius: 2px; }
+    .wh-kicker span { font-weight: 700; font-size: 24px; letter-spacing: 0.14em; text-transform: uppercase; color: #e8441e; }
+
+    .wh-headline {
+      font-weight: 800; font-size: 56px; line-height: 1.28; color: #ffffff;
+      margin-top: 26px; max-width: 950px; opacity: 0;
+    }
+    .wh-headline b { color: #e8441e; font-weight: 800; }
+
+    .wh-card {
+      position: relative; margin-top: 48px; border-radius: 26px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.14); box-shadow: 0 30px 70px rgba(0,0,0,0.45);
+      height: 660px; opacity: 0;
+    }
+    .wh-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.1); }
+    .wh-card-tag {
+      position: absolute; left: 22px; top: 22px; padding: 8px 16px; border-radius: 8px;
+      background: rgba(17,17,17,0.62); backdrop-filter: blur(3px);
+      font-weight: 700; font-size: 17px; letter-spacing: 0.08em; text-transform: uppercase; color: #ffffff;
+    }
+    .wh-card-cap {
+      position: absolute; left: 0; right: 0; bottom: 0; padding: 20px 24px;
+      background: linear-gradient(0deg, rgba(17,17,17,0.92) 0%, rgba(17,17,17,0) 100%);
+      font-weight: 500; font-size: 21px; color: #f1f1f1; font-style: italic;
+    }
+
+    .wh-ring-row { display: flex; align-items: center; gap: 18px; margin-top: 40px; opacity: 0; }
+    .wh-ring { width: 72px; height: 72px; flex: none; position: relative; }
+    .wh-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .wh-ring circle.track { fill: none; stroke: rgba(255,255,255,0.14); stroke-width: 5; }
+    .wh-ring circle.fill { fill: none; stroke: #e8441e; stroke-width: 5; stroke-linecap: round; }
+    .wh-ring-dot { position: absolute; left: 50%; top: 50%; width: 12px; height: 12px; border-radius: 50%; background: #e8441e; transform: translate(-50%, -50%); }
+    .wh-ring-text { font-weight: 600; font-size: 23px; color: #ffffff; letter-spacing: 0.02em; }
+  </style>
+
+  <div id="root-02" data-composition-id="02-what-happened" data-width="1080" data-height="1920">
+    <div class="wh-wrap">
+      <div class="wh-kicker"><div class="wh-kicker-bar"></div><span>Tài chính doanh nghiệp</span></div>
+
+      <div class="wh-headline">
+        Hyosung Vina Chemicals — hóa dầu 100% vốn Hàn Quốc — vừa công bố khoản lỗ lũy kế lên tới <b>20.798 tỷ đồng</b>.
+      </div>
+
+      <div class="wh-card">
+        <img src="assets/images/hook-photo.jpg" alt="">
+        <div class="wh-card-tag">Bot Bán Hàng</div>
+        <div class="wh-card-cap">Nhà máy hoá dầu Hyosung, Bà Rịa - Vũng Tàu</div>
+      </div>
+
+      <div class="wh-ring-row">
+        <div class="wh-ring">
+          <svg viewBox="0 0 80 80">
+            <circle class="track" cx="40" cy="40" r="34"></circle>
+            <circle class="fill" id="wh-ring-fill" cx="40" cy="40" r="34" stroke-dasharray="213.6" stroke-dashoffset="213.6"></circle>
+          </svg>
+          <div class="wh-ring-dot"></div>
+        </div>
+        <div class="wh-ring-text">Znews &middot; 07/09/2026</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    const root = document.querySelector('[data-composition-id="02-what-happened"]');
+    const ringFill = root.querySelector('#wh-ring-fill');
+
+    tl.fromTo('#root-02 .wh-kicker', { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: 'power2.out' }, 0.05);
+    tl.fromTo('#root-02 .wh-headline', { autoAlpha: 0, y: 22 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.32);
+    tl.fromTo('#root-02 .wh-card', { autoAlpha: 0, y: 30, scale: 0.97 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.55, ease: 'power2.out' }, 1.9);
+    tl.fromTo('#root-02 .wh-card img', { scale: 1.1 }, { scale: 1, duration: 2.4, ease: 'power1.out' }, 1.9);
+    tl.fromTo('#root-02 .wh-ring-row', { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 2.75);
+    tl.fromTo(ringFill, { attr: { 'stroke-dashoffset': 213.6 } }, { attr: { 'stroke-dashoffset': 0 }, duration: 0.8, ease: 'power2.inOut' }, 2.85);
+
+    window.__timelines['02-what-happened'] = tl;
+  </script>
+</template>

@@ -1,0 +1,104 @@
+<template>
+  <style>
+    #root-03 {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+
+    .kf-wrap { position: absolute; inset: 0; padding: 232px 64px 0; display: flex; flex-direction: column; }
+
+    .kf-kicker { display: flex; align-items: center; gap: 10px; opacity: 0; }
+    .kf-kicker-bar { width: 28px; height: 4px; background: #e8441e; border-radius: 2px; }
+    .kf-kicker span { font-weight: 700; font-size: 24px; letter-spacing: 0.14em; text-transform: uppercase; color: #e8441e; }
+
+    .kf-title { font-weight: 800; font-size: 50px; line-height: 1.24; color: #ffffff; margin-top: 24px; max-width: 950px; opacity: 0; }
+
+    .kf-rows { margin-top: 64px; display: flex; flex-direction: column; gap: 54px; }
+    .kf-row { display: flex; align-items: center; gap: 34px; opacity: 0; }
+
+    .kf-ring { width: 128px; height: 128px; flex: none; position: relative; }
+    .kf-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .kf-ring circle.track { fill: none; stroke: rgba(255,255,255,0.14); stroke-width: 9; }
+    .kf-ring circle.fill { fill: none; stroke: #e8441e; stroke-width: 9; stroke-linecap: round; }
+    .kf-ring-label {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 26px; color: #ffffff;
+    }
+
+    .kf-text h4 { font-weight: 800; font-size: 34px; line-height: 1.22; color: #ffffff; max-width: 760px; }
+    .kf-text p { font-weight: 500; font-size: 24px; line-height: 1.3; color: rgba(255,255,255,0.62); margin-top: 8px; max-width: 760px; }
+  </style>
+
+  <div id="root-03" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <div class="kf-wrap">
+      <div class="kf-kicker"><div class="kf-kicker-bar"></div><span>Hồ sơ doanh nghiệp</span></div>
+      <div class="kf-title">Ba điểm cần biết về Hyosung Vina Chemicals</div>
+
+      <div class="kf-rows">
+        <div class="kf-row" id="kf-row-1">
+          <div class="kf-ring">
+            <svg viewBox="0 0 128 128">
+              <circle class="track" cx="64" cy="64" r="55"></circle>
+              <circle class="fill" id="kf-fill-1" cx="64" cy="64" r="55" stroke-dasharray="345.6" stroke-dashoffset="345.6"></circle>
+            </svg>
+            <div class="kf-ring-label">$</div>
+          </div>
+          <div class="kf-text">
+            <h4>Vốn đầu tư 1,3 tỷ đô la Mỹ</h4>
+            <p>Nhà máy hoá dầu tại Bà Rịa - Vũng Tàu, từ năm 2018</p>
+          </div>
+        </div>
+
+        <div class="kf-row" id="kf-row-2">
+          <div class="kf-ring">
+            <svg viewBox="0 0 128 128">
+              <circle class="track" cx="64" cy="64" r="55"></circle>
+              <circle class="fill" id="kf-fill-2" cx="64" cy="64" r="55" stroke-dasharray="345.6" stroke-dashoffset="345.6"></circle>
+            </svg>
+            <div class="kf-ring-label">1/8</div>
+          </div>
+          <div class="kf-text">
+            <h4>Chỉ 1 trong 8 năm có lãi</h4>
+            <p>Từ 2018 đến nay, doanh nghiệp lỗ liên tục hầu hết các năm</p>
+          </div>
+        </div>
+
+        <div class="kf-row" id="kf-row-3">
+          <div class="kf-ring">
+            <svg viewBox="0 0 128 128">
+              <circle class="track" cx="64" cy="64" r="55"></circle>
+              <circle class="fill" id="kf-fill-3" cx="64" cy="64" r="55" stroke-dasharray="345.6" stroke-dashoffset="345.6"></circle>
+            </svg>
+            <div class="kf-ring-label">!</div>
+          </div>
+          <div class="kf-text">
+            <h4>Kiểm toán cảnh báo</h4>
+            <p>Ernst &amp; Young Việt Nam nêu nghi ngờ về khả năng hoạt động liên tục</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo('#root-03 .kf-kicker', { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: 'power2.out' }, 0.05);
+    tl.fromTo('#root-03 .kf-title', { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.3);
+
+    // Row 1 — full ring (not a percentage stat, drawn to 100%)
+    tl.fromTo('#kf-row-1', { autoAlpha: 0, x: -24 }, { autoAlpha: 1, x: 0, duration: 0.45, ease: 'power2.out' }, 1.5);
+    tl.fromTo('#kf-fill-1', { attr: { 'stroke-dashoffset': 345.6 } }, { attr: { 'stroke-dashoffset': 0 }, duration: 0.7, ease: 'power2.inOut' }, 1.6);
+
+    // Row 2 — ring drawn to 1/8 (12.5%) of circumference
+    tl.fromTo('#kf-row-2', { autoAlpha: 0, x: -24 }, { autoAlpha: 1, x: 0, duration: 0.45, ease: 'power2.out' }, 4.7);
+    tl.fromTo('#kf-fill-2', { attr: { 'stroke-dashoffset': 345.6 } }, { attr: { 'stroke-dashoffset': 302.4 }, duration: 0.7, ease: 'power2.inOut' }, 4.8);
+
+    // Row 3 — full ring (alert)
+    tl.fromTo('#kf-row-3', { autoAlpha: 0, x: -24 }, { autoAlpha: 1, x: 0, duration: 0.45, ease: 'power2.out' }, 7.9);
+    tl.fromTo('#kf-fill-3', { attr: { 'stroke-dashoffset': 345.6 } }, { attr: { 'stroke-dashoffset': 0 }, duration: 0.7, ease: 'power2.inOut' }, 8.0);
+
+    window.__timelines['03-key-facts'] = tl;
+  </script>
+</template>

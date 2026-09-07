@@ -1,0 +1,87 @@
+<template>
+  <style>
+    #root-06 {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+
+    .im-wrap { position: absolute; inset: 0; padding: 232px 64px 0; display: flex; flex-direction: column; align-items: center; }
+
+    .im-kicker { display: flex; align-items: center; gap: 10px; opacity: 0; align-self: flex-start; }
+    .im-kicker-bar { width: 28px; height: 4px; background: #e8441e; border-radius: 2px; }
+    .im-kicker span { font-weight: 700; font-size: 24px; letter-spacing: 0.14em; text-transform: uppercase; color: #e8441e; }
+
+    .im-title { font-weight: 800; font-size: 48px; line-height: 1.26; color: #ffffff; margin-top: 24px; max-width: 950px; opacity: 0; align-self: flex-start; }
+
+    .im-rings { margin-top: 96px; display: flex; align-items: flex-start; gap: 56px; }
+    .im-col { display: flex; flex-direction: column; align-items: center; width: 380px; opacity: 0; }
+
+    .im-ring { width: 340px; height: 340px; position: relative; }
+    .im-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .im-ring circle.track { fill: none; stroke-width: 18; }
+    .im-ring circle.fill { fill: none; stroke-width: 18; stroke-linecap: round; }
+    .im-ring.primary circle.track { stroke: rgba(232,68,30,0.16); }
+    .im-ring.primary circle.fill { stroke: #e8441e; }
+    .im-ring.secondary circle.track { stroke: rgba(255,255,255,0.1); }
+    .im-ring.secondary circle.fill { stroke: rgba(255,255,255,0.55); }
+
+    .im-ring-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .im-num { font-weight: 800; font-size: 64px; line-height: 1; color: #ffffff; white-space: nowrap; }
+    .im-unit { font-weight: 600; font-size: 20px; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-top: 8px; }
+
+    .im-col p { margin-top: 26px; font-weight: 700; font-size: 24px; color: #ffffff; text-align: center; }
+  </style>
+
+  <div id="root-06" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <div class="im-wrap">
+      <div class="im-kicker"><div class="im-kicker-bar"></div><span>Kết quả nửa đầu 2026</span></div>
+      <div class="im-title">Doanh nghiệp bất ngờ đảo chiều có lãi</div>
+
+      <div class="im-rings">
+        <div class="im-col" id="im-col-1">
+          <div class="im-ring primary">
+            <svg viewBox="0 0 340 340">
+              <circle class="track" cx="170" cy="170" r="152"></circle>
+              <circle class="fill" id="im-fill-1" cx="170" cy="170" r="152" stroke-dasharray="954.9" stroke-dashoffset="954.9"></circle>
+            </svg>
+            <div class="im-ring-center">
+              <div class="im-num">768</div>
+              <div class="im-unit">Tỷ đồng lãi</div>
+            </div>
+          </div>
+          <p>Nửa đầu năm 2026</p>
+        </div>
+
+        <div class="im-col" id="im-col-2">
+          <div class="im-ring secondary">
+            <svg viewBox="0 0 340 340">
+              <circle class="track" cx="170" cy="170" r="152"></circle>
+              <circle class="fill" id="im-fill-2" cx="170" cy="170" r="152" stroke-dasharray="954.9" stroke-dashoffset="954.9"></circle>
+            </svg>
+            <div class="im-ring-center">
+              <div class="im-num">1.885</div>
+              <div class="im-unit">Tỷ đồng lỗ</div>
+            </div>
+          </div>
+          <p>Cùng kỳ năm 2025</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo('#root-06 .im-kicker', { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: 'power2.out' }, 0.05);
+    tl.fromTo('#root-06 .im-title', { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.3);
+
+    tl.fromTo('#im-col-2', { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 1.6);
+    tl.fromTo('#im-fill-2', { attr: { 'stroke-dashoffset': 954.9 } }, { attr: { 'stroke-dashoffset': 0 }, duration: 0.85, ease: 'power2.inOut' }, 1.7);
+
+    tl.fromTo('#im-col-1', { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 3.2);
+    tl.fromTo('#im-fill-1', { attr: { 'stroke-dashoffset': 954.9 } }, { attr: { 'stroke-dashoffset': 0 }, duration: 0.85, ease: 'power2.inOut' }, 3.3);
+
+    window.__timelines['06-impact'] = tl;
+  </script>
+</template>

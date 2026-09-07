@@ -1,0 +1,59 @@
+<template>
+  <style>
+    #root-04 {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .dm-kicker {
+      position: absolute; top: 300px; left: 0; right: 0; text-align: center; opacity: 0;
+    }
+    .dm-kicker span {
+      font-weight: 700; font-size: 26px; letter-spacing: 0.16em; text-transform: uppercase; color: #e8441e;
+    }
+
+    .dm-ring { position: relative; width: 760px; height: 760px; opacity: 0; }
+    .dm-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .dm-ring circle.track { fill: none; stroke: rgba(255,255,255,0.1); stroke-width: 20; }
+    .dm-ring circle.fill { fill: none; stroke: #e8441e; stroke-width: 20; stroke-linecap: round; }
+
+    .dm-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .dm-num { font-weight: 800; font-size: 132px; line-height: 1; color: #ffffff; letter-spacing: -0.01em; white-space: nowrap; }
+    .dm-unit { font-weight: 700; font-size: 32px; letter-spacing: 0.08em; text-transform: uppercase; color: #e8441e; margin-top: 18px; }
+  </style>
+
+  <div id="root-04" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+    <div class="dm-kicker"><span>Con số đáng chú ý</span></div>
+    <div class="dm-ring">
+      <svg viewBox="0 0 760 760">
+        <circle class="track" cx="380" cy="380" r="340"></circle>
+        <circle class="fill" id="dm-fill" cx="380" cy="380" r="340" stroke-dasharray="2136.3" stroke-dashoffset="2136.3"></circle>
+      </svg>
+      <div class="dm-center">
+        <div class="dm-num" id="dm-num">0</div>
+        <div class="dm-unit">Tỷ đồng lỗ lũy kế</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    const root = document.querySelector('[data-composition-id="04-data-moment"]');
+    const numEl = root.querySelector('#dm-num');
+    const fillEl = root.querySelector('#dm-fill');
+    const counter = { v: 0 };
+
+    tl.fromTo('#root-04 .dm-kicker', { autoAlpha: 0, y: -10 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: 'power2.out' }, 0.1);
+    tl.fromTo('#root-04 .dm-ring', { autoAlpha: 0, scale: 0.9 }, { autoAlpha: 1, scale: 1, duration: 0.45, ease: 'power2.out' }, 0.35);
+    tl.fromTo(fillEl, { attr: { 'stroke-dashoffset': 2136.3 } }, { attr: { 'stroke-dashoffset': 260 }, duration: 1.5, ease: 'power2.inOut' }, 0.45);
+    tl.fromTo(counter, { v: 0 }, {
+      v: 20798, duration: 1.5, ease: 'power1.out',
+      onUpdate() { numEl.textContent = Math.round(counter.v).toLocaleString('vi-VN'); }
+    }, 0.45);
+    tl.fromTo('#root-04 .dm-unit', { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.3, ease: 'power2.out' }, 1.9);
+
+    window.__timelines['04-data-moment'] = tl;
+  </script>
+</template>

@@ -1,0 +1,103 @@
+<template>
+  <style>
+    #root-05 {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+
+    .cx-wrap { position: absolute; inset: 0; padding: 232px 64px 0; display: flex; flex-direction: column; }
+
+    .cx-kicker { display: flex; align-items: center; gap: 10px; opacity: 0; }
+    .cx-kicker-bar { width: 28px; height: 4px; background: #e8441e; border-radius: 2px; }
+    .cx-kicker span { font-weight: 700; font-size: 24px; letter-spacing: 0.14em; text-transform: uppercase; color: #e8441e; }
+
+    .cx-title { font-weight: 800; font-size: 48px; line-height: 1.26; color: #ffffff; margin-top: 24px; max-width: 950px; opacity: 0; }
+
+    .cx-grid { margin-top: 90px; display: flex; justify-content: space-between; gap: 20px; }
+    .cx-item { display: flex; flex-direction: column; align-items: center; width: 210px; opacity: 0; }
+
+    .cx-ring { width: 172px; height: 172px; position: relative; }
+    .cx-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .cx-ring circle.track { fill: none; stroke: rgba(255,255,255,0.14); stroke-width: 11; }
+    .cx-ring circle.fill { fill: none; stroke: #e8441e; stroke-width: 11; stroke-linecap: round; }
+    .cx-ring-val { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 30px; color: #ffffff; text-align: center; }
+
+    .cx-item p { margin-top: 22px; font-weight: 500; font-size: 21px; line-height: 1.3; color: rgba(255,255,255,0.68); text-align: center; }
+  </style>
+
+  <div id="root-05" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div class="cx-wrap">
+      <div class="cx-kicker"><div class="cx-kicker-bar"></div><span>Cơ cấu tài chính</span></div>
+      <div class="cx-title">Vì sao kiểm toán lo ngại khả năng hoạt động liên tục</div>
+
+      <div class="cx-grid">
+        <div class="cx-item" id="cx-item-1">
+          <div class="cx-ring">
+            <svg viewBox="0 0 172 172">
+              <circle class="track" cx="86" cy="86" r="74"></circle>
+              <circle class="fill" id="cx-fill-1" cx="86" cy="86" r="74" stroke-dasharray="464.9" stroke-dashoffset="464.9"></circle>
+            </svg>
+            <div class="cx-ring-val">10.789</div>
+          </div>
+          <p>Vốn chủ sở hữu (tỷ đồng)</p>
+        </div>
+
+        <div class="cx-item" id="cx-item-2">
+          <div class="cx-ring">
+            <svg viewBox="0 0 172 172">
+              <circle class="track" cx="86" cy="86" r="74"></circle>
+              <circle class="fill" id="cx-fill-2" cx="86" cy="86" r="74" stroke-dasharray="464.9" stroke-dashoffset="464.9"></circle>
+            </svg>
+            <div class="cx-ring-val">6.482</div>
+          </div>
+          <p>Nợ ngắn hạn vượt tài sản (tỷ đồng)</p>
+        </div>
+
+        <div class="cx-item" id="cx-item-3">
+          <div class="cx-ring">
+            <svg viewBox="0 0 172 172">
+              <circle class="track" cx="86" cy="86" r="74"></circle>
+              <circle class="fill" id="cx-fill-3" cx="86" cy="86" r="74" stroke-dasharray="464.9" stroke-dashoffset="464.9"></circle>
+            </svg>
+            <div class="cx-ring-val">18.899</div>
+          </div>
+          <p>Tổng nợ vay (tỷ đồng)</p>
+        </div>
+
+        <div class="cx-item" id="cx-item-4">
+          <div class="cx-ring">
+            <svg viewBox="0 0 172 172">
+              <circle class="track" cx="86" cy="86" r="74"></circle>
+              <circle class="fill" id="cx-fill-4" cx="86" cy="86" r="74" stroke-dasharray="464.9" stroke-dashoffset="464.9"></circle>
+            </svg>
+            <div class="cx-ring-val">37%</div>
+          </div>
+          <p>Nợ vay đã giảm so với trước</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo('#root-05 .cx-kicker', { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: 'power2.out' }, 0.05);
+    tl.fromTo('#root-05 .cx-title', { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.3);
+
+    // Rings draw sequentially left -> right
+    tl.fromTo('#cx-item-1', { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 1.6);
+    tl.fromTo('#cx-fill-1', { attr: { 'stroke-dashoffset': 464.9 } }, { attr: { 'stroke-dashoffset': 0 }, duration: 0.7, ease: 'power2.inOut' }, 1.7);
+
+    tl.fromTo('#cx-item-2', { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 3.0);
+    tl.fromTo('#cx-fill-2', { attr: { 'stroke-dashoffset': 464.9 } }, { attr: { 'stroke-dashoffset': 0 }, duration: 0.7, ease: 'power2.inOut' }, 3.1);
+
+    tl.fromTo('#cx-item-3', { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 4.4);
+    tl.fromTo('#cx-fill-3', { attr: { 'stroke-dashoffset': 464.9 } }, { attr: { 'stroke-dashoffset': 0 }, duration: 0.7, ease: 'power2.inOut' }, 4.5);
+
+    tl.fromTo('#cx-item-4', { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 5.8);
+    tl.fromTo('#cx-fill-4', { attr: { 'stroke-dashoffset': 464.9 } }, { attr: { 'stroke-dashoffset': 292.9 }, duration: 0.7, ease: 'power2.inOut' }, 5.9);
+
+    window.__timelines['05-context'] = tl;
+  </script>
+</template>
