@@ -157,6 +157,12 @@
       "style": "4-split-comparison",
       "project": "volkswagen-cat-giam-50000-viec-lam",
       "date": "2026-09-06"
+    },
+    {
+      "index": 4,
+      "style": "5-map-and-geo",
+      "project": "vingroup-sun-group-masterise-do-35-nghin-ty-tphcm",
+      "date": "2026-09-07"
     }
   ]
 }
