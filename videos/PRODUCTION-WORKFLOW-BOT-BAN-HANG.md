@@ -45,6 +45,11 @@ liệu/tác động kinh tế rõ hơn.
    để bổ sung ngữ cảnh/nhân vật.
 2. Tạo `BRIEF.md` (mục tiêu, nguồn, nội dung chính) và `SCRIPT.md` (kịch bản voice theo từng dòng,
    MỘT dòng = MỘT act) trong thư mục project.
+   **[Bắt buộc — 2026-09-07] `SCRIPT.md` KHÔNG được viết tắt** — viết đầy đủ đúng như cách đọc
+   thành tiếng, vì TTS đọc y theo văn bản: "Tp.HCM" → "Thành phố Hồ Chí Minh", "DNVVN" → "doanh
+   nghiệp vừa và nhỏ", "BĐS" → "bất động sản", "km" → "ki-lô-mét"... (bảng quy đổi đầy đủ ở mục
+   "Voiceover" trong `BRAND-SYSTEM-BOT-BAN-HANG.md`). `BRIEF.md` và text hiển thị trên video vẫn
+   được viết tắt bình thường — ràng buộc này CHỈ áp cho `SCRIPT.md`.
 3. Kịch bản viết theo văn phong tin tức — không suy đoán/dự báo tương lai (xem mục "Cấu trúc act"
    trong `BRAND-SYSTEM-BOT-BAN-HANG.md`: act cuối cùng phải là sự thật/số liệu đã xảy ra, KHÔNG
    dùng câu kiểu "liệu xu hướng này có tiếp tục..." — bài học rút ra sau khi video 2 phải cắt bỏ
@@ -79,6 +84,9 @@ Xem chi tiết đầy đủ (voice_id, lý do bắt buộc `eleven_v3`, cách ve
 3. Đo thời lượng thật từng file (`ffprobe`), đây là input bắt buộc cho bước 4 (timing).
 4. Verify nhanh bằng Whisper (`base` model, ép `language=Vietnamese`) — so với script gốc, chấp
    nhận lỗi ASR kiểu nhầm âm gần giống, không chấp nhận câu sai cấu trúc/nghĩa hoàn toàn.
+   **Soát riêng lỗi đọc lắp / đánh vần** (do viết tắt lọt vào `SCRIPT.md`): nếu transcript cho
+   thấy một địa danh/cụm từ bị đọc rời từng chữ cái hoặc sai hẳn, sửa lại dòng đó trong `SCRIPT.md`
+   thành dạng viết đầy đủ rồi sinh lại file voice đó — đừng giao video có voice đọc sai.
 
 ## 3. Dựng composition
 

@@ -139,6 +139,27 @@ verify bằng cách phiên âm ngược (`whisper`/Parakeet, `language` ép đú
 bản gốc — sai lệch kiểu nhầm âm gần giống (vd. "lấn"→"lớn") là bình thường (do model ASR yếu với
 tiếng Việt), nhưng câu hoàn toàn không khớp cấu trúc/nghĩa là dấu hiệu giọng đọc sai ngôn ngữ.
 
+**[QUAN TRỌNG — KHÔNG viết tắt trong `SCRIPT.md` / lời voice — 2026-09-07]**: mỗi dòng trong
+`SCRIPT.md` phải viết **đầy đủ đúng như cách đọc thành tiếng**, không dùng chữ viết tắt / ký hiệu
+mà TTS sẽ đọc sai. Đã gặp thực tế: "Tp.HCM" khiến ElevenLabs đọc sai (đánh vần / đọc lắp), phải
+viết "**Thành phố Hồ Chí Minh**". Quy đổi bắt buộc khi soạn `SCRIPT.md`:
+- `Tp.` / `TP.` / `TP.HCM` / `TPHCM` → `Thành phố` / `Thành phố Hồ Chí Minh`
+- `Q.1`, `P.Bến Nghé` → `Quận 1`, `phường Bến Nghé`; `TW` → `Trung ương`
+- `DN`, `DNVVN` / `DNNVV` → `doanh nghiệp`, `doanh nghiệp vừa và nhỏ`
+- `BĐS` → `bất động sản`; `NĐT` → `nhà đầu tư`; `TNHH` → `trách nhiệm hữu hạn`;
+  `CTCP` → `Công ty Cổ phần`; `NHNN` → `Ngân hàng Nhà nước`
+- Đơn vị: `km` → `ki-lô-mét`, `m2` / `m²` → `mét vuông`, `ha` → `héc-ta`,
+  `USD` → `đô la Mỹ` (trừ khi cả câu đang là tên chỉ số / thuật ngữ tài chính đọc nguyên như
+  "chỉ số Đô la"), `%` giữ nguyên (ElevenLabs đọc "phần trăm" đúng)
+- Số lớn viết bằng chữ theo cách người Việt đọc: `1.827,72 điểm` đọc được, nhưng
+  `408.000 tỷ` nên là `408 nghìn tỷ` cho chắc.
+- Tên riêng / mã đọc nguyên bằng chữ cái được thì GIỮ (`VN-Index`, `CPI`, `HNX`, `VIC`) — chỉ ép
+  viết đầy đủ khi nghe thử thấy TTS đọc sai.
+
+**Text hiển thị trên video vẫn được dùng chữ viết tắt biên tập** (headline "TP.HCM thu 4.900 tỷ"
+là hợp lệ về mặt hình ảnh) — ràng buộc này CHỈ áp cho `SCRIPT.md` (nguồn để sinh voice). Khi
+verify transcript ở bước QC, soát riêng: các địa danh / cụm từ có bị đọc lắp / đánh vần không.
+
 Tạo TỪNG DÒNG script riêng (một file mp3/dòng, khớp `data-start` của frame tương ứng), KHÔNG gộp
 cả kịch bản thành một lần gọi API — dễ chỉnh sửa/thay riêng từng dòng và dễ so khớp thời lượng với
 từng khung hình. `eleven_v3` đọc nhịp độ tự nhiên vừa đủ nên thường không cần chỉnh `speed`; nếu
