@@ -1,0 +1,77 @@
+<template>
+  <style>
+    #root-03 {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+
+    .kf-wrap { position: absolute; inset: 0; padding: 232px 64px 0; display: flex; flex-direction: column; }
+
+    .kf-kicker { display: flex; align-items: center; gap: 10px; opacity: 0; }
+    .kf-kicker-bar { width: 28px; height: 4px; background: #e8441e; border-radius: 2px; }
+    .kf-kicker span { font-weight: 700; font-size: 24px; letter-spacing: 0.14em; text-transform: uppercase; color: #e8441e; }
+
+    .kf-title { font-weight: 800; font-size: 50px; line-height: 1.24; color: #ffffff; margin-top: 24px; max-width: 950px; opacity: 0; }
+
+    /* Editorial Clipping: 3 fact cards as loosely fanned "cắt dán" paper clippings. */
+    .kf-stack { margin-top: 70px; display: flex; flex-direction: column; }
+
+    .kf-card {
+      position: relative; background: #ffffff; border-radius: 4px;
+      padding: 30px 34px 32px; box-shadow: 0 20px 44px rgba(0,0,0,0.42);
+      opacity: 0;
+    }
+    .kf-card:nth-child(1) { transform: rotate(-2.4deg) translateX(-8px); z-index: 3; }
+    .kf-card:nth-child(2) { margin-top: 22px; transform: rotate(2deg) translateX(10px); z-index: 2; }
+    .kf-card:nth-child(3) { margin-top: 22px; transform: rotate(-1.4deg) translateX(-4px); z-index: 1; }
+
+    .kf-card-tag {
+      display: inline-block; padding: 5px 13px; border-radius: 5px;
+      background: rgba(232, 68, 30, 0.12); border: 1px solid rgba(232, 68, 30, 0.5);
+      font-weight: 700; font-size: 16px; letter-spacing: 0.06em; color: #89230c;
+    }
+    .kf-card h4 { font-weight: 800; font-size: 32px; line-height: 1.2; color: #161616; margin-top: 12px; max-width: 780px; }
+    .kf-card p { font-weight: 500; font-size: 22px; line-height: 1.32; color: #4a4a4a; margin-top: 6px; max-width: 780px; }
+  </style>
+
+  <div id="root-03" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <div class="kf-wrap">
+      <div class="kf-kicker"><div class="kf-kicker-bar"></div><span>Hồ sơ doanh nghiệp</span></div>
+      <div class="kf-title">Ba điểm cần biết về Sun Life Việt Nam</div>
+
+      <div class="kf-stack">
+        <div class="kf-card" id="kf-card-1">
+          <div class="kf-card-tag">2013 &rarr; 2016</div>
+          <h4>Gia nhập Việt Nam từ 2013</h4>
+          <p>Chuyển 100% vốn ngoại từ năm 2016 — tính đến nay tròn 13 năm hoạt động</p>
+        </div>
+
+        <div class="kf-card" id="kf-card-2">
+          <div class="kf-card-tag">1&nbsp;/&nbsp;13</div>
+          <h4>Chỉ 1 năm duy nhất có lãi</h4>
+          <p>37 tỷ đồng lợi nhuận năm đầu tiên — 12 năm còn lại đều báo lỗ</p>
+        </div>
+
+        <div class="kf-card" id="kf-card-3">
+          <div class="kf-card-tag">Liên tục</div>
+          <h4>Thua lỗ kéo dài nhiều năm</h4>
+          <p>Riêng năm 2025 lỗ hơn 3.800 tỷ đồng — mức lỗ cao nhất từ trước đến nay</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo('#root-03 .kf-kicker', { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: 'power2.out' }, 0.05);
+    tl.fromTo('#root-03 .kf-title', { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.3);
+
+    tl.fromTo('#kf-card-1', { autoAlpha: 0, y: 34, rotate: 6 }, { autoAlpha: 1, y: 0, rotate: -2.4, duration: 0.5, ease: 'power2.out' }, 1.5);
+    tl.fromTo('#kf-card-2', { autoAlpha: 0, y: 34, rotate: -6 }, { autoAlpha: 1, y: 0, rotate: 2, duration: 0.5, ease: 'power2.out' }, 4.7);
+    tl.fromTo('#kf-card-3', { autoAlpha: 0, y: 34, rotate: 6 }, { autoAlpha: 1, y: 0, rotate: -1.4, duration: 0.5, ease: 'power2.out' }, 7.9);
+
+    window.__timelines['03-key-facts'] = tl;
+  </script>
+</template>

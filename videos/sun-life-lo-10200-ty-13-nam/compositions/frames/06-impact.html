@@ -1,0 +1,70 @@
+<template>
+  <style>
+    #root-06 {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+
+    .im-wrap { position: absolute; inset: 0; padding: 232px 64px 0; display: flex; flex-direction: column; }
+
+    .im-kicker { display: flex; align-items: center; gap: 10px; opacity: 0; }
+    .im-kicker-bar { width: 28px; height: 4px; background: #e8441e; border-radius: 2px; }
+    .im-kicker span { font-weight: 700; font-size: 24px; letter-spacing: 0.14em; text-transform: uppercase; color: #e8441e; }
+
+    .im-title { font-weight: 800; font-size: 48px; line-height: 1.26; color: #ffffff; margin-top: 24px; max-width: 950px; opacity: 0; }
+
+    /* Editorial Clipping: two "mẩu báo" clippings overlapping, front layer covers a corner of the back. */
+    .im-stack { position: relative; margin-top: 76px; height: 700px; }
+
+    .im-card {
+      position: absolute; width: 640px; background: #ffffff; border-radius: 4px;
+      padding: 34px 38px 38px; box-shadow: 0 24px 54px rgba(0,0,0,0.48);
+      opacity: 0;
+    }
+    .im-card-1 { left: 0; top: 0; transform: rotate(-3deg); z-index: 1; }
+    .im-card-2 { left: 168px; top: 300px; transform: rotate(2.2deg); z-index: 2; }
+
+    .im-card-tag {
+      display: inline-block; padding: 5px 13px; border-radius: 5px;
+      background: rgba(232, 68, 30, 0.12); border: 1px solid rgba(232, 68, 30, 0.5);
+      font-weight: 700; font-size: 15px; letter-spacing: 0.06em; color: #89230c;
+    }
+    .im-card-num { font-weight: 800; font-size: 68px; line-height: 1; color: #161616; margin-top: 14px; letter-spacing: -0.01em; }
+    .im-card-num span { font-size: 26px; font-weight: 700; color: #4a4a4a; margin-left: 8px; }
+    .im-card p { font-weight: 500; font-size: 21px; line-height: 1.3; color: #4a4a4a; margin-top: 10px; max-width: 520px; }
+  </style>
+
+  <div id="root-06" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <div class="im-wrap">
+      <div class="im-kicker"><div class="im-kicker-bar"></div><span>Kết quả nửa đầu 2026</span></div>
+      <div class="im-title">Lỗ thu hẹp, nhưng công ty mẹ vẫn tiếp tục bơm vốn</div>
+
+      <div class="im-stack">
+        <div class="im-card im-card-1" id="im-card-1">
+          <div class="im-card-tag">Lỗ nửa đầu 2026</div>
+          <div class="im-card-num">93<span>tỷ đồng</span></div>
+          <p>Giảm mạnh so với khoản lỗ 614 tỷ đồng cùng kỳ năm 2025</p>
+        </div>
+
+        <div class="im-card im-card-2" id="im-card-2">
+          <div class="im-card-tag">Vốn điều lệ mới</div>
+          <div class="im-card-num">18.909<span>tỷ đồng</span></div>
+          <p>Công ty mẹ Sun Life Financial bơm thêm 475 tỷ đồng vốn mới</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo('#root-06 .im-kicker', { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: 'power2.out' }, 0.05);
+    tl.fromTo('#root-06 .im-title', { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.3);
+
+    tl.fromTo('#im-card-1', { autoAlpha: 0, y: 30, rotate: 4 }, { autoAlpha: 1, y: 0, rotate: -3, duration: 0.5, ease: 'power2.out' }, 1.6);
+    tl.fromTo('#im-card-2', { autoAlpha: 0, y: 30, rotate: -4 }, { autoAlpha: 1, y: 0, rotate: 2.2, duration: 0.5, ease: 'power2.out' }, 4.6);
+
+    window.__timelines['06-impact'] = tl;
+  </script>
+</template>

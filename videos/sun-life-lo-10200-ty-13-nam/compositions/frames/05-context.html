@@ -1,0 +1,76 @@
+<template>
+  <style>
+    #root-05 {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+
+    .cx-wrap { position: absolute; inset: 0; padding: 232px 64px 0; display: flex; flex-direction: column; }
+
+    .cx-kicker { display: flex; align-items: center; gap: 10px; opacity: 0; }
+    .cx-kicker-bar { width: 28px; height: 4px; background: #e8441e; border-radius: 2px; }
+    .cx-kicker span { font-weight: 700; font-size: 24px; letter-spacing: 0.14em; text-transform: uppercase; color: #e8441e; }
+
+    .cx-title { font-weight: 800; font-size: 48px; line-height: 1.26; color: #ffffff; margin-top: 24px; max-width: 950px; opacity: 0; }
+
+    /* Editorial Clipping: pull-quote block — orange rule on the left, small quote glyph, dashed lines. */
+    .cx-quote-block {
+      position: relative; margin-top: 128px; padding: 8px 0 8px 46px;
+      border-left: 6px solid #e8441e;
+      opacity: 0;
+    }
+    .cx-quote-mark {
+      position: absolute; left: -6px; top: -108px;
+      font-weight: 800; font-size: 120px; line-height: 1; color: rgba(232, 68, 30, 0.22);
+      user-select: none;
+    }
+
+    .cx-line { display: flex; align-items: baseline; gap: 18px; margin-top: 46px; opacity: 0; }
+    .cx-line:first-child { margin-top: 0; }
+    .cx-dash { font-weight: 800; font-size: 34px; color: #e8441e; flex: none; }
+    .cx-line-text h4 { font-weight: 700; font-size: 30px; line-height: 1.3; color: rgba(255,255,255,0.66); max-width: 800px; }
+    .cx-line-text b { display: block; font-weight: 800; font-size: 42px; color: #ffffff; margin-top: 6px; }
+    .cx-line-text b.up { color: #ffffff; }
+    .cx-line-text b .arrow { color: #e8441e; }
+  </style>
+
+  <div id="root-05" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div class="cx-wrap">
+      <div class="cx-kicker"><div class="cx-kicker-bar"></div><span>Nửa đầu năm 2026</span></div>
+      <div class="cx-title">Hai chiều trái ngược trong cơ cấu doanh thu</div>
+
+      <div class="cx-quote-block">
+        <div class="cx-quote-mark">&ldquo;</div>
+
+        <div class="cx-line" id="cx-line-1">
+          <div class="cx-dash">&mdash;</div>
+          <div class="cx-line-text">
+            <h4>Doanh thu bảo hiểm</h4>
+            <b><span class="arrow">&#9660;</span> 1.447 tỷ đồng, giảm gần 11%</b>
+          </div>
+        </div>
+
+        <div class="cx-line" id="cx-line-2">
+          <div class="cx-dash">&mdash;</div>
+          <div class="cx-line-text">
+            <h4>Doanh thu tài chính</h4>
+            <b class="up"><span class="arrow">&#9650;</span> 407 tỷ đồng, tăng hơn 33%</b>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo('#root-05 .cx-kicker', { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: 'power2.out' }, 0.05);
+    tl.fromTo('#root-05 .cx-title', { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.3);
+    tl.fromTo('#root-05 .cx-quote-block', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, ease: 'power2.out' }, 1.5);
+    tl.fromTo('#cx-line-1', { autoAlpha: 0, x: -26 }, { autoAlpha: 1, x: 0, duration: 0.45, ease: 'power2.out' }, 1.9);
+    tl.fromTo('#cx-line-2', { autoAlpha: 0, x: -26 }, { autoAlpha: 1, x: 0, duration: 0.45, ease: 'power2.out' }, 4.9);
+
+    window.__timelines['05-context'] = tl;
+  </script>
+</template>
