@@ -1,0 +1,106 @@
+<template>
+  <style>
+    #root-03 {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+
+    .kf-wrap { position: absolute; inset: 0; padding: 232px 64px 0; display: flex; flex-direction: column; }
+
+    .kf-kicker { display: flex; align-items: center; gap: 10px; opacity: 0; }
+    .kf-kicker-bar { width: 28px; height: 4px; background: #e8441e; border-radius: 2px; }
+    .kf-kicker span { font-weight: 700; font-size: 24px; letter-spacing: 0.14em; text-transform: uppercase; color: #e8441e; }
+
+    .kf-title { font-weight: 800; font-size: 48px; line-height: 1.26; color: #ffffff; margin-top: 22px; max-width: 950px; opacity: 0; }
+
+    /* Stock Terminal signature: each row carries a mini candlestick instead of a plain
+       orange bar/number — the candle "grows tall" because every fact here is an increase. */
+    .kf-stack { margin-top: 66px; display: flex; flex-direction: column; gap: 40px; }
+
+    .kf-row { display: flex; align-items: center; gap: 34px; opacity: 0; }
+
+    .kf-candle-col { position: relative; width: 56px; flex: none; display: flex; flex-direction: column; align-items: center; }
+    .kf-index {
+      font-weight: 700; font-size: 17px; letter-spacing: 0.08em; color: rgba(255,255,255,0.72);
+      margin-bottom: 10px;
+    }
+    .kf-candle { position: relative; width: 30px; transform-origin: bottom; }
+    .kf-candle-wick { position: absolute; left: 50%; top: 0; bottom: 0; width: 3px; margin-left: -1.5px; background: rgba(255,255,255,0.3); border-radius: 2px; }
+    .kf-candle-body { position: absolute; left: 0; right: 0; top: 18%; bottom: 18%; background: #e8441e; border-radius: 3px; }
+
+    .kf-text { flex: 1; min-width: 0; }
+    .kf-label { font-weight: 600; font-size: 25px; line-height: 1.28; color: rgba(255,255,255,0.85); }
+    .kf-value { font-weight: 800; font-size: 40px; line-height: 1.15; color: #ffffff; margin-top: 8px; white-space: nowrap; }
+    .kf-arrow { color: #e8441e; font-size: 30px; margin: 0 6px; }
+  </style>
+
+  <div id="root-03" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <div class="kf-wrap">
+      <div class="kf-kicker"><div class="kf-kicker-bar"></div><span>Chỉ số tài chính &middot; 6 tháng 2026</span></div>
+      <div class="kf-title">Ba chỉ số tài chính nổi bật trong báo cáo</div>
+
+      <div class="kf-stack">
+        <div class="kf-row" id="kf-row-1">
+          <div class="kf-candle-col">
+            <div class="kf-index">01</div>
+            <div class="kf-candle" id="kf-candle-1" style="height: 62px;">
+              <div class="kf-candle-wick"></div>
+              <div class="kf-candle-body"></div>
+            </div>
+          </div>
+          <div class="kf-text">
+            <div class="kf-label">Lợi nhuận trên tổng tài sản (ROA)</div>
+            <div class="kf-value">0,27% <span class="kf-arrow">&#9650;</span> 8,19%</div>
+          </div>
+        </div>
+
+        <div class="kf-row" id="kf-row-2">
+          <div class="kf-candle-col">
+            <div class="kf-index">02</div>
+            <div class="kf-candle" id="kf-candle-2" style="height: 84px;">
+              <div class="kf-candle-wick"></div>
+              <div class="kf-candle-body"></div>
+            </div>
+          </div>
+          <div class="kf-text">
+            <div class="kf-label">Lợi nhuận trên vốn chủ sở hữu (ROE)</div>
+            <div class="kf-value">5,58% <span class="kf-arrow">&#9650;</span> 30,11%</div>
+          </div>
+        </div>
+
+        <div class="kf-row" id="kf-row-3">
+          <div class="kf-candle-col">
+            <div class="kf-index">03</div>
+            <div class="kf-candle" id="kf-candle-3" style="height: 108px;">
+              <div class="kf-candle-wick"></div>
+              <div class="kf-candle-body"></div>
+            </div>
+          </div>
+          <div class="kf-text">
+            <div class="kf-label">Lợi nhuận sau thuế chưa phân phối</div>
+            <div class="kf-value">176 tỷ <span class="kf-arrow">&#9650;</span> 26.344 tỷ đồng</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo('#root-03 .kf-kicker', { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: 'power2.out' }, 0.05);
+    tl.fromTo('#root-03 .kf-title', { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.3);
+
+    tl.fromTo('#kf-row-1', { autoAlpha: 0, x: -24 }, { autoAlpha: 1, x: 0, duration: 0.45, ease: 'power2.out' }, 1.3);
+    tl.fromTo('#kf-candle-1', { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: 'power2.out' }, 1.35);
+
+    tl.fromTo('#kf-row-2', { autoAlpha: 0, x: -24 }, { autoAlpha: 1, x: 0, duration: 0.45, ease: 'power2.out' }, 5.3);
+    tl.fromTo('#kf-candle-2', { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: 'power2.out' }, 5.35);
+
+    tl.fromTo('#kf-row-3', { autoAlpha: 0, x: -24 }, { autoAlpha: 1, x: 0, duration: 0.45, ease: 'power2.out' }, 8.0);
+    tl.fromTo('#kf-candle-3', { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: 'power2.out' }, 8.05);
+
+    window.__timelines['03-key-facts'] = tl;
+  </script>
+</template>

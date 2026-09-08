@@ -1,0 +1,113 @@
+<template>
+  <style>
+    #root-02 {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+
+    .wh-wrap { position: absolute; inset: 0; padding: 200px 64px 0; display: flex; flex-direction: column; }
+
+    /* Stock Terminal signature: a thin strip of candle ticks simulating a running
+       market index — decorative texture only, not real data. */
+    .wh-ticker { display: flex; align-items: flex-end; gap: 7px; height: 40px; opacity: 0; margin-bottom: 30px; }
+    .wh-ticker-live { display: flex; align-items: center; gap: 8px; margin-right: 14px; }
+    .wh-ticker-dot { width: 8px; height: 8px; border-radius: 50%; background: #e8441e; flex: none; }
+    .wh-ticker-live span { font-weight: 700; font-size: 16px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.45); white-space: nowrap; }
+    .wh-tick { width: 6px; border-radius: 2px; transform-origin: bottom; }
+    .wh-tick.up { background: rgba(232, 68, 30, 0.75); }
+    .wh-tick.flat { background: rgba(255, 255, 255, 0.22); }
+
+    .wh-kicker { display: flex; align-items: center; gap: 10px; opacity: 0; position: relative; z-index: 3; }
+    .wh-kicker-bar { width: 28px; height: 4px; background: #e8441e; border-radius: 2px; }
+    .wh-kicker span { font-weight: 700; font-size: 24px; letter-spacing: 0.14em; text-transform: uppercase; color: #e8441e; }
+
+    .wh-headline {
+      position: relative; z-index: 3;
+      font-weight: 800; font-size: 52px; line-height: 1.3; color: #ffffff;
+      margin-top: 24px; max-width: 940px; opacity: 0;
+    }
+    .wh-headline b { color: #e8441e; font-weight: 800; }
+
+    /* Article image in the channel's editorial "Article Image Card" frame. */
+    .wh-clip {
+      position: relative; z-index: 3; margin-top: 42px; align-self: flex-start;
+      width: 720px; border-radius: 10px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 26px 60px rgba(0,0,0,0.5);
+      opacity: 0;
+    }
+    .wh-clip-photo { position: relative; width: 100%; height: 470px; overflow: hidden; background: #0a0a0a; }
+    .wh-clip-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .wh-clip-tag {
+      position: absolute; left: 14px; top: 14px; padding: 7px 15px; border-radius: 6px;
+      background: rgba(17,17,17,0.68); backdrop-filter: blur(3px);
+      font-weight: 700; font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; color: #ffffff;
+    }
+    .wh-clip-cap {
+      background: #1a1a1a; padding: 14px 18px;
+      font-weight: 600; font-size: 19px; color: rgba(255,255,255,0.7); font-style: italic;
+    }
+
+    .wh-source-row { display: flex; align-items: center; gap: 12px; margin-top: 32px; opacity: 0; position: relative; z-index: 3; }
+    .wh-source-dot { width: 8px; height: 8px; border-radius: 50%; background: #e8441e; flex: none; }
+    .wh-source-text { font-weight: 500; font-size: 22px; color: rgba(255,255,255,0.72); letter-spacing: 0.02em; }
+  </style>
+
+  <div id="root-02" data-composition-id="02-what-happened" data-width="1080" data-height="1920">
+    <div class="wh-wrap">
+      <div class="wh-ticker" id="wh-ticker">
+        <div class="wh-ticker-live"><div class="wh-ticker-dot" id="wh-ticker-dot"></div><span>Thị trường</span></div>
+        <div class="wh-tick up" style="height: 18px;"></div>
+        <div class="wh-tick flat" style="height: 10px;"></div>
+        <div class="wh-tick up" style="height: 28px;"></div>
+        <div class="wh-tick up" style="height: 14px;"></div>
+        <div class="wh-tick flat" style="height: 22px;"></div>
+        <div class="wh-tick up" style="height: 34px;"></div>
+        <div class="wh-tick flat" style="height: 12px;"></div>
+        <div class="wh-tick up" style="height: 24px;"></div>
+        <div class="wh-tick up" style="height: 30px;"></div>
+        <div class="wh-tick flat" style="height: 16px;"></div>
+        <div class="wh-tick up" style="height: 20px;"></div>
+        <div class="wh-tick up" style="height: 38px;"></div>
+      </div>
+
+      <div class="wh-kicker"><div class="wh-kicker-bar"></div><span>Báo cáo tài chính &middot; 6 tháng 2026</span></div>
+
+      <div class="wh-headline">
+        Công ty Cổ phần Thời Đại Mới T&amp;T công bố lãi trước thuế <b>14.159 tỷ đồng</b>, lãi sau thuế hơn <b>11.254 tỷ đồng</b>.
+      </div>
+
+      <div class="wh-clip">
+        <div class="wh-clip-photo">
+          <img src="assets/images/hook-photo.jpg" alt="">
+          <div class="wh-clip-tag">Bot Bán Hàng</div>
+        </div>
+        <div class="wh-clip-cap">Dự án The Grand Hanoi, 22-24 Hàng Bài, Hà Nội</div>
+      </div>
+
+      <div class="wh-source-row">
+        <div class="wh-source-dot"></div>
+        <div class="wh-source-text">Báo cáo tài chính 6 tháng đầu năm 2026 &middot; Znews</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    const root = document.querySelector('[data-composition-id="02-what-happened"]');
+    const ticks = root.querySelectorAll('.wh-tick');
+    const dot = root.querySelector('#wh-ticker-dot');
+
+    tl.fromTo('#root-02 .wh-ticker', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.1 }, 0.05);
+    tl.fromTo(ticks, { scaleY: 0 }, { scaleY: 1, duration: 0.4, ease: 'power2.out', stagger: 0.03 }, 0.1);
+    tl.fromTo(dot, { autoAlpha: 0.35 }, { autoAlpha: 1, duration: 0.5, ease: 'power1.inOut', repeat: 3, yoyo: true }, 0.1);
+    tl.fromTo('#root-02 .wh-kicker', { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: 'power2.out' }, 0.55);
+    tl.fromTo('#root-02 .wh-headline', { autoAlpha: 0, y: 22 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.8);
+    tl.fromTo('#root-02 .wh-clip', { autoAlpha: 0, y: 34 }, { autoAlpha: 1, y: 0, duration: 0.55, ease: 'power2.out' }, 2.5);
+    tl.fromTo('#root-02 .wh-clip-photo img', { scale: 1.12 }, { scale: 1, duration: 2.2, ease: 'power1.out' }, 2.5);
+    tl.fromTo('#root-02 .wh-source-row', { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 3.35);
+
+    window.__timelines['02-what-happened'] = tl;
+  </script>
+</template>
