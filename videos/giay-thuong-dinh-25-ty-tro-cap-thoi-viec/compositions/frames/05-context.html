@@ -1,0 +1,119 @@
+<template>
+  <style>
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; src: url('assets/fonts/Montserrat-400-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; src: url('assets/fonts/Montserrat-400-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; src: url('assets/fonts/Montserrat-900-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; src: url('assets/fonts/Montserrat-900-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+
+    .c05-kicker {
+      position: absolute; left: 72px; top: 200px;
+      font-weight: 700; font-size: 26px; letter-spacing: 0.16em; text-transform: uppercase; color: #e8441e;
+    }
+    .c05-headline {
+      position: absolute; left: 72px; right: 72px; top: 250px;
+      font-weight: 800; font-size: 54px; line-height: 1.18; letter-spacing: -0.015em; color: #ffffff;
+    }
+    .c05-headline .accent { color: #e8441e; }
+
+    .c05-grid {
+      position: absolute; left: 72px; right: 72px; top: 570px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 22px;
+    }
+    .c05-tile {
+      border-radius: 20px; border: 1.5px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.035); padding: 30px 26px; height: 330px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .c05-tile-icon-wrap {
+      width: 60px; height: 60px; border-radius: 14px;
+      background: rgba(232,68,30,0.12); display: flex; align-items: center; justify-content: center;
+    }
+    .c05-tile-icon { width: 32px; height: 32px; }
+    .c05-tile-label { font-weight: 700; font-size: 21px; letter-spacing: 0.08em; text-transform: uppercase; color: #e8441e; }
+    .c05-tile-value { font-weight: 700; font-size: 30px; line-height: 1.32; color: #ffffff; }
+  </style>
+
+  <div data-hf-id="hf-c501" id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-c502" id="c05-bg" class="clip" data-start="0" data-duration="7.79" data-track-index="0" style="position:absolute; inset:0; background:#111111;"></div>
+
+    <div data-hf-id="hf-c503" id="c05-kicker" class="clip c05-kicker" data-start="0" data-duration="7.79" data-track-index="1">Bối cảnh di dời</div>
+    <div data-hf-id="hf-c504" id="c05-headline" class="clip c05-headline" data-start="0" data-duration="7.79" data-track-index="2">Từ Hà Nội chuyển về <span data-hf-id="hf-c505" class="accent">Ninh Bình</span></div>
+
+    <div data-hf-id="hf-c506" id="c05-grid" class="clip c05-grid" data-start="0" data-duration="7.79" data-track-index="3">
+      <div data-hf-id="hf-c507" class="c05-tile" id="c05-tile-1">
+        <div data-hf-id="hf-c508" class="c05-tile-icon-wrap">
+          <svg data-hf-id="hf-c509" class="c05-tile-icon" viewBox="0 0 48 48" fill="none">
+            <rect data-hf-id="hf-c510" x="10" y="16" width="28" height="24" stroke="#e8441e" stroke-width="2.5"/>
+            <path data-hf-id="hf-c511" d="M10 16 24 6l14 10" stroke="#e8441e" stroke-width="2.5" stroke-linejoin="round"/>
+            <path data-hf-id="hf-c512" d="M20 40v-10h8v10" stroke="#e8441e" stroke-width="2.5"/>
+          </svg>
+        </div>
+        <div data-hf-id="hf-c513" class="c05-tile-label">Cơ sở cũ</div>
+        <div data-hf-id="hf-c514" class="c05-tile-value">277 Nguyễn Trãi, Hà Nội — hơn 36.100 m²</div>
+      </div>
+
+      <div data-hf-id="hf-c515" class="c05-tile" id="c05-tile-2">
+        <div data-hf-id="hf-c516" class="c05-tile-icon-wrap">
+          <svg data-hf-id="hf-c517" class="c05-tile-icon" viewBox="0 0 48 48" fill="none">
+            <path data-hf-id="hf-c518" d="M6 40V22l8-6v6l8-6v6l8-6v24Z" stroke="#e8441e" stroke-width="2.5" stroke-linejoin="round"/>
+            <path data-hf-id="hf-c519" d="M30 40V16l12 8v16Z" stroke="#e8441e" stroke-width="2.5" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div data-hf-id="hf-c520" class="c05-tile-label">Cơ sở mới</div>
+        <div data-hf-id="hf-c521" class="c05-tile-value">Khu công nghiệp Đồng Văn, tỉnh Ninh Bình</div>
+      </div>
+
+      <div data-hf-id="hf-c522" class="c05-tile" id="c05-tile-3">
+        <div data-hf-id="hf-c523" class="c05-tile-icon-wrap">
+          <svg data-hf-id="hf-c524" class="c05-tile-icon" viewBox="0 0 48 48" fill="none">
+            <circle data-hf-id="hf-c525" cx="24" cy="24" r="16" stroke="#e8441e" stroke-width="2.5"/>
+            <path data-hf-id="hf-c526" d="M24 14v10l7 5" stroke="#e8441e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div data-hf-id="hf-c527" class="c05-tile-label">Lịch sử</div>
+        <div data-hf-id="hf-c528" class="c05-tile-value">Giầy Thượng Đình hoạt động từ năm 1957</div>
+      </div>
+
+      <div data-hf-id="hf-c529" class="c05-tile" id="c05-tile-4">
+        <div data-hf-id="hf-c530" class="c05-tile-icon-wrap">
+          <svg data-hf-id="hf-c531" class="c05-tile-icon" viewBox="0 0 48 48" fill="none">
+            <path data-hf-id="hf-c532" d="M6 34 16 22l8 8 18-20" stroke="#e8441e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path data-hf-id="hf-c533" d="M34 10h8v8" stroke="#e8441e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div data-hf-id="hf-c534" class="c05-tile-label">Tái cơ cấu</div>
+        <div data-hf-id="hf-c535" class="c05-tile-value">Tìm lối thoát khỏi kinh doanh bết bát, âm vốn kéo dài</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#c05-kicker", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.28, ease: "power3.out" }, 0);
+      tl.fromTo("#c05-headline", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.36, ease: "power3.out" }, 0.16);
+
+      tl.fromTo("#c05-tile-1", { opacity: 0, y: 20, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.36, ease: "power3.out" }, 0.6);
+      tl.fromTo("#c05-tile-2", { opacity: 0, y: 20, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.36, ease: "power3.out" }, 0.6);
+      tl.fromTo("#c05-tile-3", { opacity: 0, y: 20, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.36, ease: "power3.out" }, 0.95);
+      tl.fromTo("#c05-tile-4", { opacity: 0, y: 20, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.36, ease: "power3.out" }, 0.95);
+
+      window.__timelines["05-context"] = tl;
+    })();
+  </script>
+</template>
