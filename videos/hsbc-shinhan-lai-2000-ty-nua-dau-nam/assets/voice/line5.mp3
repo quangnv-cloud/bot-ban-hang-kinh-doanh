@@ -1,1 +1,0 @@
-{"detail":{"type":"invalid_request","code":"quota_exceeded","message":"This request exceeds your quota of 37019. You have 41 credits remaining, while 116 credits are required for this request.","status":"quota_exceeded","request_id":"fe2d89d1e8037c83b97062ee7198765b"}}
