@@ -1,0 +1,103 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; box-sizing: border-box; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+    #root * { box-sizing: border-box; }
+
+    .ctx5-bg { position: absolute; inset: 0; overflow: hidden; background: #111111; opacity: 0; }
+    .ctx5-bg img {
+      position: absolute; inset: -30px; width: calc(100% + 60px); height: calc(100% + 60px);
+      object-fit: cover; object-position: 50% 40%;
+      filter: blur(30px) brightness(0.34);
+    }
+    .ctx5-bg-scrim {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 140% 90% at 50% 30%, rgba(17,17,17,0.78) 0%, rgba(17,17,17,0.93) 55%, rgba(17,17,17,0.99) 100%);
+    }
+
+    .ctx5-kicker {
+      position: absolute; top: 200px; left: 64px; right: 64px; z-index: 2;
+      display: flex; align-items: center; gap: 10px; opacity: 0;
+    }
+    .ctx5-kicker-bar { width: 28px; height: 4px; background: #e8441e; border-radius: 2px; flex: none; }
+    .ctx5-kicker span { font-weight: 700; font-size: 23px; letter-spacing: 0.12em; text-transform: uppercase; color: #e8441e; }
+
+    /* Chip & Leaderboard motif — horizontal leaderboard, ranked rows with fill bars. */
+    .ctx5-board {
+      position: absolute; top: 310px; left: 64px; right: 64px; z-index: 2;
+      display: flex; flex-direction: column; gap: 56px;
+    }
+    .ctx5-row { opacity: 0; }
+    .ctx5-row-top { display: flex; align-items: baseline; gap: 18px; margin-bottom: 16px; }
+    .ctx5-rank {
+      flex: none; width: 60px; height: 60px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 26px;
+    }
+    .ctx5-row.is-lead .ctx5-rank { border: 2px solid #e8441e; color: #e8441e; }
+    .ctx5-row.is-second .ctx5-rank { border: 2px solid rgba(255,255,255,0.35); color: rgba(255,255,255,0.7); }
+    .ctx5-name { font-weight: 800; font-size: 38px; color: #ffffff; flex: 1 1 auto; }
+    .ctx5-value { font-weight: 700; font-size: 26px; color: rgba(255,255,255,0.62); flex: none; white-space: nowrap; }
+    .ctx5-track { position: relative; width: 100%; height: 20px; border-radius: 10px; background: rgba(255,255,255,0.1); overflow: hidden; }
+    .ctx5-fill { position: absolute; inset: 0; border-radius: 10px; transform: scaleX(0); transform-origin: left center; }
+    .ctx5-row.is-lead .ctx5-fill { background: #e8441e; }
+    .ctx5-row.is-second .ctx5-fill { background: rgba(255,255,255,0.45); }
+
+    .ctx5-closing {
+      position: absolute; left: 64px; right: 64px; top: 1740px; z-index: 2;
+      font-weight: 600; font-size: 23px; line-height: 1.4; letter-spacing: 0.01em;
+      color: rgba(255,255,255,0.85); opacity: 0;
+    }
+    .ctx5-closing b { color: #e8441e; font-weight: 700; }
+  </style>
+
+  <div id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div class="ctx5-bg">
+      <img src="assets/images/hook-photo.jpg" alt="">
+      <div class="ctx5-bg-scrim"></div>
+    </div>
+
+    <div class="ctx5-kicker"><div class="ctx5-kicker-bar"></div><span>Bảng xếp hạng vốn điều lệ</span></div>
+
+    <div class="ctx5-board">
+      <div class="ctx5-row is-lead" id="ctx5Row1">
+        <div class="ctx5-row-top">
+          <div class="ctx5-rank">#1</div>
+          <div class="ctx5-name">TCBS</div>
+          <div class="ctx5-value">33.293 tỷ đồng</div>
+        </div>
+        <div class="ctx5-track"><div class="ctx5-fill" id="ctx5Fill1"></div></div>
+      </div>
+      <div class="ctx5-row is-second" id="ctx5Row2">
+        <div class="ctx5-row-top">
+          <div class="ctx5-rank">#2</div>
+          <div class="ctx5-name">SSI</div>
+          <div class="ctx5-value">Hơn 30.000 tỷ đồng</div>
+        </div>
+        <div class="ctx5-track"><div class="ctx5-fill" id="ctx5Fill2"></div></div>
+      </div>
+    </div>
+
+    <div class="ctx5-closing">Lần tăng vốn <b>thứ ba</b> trong năm 2026 &middot; Dẫn đầu thị trường chứng khoán Việt Nam</div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo('#root .ctx5-bg', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5, ease: 'power2.out' }, 0);
+    tl.fromTo('#root .ctx5-kicker', { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: 'power2.out' }, 0.25);
+
+    tl.fromTo('#root #ctx5Row1', { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 0.8);
+    tl.fromTo('#root #ctx5Fill1', { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: 'power2.out' }, 0.95);
+
+    tl.fromTo('#root #ctx5Row2', { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 3.4);
+    tl.fromTo('#root #ctx5Fill2', { scaleX: 0 }, { scaleX: 0.9, duration: 0.6, ease: 'power2.out' }, 3.55);
+
+    tl.fromTo('#root .ctx5-closing', { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 9.4);
+
+    window.__timelines['05-context'] = tl;
+  </script>
+</template>

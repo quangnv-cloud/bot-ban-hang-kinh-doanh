@@ -1,0 +1,92 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; box-sizing: border-box; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+    #root * { box-sizing: border-box; }
+
+    .im6-bg { position: absolute; inset: 0; overflow: hidden; background: #111111; opacity: 0; }
+    .im6-bg img {
+      position: absolute; inset: -30px; width: calc(100% + 60px); height: calc(100% + 60px);
+      object-fit: cover; object-position: 50% 42%;
+      filter: blur(28px) brightness(0.36);
+    }
+    .im6-bg-scrim {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 140% 90% at 50% 34%, rgba(17,17,17,0.76) 0%, rgba(17,17,17,0.92) 55%, rgba(17,17,17,0.99) 100%);
+    }
+
+    /* Chip & Leaderboard motif — giant watermark number, recurring across the video. */
+    .im6-watermark {
+      position: absolute; left: 0; right: 0; top: 640px; text-align: center; z-index: 1; opacity: 0;
+      font-weight: 900; font-size: 260px; line-height: 1; letter-spacing: -0.02em;
+      color: #ffffff; -webkit-text-fill-color: #ffffff; white-space: nowrap; pointer-events: none;
+    }
+
+    .im6-wrap { position: absolute; inset: 0; padding: 220px 64px 0; display: flex; flex-direction: column; z-index: 2; }
+
+    .im6-kicker { display: flex; align-items: center; gap: 10px; opacity: 0; }
+    .im6-kicker-bar { width: 28px; height: 4px; background: #e8441e; border-radius: 2px; flex: none; }
+    .im6-kicker span { font-weight: 700; font-size: 23px; letter-spacing: 0.12em; text-transform: uppercase; color: #e8441e; }
+
+    .im6-headline {
+      font-weight: 800; font-size: 50px; line-height: 1.32; color: #ffffff;
+      margin-top: 26px; max-width: 940px; opacity: 0;
+    }
+    .im6-headline b { color: #e8441e; font-weight: 800; }
+
+    .im6-chips { display: flex; gap: 20px; margin-top: 56px; }
+    .im6-chip {
+      flex: 1 1 0; min-width: 0;
+      border: 1.5px solid rgba(232, 68, 30, 0.75);
+      background: rgba(232, 68, 30, 0.08);
+      border-radius: 14px;
+      padding: 26px 26px;
+      opacity: 0;
+    }
+    .im6-chip-value { font-weight: 800; font-size: 42px; line-height: 1.05; color: #e8441e; white-space: nowrap; }
+    .im6-chip-label { font-weight: 600; font-size: 19px; line-height: 1.3; color: rgba(255,255,255,0.72); margin-top: 10px; }
+  </style>
+
+  <div id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <div class="im6-bg">
+      <img src="assets/images/hook-photo.jpg" alt="">
+      <div class="im6-bg-scrim"></div>
+    </div>
+    <div class="im6-watermark" id="im6Watermark">2.840</div>
+
+    <div class="im6-wrap">
+      <div class="im6-kicker"><div class="im6-kicker-bar"></div><span>Kết quả kinh doanh 6 tháng đầu năm 2026</span></div>
+
+      <div class="im6-headline">
+        TCBS lãi sau thuế <b>2.840 tỷ đồng</b>, tăng <b>17%</b> so với cùng kỳ năm trước.
+      </div>
+
+      <div class="im6-chips">
+        <div class="im6-chip" id="im6Chip1">
+          <div class="im6-chip-value">2.840 tỷ</div>
+          <div class="im6-chip-label">Lợi nhuận sau thuế 6 tháng 2026</div>
+        </div>
+        <div class="im6-chip" id="im6Chip2">
+          <div class="im6-chip-value">+39%</div>
+          <div class="im6-chip-label">Doanh thu hoạt động tài chính</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo('#root .im6-bg', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5, ease: 'power2.out' }, 0);
+    tl.fromTo('#root .im6-watermark', { autoAlpha: 0 }, { autoAlpha: 0.11, duration: 0.8, ease: 'power1.out' }, 0.3);
+    tl.fromTo('#root .im6-kicker', { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: 'power2.out' }, 0.35);
+    tl.fromTo('#root .im6-headline', { autoAlpha: 0, y: 22 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.7);
+    tl.fromTo('#root #im6Chip1', { autoAlpha: 0, y: 16, scale: 0.94 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.4, ease: 'back.out(1.5)' }, 2.0);
+    tl.fromTo('#root #im6Chip2', { autoAlpha: 0, y: 16, scale: 0.94 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.4, ease: 'back.out(1.5)' }, 2.25);
+
+    window.__timelines['06-impact'] = tl;
+  </script>
+</template>

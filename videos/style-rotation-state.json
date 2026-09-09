@@ -199,6 +199,12 @@
       "style": "1-card-and-bar",
       "project": "gia-dau-100-usd-houthi-tan-cong-jazan",
       "date": "2026-09-09"
+    },
+    {
+      "index": 1,
+      "style": "2-chip-and-leaderboard",
+      "project": "tcbs-vuot-ssi-von-33-nghin-ty",
+      "date": "2026-09-09"
     }
   ]
 }

@@ -1,0 +1,102 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; box-sizing: border-box; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+    #root * { box-sizing: border-box; }
+
+    .kf3-bg { position: absolute; inset: 0; overflow: hidden; background: #111111; opacity: 0; }
+    .kf3-bg img {
+      position: absolute; inset: -30px; width: calc(100% + 60px); height: calc(100% + 60px);
+      object-fit: cover; object-position: 50% 40%;
+      filter: blur(30px) brightness(0.32);
+    }
+    .kf3-bg-scrim {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 140% 90% at 50% 30%, rgba(17,17,17,0.8) 0%, rgba(17,17,17,0.94) 55%, rgba(17,17,17,0.99) 100%);
+    }
+
+    .kf3-kicker {
+      position: absolute; top: 200px; left: 64px; right: 64px; z-index: 2;
+      display: flex; align-items: center; gap: 10px; opacity: 0;
+    }
+    .kf3-kicker-bar { width: 28px; height: 4px; background: #e8441e; border-radius: 2px; flex: none; }
+    .kf3-kicker span { font-weight: 700; font-size: 23px; letter-spacing: 0.12em; text-transform: uppercase; color: #e8441e; }
+
+    .kf3-list {
+      position: absolute; top: 300px; left: 64px; right: 64px; bottom: 200px; z-index: 2;
+      display: flex; flex-direction: column; justify-content: center; gap: 36px;
+    }
+
+    /* Chip & Leaderboard motif — orange-bordered stat chip, one fact per chip. */
+    .kf3-chip {
+      display: flex; align-items: center; gap: 26px;
+      border: 1.5px solid rgba(232, 68, 30, 0.75);
+      background: rgba(232, 68, 30, 0.08);
+      border-radius: 16px;
+      padding: 30px 32px;
+      opacity: 0;
+    }
+    .kf3-chip-index {
+      flex: none; width: 56px; height: 56px; border-radius: 50%;
+      border: 1.5px solid rgba(232, 68, 30, 0.6);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 22px; color: #e8441e;
+    }
+    .kf3-chip-body { flex: 1 1 auto; min-width: 0; }
+    .kf3-chip-value { font-weight: 800; font-size: 44px; line-height: 1.08; color: #ffffff; }
+    .kf3-chip-value b { color: #e8441e; font-weight: 800; }
+    .kf3-chip-label { font-weight: 600; font-size: 20px; line-height: 1.3; color: rgba(255,255,255,0.68); margin-top: 8px; }
+  </style>
+
+  <div id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <div class="kf3-bg">
+      <img src="assets/images/hook-photo.jpg" alt="">
+      <div class="kf3-bg-scrim"></div>
+    </div>
+
+    <div class="kf3-kicker"><div class="kf3-kicker-bar"></div><span>Số liệu phát hành</span></div>
+
+    <div class="kf3-list">
+      <div class="kf3-chip" id="kf3Chip1">
+        <div class="kf3-chip-index">01</div>
+        <div class="kf3-chip-body">
+          <div class="kf3-chip-value"><b>555 triệu</b> cổ phiếu</div>
+          <div class="kf3-chip-label">Tỷ lệ phát hành 5&nbsp;:&nbsp;1</div>
+        </div>
+      </div>
+      <div class="kf3-chip" id="kf3Chip2">
+        <div class="kf3-chip-index">02</div>
+        <div class="kf3-chip-body">
+          <div class="kf3-chip-value"><b>443 triệu</b> cổ phiếu</div>
+          <div class="kf3-chip-label">Techcombank nhận mới</div>
+        </div>
+      </div>
+      <div class="kf3-chip" id="kf3Chip3">
+        <div class="kf3-chip-index">03</div>
+        <div class="kf3-chip-body">
+          <div class="kf3-chip-value">Quý 3 và Quý 4/2026</div>
+          <div class="kf3-chip-label">Thời gian thực hiện</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo('#root .kf3-bg', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5, ease: 'power2.out' }, 0);
+    tl.fromTo('#root .kf3-kicker', { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: 'power2.out' }, 0.25);
+
+    var chipTimes = [0.8, 3.9, 7.1];
+    for (var i = 1; i <= 3; i++) {
+      (function (i, t) {
+        tl.fromTo('#root #kf3Chip' + i, { autoAlpha: 0, x: -28 }, { autoAlpha: 1, x: 0, duration: 0.45, ease: 'power3.out' }, t);
+      })(i, chipTimes[i - 1]);
+    }
+
+    window.__timelines['03-key-facts'] = tl;
+  </script>
+</template>

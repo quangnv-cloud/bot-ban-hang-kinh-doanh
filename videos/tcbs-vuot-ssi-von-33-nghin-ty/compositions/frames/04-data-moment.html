@@ -1,0 +1,83 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; box-sizing: border-box; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+    #root * { box-sizing: border-box; }
+
+    .dm4-bg { position: absolute; inset: 0; background: #111111; opacity: 0; }
+
+    /* Chip & Leaderboard motif — giant ghost/watermark number in the background. */
+    .dm4-watermark {
+      position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%);
+      text-align: center; z-index: 1; opacity: 0;
+      font-weight: 900; font-size: 300px; line-height: 1; letter-spacing: -0.02em;
+      color: #ffffff; -webkit-text-fill-color: #ffffff; white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .dm4-wrap {
+      position: absolute; inset: 0; z-index: 2;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 0 64px;
+    }
+
+    .dm4-kicker {
+      font-weight: 700; font-size: 24px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #e8441e; opacity: 0; margin-bottom: 56px; text-align: center;
+    }
+
+    .dm4-before { text-align: center; opacity: 0; margin-bottom: 8px; }
+    .dm4-before-num { font-weight: 700; font-size: 46px; color: rgba(255,255,255,0.5); line-height: 1; }
+    .dm4-before-label { font-weight: 600; font-size: 19px; color: rgba(255,255,255,0.4); margin-top: 8px; letter-spacing: 0.03em; }
+
+    .dm4-arrow { width: 4px; height: 46px; background: rgba(232,68,30,0.6); margin: 10px auto; transform-origin: top center; transform: scaleY(0); opacity: 0; }
+
+    .dm4-after { text-align: center; opacity: 0; }
+    .dm4-after-num { font-weight: 800; font-size: 128px; line-height: 1; color: #e8441e; letter-spacing: -0.01em; }
+    .dm4-after-label { font-weight: 700; font-size: 22px; color: #ffffff; margin-top: 14px; letter-spacing: 0.02em; }
+  </style>
+
+  <div id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+    <div class="dm4-bg"></div>
+    <div class="dm4-watermark" id="dm4Watermark">33.293</div>
+
+    <div class="dm4-wrap">
+      <div class="dm4-kicker">Vốn điều lệ (tỷ đồng)</div>
+
+      <div class="dm4-before">
+        <div class="dm4-before-num">27.744</div>
+        <div class="dm4-before-label">Hiện tại</div>
+      </div>
+
+      <div class="dm4-arrow" id="dm4Arrow"></div>
+
+      <div class="dm4-after">
+        <div class="dm4-after-num" id="dm4AfterNum">27.744</div>
+        <div class="dm4-after-label">Sau đợt phát hành</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    const root = document.querySelector('[data-composition-id="04-data-moment"]');
+    const afterNumEl = root.querySelector('#dm4AfterNum');
+    const counter = { v: 27744 };
+
+    tl.fromTo('#root .dm4-bg', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, ease: 'power2.out' }, 0);
+    tl.fromTo('#root .dm4-watermark', { autoAlpha: 0 }, { autoAlpha: 0.12, duration: 0.8, ease: 'power1.out' }, 0.2);
+    tl.fromTo('#root .dm4-kicker', { autoAlpha: 0, y: -12 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0.35);
+    tl.fromTo('#root .dm4-before', { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0.75);
+    tl.fromTo('#root .dm4-arrow', { autoAlpha: 0, scaleY: 0 }, { autoAlpha: 1, scaleY: 1, duration: 0.35, ease: 'power2.out' }, 1.25);
+    tl.fromTo('#root .dm4-after', { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 1.65);
+    tl.fromTo(counter, { v: 27744 }, {
+      v: 33293, duration: 1.1, ease: 'power1.out',
+      onUpdate() { afterNumEl.textContent = Math.round(counter.v).toLocaleString('vi-VN'); }
+    }, 1.75);
+
+    window.__timelines['04-data-moment'] = tl;
+  </script>
+</template>
