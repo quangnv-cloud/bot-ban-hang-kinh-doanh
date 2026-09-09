@@ -683,6 +683,29 @@ cấp qua `POST {"action":"claim_style"}` dưới LockService, `style-rotation-s
 bản sao. Deploy: Apps Script bản 33, cùng exec URL. **Allowlist domain ảnh CDN giờ không còn ý
 nghĩa — có thể xoá.**
 
+**[2026-09-09 — routine DỪNG Ở BƯỚC 2: hết quota ElevenLabs giữa chừng, không phải lỗi hạ tầng
+mạng]**: routine chọn tin "Hai ngân hàng nước ngoài cùng lãi hơn 2.000 tỷ đồng tại Việt Nam"
+(VnExpress), đánh dấu `used`, `claim_style` → index 2 (**3-ticker-tape**), tải ảnh qua Apps Script
+proxy thành công, viết xong `BRIEF.md`/`SCRIPT.md` (project
+`hsbc-shinhan-lai-2000-ty-nua-dau-nam`), khởi tạo project qua `hyperframes init` — nhưng khi sinh
+voice ElevenLabs (bước 2), **3/6 dòng đầu thành công rồi 3 dòng sau (4, 5, 6) đều trả 401
+`quota_exceeded`**: `GET /v1/user/subscription` xác nhận gói **"starter"**, `character_limit: 37019`,
+`character_count: 36780` (chỉ còn ~239 ký tự / 41 credit, không đủ cho dòng dài nhất cần 119
+credit) — **`next_character_count_reset_unix: 1790318526` = 2026-09-25 06:42 UTC**, nghĩa là quota
+KHÔNG tự hồi phục cho tới tận ngày đó. Đây KHÔNG phải sự cố egress/allowlist như các lần trước — API
+key hợp lệ, domain reachable, chỉ là tài khoản ElevenLabs đã dùng hết ký tự được cấp trong chu kỳ.
+Theo đúng tinh thần mục 17 của quy trình sản xuất: dừng lại ngay ở bước 2, KHÔNG đổi sang giọng
+đọc/engine TTS khác (vi phạm quy tắc giọng chuẩn kênh), KHÔNG commit/push project dở dang (chưa có
+composition/render), KHÔNG thực hiện bước 12-16. Project cục bộ giữ nguyên trong sandbox phiên này
+(không push) — `BRIEF.md`/`SCRIPT.md` đã viết xong có thể tái sử dụng cho lần chạy kế tiếp SAU khi
+quota đã được xử lý, miễn là dùng lại đúng `claim_style` index 2 (3-ticker-tape) đã claim cho slug
+này (không claim lại — sẽ lệch vòng xoay), hoặc claim style mới nếu quyết định đổi sang slug khác.
+**Việc cần làm** (chờ người vận hành): (1) nâng cấp gói ElevenLabs (hiện "starter", 37.019 ký
+tự/chu kỳ — không đủ cho 3 lần chạy/ngày với voice_settings hiện tại) hoặc mua thêm credit; (2) nếu
+không xử lý trước 2026-09-25, mọi lần chạy routine tiếp theo (kể cả lần 19h30 cùng ngày 09-09) sẽ
+tiếp tục dừng ở đúng bước này — nên cân nhắc tạm tắt lịch tự động (`enabled: false` cho 3 trigger)
+cho tới khi quota được khôi phục, tránh đốt thêm slot tin tức + style rotation vô ích mỗi lần chạy.
+
 ## 12. Đo lường tăng trưởng & khả năng lấy demographics — [2026-09-05]
 
 Ngoài `engagement_metrics` (views/likes/reactions/comments/shares theo TỪNG video, xem SETUP.md),
