@@ -1,0 +1,17 @@
+{
+  "name": "gia-dau-100-usd-houthi-tan-cong-jazan",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.8.32 preview",
+    "check": "npx --yes hyperframes@0.8.32 check",
+    "render": "npx --yes hyperframes@0.8.32 render",
+    "publish": "npx --yes hyperframes@0.8.32 publish"
+  },
+  "dependencies": {
+    "gsap": "^3.14.2"
+  },
+  "devDependencies": {
+    "@hyperframes/core": "^0.8.32"
+  }
+}

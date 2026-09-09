@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute; inset: 0; width: 100%; height: 100%;
+          overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+        }
+
+        .s4-kicker { position: absolute; left: 0; right: 0; top: 460px; display: flex; align-items: center; justify-content: center; gap: 12px; opacity: 0; }
+        .s4-kicker-bar { width: 34px; height: 4px; background: #e8441e; border-radius: 2px; }
+        .s4-kicker span { font-weight: 700; font-size: 24px; letter-spacing: 0.12em; text-transform: uppercase; color: #e8441e; }
+
+        .s4-stage { position: absolute; left: 0; right: 0; top: 760px; display: flex; flex-direction: column; align-items: center; }
+
+        .s4-num-row { display: flex; align-items: center; gap: 32px; }
+        .s4-bar-track { flex: none; width: 30px; height: 300px; border-radius: 15px; background: rgba(255,255,255,0.08); position: relative; overflow: hidden; }
+        .s4-bar-fill { position: absolute; left: 0; right: 0; bottom: 0; height: 0%; background: #e8441e; border-radius: 15px; }
+
+        .s4-num-block { display: inline-flex; flex-direction: column; align-items: flex-start; opacity: 0; }
+        .s4-num { font-weight: 800; font-size: 388px; line-height: 0.86; color: #e8441e; letter-spacing: -0.02em; white-space: nowrap; }
+        .s4-unit { font-weight: 700; font-size: 40px; letter-spacing: 0.03em; color: #ffffff; margin-top: 6px; }
+
+        .s4-caption { margin-top: 56px; padding: 14px 28px; border-radius: 8px; border: 1.5px solid rgba(232,68,30,0.7); background: rgba(232,68,30,0.1); opacity: 0; }
+        .s4-caption span { font-weight: 700; font-size: 26px; letter-spacing: 0.06em; text-transform: uppercase; color: #ffffff; white-space: nowrap; }
+      </style>
+
+      <div id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+        <div class="s4-kicker">
+          <div class="s4-kicker-bar"></div>
+          <span>Giá dầu Brent</span>
+        </div>
+
+        <div class="s4-stage">
+          <div class="s4-num-row">
+            <div class="s4-bar-track"><div class="s4-bar-fill" id="s4-bar-fill"></div></div>
+            <div class="s4-num-block">
+              <div class="s4-num" id="s4-num">0</div>
+              <div class="s4-unit">USD/thùng</div>
+            </div>
+          </div>
+
+          <div class="s4-caption"><span>Tăng hơn 60% từ đầu năm</span></div>
+        </div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        const root = document.querySelector('[data-composition-id="04-data-moment"]');
+        const numEl = root.querySelector('#s4-num');
+        const barEl = root.querySelector('#s4-bar-fill');
+        const counter = { v: 0 };
+
+        tl.fromTo('.s4-kicker', { autoAlpha: 0, y: -14 }, { autoAlpha: 1, y: 0, duration: 0.32, ease: 'power2.out' }, 0);
+        tl.fromTo('.s4-num-block', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.1 }, 0.35);
+        tl.fromTo(barEl, { height: '0%' }, { height: '100%', duration: 1.15, ease: 'power2.out' }, 0.4);
+        tl.fromTo(counter, { v: 0 }, {
+          v: 100, duration: 1.15, ease: 'power1.out',
+          onUpdate() { numEl.textContent = Math.round(counter.v).toString(); }
+        }, 0.4);
+        tl.fromTo('.s4-caption', { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 1.75);
+
+        window.__timelines['04-data-moment'] = tl;
+      </script>
+    </template>
+  </body>
+</html>
