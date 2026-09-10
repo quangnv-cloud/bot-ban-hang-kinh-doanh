@@ -205,6 +205,12 @@
       "style": "2-chip-and-leaderboard",
       "project": "tcbs-vuot-ssi-von-33-nghin-ty",
       "date": "2026-09-09"
+    },
+    {
+      "index": 3,
+      "style": "4-split-comparison",
+      "project": "ai-tao-sieu-ty-phu-15100-ty-usd",
+      "date": "2026-09-10"
     }
   ]
 }
