@@ -217,6 +217,12 @@
       "style": "5-map-and-geo",
       "project": "metro-so-1-tphcm-doanh-thu-3756-ty-5-nam",
       "date": "2026-09-10"
+    },
+    {
+      "index": 5,
+      "style": "6-ring-progress",
+      "project": "evn-lai-8631-ty-gui-ngan-hang-121-nghin-ty",
+      "date": "2026-09-10"
     }
   ]
 }

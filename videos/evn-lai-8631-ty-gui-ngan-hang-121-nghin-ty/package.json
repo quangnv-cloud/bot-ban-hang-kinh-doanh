@@ -1,0 +1,11 @@
+{
+  "name": "evn-lai-8631-ty-gui-ngan-hang-121-nghin-ty",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.8.33 preview",
+    "check": "npx --yes hyperframes@0.8.33 check",
+    "render": "npx --yes hyperframes@0.8.33 render",
+    "publish": "npx --yes hyperframes@0.8.33 publish"
+  }
+}
