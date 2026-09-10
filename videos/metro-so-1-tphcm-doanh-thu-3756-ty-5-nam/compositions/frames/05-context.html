@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: 'Montserrat';
+          font-style: normal;
+          font-weight: 400;
+          src: url('assets/fonts/Montserrat-400-latin.woff2') format('woff2');
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        @font-face {
+          font-family: 'Montserrat';
+          font-style: normal;
+          font-weight: 400;
+          src: url('assets/fonts/Montserrat-400-vietnamese.woff2') format('woff2');
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+        }
+        @font-face {
+          font-family: 'Montserrat';
+          font-style: normal;
+          font-weight: 500;
+          src: url('assets/fonts/Montserrat-500-latin.woff2') format('woff2');
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        @font-face {
+          font-family: 'Montserrat';
+          font-style: normal;
+          font-weight: 500;
+          src: url('assets/fonts/Montserrat-500-vietnamese.woff2') format('woff2');
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+        }
+        @font-face {
+          font-family: 'Montserrat';
+          font-style: normal;
+          font-weight: 600;
+          src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2');
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        @font-face {
+          font-family: 'Montserrat';
+          font-style: normal;
+          font-weight: 600;
+          src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2');
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+        }
+        @font-face {
+          font-family: 'Montserrat';
+          font-style: normal;
+          font-weight: 700;
+          src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2');
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        @font-face {
+          font-family: 'Montserrat';
+          font-style: normal;
+          font-weight: 700;
+          src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2');
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+        }
+        @font-face {
+          font-family: 'Montserrat';
+          font-style: normal;
+          font-weight: 800;
+          src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2');
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        @font-face {
+          font-family: 'Montserrat';
+          font-style: normal;
+          font-weight: 800;
+          src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2');
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+        }
+        @font-face {
+          font-family: 'Montserrat';
+          font-style: normal;
+          font-weight: 900;
+          src: url('assets/fonts/Montserrat-900-latin.woff2') format('woff2');
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        @font-face {
+          font-family: 'Montserrat';
+          font-style: normal;
+          font-weight: 900;
+          src: url('assets/fonts/Montserrat-900-vietnamese.woff2') format('woff2');
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+        }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          font-family: "Montserrat", "Helvetica Neue", sans-serif;
+          color: #ffffff;
+          background: #111111;
+        }
+
+        .ctx-kicker {
+          position: absolute;
+          left: 64px;
+          top: 130px;
+          font-weight: 600;
+          font-size: 26px;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.7);
+        }
+
+        .ctx-diagram {
+          position: absolute;
+          left: 64px;
+          right: 64px;
+          top: 260px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .ctx-node {
+          width: 360px;
+          padding: 40px 28px;
+          border-radius: 20px;
+          background: rgba(255, 255, 255, 0.06);
+          border: 2px solid rgba(255, 255, 255, 0.14);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 14px;
+        }
+        .ctx-node.is-highlight {
+          background: rgba(232, 68, 30, 0.12);
+          border-color: #e8441e;
+        }
+        .ctx-node-year {
+          font-weight: 700;
+          font-size: 26px;
+          letter-spacing: 0.04em;
+          color: rgba(255, 255, 255, 0.65);
+        }
+        .ctx-node.is-highlight .ctx-node-year {
+          color: #ffffff;
+        }
+        .ctx-node-value {
+          font-weight: 800;
+          font-size: 40px;
+          line-height: 1.18;
+          text-align: center;
+          color: rgba(255, 255, 255, 0.82);
+        }
+        .ctx-node.is-highlight .ctx-node-value {
+          color: #e8441e;
+        }
+
+        .ctx-connector {
+          width: 140px;
+          height: 60px;
+          flex: none;
+        }
+        .ctx-connector-line {
+          stroke: #e8441e;
+          stroke-width: 4;
+        }
+        .ctx-connector-arrow {
+          fill: #e8441e;
+        }
+
+        .ctx-note-wrap {
+          position: absolute;
+          left: 64px;
+          right: 64px;
+          top: 640px;
+          display: flex;
+          justify-content: center;
+        }
+        .ctx-note {
+          display: inline-flex;
+          align-items: center;
+          padding: 18px 34px;
+          border-radius: 12px;
+          background: rgba(255, 255, 255, 0.06);
+        }
+        .ctx-note span {
+          font-weight: 600;
+          font-size: 30px;
+          line-height: 1.4;
+          text-align: center;
+          color: rgba(255, 255, 255, 0.85);
+        }
+        .ctx-note span b {
+          font-weight: 800;
+          color: #e8441e;
+        }
+      </style>
+
+      <div id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+        <div id="ctx-bg" class="clip" data-start="0" data-duration="9.65" data-track-index="0" style="position:absolute; inset:0; background:#111111;"></div>
+
+        <div id="ctx-kicker" class="clip ctx-kicker" data-start="0" data-duration="9.65" data-track-index="1">Diễn biến lợi nhuận</div>
+
+        <div id="ctx-diagram" class="clip ctx-diagram" data-start="0" data-duration="9.65" data-track-index="2">
+          <div id="ctx-node-a" class="ctx-node">
+            <div class="ctx-node-year">Năm trước đó</div>
+            <div class="ctx-node-value">Lỗ hơn 10 tỷ đồng</div>
+          </div>
+
+          <svg class="ctx-connector" viewBox="0 0 140 60">
+            <line id="ctx-connector-line" class="ctx-connector-line" x1="4" y1="30" x2="118" y2="30" stroke-dasharray="120" stroke-dashoffset="120" />
+            <path id="ctx-connector-arrow" class="ctx-connector-arrow" d="M112,20 L136,30 L112,40 Z" opacity="0" />
+          </svg>
+
+          <div id="ctx-node-b" class="ctx-node is-highlight">
+            <div class="ctx-node-year">Năm 2025</div>
+            <div class="ctx-node-value">Lãi sau thuế gần 39 tỷ đồng</div>
+          </div>
+        </div>
+
+        <div id="ctx-note-wrap" class="clip ctx-note-wrap" data-start="0" data-duration="9.65" data-track-index="3">
+          <div id="ctx-note" class="ctx-note">
+            <span>Xóa sạch khoản lỗ lũy kế <b>hơn 35 tỷ đồng</b></span>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo("#ctx-kicker", { y: -10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 0);
+
+          tl.fromTo("#ctx-node-a", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }, 0.4);
+
+          tl.to("#ctx-connector-line", { strokeDashoffset: 0, duration: 0.5, ease: "power2.inOut" }, 3.4);
+          tl.fromTo("#ctx-connector-arrow", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)" }, 3.85);
+
+          tl.fromTo("#ctx-node-b", { y: 16, opacity: 0, scale: 0.92 }, { y: 0, opacity: 1, scale: 1, duration: 0.46, ease: "back.out(1.6)" }, 4.15);
+
+          tl.fromTo("#ctx-note", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.36, ease: "power2.out" }, 6.4);
+
+          window.__timelines["05-context"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

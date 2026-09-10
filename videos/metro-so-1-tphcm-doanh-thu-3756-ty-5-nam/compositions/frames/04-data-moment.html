@@ -1,0 +1,236 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: 'Montserrat';
+          font-style: normal;
+          font-weight: 400;
+          src: url('assets/fonts/Montserrat-400-latin.woff2') format('woff2');
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        @font-face {
+          font-family: 'Montserrat';
+          font-style: normal;
+          font-weight: 400;
+          src: url('assets/fonts/Montserrat-400-vietnamese.woff2') format('woff2');
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+        }
+        @font-face {
+          font-family: 'Montserrat';
+          font-style: normal;
+          font-weight: 500;
+          src: url('assets/fonts/Montserrat-500-latin.woff2') format('woff2');
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        @font-face {
+          font-family: 'Montserrat';
+          font-style: normal;
+          font-weight: 500;
+          src: url('assets/fonts/Montserrat-500-vietnamese.woff2') format('woff2');
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+        }
+        @font-face {
+          font-family: 'Montserrat';
+          font-style: normal;
+          font-weight: 600;
+          src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2');
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        @font-face {
+          font-family: 'Montserrat';
+          font-style: normal;
+          font-weight: 600;
+          src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2');
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+        }
+        @font-face {
+          font-family: 'Montserrat';
+          font-style: normal;
+          font-weight: 700;
+          src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2');
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        @font-face {
+          font-family: 'Montserrat';
+          font-style: normal;
+          font-weight: 700;
+          src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2');
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+        }
+        @font-face {
+          font-family: 'Montserrat';
+          font-style: normal;
+          font-weight: 800;
+          src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2');
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        @font-face {
+          font-family: 'Montserrat';
+          font-style: normal;
+          font-weight: 800;
+          src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2');
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+        }
+        @font-face {
+          font-family: 'Montserrat';
+          font-style: normal;
+          font-weight: 900;
+          src: url('assets/fonts/Montserrat-900-latin.woff2') format('woff2');
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        @font-face {
+          font-family: 'Montserrat';
+          font-style: normal;
+          font-weight: 900;
+          src: url('assets/fonts/Montserrat-900-vietnamese.woff2') format('woff2');
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+        }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          font-family: "Montserrat", "Helvetica Neue", sans-serif;
+          color: #ffffff;
+          background: #111111;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 64px;
+          padding-bottom: 60px;
+        }
+
+        .dm-kicker {
+          font-weight: 600;
+          font-size: 28px;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.7);
+        }
+
+        .dm-pin-wrap {
+          width: 620px;
+          height: 694px;
+          position: relative;
+          flex: none;
+        }
+        .dm-pin-circle {
+          width: 620px;
+          height: 620px;
+          border-radius: 50%;
+          background: #e8441e;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+        .dm-pin-tail {
+          position: absolute;
+          left: 50%;
+          top: 560px;
+          width: 0;
+          height: 0;
+          margin-left: -46px;
+          border-left: 46px solid transparent;
+          border-right: 46px solid transparent;
+          border-top: 74px solid #e8441e;
+        }
+
+        .dm-number {
+          font-weight: 900;
+          font-size: 168px;
+          line-height: 0.9;
+          letter-spacing: -0.02em;
+          color: #ffffff;
+          font-variant-numeric: tabular-nums;
+          white-space: nowrap;
+        }
+        .dm-unit {
+          margin-top: 10px;
+          font-weight: 700;
+          font-size: 40px;
+          color: #ffffff;
+        }
+
+        .dm-badge {
+          display: inline-flex;
+          align-items: center;
+          padding: 16px 32px;
+          border-radius: 10px;
+          border: 2px solid #e8441e;
+        }
+        .dm-badge span {
+          font-weight: 700;
+          font-size: 32px;
+          color: #ffffff;
+          white-space: nowrap;
+        }
+        .dm-badge span b {
+          color: #e8441e;
+          font-weight: 800;
+        }
+      </style>
+
+      <div id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+        <div id="dm-bg" class="clip" data-start="0" data-duration="7.15" data-track-index="0" style="position:absolute; inset:0; background:#111111;"></div>
+
+        <div id="dm-kicker" class="clip dm-kicker" data-start="0" data-duration="7.15" data-track-index="1">Doanh thu năm 2025</div>
+
+        <div id="dm-pin-wrap" class="clip dm-pin-wrap" data-start="0" data-duration="7.15" data-track-index="2">
+          <div class="dm-pin-circle">
+            <span id="dm-number" class="dm-number">0</span>
+            <span class="dm-unit">tỷ đồng</span>
+          </div>
+          <div class="dm-pin-tail"></div>
+        </div>
+
+        <div id="dm-badge" class="clip dm-badge" data-start="0" data-duration="7.15" data-track-index="3">
+          <span>Gấp gần <b>50 lần</b> năm liền trước</span>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo("#dm-kicker", { y: -10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 0);
+
+          tl.fromTo(
+            "#dm-pin-wrap",
+            { y: -260, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.65, ease: "bounce.out" },
+            0.2,
+          );
+
+          var numState = { value: 0 };
+          var numEl = document.getElementById("dm-number");
+          tl.to(
+            numState,
+            {
+              value: 547,
+              duration: 0.85,
+              ease: "power3.out",
+              onUpdate: function () {
+                numEl.textContent = Math.round(numState.value).toLocaleString("vi-VN");
+              },
+            },
+            0.95,
+          );
+
+          tl.fromTo("#dm-badge", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.36, ease: "power2.out" }, 2.0);
+
+          window.__timelines["04-data-moment"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

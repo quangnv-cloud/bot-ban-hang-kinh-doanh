@@ -12,7 +12,7 @@
     "9-editorial-clipping",
     "10-stock-terminal"
   ],
-  "last_used_index": 6,
+  "last_used_index": 4,
   "log": [
     {
       "index": 0,
@@ -210,6 +210,12 @@
       "index": 3,
       "style": "4-split-comparison",
       "project": "ai-tao-sieu-ty-phu-15100-ty-usd",
+      "date": "2026-09-10"
+    },
+    {
+      "index": 4,
+      "style": "5-map-and-geo",
+      "project": "metro-so-1-tphcm-doanh-thu-3756-ty-5-nam",
       "date": "2026-09-10"
     }
   ]

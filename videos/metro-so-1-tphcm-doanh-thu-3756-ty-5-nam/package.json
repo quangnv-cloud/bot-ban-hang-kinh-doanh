@@ -1,0 +1,14 @@
+{
+  "name": "metro-so-1-tphcm-doanh-thu-3756-ty-5-nam",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.8.33 preview",
+    "check": "npx --yes hyperframes@0.8.33 check",
+    "render": "npx --yes hyperframes@0.8.33 render",
+    "publish": "npx --yes hyperframes@0.8.33 publish"
+  },
+  "devDependencies": {
+    "@hyperframes/core": "^0.8.33"
+  }
+}
