@@ -1,0 +1,14 @@
+{
+  "name": "do-thi-san-bay-gia-binh-72000-ty",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.8.38 preview",
+    "check": "npx --yes hyperframes@0.8.38 check",
+    "render": "npx --yes hyperframes@0.8.38 render",
+    "publish": "npx --yes hyperframes@0.8.38 publish"
+  },
+  "devDependencies": {
+    "@hyperframes/core": "^0.8.38"
+  }
+}

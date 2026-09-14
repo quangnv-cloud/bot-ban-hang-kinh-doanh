@@ -1,0 +1,90 @@
+<template>
+  <style>
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; src: url('assets/fonts/Montserrat-400-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; src: url('assets/fonts/Montserrat-400-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; src: url('assets/fonts/Montserrat-900-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; src: url('assets/fonts/Montserrat-900-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+    #root-05 {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+
+    .ctx-group-label { position: absolute; left: 64px; font-weight: 700; font-size: 22px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); opacity: 0; }
+
+    .ctx-chart-1 { position: absolute; left: 64px; right: 64px; top: 300px; display: flex; align-items: flex-start; gap: 64px; padding: 0 40px; }
+    .ctx-chart-2 { position: absolute; left: 64px; right: 64px; top: 1020px; display: flex; align-items: flex-start; gap: 64px; padding: 0 40px; }
+
+    .ctx-col { flex: 1; display: flex; flex-direction: column; align-items: center; }
+    .ctx-col-value { font-weight: 800; font-size: 34px; color: #ffffff; margin-bottom: 12px; opacity: 0; white-space: nowrap; }
+    .ctx-col-value.hl { color: #e8441e; }
+    .ctx-bar-track { width: 84px; height: 320px; display: flex; align-items: flex-end; justify-content: center; }
+    .ctx-bar { width: 100%; border-radius: 6px 6px 3px 3px; transform-origin: bottom center; opacity: 0; }
+    .ctx-bar.main { background: #e8441e; }
+    .ctx-bar.dim { background: rgba(255,255,255,0.22); }
+    .ctx-col-name { margin-top: 16px; font-weight: 600; font-size: 20px; color: rgba(255,255,255,0.6); text-align: center; max-width: 220px; opacity: 0; }
+
+    .ctx-divider { position: absolute; left: 64px; right: 64px; top: 972px; height: 1px; background: rgba(255,255,255,0.1); }
+  </style>
+
+  <div id="root-05" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div class="ctx-group-label" style="top: 254px;" id="ctx-label-1">Cơ cấu vốn đầu tư</div>
+    <div class="ctx-chart-1">
+      <div class="ctx-col">
+        <div class="ctx-col-value hl" id="ctx-v1">100%</div>
+        <div class="ctx-bar-track"><div class="ctx-bar main" id="ctx-bar1" style="height: 320px;"></div></div>
+        <div class="ctx-col-name">Tổng vốn đầu tư<br>72.091 tỷ đồng</div>
+      </div>
+      <div class="ctx-col">
+        <div class="ctx-col-value" id="ctx-v2">15%</div>
+        <div class="ctx-bar-track"><div class="ctx-bar dim" id="ctx-bar2" style="height: 48px;"></div></div>
+        <div class="ctx-col-name">Vốn góp nhà đầu tư<br>10.813 tỷ đồng</div>
+      </div>
+    </div>
+
+    <div class="ctx-divider"></div>
+
+    <div class="ctx-group-label" style="top: 974px;" id="ctx-label-2">Cơ cấu sử dụng đất</div>
+    <div class="ctx-chart-2">
+      <div class="ctx-col">
+        <div class="ctx-col-value hl" id="ctx-v3">31%</div>
+        <div class="ctx-bar-track"><div class="ctx-bar main" id="ctx-bar3" style="height: 99px;"></div></div>
+        <div class="ctx-col-name">Đất ở<br>(thấp tầng, chung cư, nhà ở xã hội)</div>
+      </div>
+      <div class="ctx-col">
+        <div class="ctx-col-value" id="ctx-v4">69%</div>
+        <div class="ctx-bar-track"><div class="ctx-bar dim" id="ctx-bar4" style="height: 221px;"></div></div>
+        <div class="ctx-col-name">Còn lại<br>(thương mại, giáo dục, y tế, hạ tầng)</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo('#root-05 #ctx-label-1', { autoAlpha: 0, y: -8 }, { autoAlpha: 1, y: 0, duration: 0.3 }, 0.15);
+    tl.fromTo('#root-05 #ctx-bar1', { scaleY: 0, autoAlpha: 1 }, { scaleY: 1, duration: 0.5, ease: 'power2.out' }, 0.4);
+    tl.fromTo('#root-05 #ctx-v1', { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.28 }, 0.7);
+    tl.fromTo('#root-05 #ctx-bar2', { scaleY: 0, autoAlpha: 1 }, { scaleY: 1, duration: 0.5, ease: 'power2.out' }, 0.65);
+    tl.fromTo('#root-05 #ctx-v2', { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.28 }, 0.95);
+    tl.fromTo('#root-05 .ctx-chart-1 .ctx-col-name', { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.3, stagger: 0.1 }, 1.1);
+
+    tl.fromTo('#root-05 #ctx-label-2', { autoAlpha: 0, y: -8 }, { autoAlpha: 1, y: 0, duration: 0.3 }, 5.9);
+    tl.fromTo('#root-05 #ctx-bar3', { scaleY: 0, autoAlpha: 1 }, { scaleY: 1, duration: 0.5, ease: 'power2.out' }, 6.15);
+    tl.fromTo('#root-05 #ctx-v3', { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.28 }, 6.45);
+    tl.fromTo('#root-05 #ctx-bar4', { scaleY: 0, autoAlpha: 1 }, { scaleY: 1, duration: 0.5, ease: 'power2.out' }, 6.4);
+    tl.fromTo('#root-05 #ctx-v4', { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.28 }, 6.7);
+    tl.fromTo('#root-05 .ctx-chart-2 .ctx-col-name', { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.3, stagger: 0.1 }, 6.85);
+
+    window.__timelines['05-context'] = tl;
+  </script>
+</template>
