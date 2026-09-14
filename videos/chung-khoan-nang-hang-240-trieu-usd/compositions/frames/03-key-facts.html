@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          font-family: "Montserrat", "Helvetica Neue", sans-serif;
+          color: #ffffff;
+          background: #111111;
+        }
+
+        .kf-content {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 236px;
+          padding: 0 64px;
+        }
+
+        .kf-kicker {
+          font-weight: 600;
+          font-size: 24px;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: #e8441e;
+          margin-bottom: 18px;
+        }
+
+        .kf-headline {
+          font-weight: 800;
+          font-size: 50px;
+          line-height: 1.18;
+          letter-spacing: -0.015em;
+          color: #ffffff;
+          max-width: 900px;
+          margin-bottom: 46px;
+        }
+
+        .kf-stack {
+          position: relative;
+          height: 980px;
+        }
+
+        .kf-note {
+          position: absolute;
+          left: 0;
+          width: 100%;
+          background: #f2f0eb;
+          border-radius: 4px;
+          padding: 34px 40px;
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        .kf-note-1 {
+          top: 0px;
+          transform: rotate(-1.8deg);
+          z-index: 3;
+        }
+        .kf-note-2 {
+          top: 316px;
+          transform: rotate(1.4deg);
+          z-index: 2;
+        }
+        .kf-note-3 {
+          top: 636px;
+          transform: rotate(-1deg);
+          z-index: 1;
+        }
+        .kf-note-pin {
+          position: absolute;
+          top: -10px;
+          left: 44px;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background: #e8441e;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+        .kf-note-text {
+          font-family: Georgia, "Times New Roman", serif;
+          font-weight: 400;
+          font-size: 32px;
+          line-height: 1.36;
+          color: #201e1a;
+        }
+        .kf-note-text b {
+          font-family: "Montserrat", sans-serif;
+          font-weight: 800;
+          color: #e8441e;
+        }
+      </style>
+
+      <div id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+        <div id="kf-content" class="clip kf-content" data-start="0" data-duration="8.99" data-track-index="1">
+          <div id="kf-kicker" class="kf-kicker">Ba điểm chính</div>
+          <div id="kf-headline" class="kf-headline">Vì sao Việt Nam nâng hạng thị trường</div>
+
+          <div class="kf-stack">
+            <div id="kf-note-1" class="kf-note kf-note-1">
+              <div class="kf-note-pin"></div>
+              <div class="kf-note-text"><b>FTSE Russell</b> chính thức nâng hạng Việt Nam lên nhóm thị trường mới nổi, tỷ trọng đạt <b>0,488%</b> trong chỉ số Emerging All Cap.</div>
+            </div>
+            <div id="kf-note-2" class="kf-note kf-note-2">
+              <div class="kf-note-pin"></div>
+              <div class="kf-note-text"><b>27 cổ phiếu</b> lớn nhận dòng vốn ngay ngày <b>18 tháng 9</b>, sớm hơn 3 ngày so với thời điểm nâng hạng chính thức.</div>
+            </div>
+            <div id="kf-note-3" class="kf-note kf-note-3">
+              <div class="kf-note-pin"></div>
+              <div class="kf-note-text">Công ty Chứng khoán <b>SSI</b> ước tính dòng vốn, dẫn đầu là quỹ <b>Vanguard</b>.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo("#kf-kicker", { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 0.05);
+          tl.fromTo("#kf-headline", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.38, ease: "power3.out" }, 0.22);
+
+          tl.fromTo(
+            "#kf-note-1",
+            { y: 60, opacity: 0, rotate: 6 },
+            { y: 0, opacity: 1, rotate: -1.8, duration: 0.44, ease: "power3.out" },
+            0.65,
+          );
+          tl.fromTo(
+            "#kf-note-2",
+            { y: 60, opacity: 0, rotate: -6 },
+            { y: 0, opacity: 1, rotate: 1.4, duration: 0.44, ease: "power3.out" },
+            2.9,
+          );
+          tl.fromTo(
+            "#kf-note-3",
+            { y: 60, opacity: 0, rotate: 6 },
+            { y: 0, opacity: 1, rotate: -1, duration: 0.44, ease: "power3.out" },
+            5.7,
+          );
+
+          window.__timelines["03-key-facts"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
