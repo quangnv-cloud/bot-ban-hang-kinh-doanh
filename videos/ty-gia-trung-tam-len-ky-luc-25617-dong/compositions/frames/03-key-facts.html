@@ -1,0 +1,160 @@
+<template>
+  <style>
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; src: url('assets/fonts/Montserrat-400-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; src: url('assets/fonts/Montserrat-400-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; src: url('assets/fonts/Montserrat-900-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900; src: url('assets/fonts/Montserrat-900-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+    #root {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Montserrat', sans-serif;
+      background: #111111;
+      color: #ffffff;
+    }
+
+    /* Giant faded watermark digit behind the stack — Chip & Leaderboard's depth layer */
+    .f03-watermark {
+      position: absolute;
+      right: 20px;
+      top: 1080px;
+      font-weight: 900;
+      font-size: 480px;
+      line-height: 1;
+      color: rgba(232, 68, 30, 0.06);
+      letter-spacing: -0.04em;
+      opacity: 0;
+    }
+
+    .f03-head { position: absolute; left: 64px; right: 64px; top: 128px; }
+    .f03-kicker {
+      font-weight: 700;
+      font-size: 24px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #e8441e;
+      opacity: 0;
+    }
+    .f03-headline {
+      margin-top: 18px;
+      font-weight: 800;
+      font-size: 52px;
+      line-height: 1.16;
+      color: #ffffff;
+      max-width: 940px;
+      opacity: 0;
+    }
+
+    .f03-stack {
+      position: absolute;
+      left: 64px; right: 64px;
+      top: 470px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .f03-chip {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      border-radius: 16px;
+      border: 1.5px solid rgba(232, 68, 30, 0.55);
+      background: rgba(255, 255, 255, 0.03);
+      padding: 30px 32px;
+      opacity: 0;
+    }
+    .f03-chip-index {
+      flex: none;
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      background: rgba(232, 68, 30, 0.14);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 26px;
+      color: #e8441e;
+    }
+    .f03-chip-body { flex: 1; min-width: 0; }
+    .f03-chip-label {
+      font-weight: 600;
+      font-size: 18px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.62);
+      margin-bottom: 8px;
+    }
+    .f03-chip-value {
+      font-weight: 800;
+      font-size: 38px;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+    .f03-chip-value .accent { color: #e8441e; }
+  </style>
+
+  <div data-hf-id="hf-03-001" id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-03-002" class="f03-watermark" id="f03-watermark">03</div>
+
+    <div data-hf-id="hf-03-003" class="f03-head">
+      <span data-hf-id="hf-03-004" class="f03-kicker" id="f03-kicker">Số liệu chính</span>
+      <div data-hf-id="hf-03-005" class="f03-headline" id="f03-headline">Loạt ngân hàng đồng loạt điều chỉnh giá</div>
+    </div>
+
+    <div data-hf-id="hf-03-006" class="f03-stack">
+      <div data-hf-id="hf-03-007" class="f03-chip" id="f03-chip-1">
+        <div data-hf-id="hf-03-008" class="f03-chip-index">01</div>
+        <div data-hf-id="hf-03-009" class="f03-chip-body">
+          <div data-hf-id="hf-03-010" class="f03-chip-label">Biên độ ±5%</div>
+          <div data-hf-id="hf-03-011" class="f03-chip-value">Sàn – trần <span data-hf-id="hf-03-012" class="accent">24.336 – 26.898</span> đồng</div>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-03-013" class="f03-chip" id="f03-chip-2">
+        <div data-hf-id="hf-03-014" class="f03-chip-index">02</div>
+        <div data-hf-id="hf-03-015" class="f03-chip-body">
+          <div data-hf-id="hf-03-016" class="f03-chip-label">Vietcombank · VietinBank · Eximbank</div>
+          <div data-hf-id="hf-03-017" class="f03-chip-value">Tăng 20–40 đồng, lên <span data-hf-id="hf-03-018" class="accent">25.810 – 26.220</span> đồng</div>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-03-019" class="f03-chip" id="f03-chip-3">
+        <div data-hf-id="hf-03-020" class="f03-chip-index">03</div>
+        <div data-hf-id="hf-03-021" class="f03-chip-body">
+          <div data-hf-id="hf-03-022" class="f03-chip-label">Chợ tự do Thành phố Hồ Chí Minh</div>
+          <div data-hf-id="hf-03-023" class="f03-chip-value"><span data-hf-id="hf-03-024" class="accent">25.700 – 26.000</span> đồng, tăng 30 đồng</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#f03-watermark", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 1.0, ease: "power2.out" }, 0.1);
+      tl.fromTo("#f03-kicker", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 0.2);
+      tl.fromTo("#f03-headline", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 0.42);
+
+      tl.fromTo("#f03-chip-1", { y: 26, opacity: 0 }, { y: 0, opacity: 1, duration: 0.42, ease: "power3.out" }, 1.1);
+      tl.fromTo("#f03-chip-2", { y: 26, opacity: 0 }, { y: 0, opacity: 1, duration: 0.42, ease: "power3.out" }, 4.4);
+      tl.fromTo("#f03-chip-3", { y: 26, opacity: 0 }, { y: 0, opacity: 1, duration: 0.42, ease: "power3.out" }, 7.9);
+
+      window.__timelines["03-key-facts"] = tl;
+    })();
+  </script>
+</template>
