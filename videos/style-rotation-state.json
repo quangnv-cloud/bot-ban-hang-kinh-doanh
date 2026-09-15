@@ -217,6 +217,12 @@
       "style": "5-map-and-geo",
       "project": "metro-so-1-tphcm-doanh-thu-3756-ty-5-nam",
       "date": "2026-09-10"
+    },
+    {
+      "index": 0,
+      "style": "1-card-and-bar",
+      "project": "gelex-giam-san-vn-index-1788-diem",
+      "date": "2026-09-15"
     }
   ]
 }

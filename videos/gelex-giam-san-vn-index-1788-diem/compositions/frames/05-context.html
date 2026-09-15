@@ -1,0 +1,85 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+    .c05-bg { position: absolute; inset: 0; background: #111111; }
+
+    .c05-kicker {
+      position: absolute; left: 64px; top: 200px;
+      font-weight: 700; font-size: 26px; letter-spacing: 0.16em; text-transform: uppercase; color: #e8441e;
+    }
+    .c05-headline {
+      position: absolute; left: 64px; right: 64px; top: 252px;
+      font-weight: 800; font-size: 48px; line-height: 1.18; color: #ffffff;
+    }
+
+    .c05-chart {
+      position: absolute; left: 64px; right: 64px; top: 560px; height: 620px;
+      display: flex; align-items: flex-end; gap: 64px; padding: 0 40px;
+      border-bottom: 2px solid rgba(255,255,255,0.16);
+    }
+    .c05-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+    .c05-col-value { font-weight: 900; font-size: 56px; color: #ffffff; opacity: 0; }
+    .c05-col-value .accent { color: #e8441e; }
+    .c05-bar-track { width: 100%; max-width: 220px; height: 460px; display: flex; align-items: flex-end; }
+    .c05-bar { width: 100%; border-radius: 16px 16px 0 0; transform: scaleY(0); transform-origin: bottom; }
+    .c05-bar.down { background: #e8441e; }
+    .c05-bar.up { background: rgba(255,255,255,0.28); }
+    .c05-col-label { font-weight: 700; font-size: 24px; letter-spacing: 0.04em; color: rgba(255,255,255,0.72); text-align: center; }
+
+    .c05-liq {
+      position: absolute; left: 64px; right: 64px; top: 1300px;
+      border-radius: 20px; border: 1.5px solid rgba(255,255,255,0.16); background: rgba(255,255,255,0.045);
+      padding: 30px 36px; display: flex; align-items: center; justify-content: space-between;
+      opacity: 0;
+    }
+    .c05-liq-label { font-weight: 700; font-size: 26px; letter-spacing: 0.03em; color: rgba(255,255,255,0.72); }
+    .c05-liq-value { font-weight: 900; font-size: 44px; color: #e8441e; }
+  </style>
+
+  <div data-hf-id="hf-c501" id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-c502" class="clip c05-bg" data-start="0" data-duration="7.64" data-track-index="0"></div>
+
+    <div data-hf-id="hf-c503" id="c05-kicker" class="clip c05-kicker" data-start="0" data-duration="7.64" data-track-index="1">Toàn cảnh thị trường</div>
+    <div data-hf-id="hf-c504" id="c05-headline" class="clip c05-headline" data-start="0" data-duration="7.64" data-track-index="2">Sắc đỏ áp đảo trên toàn bảng điện</div>
+
+    <div data-hf-id="hf-c505" id="c05-chart" class="clip c05-chart" data-start="0.6" data-duration="7.04" data-track-index="3">
+      <div data-hf-id="hf-c506" class="c05-col">
+        <span data-hf-id="hf-c507" class="c05-col-value" id="c05-val-down"><span data-hf-id="hf-c508" class="accent">455</span></span>
+        <div data-hf-id="hf-c509" class="c05-bar-track"><div data-hf-id="hf-c510" class="c05-bar down" id="c05-bar-down" style="height: 100%;"></div></div>
+        <span data-hf-id="hf-c511" class="c05-col-label">Mã giảm<br>(20 mã giảm sàn)</span>
+      </div>
+      <div data-hf-id="hf-c512" class="c05-col">
+        <span data-hf-id="hf-c513" class="c05-col-value" id="c05-val-up">203</span>
+        <div data-hf-id="hf-c514" class="c05-bar-track"><div data-hf-id="hf-c515" class="c05-bar up" id="c05-bar-up" style="height: 45%;"></div></div>
+        <span data-hf-id="hf-c516" class="c05-col-label">Mã tăng</span>
+      </div>
+    </div>
+
+    <div data-hf-id="hf-c517" id="c05-liq" class="clip c05-liq" data-start="4.2" data-duration="3.44" data-track-index="4">
+      <span data-hf-id="hf-c518" class="c05-liq-label">Thanh khoản 3 sàn</span>
+      <span data-hf-id="hf-c519" class="c05-liq-value">20.600 tỷ đồng</span>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#c05-kicker", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.28, ease: "power3.out" }, 0);
+      tl.fromTo("#c05-headline", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.36, ease: "power3.out" }, 0.16);
+
+      tl.fromTo("#c05-bar-down", { scaleY: 0 }, { scaleY: 1, duration: 0.55, ease: "power2.out" }, 0.7);
+      tl.fromTo("#c05-val-down", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.26 }, 1.15);
+      tl.fromTo("#c05-bar-up", { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: "power2.out" }, 1.15);
+      tl.fromTo("#c05-val-up", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.26 }, 1.55);
+
+      tl.fromTo("#c05-liq", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 4.2);
+
+      window.__timelines["05-context"] = tl;
+    })();
+  </script>
+</template>

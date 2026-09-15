@@ -1,0 +1,67 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+    .i06-bg { position: absolute; inset: 0; background: #111111; }
+
+    .i06-kicker {
+      position: absolute; left: 64px; top: 200px;
+      font-weight: 700; font-size: 26px; letter-spacing: 0.16em; text-transform: uppercase; color: #e8441e;
+    }
+    .i06-headline {
+      position: absolute; left: 64px; right: 64px; top: 252px;
+      font-weight: 800; font-size: 48px; line-height: 1.18; color: #ffffff;
+    }
+
+    .i06-stack { position: absolute; left: 64px; right: 64px; top: 580px; display: flex; flex-direction: column; gap: 36px; }
+    .i06-card {
+      border-radius: 28px;
+      border: 1.5px solid rgba(232,68,30,0.5);
+      background: rgba(232,68,30,0.07);
+      padding: 44px 44px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .i06-card.alt { border-color: rgba(255,255,255,0.18); background: rgba(255,255,255,0.045); }
+    .i06-card-label { font-weight: 700; font-size: 26px; letter-spacing: 0.03em; color: rgba(255,255,255,0.72); }
+    .i06-card-value { font-weight: 900; font-size: 68px; letter-spacing: -0.01em; color: #e8441e; line-height: 1.05; }
+    .i06-card.alt .i06-card-value { color: #ffffff; }
+    .i06-card-sub { font-weight: 500; font-size: 26px; color: rgba(255,255,255,0.7); line-height: 1.4; }
+  </style>
+
+  <div data-hf-id="hf-i601" id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-i602" class="clip i06-bg" data-start="0" data-duration="6.61" data-track-index="0"></div>
+
+    <div data-hf-id="hf-i603" id="i06-kicker" class="clip i06-kicker" data-start="0" data-duration="6.61" data-track-index="1">Phản hồi từ doanh nghiệp</div>
+    <div data-hf-id="hf-i604" id="i06-headline" class="clip i06-headline" data-start="0" data-duration="6.61" data-track-index="2">Gelex: Hoạt động kinh doanh vẫn bình thường</div>
+
+    <div data-hf-id="hf-i605" id="i06-stack" class="clip i06-stack" data-start="0" data-duration="6.61" data-track-index="3">
+      <div data-hf-id="hf-i606" class="i06-card" id="i06-card-1" style="opacity:0;">
+        <span data-hf-id="hf-i607" class="i06-card-label">Lãi sau thuế nửa đầu năm 2026</span>
+        <span data-hf-id="hf-i608" class="i06-card-value">1.930 tỷ đồng</span>
+        <span data-hf-id="hf-i609" class="i06-card-sub">Doanh thu thuần hợp nhất hơn 25.200 tỷ đồng</span>
+      </div>
+      <div data-hf-id="hf-i610" class="i06-card alt" id="i06-card-2" style="opacity:0;">
+        <span data-hf-id="hf-i611" class="i06-card-label">Cam kết với đối tác</span>
+        <span data-hf-id="hf-i612" class="i06-card-value">Bình thường</span>
+        <span data-hf-id="hf-i613" class="i06-card-sub">Nghĩa vụ với ngân hàng, khách hàng, đối tác vẫn diễn ra bình thường, theo công bố của Gelex</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#i06-kicker", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.28, ease: "power3.out" }, 0);
+      tl.fromTo("#i06-headline", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.36, ease: "power3.out" }, 0.16);
+
+      tl.fromTo("#i06-card-1", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.7);
+      tl.fromTo("#i06-card-2", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 1.5);
+
+      window.__timelines["06-impact"] = tl;
+    })();
+  </script>
+</template>
