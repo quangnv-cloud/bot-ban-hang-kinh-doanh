@@ -1,0 +1,120 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+
+    .w02-bg { position: absolute; inset: 0; overflow: hidden; background: #0c0c0c; }
+    .w02-bg img {
+      position: absolute; inset: -30px; width: calc(100% + 60px); height: calc(100% + 60px);
+      object-fit: cover; object-position: 50% 22%;
+      filter: blur(22px) brightness(0.6);
+    }
+    .w02-bg-scrim {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 140% 90% at 50% 38%, rgba(17,17,17,0.55) 0%, rgba(17,17,17,0.78) 55%, rgba(17,17,17,0.94) 100%);
+    }
+
+    .w02-kicker {
+      position: absolute; left: 64px; top: 220px;
+      font-weight: 700; font-size: 26px; letter-spacing: 0.16em; text-transform: uppercase; color: #e8441e;
+    }
+    .w02-headline {
+      position: absolute; left: 64px; right: 64px; top: 272px;
+      font-weight: 800; font-size: 50px; line-height: 1.18; color: #ffffff;
+    }
+
+    .w02-card {
+      position: absolute; left: 64px; right: 64px; top: 560px;
+      border: 1.5px solid rgba(232, 68, 30, 0.55);
+      border-radius: 24px;
+      background: rgba(255,255,255,0.05);
+      padding: 44px 40px;
+      display: flex;
+      gap: 30px;
+      align-items: flex-start;
+    }
+    .w02-card-num {
+      flex: none;
+      width: 64px; height: 64px;
+      border-radius: 16px;
+      background: #e8441e;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 32px; color: #ffffff;
+    }
+    .w02-card-body { display: flex; flex-direction: column; gap: 16px; }
+    .w02-card-text { font-weight: 700; font-size: 38px; line-height: 1.32; color: #ffffff; }
+    .w02-card-sub { font-weight: 500; font-size: 26px; line-height: 1.4; color: rgba(255,255,255,0.68); }
+
+    .w02-bars {
+      position: absolute; left: 64px; right: 64px; top: 1020px;
+      display: flex; align-items: flex-end; gap: 48px; height: 220px;
+    }
+    .w02-bar-group { display: flex; flex-direction: column; align-items: center; gap: 14px; flex: 1; }
+    .w02-bar-track { width: 100%; max-width: 96px; height: 180px; display: flex; align-items: flex-end; }
+    .w02-bar {
+      width: 100%; border-radius: 10px 10px 0 0;
+      background: #e8441e;
+      transform: scaleY(0); transform-origin: bottom;
+    }
+    .w02-bar-label { font-weight: 700; font-size: 24px; letter-spacing: 0.04em; color: #ffffff; }
+    .w02-bar-pct { font-weight: 800; font-size: 22px; color: #e8441e; opacity: 0; }
+  </style>
+
+  <div data-hf-id="hf-w201" id="root" data-composition-id="02-what-happened" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-w202" class="clip w02-bg" data-start="0" data-duration="6.75" data-track-index="0">
+      <img data-hf-id="hf-w203" src="assets/img/article-hero.jpg" alt="">
+      <div data-hf-id="hf-w204" class="w02-bg-scrim"></div>
+    </div>
+
+    <div data-hf-id="hf-w205" id="w02-kicker" class="clip w02-kicker" data-start="0" data-duration="6.75" data-track-index="1">Diễn biến</div>
+    <div data-hf-id="hf-w206" id="w02-headline" class="clip w02-headline" data-start="0" data-duration="6.75" data-track-index="2">Cổ phiếu nhóm Gelex đồng loạt giảm sàn</div>
+
+    <div data-hf-id="hf-w207" id="w02-card" class="clip w02-card" data-start="0.6" data-duration="6.15" data-track-index="3">
+      <div data-hf-id="hf-w208" class="w02-card-num">01</div>
+      <div data-hf-id="hf-w209" class="w02-card-body">
+        <span data-hf-id="hf-w210" class="w02-card-text">GEX, GEL và GEE cùng giảm sàn phiên đầu tuần</span>
+        <span data-hf-id="hf-w211" class="w02-card-sub">Sau khi một lãnh đạo trong hệ sinh thái Gelex bị khởi tố, liên quan vụ án ngành điện</span>
+      </div>
+    </div>
+
+    <div data-hf-id="hf-w212" id="w02-bars" class="clip w02-bars" data-start="2.6" data-duration="4.15" data-track-index="4">
+      <div data-hf-id="hf-w213" class="w02-bar-group">
+        <span data-hf-id="hf-w214" class="w02-bar-pct" id="w02-pct-1">Sàn</span>
+        <div data-hf-id="hf-w215" class="w02-bar-track"><div data-hf-id="hf-w216" class="w02-bar" id="w02-bar-1" style="height: 100%;"></div></div>
+        <span data-hf-id="hf-w217" class="w02-bar-label">GEX</span>
+      </div>
+      <div data-hf-id="hf-w218" class="w02-bar-group">
+        <span data-hf-id="hf-w219" class="w02-bar-pct" id="w02-pct-2">-7%</span>
+        <div data-hf-id="hf-w220" class="w02-bar-track"><div data-hf-id="hf-w221" class="w02-bar" id="w02-bar-2" style="height: 78%;"></div></div>
+        <span data-hf-id="hf-w222" class="w02-bar-label">GEL</span>
+      </div>
+      <div data-hf-id="hf-w223" class="w02-bar-group">
+        <span data-hf-id="hf-w224" class="w02-bar-pct" id="w02-pct-3">-7%</span>
+        <div data-hf-id="hf-w225" class="w02-bar-track"><div data-hf-id="hf-w226" class="w02-bar" id="w02-bar-3" style="height: 78%;"></div></div>
+        <span data-hf-id="hf-w227" class="w02-bar-label">GEE</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#w02-kicker", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.28, ease: "power3.out" }, 0);
+      tl.fromTo("#w02-headline", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.36, ease: "power3.out" }, 0.16);
+      tl.fromTo("#w02-card", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.6);
+
+      tl.fromTo("#w02-bar-1", { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: "power2.out" }, 2.6);
+      tl.fromTo("#w02-pct-1", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.24 }, 2.95);
+      tl.fromTo("#w02-bar-2", { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: "power2.out" }, 2.85);
+      tl.fromTo("#w02-pct-2", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.24 }, 3.2);
+      tl.fromTo("#w02-bar-3", { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: "power2.out" }, 3.1);
+      tl.fromTo("#w02-pct-3", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.24 }, 3.45);
+
+      window.__timelines["02-what-happened"] = tl;
+    })();
+  </script>
+</template>

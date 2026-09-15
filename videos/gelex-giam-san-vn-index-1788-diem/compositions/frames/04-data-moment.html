@@ -1,0 +1,100 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+    .d04-bg { position: absolute; inset: 0; background: #111111; }
+
+    .d04-bar-decor {
+      position: absolute; left: 50%; top: 420px; transform: translateX(-50%);
+      width: 320px; height: 640px;
+      display: flex; align-items: flex-end; justify-content: center;
+      overflow: hidden;
+      opacity: 0.16;
+    }
+    .d04-bar-decor-fill {
+      width: 100%; border-radius: 24px 24px 0 0;
+      background: #e8441e;
+      transform: scaleY(0); transform-origin: bottom;
+    }
+
+    .d04-ticker {
+      position: absolute; left: 0; right: 0; top: 300px; text-align: center;
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      opacity: 0;
+    }
+    .d04-ticker-dot { width: 10px; height: 10px; border-radius: 50%; background: #e8441e; }
+    .d04-ticker span.label { font-weight: 700; font-size: 28px; letter-spacing: 0.14em; color: #ffffff; }
+
+    .d04-number-wrap {
+      position: absolute; left: 0; right: 0; top: 760px;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .d04-number {
+      font-weight: 900; letter-spacing: -0.02em; line-height: 0.94;
+      color: #e8441e; font-size: 148px; white-space: nowrap;
+    }
+    .d04-number-unit { margin-top: 8px; font-weight: 700; font-size: 30px; letter-spacing: 0.03em; color: #ffffff; opacity: 0; }
+
+    .d04-delta {
+      position: absolute; left: 0; right: 0; top: 1120px; text-align: center;
+      display: flex; align-items: center; justify-content: center; gap: 14px;
+      opacity: 0;
+    }
+    .d04-delta-arrow {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(232,68,30,0.16); border: 2px solid #e8441e;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 24px; color: #e8441e;
+    }
+    .d04-delta span.text { font-weight: 700; font-size: 32px; color: #ffffff; }
+    .d04-delta span.text .accent { color: #e8441e; font-weight: 800; }
+  </style>
+
+  <div data-hf-id="hf-d401" id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-d402" class="clip d04-bg" data-start="0" data-duration="7.71" data-track-index="0"></div>
+
+    <div data-hf-id="hf-d403" class="clip d04-bar-decor" data-start="0" data-duration="7.71" data-track-index="1">
+      <div data-hf-id="hf-d404" class="d04-bar-decor-fill" id="d04-bar-decor-fill"></div>
+    </div>
+
+    <div data-hf-id="hf-d405" id="d04-ticker" class="clip d04-ticker" data-start="0" data-duration="7.71" data-track-index="2">
+      <span data-hf-id="hf-d406" class="d04-ticker-dot"></span>
+      <span data-hf-id="hf-d407" class="label">VN-INDEX</span>
+    </div>
+
+    <div data-hf-id="hf-d408" id="d04-number-wrap" class="clip d04-number-wrap" data-start="0" data-duration="7.71" data-track-index="3">
+      <span data-hf-id="hf-d409" class="d04-number" id="d04-number">1.788,23</span>
+      <span data-hf-id="hf-d410" class="d04-number-unit" id="d04-number-unit">ĐIỂM ĐÓNG CỬA</span>
+    </div>
+
+    <div data-hf-id="hf-d411" id="d04-delta" class="clip d04-delta" data-start="0" data-duration="7.71" data-track-index="4">
+      <span data-hf-id="hf-d412" class="d04-delta-arrow">▼</span>
+      <span data-hf-id="hf-d413" class="text"><span data-hf-id="hf-d414" class="accent">-6,98 điểm</span> · -0,4%</span>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var el = document.getElementById("d04-number");
+      if (el && window.__hyperframes && window.__hyperframes.fitTextFontSize) {
+        var fit = window.__hyperframes.fitTextFontSize("1.788,23", {
+          fontFamily: "Montserrat", fontWeight: 900, maxWidth: 980, baseFontSize: 148, minFontSize: 90
+        });
+        el.style.fontSize = fit.fontSize + "px";
+      }
+
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#d04-bar-decor-fill", { scaleY: 1 }, { scaleY: 0.62, duration: 1.4, ease: "power2.inOut" }, 0.5);
+      tl.fromTo("#d04-ticker", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.2);
+      tl.fromTo("#d04-number", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 0.6);
+      tl.fromTo("#d04-number-unit", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 1.05);
+      tl.fromTo("#d04-delta", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.36, ease: "power3.out" }, 1.35);
+
+      window.__timelines["04-data-moment"] = tl;
+    })();
+  </script>
+</template>
