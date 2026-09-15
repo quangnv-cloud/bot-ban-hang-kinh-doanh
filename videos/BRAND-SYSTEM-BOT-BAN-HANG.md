@@ -186,6 +186,23 @@ dưới giọng đọc (ghi `data-fx-carve` lên track BGM, `sources` tự độ
 - **[QUAN TRỌNG — không dùng selector `#root[data-composition-id="..."]` cho style gốc của một frame, chỉ dùng `#root` trơn]**: phát hiện khi dựng video thứ 2 — frame `03-key-facts.html` dùng `#root[data-composition-id="03-key-facts"] { ... font-family: 'Montserrat'... }` (copy nguyên từ file mẫu) khiến MỌI chữ dựa vào kế thừa font từ `#root` (không tự khai `font-family` riêng) bị rơi về font mặc định của trình duyệt (Times New Roman) — lỗi im lặng, không có trong lint, chỉ thấy được khi xem ảnh render thật. Nguyên nhân: trong DOM cuối cùng (nhiều sub-composition được mount lồng nhau, mỗi cái đều tự có `id="root"` riêng), selector có thêm điều kiện thuộc tính `[data-composition-id="..."]` không khớp ổn định — có thể do thuộc tính này bị xử lý khác đi ở tầng mount/dựng. Dùng `#root { ... }` (không kèm attribute selector) thì hoạt động đúng — đây cũng là cách MỌI frame khác trong dự án đã dùng thành công. **Quy tắc**: luôn dùng `#root { ... }` trơn cho style gốc; nếu một class con không tự khai `font-family` mà trông cậy vào kế thừa, phải kiểm tra bằng ảnh chụp thật (không chỉ đọc code) — không có cách nào lint tự phát hiện lỗi này.
 - **[QUAN TRỌNG — không bao giờ dùng `width` cố định (px) cho container chứa số/chữ auto-fit]**: đã tái diễn 2 lần trên 2 video khác nhau (Hook "391.000 TỶ" và Frame 2 counter "100") — một `width: NNNpx` được đặt cho nội dung của video TRƯỚC (vd. counter 2 chữ số "93") sẽ tràn/vỡ layout khi video SAU có nội dung dài hơn (vd. 3 chữ số "100"), vì kích thước chữ thật ở font-size lớn (150-500px) không tự động co theo. Luôn: (1) để container auto-width (không set `width`), hoặc (2) nếu dùng `fitTextFontSize`, đừng tin tưởng mù quáng — hàm này đã đo sai kích thước ít nhất 2 lần (dường như không tính `letter-spacing` khi đo), luôn verify bằng ảnh chụp thật qua Studio thumbnail trước khi coi là xong, sẵn sàng hardcode font-size nếu hàm fit vẫn cho kết quả tràn/đè chữ. (3) Nếu số + đơn vị (vd. "391.000" + "tỷ đồng") nằm cùng dòng, tách thành 2 phần tử riêng (số auto-fit/hardcode + nhãn đơn vị cỡ chữ cố định nhỏ) thay vì gộp chung một chuỗi có dấu cách vào một khối auto-fit — dấu cách có thể khiến trình duyệt tự xuống dòng dù hàm fit tính là "vừa".
 
+- **[QUAN TRỌNG — reveal kiểu "typewriter" bằng `clip-path: inset(0 X% 0 0)` trên phần tử `display:
+  inline` chỉ hoạt động đúng nếu chữ nằm gọn TRÊN MỘT DÒNG]**: phát hiện khi dựng video EVN hết lỗ
+  lũy kế (style Ticker Tape, `2026-09-15`) — dòng Key facts thứ 2 dùng câu dài hơn dòng 1 (đủ dài để
+  tự xuống dòng ở font-size 37px trong khung terminal), khiến animation clip-path chỉ "mở khoá" đúng
+  phần chữ ở dòng đầu rồi DỪNG HẲN — con trỏ nhấp nháy bị kẹt giữa chừng, phần chữ sau khi xuống
+  dòng KHÔNG BAO GIỜ hiện ra trong suốt phần còn lại của act (bug này không xuất hiện trong bản
+  thumbnail Studio kiểm nhanh 1 mốc giờ ban đầu, chỉ lộ ra khi soát nhiều mốc thời gian liên tiếp
+  trong cùng 1 act). Nguyên nhân: `clip-path` trên `display: inline` áp dụng theo từng "fragment"
+  dòng, không phải theo toàn bộ nội dung đã wrap — khi chữ tràn xuống dòng 2, tween chạy tới
+  `inset(0 0% 0 0)` (coi như "mở hết") nhưng trình duyệt không đảm bảo dòng thứ 2 được vẽ đồng bộ.
+  **Quy tắc bắt buộc**: mọi dòng chữ dùng kỹ thuật này phải được viết NGẮN ĐỦ để chắc chắn nằm trên
+  một dòng ở kích thước khung đã thiết kế (ước lượng bằng ký tự: so sánh độ dài với dòng khác trong
+  cùng khối đã biết là vừa 1 dòng, ưu tiên rút ngắn nội dung on-screen — có thể khác voice — hơn là
+  cố giữ nguyên câu dài). Luôn xem lại BẰNG MẮT nhiều mốc thời gian rải đều trong TOÀN BỘ act (không
+  chỉ 1 mốc đầu act) khi act đó có hiệu ứng reveal theo thời gian (typewriter, count-up nhiều bước...),
+  vì lỗi "kẹt giữa chừng" chỉ lộ ra ở mốc giữa/cuối act, không lộ ở khung hình tĩnh đầu act.
+
 ## Final QC Checklist
 
 Brand (đúng #E8441E, logo cố định góc dưới-phải, không quá lớn) · Text (headline dễ đọc, số liệu

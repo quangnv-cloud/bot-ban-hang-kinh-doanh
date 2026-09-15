@@ -1,0 +1,97 @@
+<template>
+  <style>
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; src: url('assets/fonts/Montserrat-500-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600; src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700; src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800; src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+    #root {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      overflow: hidden; font-family: "Montserrat", sans-serif; color: #ffffff; background: #111111;
+    }
+
+    .ctx-kicker {
+      position: absolute; left: 72px; right: 72px; top: 470px;
+      font-weight: 700; font-size: 26px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: #ffffff; opacity: 0;
+    }
+
+    .ctx-chart-wrap { position: absolute; left: 72px; top: 590px; width: 936px; height: 600px; }
+    .ctx-chart-svg { position: absolute; inset: 0; overflow: visible; }
+    .ctx-baseline { stroke: rgba(255,255,255,0.22); stroke-width: 2; stroke-dasharray: 8 10; transform-origin: 0% 50%; opacity: 0; }
+    .ctx-seg { fill: none; stroke: #e8441e; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 100; stroke-dashoffset: 100; }
+    .ctx-dot { fill: #ffffff; opacity: 0; }
+    .ctx-dot.final { fill: #e8441e; }
+
+    .ctx-label { position: absolute; opacity: 0; }
+    .ctx-label .yr { display: block; font-weight: 700; font-size: 29px; color: #ffffff; margin-bottom: 6px; }
+    .ctx-label .val { display: block; font-weight: 500; font-size: 23px; color: rgba(255,255,255,0.6); }
+    .ctx-label.final .yr { color: #ffffff; }
+    .ctx-label.final .val { color: #e8441e; font-weight: 800; font-size: 30px; }
+
+    .ctx-label-a { left: 0; top: 90px; text-align: left; width: 340px; }
+    .ctx-label-b { left: 350px; top: 100px; text-align: left; width: 320px; }
+    .ctx-label-c { left: 610px; top: 480px; text-align: right; width: 326px; }
+  </style>
+
+  <div id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div id="ctx-kicker" class="clip ctx-kicker" data-start="0" data-duration="13.409" data-track-index="0">Lộ trình xử lý lỗ lũy kế</div>
+
+    <div id="ctx-chart" class="clip ctx-chart-wrap" data-start="0" data-duration="13.409" data-track-index="1">
+      <svg class="ctx-chart-svg" viewBox="0 0 936 600" preserveAspectRatio="none">
+        <line id="ctx-baseline" class="ctx-baseline" x1="0" y1="460" x2="936" y2="460"></line>
+        <path id="ctx-seg-1" class="ctx-seg" pathLength="100" d="M50,70 L470,280"></path>
+        <path id="ctx-seg-2" class="ctx-seg" pathLength="100" d="M470,280 L880,460"></path>
+        <circle id="ctx-dot-a" class="ctx-dot" cx="50" cy="70" r="11"></circle>
+        <circle id="ctx-dot-b" class="ctx-dot" cx="470" cy="280" r="11"></circle>
+        <circle id="ctx-dot-c" class="ctx-dot final" cx="880" cy="460" r="13"></circle>
+      </svg>
+
+      <div class="ctx-label ctx-label-a" id="ctx-label-a">
+        <span class="yr">2022&ndash;2023</span>
+        <span class="val">Lỗ hơn 50.000 tỷ đồng</span>
+      </div>
+      <div class="ctx-label ctx-label-b" id="ctx-label-b">
+        <span class="yr">Cuối 2025</span>
+        <span class="val">Còn 5.611 tỷ đồng</span>
+      </div>
+      <div class="ctx-label ctx-label-c final" id="ctx-label-c">
+        <span class="yr">Giữa 2026</span>
+        <span class="val">Về 0 đồng</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#ctx-kicker", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 0);
+      tl.fromTo("#ctx-baseline", { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 0.5, ease: "power2.out" }, 0.35);
+
+      tl.fromTo("#ctx-dot-a", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 0.65);
+      tl.fromTo("#ctx-label-a", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.34, ease: "power2.out" }, 0.75);
+
+      tl.fromTo("#ctx-seg-1", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 1.5, ease: "power1.inOut" }, 1.1);
+
+      tl.fromTo("#ctx-dot-b", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 2.55);
+      tl.fromTo("#ctx-label-b", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.34, ease: "power2.out" }, 2.65);
+
+      tl.fromTo("#ctx-seg-2", { strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 1.7, ease: "power1.inOut" }, 3.1);
+
+      tl.fromTo("#ctx-dot-c", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1.35, duration: 0.36, ease: "back.out(2.4)" }, 4.75);
+      tl.to("#ctx-dot-c", { scale: 1, duration: 0.2, ease: "power2.out" }, 5.11);
+      tl.fromTo("#ctx-label-c", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.36, ease: "power2.out" }, 4.95);
+
+      // Gentle finite pulse on the final "về 0" dot to hold attention on the payoff.
+      tl.to("#ctx-dot-c", { scale: 1.22, duration: 0.5, ease: "sine.inOut", repeat: 5, yoyo: true }, 5.5);
+
+      window.__timelines["05-context"] = tl;
+    })();
+  </script>
+</template>

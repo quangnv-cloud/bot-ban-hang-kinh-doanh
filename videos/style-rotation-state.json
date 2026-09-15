@@ -12,7 +12,7 @@
     "9-editorial-clipping",
     "10-stock-terminal"
   ],
-  "last_used_index": 4,
+  "last_used_index": 2,
   "log": [
     {
       "index": 0,
@@ -258,6 +258,12 @@
       "index": 1,
       "style": "2-chip-and-leaderboard",
       "project": "ty-gia-trung-tam-len-ky-luc-25617-dong",
+      "date": "2026-09-15"
+    },
+    {
+      "index": 2,
+      "style": "3-ticker-tape",
+      "project": "evn-het-lo-luy-ke-lai-12200-ty",
       "date": "2026-09-15"
     }
   ]

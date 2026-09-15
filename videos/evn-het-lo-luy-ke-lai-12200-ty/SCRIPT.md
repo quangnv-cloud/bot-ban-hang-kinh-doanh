@@ -30,7 +30,9 @@ Một dòng = một act (6 act, khớp `BRIEF.md`). Giọng ElevenLabs `eleven_v
   gọn "EVN BÁO LÃI 12.215 TỶ ĐỒNG" · headline chính phía trên "EVN báo lãi 12.215 tỷ đồng trong 8
   tháng đầu năm, doanh thu hơn 482 nghìn tỷ đồng" · Article Image Card (ảnh bài báo)
 - Key facts (2 dòng terminal, ký hiệu ▲ + typewriter reveal): (1) "▲ Lợi nhuận vượt 103% kế hoạch
-  năm" (2) "▲ Sản lượng điện gần 236 tỷ kWh — tăng 9,3% so với cùng kỳ"
+  năm" (2) "▲ Sản lượng điện +9,3%, đạt 236 tỷ kWh" (rút gọn so với voice để vừa 1 dòng trong khung
+  terminal — clip-path typewriter reveal không hoạt động đúng nếu chữ tràn xuống dòng 2, xem ghi
+  chú kỹ thuật trong BRAND-SYSTEM)
 - Data moment: mã hiệu nhỏ "EVN" chạy trước · con số chính "0 ĐỒNG" giữa 2 vạch kẻ ngang kiểu dòng
   bảng giá · nhãn "Lỗ lũy kế — đã xử lý dứt điểm, tháng 6/2026"
 - Context (sparkline mảnh phía sau mỗi dòng, đường giảm dần): "2022-2023: lỗ hơn 50.000 tỷ đồng" ·
