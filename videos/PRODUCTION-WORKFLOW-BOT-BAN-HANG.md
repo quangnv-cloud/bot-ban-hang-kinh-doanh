@@ -206,13 +206,17 @@ ffmpeg -i <file.mp4> -af loudnorm=print_format=summary -f null -
 #    nếu chỉ chụp 1 frame ở đúng giây chẵn/lẻ ước lượng.
 ffmpeg -y -ss <t> -i <file.mp4> -frames:v 1 -q:v 2 out.png
 
+# 4b) Cân bằng dọc (BẮT BUỘC, xem BRAND-SYSTEM §"Kỹ thuật hình ảnh nâng cao" mục 7) — trích 1
+#     frame ở CUỐI animation-reveal của MỖI act giữa, xác nhận bằng mắt phần tử cuối cùng kết
+#     thúc trong khoảng top:1400-1680px, không dừng sớm để lại mảng đen trống nửa dưới khung.
+
 # 5) Transcript bằng Whisper trên audio đã mix — so với script gốc
 ffmpeg -y -i <file.mp4> -vn -ac 1 -ar 16000 audio.wav
 python -m whisper audio.wav --model base --language Vietnamese --output_format txt
 ```
 
-Chỉ coi là "xong" khi cả 5 bước trên đều sạch. Không báo cáo hoàn thành chỉ dựa trên `npm run
-check` hay thumbnail preview.
+Chỉ coi là "xong" khi cả 5 bước trên đều sạch (kể cả 4b). Không báo cáo hoàn thành chỉ dựa trên
+`npm run check` hay thumbnail preview.
 
 ## 7.5. Xuất ảnh thumbnail (bìa video)
 
