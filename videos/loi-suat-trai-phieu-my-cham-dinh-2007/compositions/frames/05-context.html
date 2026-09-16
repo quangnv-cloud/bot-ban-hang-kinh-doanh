@@ -1,0 +1,168 @@
+<template>
+  <style>
+    @font-face { font-family:'Montserrat'; font-style:normal; font-weight:500; src:url('assets/fonts/Montserrat-500-latin.woff2') format('woff2'); unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+    @font-face { font-family:'Montserrat'; font-style:normal; font-weight:500; src:url('assets/fonts/Montserrat-500-vietnamese.woff2') format('woff2'); unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB; }
+    @font-face { font-family:'Montserrat'; font-style:normal; font-weight:600; src:url('assets/fonts/Montserrat-600-latin.woff2') format('woff2'); unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+    @font-face { font-family:'Montserrat'; font-style:normal; font-weight:600; src:url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2'); unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB; }
+    @font-face { font-family:'Montserrat'; font-style:normal; font-weight:700; src:url('assets/fonts/Montserrat-700-latin.woff2') format('woff2'); unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+    @font-face { font-family:'Montserrat'; font-style:normal; font-weight:700; src:url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2'); unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB; }
+    @font-face { font-family:'Montserrat'; font-style:normal; font-weight:800; src:url('assets/fonts/Montserrat-800-latin.woff2') format('woff2'); unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+    @font-face { font-family:'Montserrat'; font-style:normal; font-weight:800; src:url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2'); unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB; }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: "Montserrat", "Helvetica Neue", sans-serif;
+      background: #111111;
+      color: #ffffff;
+    }
+
+    .cx5-kicker {
+      position: absolute; left: 64px; top: 172px;
+      font-weight: 600; font-size: 24px; letter-spacing: 0.16em;
+      text-transform: uppercase; color: #e8441e;
+    }
+
+    .cx5-stage { position: absolute; left: 0; top: 260px; width: 1080px; height: 900px; opacity: 0; }
+    .cx5-svg-layer { position: absolute; inset: 0; }
+    .cx5-svg-layer svg { display: block; width: 100%; height: 100%; }
+    .cx5-map-outline { fill: rgba(255,255,255,0.05); stroke: rgba(255,255,255,0.2); stroke-width: 2.2; }
+    .cx5-connector { fill: none; stroke: #e8441e; stroke-width: 3; stroke-linecap: round; }
+
+    /* Markers are plain HTML divs, not SVG shapes — a percentage transformOrigin
+       on a raw SVG <circle> rendered unreliably here (clipped to a quarter-circle
+       instead of scaling from center); a normal block element's transform-origin
+       is always relative to its own box. cx5-stage is 1080x900, exactly matching
+       the svg's viewBox, so 1 svg unit = 1px and markers can share its coordinates. */
+    .cx5-marker { position: absolute; width: 0; height: 0; }
+    .cx5-halo { position: absolute; left: 50%; top: 50%; width: 32px; height: 32px; margin: -16px 0 0 -16px; border-radius: 50%; background: #e8441e; opacity: 0; }
+    .cx5-dot-ring { position: absolute; left: 50%; top: 50%; width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%; border: 2px solid #e8441e; opacity: 0; }
+    .cx5-dot { position: absolute; left: 50%; top: 50%; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: #e8441e; }
+
+    .cx5-label { position: absolute; left: 645px; right: 170px; opacity: 0; }
+    .cx5-label-region { font-weight: 800; font-size: 36px; letter-spacing: -0.005em; color: #ffffff; margin-bottom: 6px; }
+    .cx5-label-detail { font-weight: 600; font-size: 27px; line-height: 1.3; color: rgba(255,255,255,0.8); }
+    .cx5-label-detail .accent { color: #e8441e; }
+  </style>
+
+  <div data-hf-id="hf-e001" id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-e002" class="clip cx5-kicker" id="cx5-kicker" data-start="0" data-duration="9.86" data-track-index="0">So sánh toàn cầu</div>
+
+    <div data-hf-id="hf-e003" class="clip cx5-stage" id="cx5-stage" data-start="0" data-duration="9.86" data-track-index="1">
+      <div data-hf-id="hf-e004a" class="cx5-svg-layer">
+        <svg data-hf-id="hf-e004" viewBox="0 0 1080 900" preserveAspectRatio="xMidYMid meet">
+          <g data-hf-id="hf-e005" transform="translate(0,10) scale(0.56,1.5)">
+            <path data-hf-id="hf-e006" class="cx5-map-outline" d="M95,55 C150,45 215,50 255,85 C285,110 295,145 268,175 C250,196 222,183 200,205 C178,226 158,215 138,238 C118,218 96,222 84,198 C68,172 78,148 72,118 C68,92 75,66 95,55 Z"/>
+            <path data-hf-id="hf-e007" class="cx5-map-outline" d="M225,232 C258,222 288,232 300,258 C314,288 300,318 310,348 C320,378 300,408 270,418 C244,426 224,404 220,374 C216,344 200,320 210,290 C216,264 210,244 225,232 Z"/>
+            <path data-hf-id="hf-e008" class="cx5-map-outline" d="M468,68 C500,58 535,64 555,80 C570,92 566,110 550,120 C562,134 546,150 524,144 C504,139 494,150 478,138 C464,128 470,113 460,98 C452,86 458,74 468,68 Z"/>
+            <path data-hf-id="hf-e009" class="cx5-map-outline" d="M478,152 C520,146 556,154 576,175 C592,196 586,222 592,248 C598,278 582,304 588,332 C592,358 572,378 552,382 C532,386 516,366 512,340 C508,310 496,286 492,256 C488,226 472,196 476,176 C477,168 478,160 478,152 Z"/>
+            <path data-hf-id="hf-e010" class="cx5-map-outline" d="M588,48 C650,32 722,38 782,54 C832,66 882,58 922,80 C946,92 942,116 916,126 C930,146 908,160 884,154 C860,148 840,164 810,158 C780,152 760,174 730,168 C700,162 686,184 656,174 C626,164 610,144 600,118 C590,98 580,78 585,64 C586,58 587,52 588,48 Z"/>
+            <path data-hf-id="hf-e011" class="cx5-map-outline" d="M896,118 C906,112 918,118 920,130 C922,142 912,150 904,158 C896,164 886,160 884,150 C882,138 888,124 896,118 Z"/>
+            <path data-hf-id="hf-e012" class="cx5-map-outline" d="M788,318 C830,306 872,312 898,334 C918,352 912,378 890,392 C864,406 832,404 806,392 C786,382 776,364 780,344 C782,334 784,324 788,318 Z"/>
+          </g>
+
+          <!-- Connectors: dot on the map -> short line -> fixed anchor feeding the
+               right-hand label column. Coordinates are hand-placed (this world map
+               is a stylized outline, not a geodata projection). Lines/paths draw
+               reliably with stroke-dasharray, unlike circles/rects. -->
+          <line data-hf-id="hf-e013" class="cx5-connector" id="cx5-line-1" x1="141" y1="135" x2="590" y2="95"/>
+          <line data-hf-id="hf-e014" class="cx5-connector" id="cx5-line-2" x1="422" y1="112" x2="590" y2="315"/>
+          <line data-hf-id="hf-e015" class="cx5-connector" id="cx5-line-3" x1="462" y1="608" x2="590" y2="535"/>
+          <line data-hf-id="hf-e016" class="cx5-connector" id="cx5-line-4" x1="502" y1="187" x2="590" y2="755"/>
+        </svg>
+      </div>
+
+      <!-- HTML markers (not SVG circles) at the same coordinates as the dots
+           above — see the .cx5-marker comment in <style>. -->
+      <div data-hf-id="hf-e017a" class="cx5-marker" id="cx5-marker-1" style="left: 141px; top: 135px;">
+        <div data-hf-id="hf-e017" class="cx5-halo" id="cx5-halo-1"></div>
+        <div data-hf-id="hf-e022" class="cx5-dot-ring" id="cx5-dot-ring-1"></div>
+        <div data-hf-id="hf-e023" class="cx5-dot" id="cx5-dot-1"></div>
+      </div>
+      <div data-hf-id="hf-e018a" class="cx5-marker" id="cx5-marker-2" style="left: 422px; top: 112px;">
+        <div data-hf-id="hf-e018" class="cx5-halo" id="cx5-halo-2"></div>
+        <div data-hf-id="hf-e025" class="cx5-dot-ring" id="cx5-dot-ring-2"></div>
+        <div data-hf-id="hf-e026" class="cx5-dot" id="cx5-dot-2"></div>
+      </div>
+      <div data-hf-id="hf-e019a" class="cx5-marker" id="cx5-marker-3" style="left: 462px; top: 608px;">
+        <div data-hf-id="hf-e019" class="cx5-halo" id="cx5-halo-3"></div>
+        <div data-hf-id="hf-e028" class="cx5-dot-ring" id="cx5-dot-ring-3"></div>
+        <div data-hf-id="hf-e029" class="cx5-dot" id="cx5-dot-3"></div>
+      </div>
+      <div data-hf-id="hf-e020a" class="cx5-marker" id="cx5-marker-4" style="left: 502px; top: 187px;">
+        <div data-hf-id="hf-e020" class="cx5-halo" id="cx5-halo-4"></div>
+        <div data-hf-id="hf-e031" class="cx5-dot-ring" id="cx5-dot-ring-4"></div>
+        <div data-hf-id="hf-e032" class="cx5-dot" id="cx5-dot-4"></div>
+      </div>
+    </div>
+
+    <div data-hf-id="hf-e033" class="cx5-label" id="cx5-label-1" style="top: 105px;">
+      <div data-hf-id="hf-e034" class="cx5-label-region">Mỹ</div>
+      <div data-hf-id="hf-e035" class="cx5-label-detail"><span data-hf-id="hf-e036" class="accent">5,04%</span> · cao nhất từ 2007</div>
+    </div>
+    <div data-hf-id="hf-e037" class="cx5-label" id="cx5-label-2" style="top: 325px;">
+      <div data-hf-id="hf-e038" class="cx5-label-region">Đức</div>
+      <div data-hf-id="hf-e039" class="cx5-label-detail">Cao nhất kể từ <span data-hf-id="hf-e040" class="accent">năm 2009</span></div>
+    </div>
+    <div data-hf-id="hf-e041" class="cx5-label" id="cx5-label-3" style="top: 545px;">
+      <div data-hf-id="hf-e042" class="cx5-label-region">Úc</div>
+      <div data-hf-id="hf-e043" class="cx5-label-detail">Cao nhất trong <span data-hf-id="hf-e044" class="accent">15 năm</span></div>
+    </div>
+    <div data-hf-id="hf-e045" class="cx5-label" id="cx5-label-4" style="top: 765px;">
+      <div data-hf-id="hf-e046" class="cx5-label-region">Nhật Bản</div>
+      <div data-hf-id="hf-e047" class="cx5-label-detail"><span data-hf-id="hf-e048" class="accent">Bị bán tháo</span> lo ngại chi tiêu quốc phòng</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#cx5-kicker", { y: -12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 0);
+      tl.fromTo("#cx5-stage", { opacity: 0, scale: 1.04 }, { opacity: 1, scale: 1, duration: 0.7, ease: "power1.out" }, 0.15);
+
+      // Mỹ recaps the number already established in act 4 — appears first, right
+      // after the map settles. Đức/Úc/Nhật Bản reveal in the order the narration
+      // (line5, 9.56s, one sentence) actually names them, timed by word position.
+      var items = [
+        { dot: "cx5-dot-1", ring: "cx5-dot-ring-1", halo: "cx5-halo-1", line: "cx5-line-1", label: "cx5-label-1", haloOpacity: 0.14, t: 0.6 },
+        { dot: "cx5-dot-2", ring: "cx5-dot-ring-2", halo: "cx5-halo-2", line: "cx5-line-2", label: "cx5-label-2", haloOpacity: 0.22, t: 1.9 },
+        { dot: "cx5-dot-3", ring: "cx5-dot-ring-3", halo: "cx5-halo-3", line: "cx5-line-3", label: "cx5-label-3", haloOpacity: 0.3, t: 4.3 },
+        { dot: "cx5-dot-4", ring: "cx5-dot-ring-4", halo: "cx5-halo-4", line: "cx5-line-4", label: "cx5-label-4", haloOpacity: 0.38, t: 6.4 },
+      ];
+
+      items.forEach(function (item) {
+        var lineEl = document.getElementById(item.line);
+        var len = lineEl.getTotalLength();
+        gsap.set(lineEl, { strokeDasharray: len, strokeDashoffset: len });
+
+        // Region fill "tô cam tăng dần theo thứ tự" — each subsequent halo lands
+        // at a higher opacity than the previous one.
+        tl.fromTo("#" + item.halo, { scale: 0 }, { scale: 1, opacity: item.haloOpacity, duration: 0.3, ease: "power2.out", transformOrigin: "50% 50%" }, item.t);
+        tl.fromTo("#" + item.dot, { scale: 0 }, { scale: 1, duration: 0.24, ease: "back.out(2.6)", transformOrigin: "50% 50%" }, item.t);
+        tl.to(lineEl, { strokeDashoffset: 0, duration: 0.45, ease: "power2.inOut" }, item.t + 0.08);
+        // Truly hidden "from" (opacity 0) — a visible from-state here would render
+        // statically for the whole span before item.t on a direct seek (the
+        // documented shockwave-ring bug from prior builds).
+        tl.fromTo(
+          "#" + item.ring,
+          { scale: 1, opacity: 0 },
+          {
+            keyframes: [
+              { scale: 1, opacity: 0.85, duration: 0.05, ease: "power1.out" },
+              { scale: 2.2, opacity: 0, duration: 0.55, ease: "power1.out" },
+            ],
+          },
+          item.t + 0.12,
+        );
+        tl.fromTo("#" + item.label, { x: -16, opacity: 0 }, { x: 0, opacity: 1, duration: 0.34, ease: "power3.out" }, item.t + 0.48);
+      });
+
+      window.__timelines["05-context"] = tl;
+    })();
+  </script>
+</template>

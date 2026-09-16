@@ -271,6 +271,12 @@
             "style": "4-split-comparison",
             "project": "200-doanh-nghiep-nop-ngan-sach-989-nghin-ty",
             "date": "2026-09-16"
+        },
+        {
+            "index": 4,
+            "style": "5-map-and-geo",
+            "project": "loi-suat-trai-phieu-my-cham-dinh-2007",
+            "date": "2026-09-16"
         }
     ]
 }
