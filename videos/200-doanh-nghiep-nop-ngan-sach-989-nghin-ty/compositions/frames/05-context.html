@@ -1,0 +1,273 @@
+<template>
+  <style>
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 400;
+      src: url('assets/fonts/Montserrat-400-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 400;
+      src: url('assets/fonts/Montserrat-400-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 500;
+      src: url('assets/fonts/Montserrat-500-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 500;
+      src: url('assets/fonts/Montserrat-500-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 600;
+      src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 600;
+      src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 700;
+      src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 700;
+      src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 800;
+      src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 800;
+      src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 900;
+      src: url('assets/fonts/Montserrat-900-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 900;
+      src: url('assets/fonts/Montserrat-900-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+    }
+
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: "Montserrat", "Arial Black", "Helvetica Neue", sans-serif;
+      color: #ffffff;
+      background: #111111;
+    }
+
+    .f5-header {
+      position: absolute;
+      left: 64px;
+      right: 64px;
+      top: 160px;
+    }
+    .f5-kicker {
+      font-family: "Montserrat", monospace;
+      font-weight: 600;
+      font-size: 24px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #e8441e;
+      margin-bottom: 14px;
+    }
+    .f5-title {
+      font-weight: 800;
+      font-size: 46px;
+      line-height: 1.2;
+      color: #ffffff;
+      max-width: 900px;
+      margin-bottom: 24px;
+    }
+    .f5-growth-pill {
+      display: inline-block;
+      padding: 11px 22px;
+      border-radius: 8px;
+      background: rgba(232, 68, 30, 0.12);
+      border: 1.5px solid rgba(232, 68, 30, 0.55);
+      font-weight: 600;
+      font-size: 23px;
+      color: #ffffff;
+    }
+    .f5-growth-pill b { color: #e8441e; font-weight: 800; }
+
+    .f5-compare {
+      position: absolute;
+      left: 64px;
+      right: 64px;
+      top: 570px;
+      bottom: 340px;
+      display: flex;
+      align-items: stretch;
+    }
+
+    .f5-col {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px 34px;
+      border-radius: 18px;
+    }
+    .f5-col-before {
+      flex: 100 100 0;
+      background: rgba(255,255,255,0.04);
+      border: 1.5px solid rgba(255,255,255,0.16);
+      opacity: 0.65;
+    }
+    .f5-col-after {
+      flex: 240 240 0;
+      background: rgba(232, 68, 30, 0.1);
+      border: 1.5px solid rgba(232, 68, 30, 0.55);
+    }
+
+    .f5-arrow-slot {
+      flex: 0 0 96px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .f5-arrow-badge {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #111111;
+      border: 2px solid #e8441e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 26px;
+      color: #e8441e;
+    }
+
+    .f5-col-tag {
+      display: inline-flex;
+      align-self: flex-start;
+      padding: 7px 16px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 19px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .f5-col-before .f5-col-tag { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.75); }
+    .f5-col-after .f5-col-tag { background: #e8441e; color: #ffffff; }
+
+    .f5-col-num {
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 0.95;
+      color: #ffffff;
+    }
+    .f5-col-before .f5-col-num { font-size: 52px; color: rgba(255,255,255,0.72); }
+    .f5-col-after .f5-col-num { font-size: 88px; color: #ffffff; }
+
+    .f5-col-unit {
+      margin-top: 10px;
+      font-weight: 600;
+      font-size: 21px;
+      color: rgba(255,255,255,0.6);
+    }
+    .f5-col-after .f5-col-unit { color: rgba(255,255,255,0.85); font-size: 23px; }
+
+    .f5-source-line {
+      position: absolute;
+      left: 64px;
+      right: 64px;
+      bottom: 220px;
+      font-weight: 600;
+      font-size: 24px;
+      color: rgba(255,255,255,0.72);
+      text-align: center;
+    }
+    .f5-source-line b { color: #e8441e; }
+  </style>
+
+  <div data-hf-id="hf-f5-001" id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-f5-002" id="f5-header" class="clip f5-header" data-start="0" data-duration="12.0" data-track-index="0">
+      <div data-hf-id="hf-f5-003" class="f5-kicker">Bối cảnh</div>
+      <div data-hf-id="hf-f5-004" class="f5-title">Khối tư nhân tăng tốc</div>
+      <div data-hf-id="hf-f5-020" class="f5-growth-pill" id="f5-growth-pill">Top 100 doanh nghiệp tư nhân <b data-hf-id="hf-f5-021">+60%</b> so với cùng kỳ</div>
+    </div>
+
+    <div data-hf-id="hf-f5-005" id="f5-compare" class="f5-compare">
+      <div data-hf-id="hf-f5-006" id="f5-col-before" class="clip f5-col f5-col-before" data-start="0.9" data-duration="11.1" data-track-index="1">
+        <span data-hf-id="hf-f5-007" class="f5-col-tag">Trước</span>
+        <div data-hf-id="hf-f5-022" class="f5-col-num">56,2</div>
+        <div data-hf-id="hf-f5-008" class="f5-col-unit">nghìn tỷ đồng · Vingroup</div>
+      </div>
+      <div data-hf-id="hf-f5-023" id="f5-arrow-slot" class="clip f5-arrow-slot" data-start="1.7" data-duration="10.3" data-track-index="3">
+        <div data-hf-id="hf-f5-015" class="f5-arrow-badge" id="f5-arrow-badge">→</div>
+      </div>
+      <div data-hf-id="hf-f5-010" id="f5-col-after" class="clip f5-col f5-col-after" data-start="1.5" data-duration="10.5" data-track-index="2">
+        <span data-hf-id="hf-f5-011" class="f5-col-tag">Nay</span>
+        <div data-hf-id="hf-f5-024" class="f5-col-num" id="f5-num-after">148,8</div>
+        <div data-hf-id="hf-f5-012" class="f5-col-unit">nghìn tỷ đồng · doanh nghiệp tư nhân dẫn đầu</div>
+      </div>
+    </div>
+
+    <div data-hf-id="hf-f5-016" id="f5-source-line" class="clip f5-source-line" data-start="4.2" data-duration="7.8" data-track-index="4">
+      Nguồn: <b data-hf-id="hf-f5-017">Znews</b>, 15/09/2026
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#f5-header .f5-kicker", { y: -14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 0);
+      tl.fromTo("#f5-header .f5-title", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.36, ease: "power3.out" }, 0.14);
+      tl.fromTo("#f5-growth-pill", { y: 12, opacity: 0, scale: 0.95 }, { y: 0, opacity: 1, scale: 1, duration: 0.34, ease: "back.out(2)" }, 0.42);
+
+      tl.fromTo("#f5-col-before", { x: -30, opacity: 0 }, { x: 0, opacity: 0.65, duration: 0.42, ease: "power2.out" }, 0.9);
+      tl.fromTo("#f5-arrow-badge", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.34, ease: "back.out(2.4)" }, 1.7);
+      tl.fromTo("#f5-col-after", { x: 30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.42, ease: "power2.out" }, 1.5);
+      tl.fromTo("#f5-source-line", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 4.2);
+
+      window.__timelines["05-context"] = tl;
+    })();
+  </script>
+</template>

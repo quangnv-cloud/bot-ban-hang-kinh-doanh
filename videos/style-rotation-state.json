@@ -1,270 +1,276 @@
 {
-  "_note": "2026-09-04: nguồn sự thật của con trỏ xoay vòng đã chuyển vào Apps Script (Script Property STYLE_CURSOR, cấp qua POST {action:'claim_style'} dưới LockService — xem automation/news-fetch-gas/Code.gs). File này giờ CHỈ là bản sao cho người đọc; routine vẫn thêm 1 dòng vào log sau mỗi video nhưng KHÔNG đọc last_used_index ở đây nữa.",
-  "styles": [
-    "1-card-and-bar",
-    "2-chip-and-leaderboard",
-    "3-ticker-tape",
-    "4-split-comparison",
-    "5-map-and-geo",
-    "6-ring-progress",
-    "7-timeline-chronology",
-    "8-icon-grid",
-    "9-editorial-clipping",
-    "10-stock-terminal"
-  ],
-  "last_used_index": 2,
-  "log": [
-    {
-      "index": 0,
-      "style": "1-card-and-bar",
-      "project": "lan-bien-chuyen-nhuong-50-dat",
-      "date": "2026-08-24"
-    },
-    {
-      "index": 1,
-      "style": "2-chip-and-leaderboard",
-      "project": "100-doanh-nghiep-tu-nhan-nop-thue",
-      "date": "2026-08-25"
-    },
-    {
-      "index": 2,
-      "style": "3-ticker-tape",
-      "project": "12-ngan-hang-tin-dung-408-nghin-ty",
-      "date": "2026-08-27"
-    },
-    {
-      "index": 3,
-      "style": "4-split-comparison",
-      "project": "vingroup-von-hoa-ky-luc-1-8-trieu-ty",
-      "date": "2026-08-27"
-    },
-    {
-      "index": 4,
-      "style": "5-map-and-geo",
-      "project": "samsung-500-ty-usd-dien-thoai-viet-nam",
-      "date": "2026-08-28"
-    },
-    {
-      "index": 5,
-      "style": "6-ring-progress",
-      "project": "gia-vang-thung-moc-150-trieu-dong",
-      "date": "2026-08-28"
-    },
-    {
-      "index": 6,
-      "style": "7-timeline-chronology",
-      "project": "vn-index-chuoi-tang-7-phien-dai-nhat-nam",
-      "date": "2026-08-28"
-    },
-    {
-      "index": 7,
-      "style": "8-icon-grid",
-      "project": "saigon-marina-ifc-lo-201-ty-dong",
-      "date": "2026-08-29"
-    },
-    {
-      "index": 8,
-      "style": "9-editorial-clipping",
-      "project": "kbank-madam-pang-lo-1000-ty-5-nam",
-      "date": "2026-08-29"
-    },
-    {
-      "index": 9,
-      "style": "10-stock-terminal",
-      "project": "vingroup-lai-12500-ty-tu-vinfast",
-      "date": "2026-08-30"
-    },
-    {
-      "index": 0,
-      "style": "1-card-and-bar",
-      "project": "bao-hiem-nhan-tho-lai-tang-manh-nua-dau-nam",
-      "date": "2026-08-31"
-    },
-    {
-      "index": 1,
-      "style": "2-chip-and-leaderboard",
-      "project": "xuat-khau-rau-qua-1-ty-usd-thang-8",
-      "date": "2026-08-31"
-    },
-    {
-      "index": 2,
-      "style": "3-ticker-tape",
-      "project": "tphcm-gia-nha-30-lan-thu-nhap",
-      "date": "2026-08-31"
-    },
-    {
-      "index": 3,
-      "style": "4-split-comparison",
-      "project": "tphcm-4900-ty-du-lich-quoc-khanh",
-      "date": "2026-09-03"
-    },
-    {
-      "index": 4,
-      "style": "5-map-and-geo",
-      "project": "xuat-nhap-khau-ky-luc-770-ty-usd",
-      "date": "2026-09-03"
-    },
-    {
-      "index": 5,
-      "style": "6-ring-progress",
-      "project": "gia-xang-day-cpi-thang-8-tang",
-      "date": "2026-09-03"
-    },
-    {
-      "index": 6,
-      "style": "7-timeline-chronology",
-      "project": "vn-index-thung-1800-diem-vingroup-cuu",
-      "date": "2026-09-04"
-    },
-    {
-      "index": 7,
-      "style": "8-icon-grid",
-      "project": "vingroup-von-hoa-gan-2-trieu-ty",
-      "date": "2026-09-04"
-    },
-    {
-      "index": 8,
-      "style": "9-editorial-clipping",
-      "project": "can-gio-lai-30000-ty-nua-dau-nam",
-      "date": "2026-09-05"
-    },
-    {
-      "index": 9,
-      "style": "10-stock-terminal",
-      "project": "gia-diesel-my-lap-ky-luc",
-      "date": "2026-09-05"
-    },
-    {
-      "index": 0,
-      "style": "1-card-and-bar",
-      "project": "heineken-rot-500-trieu-usd-viet-nam",
-      "date": "2026-09-05"
-    },
-    {
-      "index": 1,
-      "style": "2-chip-and-leaderboard",
-      "project": "doanh-nghiep-giai-the-tang-125-phan-tram",
-      "date": "2026-09-06"
-    },
-    {
-      "index": 2,
-      "style": "3-ticker-tape",
-      "project": "vinasun-lan-dau-lo-sau-5-nam",
-      "date": "2026-09-06"
-    },
-    {
-      "index": 3,
-      "style": "4-split-comparison",
-      "project": "volkswagen-cat-giam-50000-viec-lam",
-      "date": "2026-09-06"
-    },
-    {
-      "index": 4,
-      "style": "5-map-and-geo",
-      "project": "vingroup-sun-group-masterise-do-35-nghin-ty-tphcm",
-      "date": "2026-09-07"
-    },
-    {
-      "index": 5,
-      "style": "6-ring-progress",
-      "project": "hyosung-hoa-chat-han-quoc-lo-21000-ty",
-      "date": "2026-09-07"
-    },
-    {
-      "index": 6,
-      "style": "7-timeline-chronology",
-      "project": "dien-may-xanh-ban-online-2500-ty-mot-thang",
-      "date": "2026-09-07"
-    },
-    {
-      "index": 7,
-      "style": "8-icon-grid",
-      "project": "giay-thuong-dinh-25-ty-tro-cap-thoi-viec",
-      "date": "2026-09-08"
-    },
-    {
-      "index": 8,
-      "style": "9-editorial-clipping",
-      "project": "sun-life-lo-10200-ty-13-nam",
-      "date": "2026-09-08"
-    },
-    {
-      "index": 9,
-      "style": "10-stock-terminal",
-      "project": "dai-gia-bds-kin-tieng-lai-11254-ty",
-      "date": "2026-09-08"
-    },
-    {
-      "index": 0,
-      "style": "1-card-and-bar",
-      "project": "gia-dau-100-usd-houthi-tan-cong-jazan",
-      "date": "2026-09-09"
-    },
-    {
-      "index": 1,
-      "style": "2-chip-and-leaderboard",
-      "project": "tcbs-vuot-ssi-von-33-nghin-ty",
-      "date": "2026-09-09"
-    },
-    {
-      "index": 3,
-      "style": "4-split-comparison",
-      "project": "ai-tao-sieu-ty-phu-15100-ty-usd",
-      "date": "2026-09-10"
-    },
-    {
-      "index": 4,
-      "style": "5-map-and-geo",
-      "project": "metro-so-1-tphcm-doanh-thu-3756-ty-5-nam",
-      "date": "2026-09-10"
-    },
-    {
-      "index": 5,
-      "style": "6-ring-progress",
-      "project": "evn-lai-8631-ty-gui-ngan-hang-121-nghin-ty",
-      "date": "2026-09-10"
-    },
-    {
-      "index": 6,
-      "style": "7-timeline-chronology",
-      "project": "uber-cat-3300-nhan-su-giam-gia-cuoc",
-      "date": "2026-09-13"
-    },
-    {
-      "index": 7,
-      "style": "8-icon-grid",
-      "project": "scic-dau-gia-seaprodex-8500-ty-dat-vang-dong-khoi",
-      "date": "2026-09-14"
-    },
-    {
-      "index": 8,
-      "style": "9-editorial-clipping",
-      "project": "chung-khoan-nang-hang-240-trieu-usd",
-      "date": "2026-09-14"
-    },
-    {
-      "index": 9,
-      "style": "10-stock-terminal",
-      "project": "do-thi-san-bay-gia-binh-72000-ty",
-      "date": "2026-09-14"
-    },
-    {
-      "index": 0,
-      "style": "1-card-and-bar",
-      "project": "gelex-giam-san-vn-index-1788-diem",
-      "date": "2026-09-15"
-    },
-    {
-      "index": 1,
-      "style": "2-chip-and-leaderboard",
-      "project": "ty-gia-trung-tam-len-ky-luc-25617-dong",
-      "date": "2026-09-15"
-    },
-    {
-      "index": 2,
-      "style": "3-ticker-tape",
-      "project": "evn-het-lo-luy-ke-lai-12200-ty",
-      "date": "2026-09-15"
-    }
-  ]
+    "_note": "2026-09-04: nguồn sự thật của con trỏ xoay vòng đã chuyển vào Apps Script (Script Property STYLE_CURSOR, cấp qua POST {action:'claim_style'} dưới LockService — xem automation/news-fetch-gas/Code.gs). File này giờ CHỈ là bản sao cho người đọc; routine vẫn thêm 1 dòng vào log sau mỗi video nhưng KHÔNG đọc last_used_index ở đây nữa.",
+    "styles": [
+        "1-card-and-bar",
+        "2-chip-and-leaderboard",
+        "3-ticker-tape",
+        "4-split-comparison",
+        "5-map-and-geo",
+        "6-ring-progress",
+        "7-timeline-chronology",
+        "8-icon-grid",
+        "9-editorial-clipping",
+        "10-stock-terminal"
+    ],
+    "last_used_index": 2,
+    "log": [
+        {
+            "index": 0,
+            "style": "1-card-and-bar",
+            "project": "lan-bien-chuyen-nhuong-50-dat",
+            "date": "2026-08-24"
+        },
+        {
+            "index": 1,
+            "style": "2-chip-and-leaderboard",
+            "project": "100-doanh-nghiep-tu-nhan-nop-thue",
+            "date": "2026-08-25"
+        },
+        {
+            "index": 2,
+            "style": "3-ticker-tape",
+            "project": "12-ngan-hang-tin-dung-408-nghin-ty",
+            "date": "2026-08-27"
+        },
+        {
+            "index": 3,
+            "style": "4-split-comparison",
+            "project": "vingroup-von-hoa-ky-luc-1-8-trieu-ty",
+            "date": "2026-08-27"
+        },
+        {
+            "index": 4,
+            "style": "5-map-and-geo",
+            "project": "samsung-500-ty-usd-dien-thoai-viet-nam",
+            "date": "2026-08-28"
+        },
+        {
+            "index": 5,
+            "style": "6-ring-progress",
+            "project": "gia-vang-thung-moc-150-trieu-dong",
+            "date": "2026-08-28"
+        },
+        {
+            "index": 6,
+            "style": "7-timeline-chronology",
+            "project": "vn-index-chuoi-tang-7-phien-dai-nhat-nam",
+            "date": "2026-08-28"
+        },
+        {
+            "index": 7,
+            "style": "8-icon-grid",
+            "project": "saigon-marina-ifc-lo-201-ty-dong",
+            "date": "2026-08-29"
+        },
+        {
+            "index": 8,
+            "style": "9-editorial-clipping",
+            "project": "kbank-madam-pang-lo-1000-ty-5-nam",
+            "date": "2026-08-29"
+        },
+        {
+            "index": 9,
+            "style": "10-stock-terminal",
+            "project": "vingroup-lai-12500-ty-tu-vinfast",
+            "date": "2026-08-30"
+        },
+        {
+            "index": 0,
+            "style": "1-card-and-bar",
+            "project": "bao-hiem-nhan-tho-lai-tang-manh-nua-dau-nam",
+            "date": "2026-08-31"
+        },
+        {
+            "index": 1,
+            "style": "2-chip-and-leaderboard",
+            "project": "xuat-khau-rau-qua-1-ty-usd-thang-8",
+            "date": "2026-08-31"
+        },
+        {
+            "index": 2,
+            "style": "3-ticker-tape",
+            "project": "tphcm-gia-nha-30-lan-thu-nhap",
+            "date": "2026-08-31"
+        },
+        {
+            "index": 3,
+            "style": "4-split-comparison",
+            "project": "tphcm-4900-ty-du-lich-quoc-khanh",
+            "date": "2026-09-03"
+        },
+        {
+            "index": 4,
+            "style": "5-map-and-geo",
+            "project": "xuat-nhap-khau-ky-luc-770-ty-usd",
+            "date": "2026-09-03"
+        },
+        {
+            "index": 5,
+            "style": "6-ring-progress",
+            "project": "gia-xang-day-cpi-thang-8-tang",
+            "date": "2026-09-03"
+        },
+        {
+            "index": 6,
+            "style": "7-timeline-chronology",
+            "project": "vn-index-thung-1800-diem-vingroup-cuu",
+            "date": "2026-09-04"
+        },
+        {
+            "index": 7,
+            "style": "8-icon-grid",
+            "project": "vingroup-von-hoa-gan-2-trieu-ty",
+            "date": "2026-09-04"
+        },
+        {
+            "index": 8,
+            "style": "9-editorial-clipping",
+            "project": "can-gio-lai-30000-ty-nua-dau-nam",
+            "date": "2026-09-05"
+        },
+        {
+            "index": 9,
+            "style": "10-stock-terminal",
+            "project": "gia-diesel-my-lap-ky-luc",
+            "date": "2026-09-05"
+        },
+        {
+            "index": 0,
+            "style": "1-card-and-bar",
+            "project": "heineken-rot-500-trieu-usd-viet-nam",
+            "date": "2026-09-05"
+        },
+        {
+            "index": 1,
+            "style": "2-chip-and-leaderboard",
+            "project": "doanh-nghiep-giai-the-tang-125-phan-tram",
+            "date": "2026-09-06"
+        },
+        {
+            "index": 2,
+            "style": "3-ticker-tape",
+            "project": "vinasun-lan-dau-lo-sau-5-nam",
+            "date": "2026-09-06"
+        },
+        {
+            "index": 3,
+            "style": "4-split-comparison",
+            "project": "volkswagen-cat-giam-50000-viec-lam",
+            "date": "2026-09-06"
+        },
+        {
+            "index": 4,
+            "style": "5-map-and-geo",
+            "project": "vingroup-sun-group-masterise-do-35-nghin-ty-tphcm",
+            "date": "2026-09-07"
+        },
+        {
+            "index": 5,
+            "style": "6-ring-progress",
+            "project": "hyosung-hoa-chat-han-quoc-lo-21000-ty",
+            "date": "2026-09-07"
+        },
+        {
+            "index": 6,
+            "style": "7-timeline-chronology",
+            "project": "dien-may-xanh-ban-online-2500-ty-mot-thang",
+            "date": "2026-09-07"
+        },
+        {
+            "index": 7,
+            "style": "8-icon-grid",
+            "project": "giay-thuong-dinh-25-ty-tro-cap-thoi-viec",
+            "date": "2026-09-08"
+        },
+        {
+            "index": 8,
+            "style": "9-editorial-clipping",
+            "project": "sun-life-lo-10200-ty-13-nam",
+            "date": "2026-09-08"
+        },
+        {
+            "index": 9,
+            "style": "10-stock-terminal",
+            "project": "dai-gia-bds-kin-tieng-lai-11254-ty",
+            "date": "2026-09-08"
+        },
+        {
+            "index": 0,
+            "style": "1-card-and-bar",
+            "project": "gia-dau-100-usd-houthi-tan-cong-jazan",
+            "date": "2026-09-09"
+        },
+        {
+            "index": 1,
+            "style": "2-chip-and-leaderboard",
+            "project": "tcbs-vuot-ssi-von-33-nghin-ty",
+            "date": "2026-09-09"
+        },
+        {
+            "index": 3,
+            "style": "4-split-comparison",
+            "project": "ai-tao-sieu-ty-phu-15100-ty-usd",
+            "date": "2026-09-10"
+        },
+        {
+            "index": 4,
+            "style": "5-map-and-geo",
+            "project": "metro-so-1-tphcm-doanh-thu-3756-ty-5-nam",
+            "date": "2026-09-10"
+        },
+        {
+            "index": 5,
+            "style": "6-ring-progress",
+            "project": "evn-lai-8631-ty-gui-ngan-hang-121-nghin-ty",
+            "date": "2026-09-10"
+        },
+        {
+            "index": 6,
+            "style": "7-timeline-chronology",
+            "project": "uber-cat-3300-nhan-su-giam-gia-cuoc",
+            "date": "2026-09-13"
+        },
+        {
+            "index": 7,
+            "style": "8-icon-grid",
+            "project": "scic-dau-gia-seaprodex-8500-ty-dat-vang-dong-khoi",
+            "date": "2026-09-14"
+        },
+        {
+            "index": 8,
+            "style": "9-editorial-clipping",
+            "project": "chung-khoan-nang-hang-240-trieu-usd",
+            "date": "2026-09-14"
+        },
+        {
+            "index": 9,
+            "style": "10-stock-terminal",
+            "project": "do-thi-san-bay-gia-binh-72000-ty",
+            "date": "2026-09-14"
+        },
+        {
+            "index": 0,
+            "style": "1-card-and-bar",
+            "project": "gelex-giam-san-vn-index-1788-diem",
+            "date": "2026-09-15"
+        },
+        {
+            "index": 1,
+            "style": "2-chip-and-leaderboard",
+            "project": "ty-gia-trung-tam-len-ky-luc-25617-dong",
+            "date": "2026-09-15"
+        },
+        {
+            "index": 2,
+            "style": "3-ticker-tape",
+            "project": "evn-het-lo-luy-ke-lai-12200-ty",
+            "date": "2026-09-15"
+        },
+        {
+            "index": 3,
+            "style": "4-split-comparison",
+            "project": "200-doanh-nghiep-nop-ngan-sach-989-nghin-ty",
+            "date": "2026-09-16"
+        }
+    ]
 }
