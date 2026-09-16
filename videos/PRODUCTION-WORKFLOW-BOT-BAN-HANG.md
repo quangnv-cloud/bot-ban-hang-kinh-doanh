@@ -169,10 +169,18 @@ npm run check
 
 ## 6. Render
 
+**Chuẩn xuất bản cố định — xem BRAND-SYSTEM-BOT-BAN-HANG.md mục "Chuẩn xuất bản video".** Không
+bao giờ chạy `npm run render` trơn (mặc định thấp hơn chuẩn); luôn truyền `--quality high
+--video-bitrate 10M --browser-timeout 60`:
+
 ```bash
 npx hyperframes preview --stop   # dừng preview trước khi render
-npm run render
+npx --yes hyperframes@<pinned-version> render --quality high --video-bitrate 10M --browser-timeout 60
 ```
+
+`--browser-timeout 60` quan trọng với composition có color-grading/media-treatment — timeout mặc
+định của `render` (khác `check`) đủ dài cho hầu hết trường hợp, nhưng nâng lên 60s để an toàn khi
+có shader nặng.
 
 ## 7. Verify file render THẬT (không chỉ tin vào thumbnail/lint)
 
@@ -184,18 +192,26 @@ chỉ file render mới là sản phẩm giao cho người dùng:
 ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 <file.mp4>
 
 # 2) Không có khoảng lặng chết giữa video (dấu hiệu nhịp phim chậm)
-ffmpeg -i <file.mp4> -af silencedetect=noise=-35dB:d=0.6 -f null -
+ffmpeg -i <file.mp4> -af silencedetect=noise=-40dB:d=0.6 -f null -
 # chỉ nên thấy silence_start gần cuối (fade-out tail của BGM), không có ở giữa video
 
-# 3) Trích frame tại các mốc quan trọng, xem bằng mắt (Read tool trên ảnh PNG)
+# 3) Loudness đúng chuẩn xuất bản — target -14 LUFS integrated, True Peak ≤ -1.0 dBTP
+ffmpeg -i <file.mp4> -af loudnorm=print_format=summary -f null -
+# "Input Integrated" lệch quá ±1 LU so với -14.0 → chạy loudnorm 2-pass rồi render/mux lại trước
+# khi giao file, không giao file lệch chuẩn loudness.
+
+# 4) Trích frame tại các mốc quan trọng, xem bằng mắt (Read tool trên ảnh PNG) — đặc biệt mọi
+#    hiệu ứng mới thêm (badge, smash-cut, wipe...) cần soát bằng chuỗi frame liên tiếp (fps=30
+#    qua vài trăm ms quanh mốc), KHÔNG chỉ 1 ảnh đơn — hiệu ứng chớp nhanh (<0.2s) dễ bị bỏ lỡ
+#    nếu chỉ chụp 1 frame ở đúng giây chẵn/lẻ ước lượng.
 ffmpeg -y -ss <t> -i <file.mp4> -frames:v 1 -q:v 2 out.png
 
-# 4) Transcript bằng Whisper trên audio đã mix — so với script gốc
+# 5) Transcript bằng Whisper trên audio đã mix — so với script gốc
 ffmpeg -y -i <file.mp4> -vn -ac 1 -ar 16000 audio.wav
 python -m whisper audio.wav --model base --language Vietnamese --output_format txt
 ```
 
-Chỉ coi là "xong" khi cả 4 bước trên đều sạch. Không báo cáo hoàn thành chỉ dựa trên `npm run
+Chỉ coi là "xong" khi cả 5 bước trên đều sạch. Không báo cáo hoàn thành chỉ dựa trên `npm run
 check` hay thumbnail preview.
 
 ## 7.5. Xuất ảnh thumbnail (bìa video)

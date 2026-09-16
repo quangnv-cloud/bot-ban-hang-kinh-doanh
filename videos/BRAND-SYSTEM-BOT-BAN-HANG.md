@@ -203,6 +203,41 @@ dưới giọng đọc (ghi `data-fx-carve` lên track BGM, `sources` tự độ
   chỉ 1 mốc đầu act) khi act đó có hiệu ứng reveal theo thời gian (typewriter, count-up nhiều bước...),
   vì lỗi "kẹt giữa chừng" chỉ lộ ra ở mốc giữa/cuối act, không lộ ở khung hình tĩnh đầu act.
 
+## Chuẩn xuất bản video (CỐ ĐỊNH — áp dụng cho MỌI kênh, MỌI video, không đổi theo từng video)
+
+Một tỉ lệ khung hình + một mức chất lượng duy nhất cho toàn bộ hệ thống kênh (BOT BÁN HÀNG, Công
+Nghệ Số, Tin Tức Số, Kinh Tế Số, Retify) — không tối ưu riêng theo nền tảng, vì FB Reels/TikTok/
+YouTube Shorts đều dùng chung 9:16.
+
+- **Tỉ lệ khung hình / độ phân giải**: 9:16 dọc, cố định **1080×1920** (`data-width`/`data-height`
+  trên `#root` của `index.html`). Không hạ xuống 720×1280 để tiết kiệm thời gian render.
+- **Frame rate**: 30fps.
+- **Lệnh render bắt buộc** (KHÔNG chạy `npm run render` trơn — mặc định của hyperframes thấp hơn
+  chuẩn này):
+  ```bash
+  npx hyperframes preview --stop
+  npx --yes hyperframes@<pinned-version> render --quality high --video-bitrate 10M --browser-timeout 60
+  ```
+  `--browser-timeout 60` cần thiết khi composition có `media-treatment`/color-grading (shader
+  compile cold-start có thể vượt timeout mặc định 10s của lệnh `check`, đây là giới hạn của
+  `check` chứ không phải lỗi thật — `render` với timeout cao hơn luôn là bước xác nhận cuối).
+- **Audio**: AAC 192kbps. Target loudness **-14 LUFS integrated**, True Peak ≤ **-1.0 dBTP** — đúng
+  chuẩn normalize của FB/TikTok/YouTube. Nếu đo lệch quá ±1 LU so với -14 LUFS, chạy `loudnorm`
+  2-pass trước khi giao file (xem lệnh verify ở PRODUCTION-WORKFLOW §7).
+- **Vùng an toàn UI nền tảng (safe zone)** — caption/anchor/badge/CTA không bao giờ được đặt trong:
+  - ~11–17% đáy khung hình (thanh caption/mô tả + nút tương tác của TikTok/Reels/Shorts đè lên)
+  - ~150–200px cạnh phải (cột icon like/comment/share/follow)
+- **Bản phái sinh (không bắt buộc, chỉ khi cần đăng chéo nền tảng dạng ngang/vuông)**: tái khung từ
+  chính bản 1080×1920 gốc bằng kỹ thuật nền blur (không hardcode canvas khác trong composition):
+  - Vuông 1:1 (1080×1080): nền = crop-to-fill + `gblur`, tiền cảnh = scale contain, overlay giữa
+  - Ngang 16:9 (1920×1080): cùng kỹ thuật, khung nền 1920×1080
+  ```bash
+  ffmpeg -i <goc.mp4> -filter_complex \
+    "[0:v]split=2[bg][fg];[bg]scale=W:H:force_original_aspect_ratio=increase,crop=W:H,gblur=sigma=20[bgb]; \
+     [fg]scale=W:H:force_original_aspect_ratio=decrease[fgs];[bgb][fgs]overlay=(W-w)/2:(H-h)/2,format=yuv420p[v]" \
+    -map "[v]" -map 0:a -c:v libx264 -preset medium -crf 18 -c:a aac -b:a 192k <ra.mp4>
+  ```
+
 ## Final QC Checklist
 
 Brand (đúng #E8441E, logo cố định góc dưới-phải, không quá lớn) · Text (headline dễ đọc, số liệu
@@ -210,7 +245,9 @@ nổi bật, keyword highlight, đúng màu, không nhồi chữ) · Motion (sin
 animation đồng bộ, không effect thừa) · Image (ảnh thật, nằm trong Article Image Card, không che
 nội dung, có tag khi cần) · Source (xuất hiện xuyên suốt, góc dưới-trái, đúng nguồn, không bị che) ·
 Editorial (tin tức là trung tâm, không clickbait sai sự thật, không tự bịa số liệu/nguồn, người xem
-hiểu được câu chuyện sau khi xem hết).
+hiểu được câu chuyện sau khi xem hết) · **Xuất bản** (đúng 1080×1920/30fps, render bằng
+`--quality high --video-bitrate 10M`, loudness -14 LUFS ±1 LU, không caption/anchor nào lấn vào
+safe zone đáy/phải).
 
 ## Nguyên tắc sáng tạo cốt lõi
 
