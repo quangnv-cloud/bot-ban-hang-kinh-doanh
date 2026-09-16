@@ -1,0 +1,174 @@
+<template>
+  <style>
+    @font-face { font-family:'Montserrat'; font-style:normal; font-weight:500; src:url('assets/fonts/Montserrat-500-latin.woff2') format('woff2'); unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+    @font-face { font-family:'Montserrat'; font-style:normal; font-weight:500; src:url('assets/fonts/Montserrat-500-vietnamese.woff2') format('woff2'); unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB; }
+    @font-face { font-family:'Montserrat'; font-style:normal; font-weight:600; src:url('assets/fonts/Montserrat-600-latin.woff2') format('woff2'); unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+    @font-face { font-family:'Montserrat'; font-style:normal; font-weight:600; src:url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2'); unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB; }
+    @font-face { font-family:'Montserrat'; font-style:normal; font-weight:700; src:url('assets/fonts/Montserrat-700-latin.woff2') format('woff2'); unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+    @font-face { font-family:'Montserrat'; font-style:normal; font-weight:700; src:url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2'); unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB; }
+    @font-face { font-family:'Montserrat'; font-style:normal; font-weight:800; src:url('assets/fonts/Montserrat-800-latin.woff2') format('woff2'); unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+    @font-face { font-family:'Montserrat'; font-style:normal; font-weight:800; src:url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2'); unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB; }
+    @font-face { font-family:'Montserrat'; font-style:normal; font-weight:900; src:url('assets/fonts/Montserrat-900-latin.woff2') format('woff2'); unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+    @font-face { font-family:'Montserrat'; font-style:normal; font-weight:900; src:url('assets/fonts/Montserrat-900-vietnamese.woff2') format('woff2'); unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB; }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+      color: #ffffff;
+    }
+
+    .im6-stage { position: absolute; inset: 0; }
+    .im6-content { position: absolute; inset: 0; }
+    .cutflash {
+      position: absolute; inset: 0; z-index: 6; pointer-events: none; opacity: 0;
+      background: linear-gradient(180deg, rgba(232,68,30,0.4), rgba(232,68,30,0.18));
+    }
+
+    .im6-kicker {
+      position: absolute; left: 64px; top: 196px;
+      font-weight: 600; font-size: 24px; letter-spacing: 0.16em;
+      text-transform: uppercase; color: #e8441e;
+    }
+
+    .im6-col { position: absolute; top: 300px; width: 400px; }
+    #im6-col-a { left: 100px; }
+    #im6-col-b { left: 580px; }
+
+    .im6-ring { position: relative; width: 400px; height: 400px; box-shadow: 0 0 40px rgba(232, 68, 30, 0.14); border-radius: 50%; }
+    .im6-ring svg { display: block; width: 100%; height: 100%; }
+    .im6-ring .trk { fill: none; stroke: rgba(255,255,255,0.13); stroke-width: 20; }
+    .im6-ring .arc { fill: none; stroke: #e8441e; stroke-width: 20; stroke-linecap: round; stroke-dasharray: 816.81; stroke-dashoffset: 816.81; opacity: 0; }
+    .im6-ring-center {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .im6-ring-big { font-weight: 900; line-height: 1; letter-spacing: -0.03em; color: #e8441e; white-space: nowrap; }
+    #im6-big-a { font-size: 58px; }
+    #im6-big-b { font-size: 80px; }
+    .im6-ring-small { margin-top: 12px; font-weight: 600; font-size: 23px; color: rgba(255,255,255,0.82); white-space: nowrap; }
+
+    .im6-col-title { margin-top: 30px; width: 400px; text-align: center; font-weight: 800; font-size: 34px; line-height: 1.2; letter-spacing: -0.01em; color: #ffffff; }
+    .im6-col-label { margin-top: 14px; width: 400px; text-align: center; font-weight: 600; font-size: 24px; line-height: 1.32; color: rgba(255,255,255,0.8); }
+
+    .im6-time-card {
+      position: absolute; left: 64px; right: 64px; top: 1070px; height: 330px;
+      display: flex; align-items: center; gap: 36px;
+      padding: 0 44px;
+      border-radius: 24px;
+      border: 1px solid rgba(232, 68, 30, 0.38);
+      background: rgba(255, 255, 255, 0.035);
+      box-shadow: 0 0 40px rgba(232, 68, 30, 0.14);
+    }
+    .im6-time-ring { flex: none; width: 140px; height: 140px; position: relative; }
+    .im6-time-ring svg { display: block; width: 100%; height: 100%; }
+    .im6-time-ring .trk { fill: none; stroke: rgba(255,255,255,0.14); stroke-width: 14; }
+    .im6-time-ring .arc { fill: none; stroke: #e8441e; stroke-width: 14; stroke-linecap: round; stroke-dasharray: 527.79; stroke-dashoffset: 527.79; opacity: 0; }
+    .im6-time-ring-num {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 42px; letter-spacing: -0.02em; color: #ffffff;
+    }
+    .im6-time-text { display: flex; flex-direction: column; }
+    .im6-time-kicker { font-weight: 600; font-size: 22px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+    .im6-time-big { margin-top: 12px; font-weight: 900; font-size: 52px; line-height: 1.1; letter-spacing: -0.025em; color: #e8441e; }
+    .im6-time-sub { margin-top: 12px; font-weight: 600; font-size: 27px; line-height: 1.3; color: rgba(255,255,255,0.86); }
+  </style>
+
+  <div data-hf-id="hf-f001" id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-f002" class="clip im6-stage" id="im6-stage" data-start="0" data-duration="10.7" data-track-index="1">
+      <div data-hf-id="hf-f003" class="im6-content" id="im6-content">
+        <div data-hf-id="hf-f004" class="im6-kicker" id="im6-kicker">Tác động</div>
+
+        <div data-hf-id="hf-f005" class="im6-col" id="im6-col-a">
+          <div data-hf-id="hf-f006" class="im6-ring" id="im6-ring-a">
+            <svg data-hf-id="hf-f007" viewBox="0 0 300 300">
+              <circle data-hf-id="hf-f008" class="trk" cx="150" cy="150" r="130"></circle>
+              <circle data-hf-id="hf-f009" class="arc" id="im6-arc-a" cx="150" cy="150" r="130" transform="rotate(-90 150 150)"></circle>
+            </svg>
+            <div data-hf-id="hf-f010" class="im6-ring-center">
+              <div data-hf-id="hf-f011" class="im6-ring-big" id="im6-big-a">100 : 50</div>
+              <div data-hf-id="hf-f012" class="im6-ring-small">tỷ lệ cổ phiếu thưởng</div>
+            </div>
+          </div>
+          <div data-hf-id="hf-f013" class="im6-col-title" id="im6-title-a">Cổ đông hiện hữu</div>
+          <div data-hf-id="hf-f014" class="im6-col-label" id="im6-label-a">Có 100 cổ phiếu được nhận thêm 50 cổ phiếu thưởng</div>
+        </div>
+
+        <div data-hf-id="hf-f015" class="im6-col" id="im6-col-b">
+          <div data-hf-id="hf-f016" class="im6-ring" id="im6-ring-b">
+            <svg data-hf-id="hf-f017" viewBox="0 0 300 300">
+              <circle data-hf-id="hf-f018" class="trk" cx="150" cy="150" r="130"></circle>
+              <circle data-hf-id="hf-f019" class="arc" id="im6-arc-b" cx="150" cy="150" r="130" transform="rotate(-90 150 150)"></circle>
+            </svg>
+            <div data-hf-id="hf-f020" class="im6-ring-center">
+              <div data-hf-id="hf-f021" class="im6-ring-big" id="im6-big-b">29,98</div>
+              <div data-hf-id="hf-f022" class="im6-ring-small">triệu cổ phiếu</div>
+            </div>
+          </div>
+          <div data-hf-id="hf-f023" class="im6-col-title" id="im6-title-b">Người lao động</div>
+          <div data-hf-id="hf-f024" class="im6-col-label" id="im6-label-b">Mua cổ phiếu ưu đãi giá 10.000 đồng mỗi cổ phiếu</div>
+        </div>
+
+        <div data-hf-id="hf-f025" class="im6-time-card" id="im6-time-card">
+          <div data-hf-id="hf-f026" class="im6-time-ring">
+            <svg data-hf-id="hf-f027" viewBox="0 0 200 200">
+              <circle data-hf-id="hf-f028" class="trk" cx="100" cy="100" r="84"></circle>
+              <circle data-hf-id="hf-f029" class="arc" id="im6-arc-time" cx="100" cy="100" r="84" transform="rotate(-90 100 100)"></circle>
+            </svg>
+            <div data-hf-id="hf-f030" class="im6-time-ring-num">12</div>
+          </div>
+          <div data-hf-id="hf-f031" class="im6-time-text">
+            <div data-hf-id="hf-f032" class="im6-time-kicker" id="im6-time-kicker">Thời gian thực hiện</div>
+            <div data-hf-id="hf-f033" class="im6-time-big" id="im6-time-big">Trong vòng 12 tháng</div>
+            <div data-hf-id="hf-f034" class="im6-time-sub" id="im6-time-sub">kể từ khi Ngân hàng Nhà nước chấp thuận</div>
+          </div>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-f035" class="cutflash" id="im6-cutflash"></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var CB = 2 * Math.PI * 130; // 816.814 — the two large rings
+      var CS = 2 * Math.PI * 84;  // 527.788 — the timing ring
+      var T = 2.30;               // smash-cut: shareholder ring → employee ring
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#im6-kicker", { y: -12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 0.08);
+
+      tl.fromTo("#im6-ring-a", { scale: 0.88, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.42, ease: "power3.out" }, 0.15);
+      tl.fromTo("#im6-arc-a", { opacity: 0, strokeDashoffset: CB }, { opacity: 1, strokeDashoffset: CB * 0.5, duration: 1.0, ease: "power2.out" }, 0.35);
+      tl.fromTo("#im6-big-a", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.38, ease: "back.out(1.6)" }, 0.45);
+      tl.fromTo("#im6-title-a", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.34, ease: "power3.out" }, 0.95);
+      tl.fromTo("#im6-label-a", { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.32, ease: "power2.out" }, 1.2);
+
+      tl.fromTo("#im6-cutflash", { opacity: 0 }, { opacity: 0.55, duration: 0.05, ease: "none" }, T);
+      tl.to("#im6-cutflash", { opacity: 0, duration: 0.16, ease: "power1.in" }, T + 0.05);
+      tl.fromTo("#im6-content", { scale: 1 }, { scale: 0.986, duration: 0.06, ease: "power1.out" }, T);
+      tl.to("#im6-content", { scale: 1, duration: 0.14, ease: "power2.out" }, T + 0.061);
+
+      tl.fromTo("#im6-ring-b", { scale: 0.88, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.42, ease: "power3.out" }, 2.42);
+      tl.fromTo("#im6-arc-b", { opacity: 0, strokeDashoffset: CB }, { opacity: 1, strokeDashoffset: 0, duration: 1.15, ease: "power2.out" }, 2.6);
+      tl.fromTo("#im6-big-b", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.38, ease: "back.out(1.6)" }, 2.7);
+      tl.fromTo("#im6-title-b", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.34, ease: "power3.out" }, 3.15);
+      tl.fromTo("#im6-label-b", { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.32, ease: "power2.out" }, 3.45);
+
+      tl.fromTo("#im6-time-card", { y: 32, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 6.95);
+      tl.fromTo("#im6-time-kicker", { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 7.1);
+      tl.fromTo("#im6-time-big", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.36, ease: "power3.out" }, 7.25);
+      tl.fromTo("#im6-time-sub", { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.32, ease: "power2.out" }, 7.6);
+      // The 12-month ring keeps drawing through the closing line so the last
+      // seconds of the act still carry motion.
+      tl.fromTo("#im6-arc-time", { opacity: 0, strokeDashoffset: CS }, { opacity: 1, strokeDashoffset: 0, duration: 2.5, ease: "power1.inOut" }, 7.4);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["06-impact"] = tl;
+    })();
+  </script>
+</template>

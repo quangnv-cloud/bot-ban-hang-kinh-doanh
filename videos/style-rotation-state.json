@@ -277,6 +277,12 @@
             "style": "5-map-and-geo",
             "project": "loi-suat-trai-phieu-my-cham-dinh-2007",
             "date": "2026-09-16"
+        },
+        {
+            "index": 5,
+            "style": "6-ring-progress",
+            "project": "techcombank-tang-von-dieu-le-106-nghin-ty",
+            "date": "2026-09-16"
         }
     ]
 }
