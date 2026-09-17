@@ -1,0 +1,17 @@
+{
+  "name": "dnse-nop-ngan-sach-332-ty",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.8.46 preview",
+    "check": "npx --yes hyperframes@0.8.46 check",
+    "render": "npx --yes hyperframes@0.8.46 render",
+    "publish": "npx --yes hyperframes@0.8.46 publish"
+  },
+  "dependencies": {
+    "gsap": "^3.14.2"
+  },
+  "devDependencies": {
+    "@hyperframes/core": "^0.8.46"
+  }
+}

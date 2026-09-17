@@ -289,6 +289,12 @@
             "style": "7-timeline-chronology",
             "project": "fed-tang-lai-suat-lan-dau-sau-3-nam",
             "date": "2026-09-17"
+        },
+        {
+            "index": 7,
+            "style": "8-icon-grid",
+            "project": "dnse-nop-ngan-sach-332-ty",
+            "date": "2026-09-17"
         }
     ]
 }
