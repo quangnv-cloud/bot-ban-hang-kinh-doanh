@@ -1,0 +1,506 @@
+{
+  "language_code": "vie",
+  "language_probability": 1.0,
+  "text": "Rạng sáng 17 tháng Chín giờ Việt Nam, Fed nâng lãi suất điều hành lên biên độ ba phẩy bảy mươi lăm đến bốn phần trăm, đồng thuận tuyệt đối mười hai trên mười hai phiếu",
+  "words": [
+    {
+      "text": "Rạng",
+      "start": 0.12,
+      "end": 0.26,
+      "type": "word",
+      "logprob": -0.0006466295290010748
+    },
+    {
+      "text": " ",
+      "start": 0.26,
+      "end": 0.36,
+      "type": "spacing",
+      "logprob": -0.00021562635083682835
+    },
+    {
+      "text": "sáng",
+      "start": 0.36,
+      "end": 0.56,
+      "type": "word",
+      "logprob": -0.00021562635083682835
+    },
+    {
+      "text": " ",
+      "start": 0.56,
+      "end": 0.62,
+      "type": "spacing",
+      "logprob": -0.0008823553798720241
+    },
+    {
+      "text": "17",
+      "start": 0.62,
+      "end": 0.94,
+      "type": "word",
+      "logprob": -3.8146849021813978e-06
+    },
+    {
+      "text": " ",
+      "start": 0.94,
+      "end": 0.96,
+      "type": "spacing",
+      "logprob": -0.2528325319290161
+    },
+    {
+      "text": "tháng",
+      "start": 0.96,
+      "end": 1.08,
+      "type": "word",
+      "logprob": -0.2528325319290161
+    },
+    {
+      "text": " ",
+      "start": 1.08,
+      "end": 1.16,
+      "type": "spacing",
+      "logprob": -0.2553378939628601
+    },
+    {
+      "text": "Chín",
+      "start": 1.16,
+      "end": 1.34,
+      "type": "word",
+      "logprob": -0.12767001986389914
+    },
+    {
+      "text": " ",
+      "start": 1.34,
+      "end": 1.42,
+      "type": "spacing",
+      "logprob": -0.0006617502076551318
+    },
+    {
+      "text": "giờ",
+      "start": 1.42,
+      "end": 1.54,
+      "type": "word",
+      "logprob": -0.0006617502076551318
+    },
+    {
+      "text": " ",
+      "start": 1.54,
+      "end": 1.58,
+      "type": "spacing",
+      "logprob": -3.373566141817719e-05
+    },
+    {
+      "text": "Việt",
+      "start": 1.58,
+      "end": 1.72,
+      "type": "word",
+      "logprob": -3.373566141817719e-05
+    },
+    {
+      "text": " ",
+      "start": 1.72,
+      "end": 1.78,
+      "type": "spacing",
+      "logprob": -5.125986263010418e-06
+    },
+    {
+      "text": "Nam,",
+      "start": 1.78,
+      "end": 1.98,
+      "type": "word",
+      "logprob": -0.00026558044658031577
+    },
+    {
+      "text": " ",
+      "start": 1.98,
+      "end": 2.28,
+      "type": "spacing",
+      "logprob": -0.08019667863845825
+    },
+    {
+      "text": "Fed",
+      "start": 2.28,
+      "end": 2.48,
+      "type": "word",
+      "logprob": -0.08019667863845825
+    },
+    {
+      "text": " ",
+      "start": 2.48,
+      "end": 2.56,
+      "type": "spacing",
+      "logprob": -7.56950321374461e-05
+    },
+    {
+      "text": "nâng",
+      "start": 2.56,
+      "end": 2.68,
+      "type": "word",
+      "logprob": -7.56950321374461e-05
+    },
+    {
+      "text": " ",
+      "start": 2.68,
+      "end": 2.76,
+      "type": "spacing",
+      "logprob": -5.686121585313231e-05
+    },
+    {
+      "text": "lãi",
+      "start": 2.76,
+      "end": 2.88,
+      "type": "word",
+      "logprob": -5.686121585313231e-05
+    },
+    {
+      "text": " ",
+      "start": 2.88,
+      "end": 2.96,
+      "type": "spacing",
+      "logprob": -8.737658936297521e-05
+    },
+    {
+      "text": "suất",
+      "start": 2.96,
+      "end": 3.16,
+      "type": "word",
+      "logprob": -8.737658936297521e-05
+    },
+    {
+      "text": " ",
+      "start": 3.16,
+      "end": 3.18,
+      "type": "spacing",
+      "logprob": -2.002696055569686e-05
+    },
+    {
+      "text": "điều",
+      "start": 3.2,
+      "end": 3.36,
+      "type": "word",
+      "logprob": -2.002696055569686e-05
+    },
+    {
+      "text": " ",
+      "start": 3.36,
+      "end": 3.4,
+      "type": "spacing",
+      "logprob": -1.3112935448589269e-05
+    },
+    {
+      "text": "hành",
+      "start": 3.4,
+      "end": 3.6,
+      "type": "word",
+      "logprob": -1.3112935448589269e-05
+    },
+    {
+      "text": " ",
+      "start": 3.6,
+      "end": 3.66,
+      "type": "spacing",
+      "logprob": -7.152555099310121e-07
+    },
+    {
+      "text": "lên",
+      "start": 3.66,
+      "end": 3.78,
+      "type": "word",
+      "logprob": -7.152555099310121e-07
+    },
+    {
+      "text": " ",
+      "start": 3.78,
+      "end": 3.84,
+      "type": "spacing",
+      "logprob": -0.00032729512895457447
+    },
+    {
+      "text": "biên",
+      "start": 3.84,
+      "end": 3.98,
+      "type": "word",
+      "logprob": -0.00032729512895457447
+    },
+    {
+      "text": " ",
+      "start": 3.98,
+      "end": 4.04,
+      "type": "spacing",
+      "logprob": -2.706014311115723e-05
+    },
+    {
+      "text": "độ",
+      "start": 4.04,
+      "end": 4.22,
+      "type": "word",
+      "logprob": -2.706014311115723e-05
+    },
+    {
+      "text": " ",
+      "start": 4.22,
+      "end": 4.42,
+      "type": "spacing",
+      "logprob": -0.043014299124479294
+    },
+    {
+      "text": "ba",
+      "start": 4.42,
+      "end": 4.54,
+      "type": "word",
+      "logprob": -0.043014299124479294
+    },
+    {
+      "text": " ",
+      "start": 4.54,
+      "end": 4.62,
+      "type": "spacing",
+      "logprob": -0.00519782118499279
+    },
+    {
+      "text": "phẩy",
+      "start": 4.62,
+      "end": 4.76,
+      "type": "word",
+      "logprob": -0.006542378570884466
+    },
+    {
+      "text": " ",
+      "start": 4.76,
+      "end": 4.8,
+      "type": "spacing",
+      "logprob": -0.0020385454408824444
+    },
+    {
+      "text": "bảy",
+      "start": 4.8,
+      "end": 4.88,
+      "type": "word",
+      "logprob": -0.0020385454408824444
+    },
+    {
+      "text": " ",
+      "start": 4.88,
+      "end": 4.94,
+      "type": "spacing",
+      "logprob": -8.332382276421413e-05
+    },
+    {
+      "text": "mươi",
+      "start": 4.94,
+      "end": 5.04,
+      "type": "word",
+      "logprob": -0.0005290267490636325
+    },
+    {
+      "text": " ",
+      "start": 5.04,
+      "end": 5.08,
+      "type": "spacing",
+      "logprob": -0.0008889061282388866
+    },
+    {
+      "text": "lăm",
+      "start": 5.08,
+      "end": 5.24,
+      "type": "word",
+      "logprob": -0.0004550699086394161
+    },
+    {
+      "text": " ",
+      "start": 5.24,
+      "end": 5.36,
+      "type": "spacing",
+      "logprob": -5.960446742392378e-06
+    },
+    {
+      "text": "đến",
+      "start": 5.36,
+      "end": 5.54,
+      "type": "word",
+      "logprob": -5.960446742392378e-06
+    },
+    {
+      "text": " ",
+      "start": 5.54,
+      "end": 5.58,
+      "type": "spacing",
+      "logprob": -0.000442407006630674
+    },
+    {
+      "text": "bốn",
+      "start": 5.58,
+      "end": 5.74,
+      "type": "word",
+      "logprob": -0.000442407006630674
+    },
+    {
+      "text": " ",
+      "start": 5.74,
+      "end": 5.76,
+      "type": "spacing",
+      "logprob": -0.0003638797497842461
+    },
+    {
+      "text": "phần",
+      "start": 5.76,
+      "end": 5.86,
+      "type": "word",
+      "logprob": -0.0003638797497842461
+    },
+    {
+      "text": " ",
+      "start": 5.86,
+      "end": 5.92,
+      "type": "spacing",
+      "logprob": -6.568216485902667e-05
+    },
+    {
+      "text": "trăm,",
+      "start": 5.92,
+      "end": 6.12,
+      "type": "word",
+      "logprob": -0.08954981393180787
+    },
+    {
+      "text": " ",
+      "start": 6.12,
+      "end": 6.12,
+      "type": "spacing",
+      "logprob": -2.4199192921514623e-05
+    },
+    {
+      "text": "đồng",
+      "start": 6.58,
+      "end": 6.7,
+      "type": "word",
+      "logprob": -2.4199192921514623e-05
+    },
+    {
+      "text": " ",
+      "start": 6.7,
+      "end": 6.74,
+      "type": "spacing",
+      "logprob": -9.345571743324399e-05
+    },
+    {
+      "text": "thuận",
+      "start": 6.74,
+      "end": 6.9,
+      "type": "word",
+      "logprob": -9.345571743324399e-05
+    },
+    {
+      "text": " ",
+      "start": 6.9,
+      "end": 7.0,
+      "type": "spacing",
+      "logprob": -8.153582894010469e-05
+    },
+    {
+      "text": "tuyệt",
+      "start": 7.0,
+      "end": 7.2,
+      "type": "word",
+      "logprob": -8.153582894010469e-05
+    },
+    {
+      "text": " ",
+      "start": 7.2,
+      "end": 7.24,
+      "type": "spacing",
+      "logprob": -4.887569048150908e-06
+    },
+    {
+      "text": "đối",
+      "start": 7.24,
+      "end": 7.48,
+      "type": "word",
+      "logprob": -4.887569048150908e-06
+    },
+    {
+      "text": " ",
+      "start": 7.48,
+      "end": 7.68,
+      "type": "spacing",
+      "logprob": -0.005057754926383495
+    },
+    {
+      "text": "mười",
+      "start": 7.68,
+      "end": 7.84,
+      "type": "word",
+      "logprob": -0.0013455264688673196
+    },
+    {
+      "text": " ",
+      "start": 7.84,
+      "end": 7.9,
+      "type": "spacing",
+      "logprob": -5.018585216021165e-05
+    },
+    {
+      "text": "hai",
+      "start": 7.9,
+      "end": 8.08,
+      "type": "word",
+      "logprob": -5.018585216021165e-05
+    },
+    {
+      "text": " ",
+      "start": 8.08,
+      "end": 8.16,
+      "type": "spacing",
+      "logprob": -1.7762025890988298e-05
+    },
+    {
+      "text": "trên",
+      "start": 8.16,
+      "end": 8.32,
+      "type": "word",
+      "logprob": -1.7762025890988298e-05
+    },
+    {
+      "text": " ",
+      "start": 8.32,
+      "end": 8.36,
+      "type": "spacing",
+      "logprob": -2.7656173188006505e-05
+    },
+    {
+      "text": "mười",
+      "start": 8.36,
+      "end": 8.46,
+      "type": "word",
+      "logprob": -3.8563441194128245e-05
+    },
+    {
+      "text": " ",
+      "start": 8.46,
+      "end": 8.5,
+      "type": "spacing",
+      "logprob": -6.854299135738984e-05
+    },
+    {
+      "text": "hai",
+      "start": 8.5,
+      "end": 8.62,
+      "type": "word",
+      "logprob": -6.854299135738984e-05
+    },
+    {
+      "text": " ",
+      "start": 8.62,
+      "end": 8.7,
+      "type": "spacing",
+      "logprob": -8.106198947643861e-06
+    },
+    {
+      "text": "phiếu",
+      "start": 8.7,
+      "end": 8.94,
+      "type": "word",
+      "logprob": -8.106198947643861e-06
+    }
+  ],
+  "transcription_id": "jE0KUmDP7Eyk4hUHXCr8",
+  "audio_duration_secs": 9.04
+}

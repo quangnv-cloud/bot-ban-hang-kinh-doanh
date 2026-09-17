@@ -1,0 +1,240 @@
+{
+  "language_code": "vie",
+  "language_probability": 1.0,
+  "text": "Fed tăng lãi suất tham chiếu thêm 0,25 điểm phần trăm, lần đầu tiên sau ba năm",
+  "words": [
+    {
+      "text": "Fed",
+      "start": 0.1,
+      "end": 0.28,
+      "type": "word",
+      "logprob": -0.12929654121398926
+    },
+    {
+      "text": " ",
+      "start": 0.28,
+      "end": 0.34,
+      "type": "spacing",
+      "logprob": -6.186770770000294e-05
+    },
+    {
+      "text": "tăng",
+      "start": 0.34,
+      "end": 0.48,
+      "type": "word",
+      "logprob": -6.186770770000294e-05
+    },
+    {
+      "text": " ",
+      "start": 0.48,
+      "end": 0.52,
+      "type": "spacing",
+      "logprob": -3.2543604902457446e-05
+    },
+    {
+      "text": "lãi",
+      "start": 0.52,
+      "end": 0.62,
+      "type": "word",
+      "logprob": -3.2543604902457446e-05
+    },
+    {
+      "text": " ",
+      "start": 0.62,
+      "end": 0.68,
+      "type": "spacing",
+      "logprob": -3.0517112463712692e-05
+    },
+    {
+      "text": "suất",
+      "start": 0.68,
+      "end": 0.84,
+      "type": "word",
+      "logprob": -3.0517112463712692e-05
+    },
+    {
+      "text": " ",
+      "start": 0.84,
+      "end": 0.86,
+      "type": "spacing",
+      "logprob": -0.0010740946745499969
+    },
+    {
+      "text": "tham",
+      "start": 0.86,
+      "end": 1.02,
+      "type": "word",
+      "logprob": -0.0010740946745499969
+    },
+    {
+      "text": " ",
+      "start": 1.02,
+      "end": 1.1,
+      "type": "spacing",
+      "logprob": -0.0004544417606666684
+    },
+    {
+      "text": "chiếu",
+      "start": 1.1,
+      "end": 1.36,
+      "type": "word",
+      "logprob": -0.0004544417606666684
+    },
+    {
+      "text": " ",
+      "start": 1.36,
+      "end": 1.4,
+      "type": "spacing",
+      "logprob": -3.576278118089249e-07
+    },
+    {
+      "text": "thêm",
+      "start": 1.4,
+      "end": 1.58,
+      "type": "word",
+      "logprob": -3.576278118089249e-07
+    },
+    {
+      "text": " ",
+      "start": 1.58,
+      "end": 1.68,
+      "type": "spacing",
+      "logprob": -0.11313016712665558
+    },
+    {
+      "text": "0,25",
+      "start": 1.84,
+      "end": 2.54,
+      "type": "word",
+      "logprob": -0.0006212023435985259
+    },
+    {
+      "text": " ",
+      "start": 2.54,
+      "end": 2.58,
+      "type": "spacing",
+      "logprob": -9.405170567333698e-05
+    },
+    {
+      "text": "điểm",
+      "start": 2.58,
+      "end": 2.72,
+      "type": "word",
+      "logprob": -9.405170567333698e-05
+    },
+    {
+      "text": " ",
+      "start": 2.72,
+      "end": 2.78,
+      "type": "spacing",
+      "logprob": -0.0009445258183404803
+    },
+    {
+      "text": "phần",
+      "start": 2.78,
+      "end": 2.88,
+      "type": "word",
+      "logprob": -0.0009445258183404803
+    },
+    {
+      "text": " ",
+      "start": 2.88,
+      "end": 2.96,
+      "type": "spacing",
+      "logprob": -0.0002522150462027639
+    },
+    {
+      "text": "trăm,",
+      "start": 2.96,
+      "end": 3.16,
+      "type": "word",
+      "logprob": -0.0024332252098247407
+    },
+    {
+      "text": " ",
+      "start": 3.16,
+      "end": 3.16,
+      "type": "spacing",
+      "logprob": -2.3841855067985307e-07
+    },
+    {
+      "text": "lần",
+      "start": 3.54,
+      "end": 3.66,
+      "type": "word",
+      "logprob": -2.3841855067985307e-07
+    },
+    {
+      "text": " ",
+      "start": 3.66,
+      "end": 3.72,
+      "type": "spacing",
+      "logprob": -1.7165990357170813e-05
+    },
+    {
+      "text": "đầu",
+      "start": 3.72,
+      "end": 3.82,
+      "type": "word",
+      "logprob": -1.7165990357170813e-05
+    },
+    {
+      "text": " ",
+      "start": 3.82,
+      "end": 3.92,
+      "type": "spacing",
+      "logprob": -1.9073468138230965e-06
+    },
+    {
+      "text": "tiên",
+      "start": 3.92,
+      "end": 4.1,
+      "type": "word",
+      "logprob": -1.9073468138230965e-06
+    },
+    {
+      "text": " ",
+      "start": 4.1,
+      "end": 4.26,
+      "type": "spacing",
+      "logprob": -2.0265558760002023e-06
+    },
+    {
+      "text": "sau",
+      "start": 4.26,
+      "end": 4.38,
+      "type": "word",
+      "logprob": -2.0265558760002023e-06
+    },
+    {
+      "text": " ",
+      "start": 4.38,
+      "end": 4.44,
+      "type": "spacing",
+      "logprob": -0.00018475732940714806
+    },
+    {
+      "text": "ba",
+      "start": 4.44,
+      "end": 4.54,
+      "type": "word",
+      "logprob": -0.00018475732940714806
+    },
+    {
+      "text": " ",
+      "start": 4.54,
+      "end": 4.62,
+      "type": "spacing",
+      "logprob": -2.7418097943154862e-06
+    },
+    {
+      "text": "năm",
+      "start": 4.62,
+      "end": 4.76,
+      "type": "word",
+      "logprob": -2.7418097943154862e-06
+    }
+  ],
+  "transcription_id": "muKdj19GFJitLaUcBwdo",
+  "audio_duration_secs": 4.8
+}

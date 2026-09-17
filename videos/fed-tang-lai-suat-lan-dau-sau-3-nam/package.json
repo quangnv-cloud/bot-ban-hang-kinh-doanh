@@ -1,0 +1,15 @@
+{
+  "name": "fed-tang-lai-suat-lan-dau-sau-3-nam",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.8.44 preview",
+    "check": "npx --yes hyperframes@0.8.44 check",
+    "render": "npx --yes hyperframes@0.8.44 render",
+    "publish": "npx --yes hyperframes@0.8.44 publish"
+  },
+  "dependencies": {
+    "@hyperframes/core": "^0.8.44",
+    "gsap": "^3.14.2"
+  }
+}
