@@ -726,6 +726,45 @@ không xử lý trước 2026-09-25, mọi lần chạy routine tiếp theo (k�
 tiếp tục dừng ở đúng bước này — nên cân nhắc tạm tắt lịch tự động (`enabled: false` cho 3 trigger)
 cho tới khi quota được khôi phục, tránh đốt thêm slot tin tức + style rotation vô ích mỗi lần chạy.
 
+**[2026-09-17 → 2026-09-18 — routine DỪNG Ở BƯỚC 6: quota Google Lyria = 0, gói miễn phí của
+`GEMINI_API_KEY` không có quyền dùng model nhạc]**: lần chạy 2026-09-17 đã hoàn tất trọn vẹn bước
+1-5 (chọn tin "Giá xăng dầu trong nước tăng mạnh lần thứ 3 liên tiếp", Dân Trí, đánh dấu `used`,
+`claim_style` → index 8, **9-editorial-clipping**, tải ảnh qua Apps Script proxy, viết
+`BRIEF.md`/`SCRIPT.md` đầy đủ không viết tắt, sinh xong cả 6 dòng voice ElevenLabs + timestamp
+STT karaoke, khởi tạo project `gia-xang-dau-diesel-gan-30000-dong-lit` qua `hyperframes init`) —
+nhưng khi sinh BGM (bước 6), cả 3 model Lyria thử được (`lyria-3.5`, `lyria-3-pro-preview`,
+`lyria-3-clip-preview`) đều trả `429 RESOURCE_EXHAUSTED` với `limit: 0` cho
+`generate_content_free_tier_requests`/`..._input_token_count` của model `lyria-3-pro` — đã commit
+checkpoint (`769521a`, không push phần audio dở, chỉ code+asset) đúng tinh thần "không đổi engine
+BGM khác, không giao video thiếu nhạc nền".
+Lần chạy 2026-09-18 (routine này): **trước khi chọn tin/claim style/gọi ElevenLabs** (rút kinh
+nghiệm từ các sự cố CDN ảnh 2026-09-01→04 — luôn test lại hạ tầng biết-là-rủi-ro TRƯỚC khi đốt chi
+phí), gọi thử trực tiếp `POST
+generativelanguage.googleapis.com/v1beta/models/lyria-3.5:generateContent` với payload tối thiểu —
+kết quả **y hệt lỗi hôm trước**: `429 RESOURCE_EXHAUSTED`, message nêu rõ
+`"Quota exceeded ... limit: 0, model: lyria-3-pro"`. Khác với sự cố ElevenLabs 2026-09-09 (quota
+> 0 nhưng dùng hết, có `next_character_count_reset_unix` xác định ngày hồi phục), lỗi này là
+`limit: 0` — nghĩa là **gói/tier hiện tại của project đứng sau `GEMINI_API_KEY` không được cấp bất
+kỳ quota nào cho model Lyria**, không phải "dùng hết trong chu kỳ". Đây là lỗ hổng cấp quyền/gói
+dịch vụ (entitlement), không tự hết hạn theo thời gian như quota ElevenLabs — retry ở lần chạy sau
+(kể cả nhiều ngày sau) nhiều khả năng vẫn gặp y hệt trừ khi người vận hành chủ động nâng cấp.
+**Quyết định**: DỪNG LẠI NGAY ở bước tiền kiểm tra, KHÔNG chọn tin mới, KHÔNG đánh dấu `used`,
+KHÔNG `claim_style` (giữ nguyên vòng xoay ở index 8, style kế tiếp vẫn là 9 khi chạy được), KHÔNG
+gọi ElevenLabs (giữ quota giọng đọc) — tránh lặp lại đúng kịch bản "làm hết 1-5 rồi mới phát hiện
+chặn ở 6" tốn tài nguyên vô ích cho lần thứ 2 liên tiếp. Project WIP
+`videos/gia-xang-dau-diesel-gan-30000-dong-lit` (voice + ảnh + script + scaffold đã xong, style 9
+đã claim) giữ nguyên trong repo (đã push) để DÙNG LẠI ngay khi Lyria hoạt động trở lại — không claim
+style mới, không chọn tin khác, không sinh lại voice cho project này.
+**Việc cần làm** (chờ người vận hành, KHÔNG có cách xử lý nào phía routine): (1) vào
+[Google AI Studio / Gemini API billing](https://ai.google.dev/gemini-api/docs/rate-limits) của
+project đứng sau `GEMINI_API_KEY`, bật gói trả phí (Lyria RealTime hiện chỉ cấp quota cho tier trả
+phí, tier miễn phí = 0 theo thiết kế của Google, không phải lỗi cấu hình) hoặc xác nhận project nào
+khác có quyền rồi đổi `GEMINI_API_KEY`; (2) trong lúc chưa xử lý, cân nhắc tạm tắt lịch tự động (3
+trigger 7h/12h30/19h30) để tránh mỗi lần chạy đều tốn 1 lệnh gọi tiền kiểm tra + push notification
+lặp lại cho cùng 1 vấn đề chưa đổi; (3) sau khi bật quota, chạy thử 1 lần thủ công (không đợi lịch)
+để verify Lyria trả về audio thật trước khi tin tưởng lịch 3 lần/ngày tự sinh BGM trở lại — resume
+đúng project WIP nói trên thay vì tạo project mới.
+
 ## 12. Đo lường tăng trưởng & khả năng lấy demographics — [2026-09-05]
 
 Ngoài `engagement_metrics` (views/likes/reactions/comments/shares theo TỪNG video, xem SETUP.md),
