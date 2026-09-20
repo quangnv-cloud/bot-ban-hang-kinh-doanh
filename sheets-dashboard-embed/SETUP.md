@@ -47,12 +47,20 @@ iframe trên merchant.vn không cần quyền Google vào Sheet gốc.
 
 ### Bước 3 — Lấy URL cho từng báo cáo
 
-Hai report đã được cấu hình sẵn theo đúng 2 link bạn gửi:
+Hai report đã được cấu hình sẵn theo đúng 2 link bạn gửi, mỗi report đã
+giới hạn sẵn `range` — vì tab nguồn có nhiều bảng khác (BU, Page, Telesale,
+biểu đồ, nhận xét tự động...) nằm cùng dòng/cột với bảng mong muốn, không
+giới hạn range sẽ lấy kèm hết:
 
-| report        | Nguồn                                                                                   |
-|---------------|------------------------------------------------------------------------------------------|
-| `sale`        | Sheet 1 (`1Sd97m...`, gid `462434893`) — bảng Lịch meet/Chi phí Ads theo Sale             |
-| `compare`     | Sheet 2 (`1Zxjj2...`, gid `1616235685`) — bảng So sánh chi tiết tuần 34 vs 35             |
+| report        | Nguồn                                                                          | range         |
+|---------------|----------------------------------------------------------------------------------------------------|---------------|
+| `sale`        | Sheet 1 (`1Sd97m...`, gid `462434893`) — bảng Lịch meet/Chi phí Ads theo Sale  | `B9:H22`      |
+| `compare`     | Sheet 2 (`1Zxjj2...`, gid `1616235685`) — bảng So sánh chi tiết tuần 34 vs 35  | `A20:P45`     |
+
+(Range này dò ra bằng cách gọi thử `&range=...` trên deployment thật rồi so
+khớp từng dòng trả về — nếu bạn chỉnh sửa lại layout của 2 tab này sau này,
+range có thể lệch và cần dò lại theo cách tương tự, hoặc dùng tham số
+`&range=` ghi đè tạm thời như mục 3 bên dưới trong lúc chưa sửa `REPORTS`.)
 
 Dán trên trình duyệt để test trước khi nhúng:
 
@@ -84,8 +92,8 @@ bên trong.
 
 - `?id=<spreadsheetId>&gid=<gid>` — dùng Sheet/tab bất kỳ khác, không cần
   khai báo trước trong `REPORTS`.
-- `&range=A1:G14` — chỉ lấy đúng 1 vùng thay vì toàn bộ vùng có dữ liệu của
-  tab (hữu ích nếu tab có nhiều bảng).
+- `&range=A1:G14` — ghi đè `range` mặc định của report, chỉ lấy đúng 1 vùng
+  thay vì toàn bộ vùng có dữ liệu của tab (hữu ích nếu tab có nhiều bảng).
 - `&filterValue=HCM` — chỉ giữ lại các hàng chứa chuỗi này (không phân biệt
   hoa/thường), luôn giữ hàng "Tổng cộng". Dùng để mô phỏng bộ lọc theo BU/
   Sale nếu muốn nhúng nhiều iframe đã lọc sẵn theo từng khu vực.

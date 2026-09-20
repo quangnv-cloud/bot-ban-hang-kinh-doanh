@@ -20,15 +20,21 @@
 // Named shortcuts for the two report ranges given by the user, so the iframe
 // src can be a short "?report=sale" instead of a raw id/gid. Add more entries
 // here as new report tabs are created.
+// `range` là vùng đã xác định thủ công (bằng cách dò từng dòng qua tham số
+// ?range= trên deployment thật) để chỉ lấy đúng bảng mong muốn — tab nguồn có
+// nhiều bảng khác nằm cùng dòng/cột (BU, Page, Telesale, biểu đồ, nhận xét...)
+// nên getDataRange() mặc định sẽ lấy kèm hết nếu không giới hạn range.
 var REPORTS = {
   'sale': {
     spreadsheetId: '1Sd97mPpr_k1ca8QdKOpMNHrMsDZHiFTYDI6fF2REB1Y',
     gid: '462434893',
+    range: 'B9:H22',
     title: 'Doanh thu / Chi phí Ads theo Sale'
   },
   'compare': {
     spreadsheetId: '1Zxjj231qAO79hlnbDdiH5GG0cgP3a2masS55leLcsJI',
     gid: '1616235685',
+    range: 'A20:P45',
     title: 'So sánh chi tiết theo tuần'
   }
 };
@@ -63,7 +69,7 @@ function doGet(e) {
 function resolveTarget(params) {
   var cfg = params.report && REPORTS[params.report];
   if (cfg) {
-    return { spreadsheetId: cfg.spreadsheetId, gid: cfg.gid, range: params.range };
+    return { spreadsheetId: cfg.spreadsheetId, gid: cfg.gid, range: params.range || cfg.range };
   }
   if (params.id && params.gid) {
     return { spreadsheetId: params.id, gid: params.gid, range: params.range };
