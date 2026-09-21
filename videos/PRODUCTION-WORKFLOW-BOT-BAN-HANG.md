@@ -792,6 +792,33 @@ rủi ro push notification lặp lại mỗi lần chạy trong lúc chưa đổ
 chạy thử thủ công 1 lần (resume đúng project WIP nói trên) để verify Lyria trả audio thật trước khi
 tin tưởng lịch tự động sinh BGM trở lại.
 
+**[2026-09-21 — lần chạy tiếp theo, VẪN `limit: 0`, blocker đã kéo dài từ 2026-09-17 (nay là ngày thứ
+5, không có phiên chạy nào ở giữa ngày 2026-09-19 theo lịch sử `git log`)]**: đúng quy trình đã thiết
+lập, gọi tiền kiểm tra `POST generativelanguage.googleapis.com/v1beta/models/lyria-3.5:generateContent`
+(payload tối thiểu) TRƯỚC khi chọn tin/claim style/gọi ElevenLabs — kết quả **y hệt 3 lần trước**:
+`429 RESOURCE_EXHAUSTED`, `generate_content_free_tier_requests`/`..._input_token_count`, `limit: 0`,
+`model: lyria-3-pro`. Không test lại `ELEVENLABS_API_KEY` riêng lần này (đã xác nhận tách biệt ở
+2026-09-20, không có lý do nghi ngờ đã đổi). **Quyết định (giữ nguyên tinh thần 2026-09-18/09-20)**:
+DỪNG LẠI NGAY ở bước tiền kiểm tra, KHÔNG chọn tin mới, KHÔNG đánh dấu `used`, KHÔNG `claim_style`
+(vòng xoay vẫn giữ nguyên ở index 8, style kế tiếp vẫn là 9-editorial-clipping khi chạy được), KHÔNG
+gọi ElevenLabs. Project WIP `videos/gia-xang-dau-diesel-gan-30000-dong-lit` (đã có voice + ảnh +
+script + scaffold + style 9 claimed từ 2026-09-17) vẫn là project cần resume trước tiên khi Lyria
+hoạt động trở lại — không tạo project mới, không claim style mới.
+Nhánh phụ phát hiện thêm trong lần chạy này: repo lại ở trạng thái `HEAD detached` tại đúng commit
+mà `origin/master` đang trỏ tới (`3c51361`, không có commit mồ côi mới nào) — đã sửa
+(`git checkout master && git merge --ff-only origin/master`) trước khi ghi thêm mục này. Đây là lần
+thứ hai hiện tượng detached HEAD xảy ra ở đầu phiên (lần trước 2026-09-20) dù không có commit nào bị
+mất — có thể là đặc điểm cách sandbox mới clone/checkout repo ở đầu mỗi phiên, không phải lỗi thao
+tác của routine trước đó; không cần hành động gì thêm ngoài việc tiếp tục kiểm tra + fast-forward ở
+đầu mỗi phiên như đã làm.
+**Việc cần làm (chờ người vận hành, KHÔNG đổi so với 2026-09-18/09-20, nhắc lại vì đã 4-5 ngày chưa
+xử lý)**: (1) bật gói trả phí cho Lyria trên project đứng sau `GEMINI_API_KEY` (Google AI Studio /
+Gemini API billing) hoặc đổi sang `GEMINI_API_KEY` của 1 project khác có quota Lyria > 0; (2) cân
+nhắc tạm tắt lịch tự động 3 lần/ngày cho tới khi xử lý xong, để không tốn 1 lệnh tiền kiểm tra +
+rủi ro push notification lặp lại mỗi lần chạy trong lúc chưa đổi trạng thái; (3) sau khi bật quota,
+chạy thử thủ công 1 lần (resume đúng project WIP nói trên) để verify Lyria trả audio thật trước khi
+tin tưởng lịch tự động sinh BGM trở lại.
+
 ## 12. Đo lường tăng trưởng & khả năng lấy demographics — [2026-09-05]
 
 Ngoài `engagement_metrics` (views/likes/reactions/comments/shares theo TỪNG video, xem SETUP.md),
