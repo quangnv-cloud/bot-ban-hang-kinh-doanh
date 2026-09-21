@@ -825,6 +825,26 @@ rủi ro push notification lặp lại mỗi lần chạy trong lúc chưa đổ
 chạy thử thủ công 1 lần (resume đúng project WIP nói trên) để verify Lyria trả audio thật trước khi
 tin tưởng lịch tự động sinh BGM trở lại.
 
+**[2026-09-21, lần chạy thứ hai trong ngày — VẪN `limit: 0`, lần kiểm tra thứ 5 liên tiếp, đây là
+lần ĐẦU TIÊN gửi push notification cho đúng sự cố này]**: đúng quy trình đã thiết lập, gọi tiền kiểm
+tra `POST generativelanguage.googleapis.com/v1beta/models/lyria-3.5:generateContent` (payload tối
+thiểu) TRƯỚC khi chọn tin/claim style/gọi ElevenLabs — kết quả **y hệt 4 lần trước**: `429
+RESOURCE_EXHAUSTED`, `generate_content_free_tier_requests`/`..._input_token_count`, `limit: 0`,
+`model: lyria-3-pro`, `retryDelay: 14s` (không phải rate-limit tạm thời — đã lặp lại y hệt qua nhiều
+ngày, đúng bản chất "entitlement = 0" đã kết luận ở 2026-09-18). **Quyết định (giữ nguyên tinh thần
+2026-09-18/09-20/09-21 lần 1)**: DỪNG LẠI NGAY ở bước tiền kiểm tra, KHÔNG chọn tin mới, KHÔNG đánh
+dấu `used`, KHÔNG `claim_style` (vòng xoay vẫn giữ nguyên ở index 8, style kế tiếp vẫn là
+9-editorial-clipping khi chạy được), KHÔNG gọi ElevenLabs. Project WIP
+`videos/gia-xang-dau-diesel-gan-30000-dong-lit` vẫn là project cần resume trước tiên khi Lyria hoạt
+động trở lại — không tạo project mới, không claim style mới.
+**Khác biệt so với các lần trước**: rà lại toàn bộ log ở mục này (2026-09-17 → 2026-09-21) không
+thấy dòng nào ghi nhận đã gửi `PushNotification` cho riêng sự cố Lyria (khác hẳn sự cố CDN ảnh
+2026-09-01→04, nơi mỗi lần gửi/không gửi đều được ghi rõ) — nghĩa là người vận hành có thể chưa từng
+được báo trực tiếp về việc lịch tự động đã đứng yên hoàn toàn 5 ngày liên tục. Đã gửi 1
+`PushNotification` ở lần chạy này để đảm bảo người vận hành biết. **Việc cần làm không đổi** so với
+mục ngay trên — (1) bật gói trả phí Lyria hoặc đổi `GEMINI_API_KEY`, (2) cân nhắc tắt lịch tự động
+tạm thời, (3) chạy thử thủ công sau khi xử lý xong, resume đúng project WIP nói trên.
+
 ## 12. Đo lường tăng trưởng & khả năng lấy demographics — [2026-09-05]
 
 Ngoài `engagement_metrics` (views/likes/reactions/comments/shares theo TỪNG video, xem SETUP.md),
