@@ -845,6 +845,28 @@ thấy dòng nào ghi nhận đã gửi `PushNotification` cho riêng sự cố 
 mục ngay trên — (1) bật gói trả phí Lyria hoặc đổi `GEMINI_API_KEY`, (2) cân nhắc tắt lịch tự động
 tạm thời, (3) chạy thử thủ công sau khi xử lý xong, resume đúng project WIP nói trên.
 
+**[2026-09-21, lần chạy thứ ba trong ngày — VẪN `limit: 0`, lần kiểm tra thứ 6 liên tiếp]**: đúng quy
+trình đã thiết lập, gọi tiền kiểm tra `POST
+generativelanguage.googleapis.com/v1beta/models/lyria-3.5:generateContent` (payload tối thiểu) TRƯỚC
+khi chọn tin/claim style/gọi ElevenLabs — kết quả **y hệt 5 lần trước**: `429 RESOURCE_EXHAUSTED`,
+`generate_content_free_tier_requests`/`..._input_token_count`, `limit: 0`, `model: lyria-3-pro`. Đầu
+phiên cũng phát hiện lại `HEAD detached` tại đúng commit `origin/master` đang trỏ tới (`1200114`,
+không có commit mồ côi mới) — đã sửa bằng `git checkout master && git merge --ff-only origin/master`
+trước khi ghi mục này (lần thứ ba hiện tượng này xảy ra ở đầu phiên, xác nhận thêm giả thuyết "đặc
+điểm cách sandbox clone/checkout repo ở đầu phiên", không phải lỗi thao tác của routine trước). **Quyết
+định (giữ nguyên tinh thần 2026-09-18/09-20/09-21 lần 1-2)**: DỪNG LẠI NGAY ở bước tiền kiểm tra,
+KHÔNG chọn tin mới, KHÔNG đánh dấu `used`, KHÔNG `claim_style` (vòng xoay vẫn giữ nguyên ở index 8,
+style kế tiếp vẫn là 9-editorial-clipping khi chạy được), KHÔNG gọi ElevenLabs. Project WIP
+`videos/gia-xang-dau-diesel-gan-30000-dong-lit` vẫn là project cần resume trước tiên khi Lyria hoạt
+động trở lại — không tạo project mới, không claim style mới. **KHÔNG gửi thêm `PushNotification` lần
+này** — một notification đã gửi rất gần đây trong ngày (lần chạy thứ hai) cho đúng vấn đề chưa đổi
+trạng thái; gửi lại ngay là dư thừa, đúng tiền lệ đã áp dụng cho sự cố CDN ảnh ở mục "2026-09-02, lần
+chạy kế tiếp". **Việc cần làm không đổi** so với các mục ngay trên — (1) bật gói trả phí Lyria hoặc
+đổi `GEMINI_API_KEY`, (2) cân nhắc tắt lịch tự động tạm thời (đã đứng yên 5 ngày, 6 lần kiểm tra liên
+tiếp cùng kết quả — chi phí cơ hội của việc để lịch tiếp tục chạy trong lúc chờ xử lý ngày càng thấp
+so với chi phí vận hành mỗi lần dừng), (3) chạy thử thủ công sau khi xử lý xong, resume đúng project
+WIP nói trên.
+
 ## 12. Đo lường tăng trưởng & khả năng lấy demographics — [2026-09-05]
 
 Ngoài `engagement_metrics` (views/likes/reactions/comments/shares theo TỪNG video, xem SETUP.md),
