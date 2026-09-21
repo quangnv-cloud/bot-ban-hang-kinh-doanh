@@ -1,5 +1,11 @@
 # Quy trình sản xuất video — BOT BÁN HÀNG · KINH DOANH
 
+**[Đọc trước 2026-09-21]** `videos/VIDEO-PRODUCTION-STANDARD.md` — chuẩn kỹ thuật xuất bản, kỹ
+thuật hình ảnh nâng cao (depth bg, glow, caption karaoke, smash-cut), checklist QC đo được, và
+rubric chấm điểm 100 điểm quốc tế dùng chung cho MỌI kênh. File đó là tài liệu đào tạo + tham chiếu
+chi tiết; 2 file `BRAND-SYSTEM-BOT-BAN-HANG.md`/`PRODUCTION-WORKFLOW-BOT-BAN-HANG.md` này vẫn là
+nguồn chuẩn cho phần brand/quy trình riêng của kênh.
+
 Runbook thao tác, dùng chung cho MỌI video tin tức kinh doanh dựng cho kênh này. File này mô tả
 **quy trình** (làm gì, theo thứ tự nào, lệnh gì, verify thế nào). Toàn bộ quy tắc **brand/style**
 (màu, font, cấu trúc act, quy định chữ, bài học kỹ thuật GSAP/CSS...) nằm ở
