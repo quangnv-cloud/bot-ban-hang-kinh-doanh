@@ -867,6 +867,28 @@ tiếp cùng kết quả — chi phí cơ hội của việc để lịch tiếp
 so với chi phí vận hành mỗi lần dừng), (3) chạy thử thủ công sau khi xử lý xong, resume đúng project
 WIP nói trên.
 
+**[2026-09-22 — lần chạy đầu tiên của ngày mới, VẪN `limit: 0`, lần kiểm tra thứ 7 liên tiếp, đã 6
+ngày liên tục không có tiến triển]**: đúng quy trình đã thiết lập, gọi tiền kiểm tra `POST
+generativelanguage.googleapis.com/v1beta/models/lyria-3.5:generateContent` (payload tối thiểu) TRƯỚC
+khi chọn tin/claim style/gọi ElevenLabs — kết quả **y hệt 6 lần trước**: `429 RESOURCE_EXHAUSTED`,
+`generate_content_free_tier_requests`/`..._input_token_count`, `limit: 0`, `model: lyria-3-pro`,
+`retryDelay: 59s`. Đầu phiên cũng phát hiện lại `HEAD detached` tại đúng commit `origin/master`
+đang trỏ tới (`50b90cb`, không có commit mồ côi mới) — đã sửa bằng `git checkout master && git
+merge --ff-only origin/master` trước khi ghi mục này (lần thứ tư hiện tượng này xảy ra ở đầu phiên,
+tiếp tục xác nhận giả thuyết "đặc điểm cách sandbox clone/checkout repo ở đầu phiên"). **Quyết định
+(giữ nguyên tinh thần 2026-09-18 → 09-21)**: DỪNG LẠI NGAY ở bước tiền kiểm tra, KHÔNG chọn tin mới,
+KHÔNG đánh dấu `used`, KHÔNG `claim_style` (vòng xoay vẫn giữ nguyên ở index 8, style kế tiếp vẫn là
+9-editorial-clipping khi chạy được), KHÔNG gọi ElevenLabs. Project WIP
+`videos/gia-xang-dau-diesel-gan-30000-dong-lit` vẫn là project cần resume trước tiên khi Lyria hoạt
+động trở lại — không tạo project mới, không claim style mới. **Đã gửi `PushNotification` lần này** —
+đây là lần chạy đầu tiên của một ngày mới (lần thông báo gần nhất là chiều/tối 2026-09-21), đúng
+tiền lệ "ngày mới → thông báo lại" đã áp dụng cho sự cố CDN ảnh ở mục "2026-09-02, lần chạy tiếp
+theo (ngày mới)", vì blocker đã kéo dài sang ngày thứ 6 mà chưa có dấu hiệu người vận hành đã xử lý.
+**Việc cần làm không đổi** so với các mục ngay trên — (1) bật gói trả phí Lyria trên project đứng
+sau `GEMINI_API_KEY` hoặc đổi sang key khác có quota Lyria > 0, (2) cân nhắc tắt lịch tự động tạm
+thời (đã đứng yên 6 ngày, 7 lần kiểm tra liên tiếp cùng kết quả), (3) chạy thử thủ công sau khi xử
+lý xong, resume đúng project WIP nói trên.
+
 ## 12. Đo lường tăng trưởng & khả năng lấy demographics — [2026-09-05]
 
 Ngoài `engagement_metrics` (views/likes/reactions/comments/shares theo TỪNG video, xem SETUP.md),
