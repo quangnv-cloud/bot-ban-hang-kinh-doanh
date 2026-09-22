@@ -889,6 +889,29 @@ sau `GEMINI_API_KEY` hoặc đổi sang key khác có quota Lyria > 0, (2) cân 
 thời (đã đứng yên 6 ngày, 7 lần kiểm tra liên tiếp cùng kết quả), (3) chạy thử thủ công sau khi xử
 lý xong, resume đúng project WIP nói trên.
 
+**[2026-09-22, lần chạy thứ hai trong ngày — VẪN `limit: 0`, lần kiểm tra thứ 8 liên tiếp, đã 6
+ngày liên tục không có tiến triển]**: đúng quy trình đã thiết lập, gọi tiền kiểm tra `POST
+generativelanguage.googleapis.com/v1beta/models/lyria-3.5:generateContent` (payload tối thiểu) TRƯỚC
+khi chọn tin/claim style/gọi ElevenLabs — kết quả **y hệt 7 lần trước**: `429 RESOURCE_EXHAUSTED`,
+`generate_content_free_tier_requests`/`..._input_token_count`, `limit: 0`, `model: lyria-3-pro`,
+`retryDelay: 41s`. Đầu phiên phát hiện `HEAD detached` tại commit `0e6f23f` (docs-only, reconfirm lần
+7) — commit đó đã có trên `origin/master` nhưng nhánh `master` local đang trỏ tới bản cũ hơn
+(`769521a`); đã sửa bằng `git checkout master && git fetch origin master && git merge --ff-only
+0e6f23f` (fast-forward sạch, không có commit mồ côi mới — khác các lần trước, lần này xác nhận rõ
+nguyên nhân là nhánh local chưa fetch/track kịp `origin/master` ở đầu phiên, không phải mất commit).
+**Quyết định (giữ nguyên tinh thần 2026-09-18 → 09-22 lần 1)**: DỪNG LẠI NGAY ở bước tiền kiểm tra,
+KHÔNG chọn tin mới, KHÔNG đánh dấu `used`, KHÔNG `claim_style` (vòng xoay vẫn giữ nguyên ở index 8,
+style kế tiếp vẫn là 9-editorial-clipping khi chạy được), KHÔNG gọi ElevenLabs. Project WIP
+`videos/gia-xang-dau-diesel-gan-30000-dong-lit` vẫn là project cần resume trước tiên khi Lyria hoạt
+động trở lại — không tạo project mới, không claim style mới. **KHÔNG gửi thêm `PushNotification` lần
+này** — một notification đã gửi rất gần đây trong ngày (lần chạy đầu tiên, 2026-09-22) cho đúng vấn
+đề chưa đổi trạng thái; gửi lại ngay là dư thừa, đúng tiền lệ áp dụng cho chính sự cố này ở mục
+"2026-09-21, lần chạy thứ ba trong ngày". **Việc cần làm không đổi** so với các mục ngay trên — (1)
+bật gói trả phí Lyria trên project đứng sau `GEMINI_API_KEY` hoặc đổi sang key khác có quota Lyria >
+0, (2) cân nhắc tắt lịch tự động tạm thời (đã đứng yên 6 ngày, 8 lần kiểm tra liên tiếp cùng kết
+quả — chi phí cơ hội của việc để lịch tiếp tục chạy trong lúc chờ xử lý ngày càng thấp so với chi phí
+vận hành mỗi lần dừng), (3) chạy thử thủ công sau khi xử lý xong, resume đúng project WIP nói trên.
+
 ## 12. Đo lường tăng trưởng & khả năng lấy demographics — [2026-09-05]
 
 Ngoài `engagement_metrics` (views/likes/reactions/comments/shares theo TỪNG video, xem SETUP.md),
