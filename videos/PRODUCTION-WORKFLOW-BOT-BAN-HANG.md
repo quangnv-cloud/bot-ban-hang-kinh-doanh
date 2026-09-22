@@ -140,6 +140,32 @@ Xem chi tiết đầy đủ (voice_id, lý do bắt buộc `eleven_v3`, cách ve
    chắn không có giọng hát lọt vào — nếu track vẫn dính vocal dù đã có negative-prompt, sinh lại
    với `--prompt`/`--negative-prompt` mạnh tay hơn, không chấp nhận và không tự ý cắt/che đoạn có
    giọng hát.
+
+   **[Bắt buộc — 2026-09-22] Fallback sang ElevenLabs Music khi Lyria lỗi/hết quota**: nếu
+   `lyria-recipe.py` trả lỗi (bất kỳ mã lỗi nào — `429 RESOURCE_EXHAUSTED`/quota=0, 5xx, timeout...)
+   dù đã thử đủ 3 model (`lyria-3.5`, `lyria-3-pro-preview`, `lyria-3-pro`), **KHÔNG dừng routine
+   ngay** — chuyển sang gọi ElevenLabs Music (cùng domain/key TTS đang dùng, không cần cấu hình
+   thêm) làm nguồn BGM thay thế:
+   ```bash
+   curl -sS -X POST https://api.elevenlabs.io/v1/music \
+     -H "xi-api-key: $ELEVENLABS_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "prompt": "modern business news underscore, digital, fast-paced, minimal, professional, instrumental only, no vocals, no lyrics, no singing, no choir, no rap",
+       "music_length_ms": <TOTAL_DUR_ms + đệm>,
+       "force_instrumental": true,
+       "model_id": "music_v2_5",
+       "output_format": "mp3_44100_128"
+     }' \
+     -o assets/bgm/track-raw.mp3 -w 'HTTP:%{http_code}\n'
+   ```
+   `force_instrumental: true` đảm bảo không lời chắc chắn hơn negative-prompt (không cần bước nghe
+   thử kiểm tra vocal như với Lyria, nhưng vẫn nên liếc qua). Retrim/fade-out bằng đúng lệnh ffmpeg
+   ở trên. Nếu ElevenLabs Music CŨNG lỗi thì mới áp dụng quy tắc cũ: dừng routine, không giao video
+   thiếu nhạc, ghi rõ lý do. **Bắt buộc ghi rõ trong tóm tắt cuối + `style-rotation-state.json`
+   nguồn BGM thực tế đã dùng (Lyria hay ElevenLabs Music fallback)** — dùng để theo dõi tần suất rơi
+   vào fallback (ElevenLabs Music tính phí riêng theo phút, ~$0,15/phút, khác cơ chế token của
+   Lyria) và để không phải đoán lại nguyên nhân nếu Lyria phục hồi.
 2. SFX: đặt cue tại các điểm pop-in text/card quan trọng và điểm chuyển cảnh chính (không phải
    MỌI lần chuyển cảnh) — xem palette SFX (click/pop/impact-bass/whoosh/chime) trong dự án hiện
    có làm tham chiếu tỉ lệ mật độ.
@@ -911,6 +937,19 @@ bật gói trả phí Lyria trên project đứng sau `GEMINI_API_KEY` hoặc đ
 0, (2) cân nhắc tắt lịch tự động tạm thời (đã đứng yên 6 ngày, 8 lần kiểm tra liên tiếp cùng kết
 quả — chi phí cơ hội của việc để lịch tiếp tục chạy trong lúc chờ xử lý ngày càng thấp so với chi phí
 vận hành mỗi lần dừng), (3) chạy thử thủ công sau khi xử lý xong, resume đúng project WIP nói trên.
+
+**[RESOLVED — 2026-09-22, sau lần kiểm tra thứ 8] Đã thêm fallback tự động sang ElevenLabs Music,
+không còn phải chờ người vận hành bật billing Lyria mới chạy tiếp được.** Test thật bằng 1 routine
+chẩn đoán riêng (không đụng pipeline sản xuất): `POST https://api.elevenlabs.io/v1/music` với
+`ELEVENLABS_API_KEY` hiện có (cùng key TTS đang dùng, không cần cấu hình gì thêm) trả về **HTTP 200,
+MP3 hợp lệ 20.04s** ngay lần gọi đầu — xác nhận 2 lần độc lập, người dùng đã nghe mẫu và duyệt chất
+lượng/tông điệu phù hợp brand. Logic fallback (Lyria trước → lỗi/quota=0 3 lần → ElevenLabs Music
+`force_instrumental:true`, `model_id:music_v2_5` → chỉ dừng routine nếu CẢ HAI đều lỗi) đã thêm vào
+mục "4. Nhạc nền & SFX" ở trên VÀ vào cả 3 prompt trigger sản xuất (BGM ở kênh này được mô tả trực
+tiếp trong prompt, không chỉ tham chiếu file) — xem chi tiết lệnh `curl` ở mục 4. Không cần đổi
+Script Property hay domain allowlist nào (cùng domain/key TTS đã dùng). Từ lần chạy routine kế tiếp,
+khi Lyria còn quota=0 sẽ tự rơi xuống fallback thay vì dừng lại — theo dõi cột nguồn BGM trong tóm
+tắt cuối mỗi routine để biết còn đang dùng fallback hay Lyria đã hồi phục.
 
 ## 12. Đo lường tăng trưởng & khả năng lấy demographics — [2026-09-05]
 
