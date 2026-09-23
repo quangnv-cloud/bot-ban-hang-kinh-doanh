@@ -94,6 +94,29 @@ Xem chi tiết đầy đủ (voice_id, lý do bắt buộc `eleven_v3`, cách ve
    thấy một địa danh/cụm từ bị đọc rời từng chữ cái hoặc sai hẳn, sửa lại dòng đó trong `SCRIPT.md`
    thành dạng viết đầy đủ rồi sinh lại file voice đó — đừng giao video có voice đọc sai.
 
+**[BLOCKER — 2026-09-23] Hết quota ElevenLabs TTS trong kỳ (character_limit), khác hẳn sự cố Lyria
+trước đây (đó là Gemini/BGM, đây là chính giọng đọc — không có fallback nào thay thế được)**: routine
+đã chọn tin ("ADB nâng dự báo GDP Việt Nam lên 7,8%", VnExpress/Znews, 23/9/2026), đánh dấu `used`,
+`claim_style` thành công (index 1, style `2-chip-and-leaderboard`), viết xong `BRIEF.md`/`SCRIPT.md`,
+tải xong ảnh Hook — nhưng gọi `POST /v1/text-to-speech/RCmOaM1iiIH5xX3QXjIF` cho dòng 1 (ngắn nhất,
+~76 ký tự) trả về **HTTP 401** với body
+`{"detail":{"type":"invalid_request","code":"quota_exceeded","message":"This request exceeds your
+quota of 121029. You have 38 credits remaining, while 76 credits are required for this
+request.","status":"quota_exceeded"}}`. Verify qua `GET /v1/user`: gói `creator`,
+`character_count: 120991` / `character_limit: 121029` (chỉ còn 38 ký tự trong kỳ), `billing_period:
+monthly_period`, `next_character_count_reset_unix: 1791598262` (≈ **2026-10-10**, hơn 2 tuần nữa mới
+reset tự nhiên). Đây là quota **theo tháng của chính giọng "Khánh Lâm"** dùng cho MỌI video của
+kênh (không phải quota riêng theo API call) — không có model/giọng dự phòng nào được duyệt trong
+brand system, khác hẳn nhạc nền (đã có fallback ElevenLabs Music khi Lyria hết quota). **Quyết định**:
+DỪNG LẠI NGAY ở bước 2 (sinh giọng đọc), không gọi thêm ElevenLabs, không thử đổi voice/model khác
+để né quota (vi phạm brand "giọng chuẩn kênh"), không render video thiếu voice, không thực hiện bước
+5 trở đi. Giữ lại `BRIEF.md`/`SCRIPT.md`/ảnh Hook/style đã claim làm checkpoint để lần chạy sau resume
+ngay khi quota hồi phục — không chọn tin mới, không claim style mới cho tới khi video này xong.
+**Việc cần làm** (chờ người dùng): (1) nâng gói ElevenLabs (mua thêm credit / upgrade tier) để có
+quota ngay, hoặc (2) chấp nhận lịch tự động đứng yên tới khi quota reset tự nhiên ngày 2026-10-10,
+(3) sau khi quota hồi phục, resume đúng project `videos/adb-nang-gdp-viet-nam-78-phan-tram` (BRIEF/
+SCRIPT/ảnh/style đã có sẵn) trước khi chọn tin mới.
+
 ## 3. Dựng composition
 
 1. Khởi tạo project qua `/hyperframes` (không copy state cũ — xem mục 0).
