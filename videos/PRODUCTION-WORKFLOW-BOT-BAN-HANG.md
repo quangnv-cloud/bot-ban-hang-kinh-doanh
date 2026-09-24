@@ -150,6 +150,18 @@ tiếp tục chạy nhiều lần/ngày mà không có hành động từ ngư�
 cân nhắc giãn tần suất reconfirm (ví dụ chỉ ghi log, không cần thao tác git fetch/merge đầy đủ mỗi
 lần) để giảm chi phí vận hành, theo đúng tinh thần đã áp dụng cho sự cố Lyria kéo dài nhiều ngày.
 
+**[2026-09-24 — lần kiểm tra thứ 4 liên tiếp, VẪN quota_exceeded, chưa đổi]**: đầu phiên lại gặp
+`HEAD detached` (tại đúng commit `eb1b703`, bản reconfirm lần 3 — đã có sẵn trên `origin/master`,
+chỉ cần `git fetch origin master && git checkout master && git merge --ff-only origin/master` để
+fast-forward sạch, không mất commit nào). `GET /v1/user` → `character_count: 121029` /
+`character_limit: 121029` (0 ký tự còn lại, tệ hơn lần trước 38 ký tự — quota trong kỳ đã dùng hết
+hoàn toàn), `next_character_count_reset_unix` không đổi (≈ 2026-10-10). Không có dấu hiệu nâng gói.
+Dừng ngay ở bước tiền kiểm tra: KHÔNG chọn tin mới, KHÔNG `claim_style`, KHÔNG gọi ElevenLabs TTS.
+Checkpoint `videos/adb-nang-gdp-viet-nam-78-phan-tram` vẫn là project cần resume trước. **KHÔNG gửi
+`PushNotification`** — cùng lý do đã nêu ở lần 2/3, tình trạng chưa đổi về bản chất (vẫn hết quota,
+vẫn cùng ngày reset). Việc-cần-làm (1)-(3) ở mục [BLOCKER — 2026-09-23] phía trên vẫn nguyên giá
+trị.
+
 ## 3. Dựng composition
 
 1. Khởi tạo project qua `/hyperframes` (không copy state cũ — xem mục 0).
