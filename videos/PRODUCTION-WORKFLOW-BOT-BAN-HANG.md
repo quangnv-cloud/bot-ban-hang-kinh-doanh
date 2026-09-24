@@ -117,6 +117,19 @@ quota ngay, hoặc (2) chấp nhận lịch tự động đứng yên tới khi 
 (3) sau khi quota hồi phục, resume đúng project `videos/adb-nang-gdp-viet-nam-78-phan-tram` (BRIEF/
 SCRIPT/ảnh/style đã có sẵn) trước khi chọn tin mới.
 
+**[2026-09-24 — lần chạy tiếp theo, VẪN quota_exceeded, lần kiểm tra thứ 2 liên tiếp, chưa đổi từ
+hôm qua]**: đúng quy trình đã thiết lập, gọi `GET /v1/user` trước khi chọn tin mới — kết quả **y hệt
+hôm qua**: `character_count: 120991` / `character_limit: 121029` (vẫn còn đúng 38 ký tự), reset vẫn
+`next_character_count_reset_unix: 1791598262` (≈ 2026-10-10). Không có dấu hiệu người dùng đã nâng
+gói. Dừng lại ngay ở bước tiền kiểm tra như hôm qua: KHÔNG chọn tin mới, KHÔNG đánh dấu `used`, KHÔNG
+`claim_style` mới, KHÔNG gọi thêm ElevenLabs TTS. Checkpoint `videos/adb-nang-gdp-viet-nam-78-phan-tram`
+(BRIEF/SCRIPT/ảnh Hook/style `2-chip-and-leaderboard` đã claim) vẫn là project cần resume trước tiên
+khi quota hồi phục — không tạo project mới. **KHÔNG gửi thêm `PushNotification` lần này** — một
+notification đầy đủ chi tiết + việc-cần-làm đã có sẵn từ lần phát hiện đầu tiên hôm qua
+(2026-09-23), tình trạng chưa đổi nên gửi lại là dư thừa (đúng tiền lệ áp dụng cho sự cố Lyria quota=0
+kéo dài nhiều ngày ở mục "11. Tự động đăng mạng xã hội..." phía dưới). Việc-cần-làm (1)-(3) ở trên vẫn
+nguyên giá trị, chưa có gì mới để bổ sung ngoài xác nhận lần thứ 2.
+
 ## 3. Dựng composition
 
 1. Khởi tạo project qua `/hyperframes` (không copy state cũ — xem mục 0).
