@@ -130,6 +130,26 @@ notification đầy đủ chi tiết + việc-cần-làm đã có sẵn từ l�
 kéo dài nhiều ngày ở mục "11. Tự động đăng mạng xã hội..." phía dưới). Việc-cần-làm (1)-(3) ở trên vẫn
 nguyên giá trị, chưa có gì mới để bổ sung ngoài xác nhận lần thứ 2.
 
+**[2026-09-24 — lần chạy tiếp theo trong ngày, VẪN quota_exceeded, lần kiểm tra thứ 3 liên tiếp, chưa
+đổi]**: đầu phiên phát hiện lại `HEAD detached` (tại đúng commit `fa8c06d`, bản reconfirm lần 2 —
+commit đó đã có trên `origin/master` nhưng cần `git fetch origin master` mới thấy, local `master`
+trước đó trỏ tới `27bde39`); đã sửa bằng `git checkout master && git fetch origin master && git merge
+--ff-only origin/master` (fast-forward sạch, không có commit mồ côi, giống hệt cách xử lý ở lần
+kiểm tra thứ 7 của sự cố Lyria). Sau đó gọi `GET /v1/user` trước khi chọn tin mới theo đúng quy
+trình — kết quả **y hệt 2 lần trước**: `character_count: 120991` / `character_limit: 121029` (vẫn còn
+đúng 38 ký tự), `next_character_count_reset_unix: 1791598262` (≈ 2026-10-10). Không có dấu hiệu người
+dùng đã nâng gói. Dừng lại ngay ở bước tiền kiểm tra như 2 lần trước: KHÔNG chọn tin mới, KHÔNG đánh
+dấu `used`, KHÔNG `claim_style` mới, KHÔNG gọi thêm ElevenLabs TTS. Checkpoint
+`videos/adb-nang-gdp-viet-nam-78-phan-tram` (BRIEF/SCRIPT/ảnh Hook/style `2-chip-and-leaderboard` đã
+claim) vẫn là project cần resume trước tiên khi quota hồi phục — không tạo project mới. **KHÔNG gửi
+thêm `PushNotification` lần này** — cùng lý do đã nêu ở lần kiểm tra thứ 2: tình trạng chưa đổi so
+với notification đầy đủ đã gửi từ 2026-09-23, gửi lại là dư thừa. Việc-cần-làm (1)-(3) ở mục
+[BLOCKER — 2026-09-23] phía trên vẫn nguyên giá trị, chưa có gì mới để bổ sung ngoài xác nhận lần
+thứ 3. Quota còn **16 ngày nữa mới reset tự nhiên** (2026-09-24 → 2026-10-10) — nếu lịch tự động
+tiếp tục chạy nhiều lần/ngày mà không có hành động từ người vận hành, các lần kiểm tra tiếp theo nên
+cân nhắc giãn tần suất reconfirm (ví dụ chỉ ghi log, không cần thao tác git fetch/merge đầy đủ mỗi
+lần) để giảm chi phí vận hành, theo đúng tinh thần đã áp dụng cho sự cố Lyria kéo dài nhiều ngày.
+
 ## 3. Dựng composition
 
 1. Khởi tạo project qua `/hyperframes` (không copy state cũ — xem mục 0).
