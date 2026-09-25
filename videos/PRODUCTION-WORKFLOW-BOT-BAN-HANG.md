@@ -172,6 +172,15 @@ bước tiền kiểm tra, theo đúng ghi log thu gọn đã đề xuất ở l
 lần 4). Checkpoint `videos/adb-nang-gdp-viet-nam-78-phan-tram` vẫn là project cần resume trước.
 Việc-cần-làm (1)-(3) ở mục [BLOCKER — 2026-09-23] phía trên vẫn nguyên giá trị.
 
+**[2026-09-25 — lần kiểm tra thứ 6 liên tiếp, VẪN quota_exceeded, chưa đổi]**: `HEAD detached` gặp
+lại (tại `ef6864d`, bản reconfirm lần 5 — đã có sẵn trên `origin/master`), fast-forward sạch. `GET
+/v1/user` → `character_count: 121029` / `character_limit: 121029`, reset không đổi (≈ 2026-10-10,
+~15 ngày nữa). Không có dấu hiệu nâng gói. Dừng ngay ở bước tiền kiểm tra, ghi log thu gọn theo
+đúng tiền lệ: KHÔNG chọn tin mới, KHÔNG `claim_style`, KHÔNG gọi ElevenLabs TTS, KHÔNG gửi
+`PushNotification` (tình trạng chưa đổi so với lần 5). Checkpoint
+`videos/adb-nang-gdp-viet-nam-78-phan-tram` vẫn là project cần resume trước. Việc-cần-làm (1)-(3) ở
+mục [BLOCKER — 2026-09-23] phía trên vẫn nguyên giá trị.
+
 ## 3. Dựng composition
 
 1. Khởi tạo project qua `/hyperframes` (không copy state cũ — xem mục 0).
