@@ -181,6 +181,16 @@ lại (tại `ef6864d`, bản reconfirm lần 5 — đã có sẵn trên `origin
 `videos/adb-nang-gdp-viet-nam-78-phan-tram` vẫn là project cần resume trước. Việc-cần-làm (1)-(3) ở
 mục [BLOCKER — 2026-09-23] phía trên vẫn nguyên giá trị.
 
+**[2026-09-25 — lần kiểm tra thứ 7 liên tiếp, VẪN quota_exceeded, chưa đổi]**: `HEAD detached` gặp
+lại (tại `17787cc`, bản reconfirm lần 6 — đã có sẵn trên `origin/master`), fast-forward sạch bằng
+`git fetch origin master && git checkout master && git merge --ff-only origin/master`. `GET
+/v1/user` → `character_count: 121029` / `character_limit: 121029` (vẫn 0 ký tự còn lại), reset
+không đổi (`next_character_count_reset_unix: 1791598262`, ≈ 2026-10-10). Không có dấu hiệu nâng
+gói. Dừng ngay ở bước tiền kiểm tra, ghi log thu gọn theo đúng tiền lệ: KHÔNG chọn tin mới, KHÔNG
+`claim_style`, KHÔNG gọi ElevenLabs TTS, KHÔNG gửi `PushNotification` (tình trạng chưa đổi so với
+lần 6). Checkpoint `videos/adb-nang-gdp-viet-nam-78-phan-tram` vẫn là project cần resume trước.
+Việc-cần-làm (1)-(3) ở mục [BLOCKER — 2026-09-23] phía trên vẫn nguyên giá trị.
+
 ## 3. Dựng composition
 
 1. Khởi tạo project qua `/hyperframes` (không copy state cũ — xem mục 0).
