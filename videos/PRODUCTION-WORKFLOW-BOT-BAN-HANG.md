@@ -326,6 +326,29 @@ tra quota `character_count: 121029/121029` ở trên là LỊCH SỬ sự cố �
 vẫn giữ lại vì vẫn dùng cho STT karaoke caption + fallback nhạc nền, xem mục Audio trong
 `BRAND-SYSTEM-BOT-BAN-HANG.md`).
 
+**[BLOCKER — 2026-09-30] `VBEE_TOKEN` bị từ chối ngay ở request TTS đầu tiên, chặn hẳn việc resume
+checkpoint trên**: gọi đúng theo đặc tả (`POST https://vbee.vn/api/v1/tts`, header
+`Authorization: Bearer $VBEE_TOKEN`, body ghi ra file JSON UTF-8 trước bằng Write tool rồi
+`--data-binary @lineN.json`, đã verify nội dung UTF-8 đúng trước khi gửi) cho dòng 1 (script
+`videos/adb-nang-gdp-viet-nam-78-phan-tram/SCRIPT.md`) — nhận về thẳng từ Vbee (qua CloudFront,
+không phải lỗi proxy/egress cục bộ — response có header `x-amz-cf-id`/`via: cloudfront` bình
+thường) HTTP 401: `{"status":0,"error_code":401,"error_message":"Unauthorized"}`. Đã thử thêm 2
+biến thể header để loại trừ lỗi cú pháp — `Authorization: <token>` (không "Bearer ") và
+`Authorization: Token <token>` — cả hai đều trả 401/500 tương tự, cho thấy đây là token thật sự
+bị từ chối (hết hạn/sai/chưa kích hoạt cho gói hiện tại), không phải lỗi định dạng header.
+**Không** thử tìm/nhập credential khác, không đổi `voice_code` để né lỗi, không tự ý gọi endpoint
+khác để lấy token mới (đúng quy tắc "KHÔNG tự tìm/nhập credential khác" của mục Voiceover). Dừng
+lại ngay ở bước 2 (sinh giọng đọc) — chưa gọi thêm request Vbee nào khác, chưa đụng tới bước 3 trở
+đi. Checkpoint `videos/adb-nang-gdp-viet-nam-78-phan-tram` giữ nguyên (BRIEF/SCRIPT/ảnh Hook/style
+đã claim, cộng thêm `assets/voice/line{1..6}_text.json` — nội dung `input_text` từng dòng đã ghi
+sẵn ra file UTF-8 đúng chuẩn, KHÔNG chứa `app_id`/token nên an toàn để commit; lần chạy sau chỉ cần
+`jq --arg app_id "$VBEE_APP_ID" '. + {app_id: $app_id}' lineN_text.json > lineN.json` rồi gọi
+ngay, không cần soạn lại text). **Việc cần làm** (chờ người vận hành): kiểm tra/
+làm mới `VBEE_TOKEN` trong biến môi trường của cloud environment (token Vbee có thể là access
+token ngắn hạn cần refresh định kỳ qua tài khoản Vbee, khác hẳn `VBEE_APP_ID` cố định) — sau khi
+có token mới, lần chạy tiếp theo resume ngay tại bước 2 của project này, vẫn KHÔNG chọn tin mới/
+KHÔNG `claim_style` mới cho tới khi video này xong.
+
 ## 3. Dựng composition
 
 1. Khởi tạo project qua `/hyperframes` (không copy state cũ — xem mục 0).

@@ -1,7 +1,8 @@
 # SCRIPT — adb-nang-gdp-viet-nam-78-phan-tram
 
-**Voice:** ElevenLabs, giọng "Khánh Lâm - tin tức, thời sự" (`voice_id: RCmOaM1iiIH5xX3QXjIF`, model
-`eleven_v3` — **không dùng `eleven_multilingual_v2`**, model đó không hỗ trợ tiếng Việt).
+**Voice:** Vbee TTS, giọng "Ngọc Huyền nâng cao (Beta)" (`voice_code: hn_female_ngochuyen_full_24k-stl`),
+`speed_rate: 1.09` — đổi từ ElevenLabs "Khánh Lâm" ngày 2026-09-30 (xem BRAND-SYSTEM-BOT-BAN-HANG.md
+mục Voiceover).
 **Voice direction:** Digital Business News — tự nhiên, rõ, nhanh vừa phải, có năng lượng, đáng tin.
 **Ngôn ngữ:** Tiếng Việt. Không viết tắt — mọi dòng dưới đây viết đầy đủ đúng cách đọc thành tiếng,
 số liệu viết bằng chữ theo cách người Việt đọc.
