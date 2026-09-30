@@ -124,24 +124,41 @@ Sound design: news hit khi headline xuất hiện, data pop khi số liệu xu�
 cảnh, brand sting ở end card. Voiceover: tiếng Việt, tự nhiên, rõ, nhanh vừa, có năng lượng, không
 quá MC truyền hình/quảng cáo.
 
-**Voiceover — giọng chuẩn kênh (từ 2026-08-25):** ElevenLabs, giọng **"Khánh Lâm - tin tức, thời
-sự"** (`voice_id: RCmOaM1iiIH5xX3QXjIF`) — người dùng đã nâng cấp gói ElevenLabs trả phí để dùng
-giọng này.
+**Voiceover — giọng chuẩn kênh (từ 2026-09-30, đổi từ ElevenLabs sang Vbee):** **Vbee TTS**,
+giọng **"Ngọc Huyền nâng cao (Beta)"** (`voice_code: hn_female_ngochuyen_full_24k-stl`,
+credit_factor 2) — đổi khỏi ElevenLabs sau khi giọng "Khánh Lâm" hết quota ký tự theo tháng nhiều
+lần liên tiếp (chặn routine hoàn toàn từ 2026-09-23), ElevenLabs không có fallback giọng nào được
+duyệt cho TTS chính (khác nhạc nền, đã có fallback ElevenLabs Music). Vbee dùng gói/quota riêng,
+tách biệt hoàn toàn khỏi ElevenLabs.
 
-**[QUAN TRỌNG — BẮT BUỘC dùng `model_id: eleven_v3`, KHÔNG dùng `eleven_multilingual_v2`]**:
-lần dựng đầu tiên dùng `eleven_multilingual_v2` cho ra giọng đọc sai hẳn — nghe như tiếng nước
-khác (không phải tiếng Việt), dù văn bản đầu vào và `voice_id` đều đúng. Nguyên nhân xác nhận qua
-API `GET /v1/models`: `eleven_multilingual_v2` KHÔNG có tiếng Việt (`vi`) trong danh sách ngôn ngữ
-hỗ trợ (dù tên gọi là "Multilingual"), chỉ hỗ trợ 29 ngôn ngữ không gồm tiếng Việt. `eleven_v3` hỗ
-trợ 74 ngôn ngữ và CÓ tiếng Việt. Luôn kiểm tra `GET /v1/models` trước khi chọn `model_id` cho một
-ngôn ngữ mới, đừng suy đoán từ tên model. Trước khi giao video có giọng đọc mới/ngôn ngữ mới, luôn
-verify bằng cách phiên âm ngược (`whisper`/Parakeet, `language` ép đúng ngôn ngữ) rồi so với văn
-bản gốc — sai lệch kiểu nhầm âm gần giống (vd. "lấn"→"lớn") là bình thường (do model ASR yếu với
-tiếng Việt), nhưng câu hoàn toàn không khớp cấu trúc/nghĩa là dấu hiệu giọng đọc sai ngôn ngữ.
+**[QUAN TRỌNG — BẮT BUỘC ghi `input_text` ra file JSON UTF-8 rồi mới gọi API, TUYỆT ĐỐI KHÔNG gõ
+thẳng text tiếng Việt vào tham số dòng lệnh kiểu `curl -d "..."`]**: qua Git Bash trên Windows, ký
+tự có dấu bị lệch encoding UTF-8 trước khi gửi đi nếu gõ thẳng vào `-d`. Hậu quả: API vẫn trả
+`status:1`/HTTP 200 hoàn toàn bình thường, nhưng giọng đọc ra là âm thanh sai/vô nghĩa hoàn toàn —
+KHÔNG có lỗi rõ ràng nào để phát hiện, phải tự nghe hoặc transcribe lại mới phát hiện ra. Luôn dùng
+Write tool (hoặc `cat > lineN.json <<'EOF' ... EOF`) ghi payload ra 1 file trước, rồi gọi bằng
+`--data-binary @lineN.json`.
+
+Endpoint: `POST https://vbee.vn/api/v1/tts` (API **legacy** — bản mới `api.vbee.vn/v1/tts` báo lỗi
+`"This feature is not supported in user package"` với gói hiện tại, luôn dùng bản legacy này), header
+`Authorization: Bearer $VBEE_TOKEN`, body mỗi dòng:
+`{"app_id":"$VBEE_APP_ID","input_text":"<dòng script N>","voice_code":"hn_female_ngochuyen_full_24k-stl","audio_type":"mp3","bitrate":128,"speed_rate":1.09,"response_type":"direct"}`.
+`$VBEE_APP_ID`/`$VBEE_TOKEN` lấy từ biến môi trường (KHÔNG tự tìm/nhập credential khác). Phản hồi
+mất khoảng **15-25 giây** — LUÔN dùng `--max-time 90` trở lên, KHÔNG coi timeout ngắn là lỗi thật
+rồi gọi lại nhiều lần. Thành công trả
+`{"status":1,"result":{"audio_link":"https://vbee.vn/s/...",...}}`. Ảnh hưởng: `audio_link` **CHỈ
+CÓ HIỆU LỰC ~3 PHÚT** — tải file NGAY sau khi nhận response: `curl -sL -o lineN.mp3 "<audio_link>"`
+(nhớ `-L` để theo redirect). `status:0` → đọc `error_message`/`details` trong response, DỪNG và báo
+rõ, KHÔNG thử đổi voice_code khác để né lỗi.
+
+Trước khi giao video có giọng đọc mới, luôn verify bằng cách phiên âm ngược (`whisper`, `language`
+ép `Vietnamese`) rồi so với văn bản gốc — sai lệch kiểu nhầm âm gần giống (vd. "lấn"→"lớn", hay
+"giọng đọc"→"dọng độc") là bình thường (do ASR yếu với tiếng Việt), nhưng câu hoàn toàn không khớp
+cấu trúc/nghĩa là dấu hiệu file bị lỗi encoding (xem cảnh báo phía trên) — không phải giọng đọc sai.
 
 **[QUAN TRỌNG — KHÔNG viết tắt trong `SCRIPT.md` / lời voice — 2026-09-07]**: mỗi dòng trong
 `SCRIPT.md` phải viết **đầy đủ đúng như cách đọc thành tiếng**, không dùng chữ viết tắt / ký hiệu
-mà TTS sẽ đọc sai. Đã gặp thực tế: "Tp.HCM" khiến ElevenLabs đọc sai (đánh vần / đọc lắp), phải
+mà TTS sẽ đọc sai. Đã gặp thực tế: "Tp.HCM" khiến TTS đọc sai (đánh vần / đọc lắp), phải
 viết "**Thành phố Hồ Chí Minh**". Quy đổi bắt buộc khi soạn `SCRIPT.md`:
 - `Tp.` / `TP.` / `TP.HCM` / `TPHCM` → `Thành phố` / `Thành phố Hồ Chí Minh`
 - `Q.1`, `P.Bến Nghé` → `Quận 1`, `phường Bến Nghé`; `TW` → `Trung ương`
@@ -150,7 +167,7 @@ viết "**Thành phố Hồ Chí Minh**". Quy đổi bắt buộc khi soạn `SC
   `CTCP` → `Công ty Cổ phần`; `NHNN` → `Ngân hàng Nhà nước`
 - Đơn vị: `km` → `ki-lô-mét`, `m2` / `m²` → `mét vuông`, `ha` → `héc-ta`,
   `USD` → `đô la Mỹ` (trừ khi cả câu đang là tên chỉ số / thuật ngữ tài chính đọc nguyên như
-  "chỉ số Đô la"), `%` giữ nguyên (ElevenLabs đọc "phần trăm" đúng)
+  "chỉ số Đô la"), `%` giữ nguyên (TTS thường đọc "phần trăm" đúng — kiểm tra khi nghe thử)
 - Số lớn viết bằng chữ theo cách người Việt đọc: `1.827,72 điểm` đọc được, nhưng
   `408.000 tỷ` nên là `408 nghìn tỷ` cho chắc.
 - Tên riêng / mã đọc nguyên bằng chữ cái được thì GIỮ (`VN-Index`, `CPI`, `HNX`, `VIC`) — chỉ ép
@@ -162,10 +179,9 @@ verify transcript ở bước QC, soát riêng: các địa danh / cụm từ c�
 
 Tạo TỪNG DÒNG script riêng (một file mp3/dòng, khớp `data-start` của frame tương ứng), KHÔNG gộp
 cả kịch bản thành một lần gọi API — dễ chỉnh sửa/thay riêng từng dòng và dễ so khớp thời lượng với
-từng khung hình. `eleven_v3` đọc nhịp độ tự nhiên vừa đủ nên thường không cần chỉnh `speed`; nếu
-một dòng vẫn dài hơn khung hình quá ±0.5–1s, thử tăng `voice_settings.speed` (khoảng 1.05–1.15,
-giữ tự nhiên) trước khi cân nhắc đổi thời lượng khung hình — ưu tiên giữ đúng cấu trúc 8-act đã
-dựng. Sau khi có đủ các dòng, gắn từng `<audio>` với `data-audio-group="voiceover"`, rồi chạy
+từng khung hình. Mặc định `speed_rate: 1.09`; nếu một dòng vẫn dài hơn khung hình quá ±0.5–1s, thử
+tăng `speed_rate` (khoảng 1.0–1.2, giữ tự nhiên) trước khi cân nhắc đổi thời lượng khung hình — ưu
+tiên giữ đúng cấu trúc 8-act đã dựng. Sau khi có đủ các dòng, gắn từng `<audio>` với `data-audio-group="voiceover"`, rồi chạy
 `node <hyperframes-audio skill dir>/scripts/carve.mjs --comp index.html` để tự động duck nhạc nền
 dưới giọng đọc (ghi `data-fx-carve` lên track BGM, `sources` tự động trỏ về group "voiceover").
 
@@ -298,6 +314,10 @@ Khung ảnh/card chính mỗi act có glow nhẹ bằng màu brand cố định 
 ```
 
 ### 3. Caption karaoke đồng bộ giọng đọc (BẮT BUỘC cho mọi video từ giờ — kênh này trước đây chưa có)
+
+**Lưu ý (2026-09-30): bước STT này vẫn dùng ElevenLabs** (`ELEVENLABS_API_KEY` — KHÔNG xoá
+property này dù đã đổi TTS sang Vbee) — đây là quota Speech-to-Text riêng, tách biệt hoàn toàn với
+quota Text-to-Speech đã hết ở giọng đọc, nên KHÔNG bị ảnh hưởng bởi sự cố quota_exceeded ở trên.
 
 1. Sau khi có voice từng dòng (`line1.mp3`...), gọi ElevenLabs STT lấy timestamp từng TỪ:
    `POST https://api.elevenlabs.io/v1/speech-to-text` với `model_id=scribe_v1`,
