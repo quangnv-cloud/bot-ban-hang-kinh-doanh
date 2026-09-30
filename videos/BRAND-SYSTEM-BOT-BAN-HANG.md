@@ -329,6 +329,17 @@ quota Text-to-Speech đã hết ở giọng đọc, nên KHÔNG bị ảnh hư�
    từ đó được đọc (`duration` ~0.08-0.12s, ease đơn giản, không phức tạp).
 5. Vị trí: nằm trong safe-zone (xem mục "Chuẩn xuất bản video" — tránh ~11-17% đáy khung).
 6. Không giọng đọc ở đoạn nào = không caption đoạn đó, không tự chế phụ đề cho khoảng câm.
+7. **[2026-09-30] KHÔNG chạy caption karaoke trong act Hook** — Hook title-card đã tự hiển thị nội
+   dung dòng 1 dưới dạng headline/số liệu/dòng phụ lớn trên màn hình; caption chạy chữ đè lên trong
+   lúc đó chỉ tạo ra 1 cụm từ nổi cô lập, vô nghĩa khi đứng riêng (từng lọt vào cả ảnh thumbnail
+   nhìn như lỗi dựng). Mảng timestamp caption phải bỏ qua toàn bộ khoảng thời gian Hook (0 →
+   `data-duration` của frame Hook), chỉ bắt đầu từ đầu voice dòng 2 (act "What happened") trở đi.
+8. **[2026-09-30] Quota ElevenLabs Speech-to-Text KHÔNG tách biệt với quota Text-to-Speech** — cả
+   hai dùng CHUNG `character_count`/`character_limit` của gói `creator` (khác với giả định trước
+   đây rằng STT dùng quota riêng). Nếu `POST /v1/speech-to-text` trả `quota_exceeded`, kiểm tra
+   `GET /v1/user` (không có field tách riêng cho STT) — nếu hết, dùng phương án ước lượng timestamp
+   xác định (tỷ lệ độ dài âm tiết + phụ phí ngắt câu ở dấu phẩy/chấm, không mạng, không
+   `Math.random()`) thay cho STT thật, xem chi tiết ở `PRODUCTION-WORKFLOW-BOT-BAN-HANG.md` §2.
 
 ### 4. Smash-cut nội bộ cho act dài (>10s) — flash + scale-punch đúng lúc nội dung pivot thật
 

@@ -326,28 +326,42 @@ tra quota `character_count: 121029/121029` ở trên là LỊCH SỬ sự cố �
 vẫn giữ lại vì vẫn dùng cho STT karaoke caption + fallback nhạc nền, xem mục Audio trong
 `BRAND-SYSTEM-BOT-BAN-HANG.md`).
 
-**[BLOCKER — 2026-09-30] `VBEE_TOKEN` bị từ chối ngay ở request TTS đầu tiên, chặn hẳn việc resume
-checkpoint trên**: gọi đúng theo đặc tả (`POST https://vbee.vn/api/v1/tts`, header
-`Authorization: Bearer $VBEE_TOKEN`, body ghi ra file JSON UTF-8 trước bằng Write tool rồi
-`--data-binary @lineN.json`, đã verify nội dung UTF-8 đúng trước khi gửi) cho dòng 1 (script
-`videos/adb-nang-gdp-viet-nam-78-phan-tram/SCRIPT.md`) — nhận về thẳng từ Vbee (qua CloudFront,
-không phải lỗi proxy/egress cục bộ — response có header `x-amz-cf-id`/`via: cloudfront` bình
-thường) HTTP 401: `{"status":0,"error_code":401,"error_message":"Unauthorized"}`. Đã thử thêm 2
-biến thể header để loại trừ lỗi cú pháp — `Authorization: <token>` (không "Bearer ") và
-`Authorization: Token <token>` — cả hai đều trả 401/500 tương tự, cho thấy đây là token thật sự
-bị từ chối (hết hạn/sai/chưa kích hoạt cho gói hiện tại), không phải lỗi định dạng header.
-**Không** thử tìm/nhập credential khác, không đổi `voice_code` để né lỗi, không tự ý gọi endpoint
-khác để lấy token mới (đúng quy tắc "KHÔNG tự tìm/nhập credential khác" của mục Voiceover). Dừng
-lại ngay ở bước 2 (sinh giọng đọc) — chưa gọi thêm request Vbee nào khác, chưa đụng tới bước 3 trở
-đi. Checkpoint `videos/adb-nang-gdp-viet-nam-78-phan-tram` giữ nguyên (BRIEF/SCRIPT/ảnh Hook/style
-đã claim, cộng thêm `assets/voice/line{1..6}_text.json` — nội dung `input_text` từng dòng đã ghi
-sẵn ra file UTF-8 đúng chuẩn, KHÔNG chứa `app_id`/token nên an toàn để commit; lần chạy sau chỉ cần
-`jq --arg app_id "$VBEE_APP_ID" '. + {app_id: $app_id}' lineN_text.json > lineN.json` rồi gọi
-ngay, không cần soạn lại text). **Việc cần làm** (chờ người vận hành): kiểm tra/
-làm mới `VBEE_TOKEN` trong biến môi trường của cloud environment (token Vbee có thể là access
-token ngắn hạn cần refresh định kỳ qua tài khoản Vbee, khác hẳn `VBEE_APP_ID` cố định) — sau khi
-có token mới, lần chạy tiếp theo resume ngay tại bước 2 của project này, vẫn KHÔNG chọn tin mới/
-KHÔNG `claim_style` mới cho tới khi video này xong.
+**[BLOCKER — RESOLVED cùng ngày 2026-09-30] `VBEE_TOKEN` bị từ chối ngay ở request TTS đầu tiên**:
+gọi đúng theo đặc tả (`POST https://vbee.vn/api/v1/tts`, header `Authorization: Bearer $VBEE_TOKEN`,
+body ghi ra file JSON UTF-8 trước) cho dòng 1 — nhận HTTP 401 `{"status":0,"error_code":401,
+"error_message":"Unauthorized"}` (đã loại trừ lỗi header/cú pháp). Dừng lại đúng quy trình, không
+tự tìm token khác, báo người vận hành. **Người vận hành đã làm mới `VBEE_TOKEN`** trước lần chạy
+kế tiếp cùng ngày — verify lại thành công (HTTP 200, `status:1`) ngay từ dòng 1, resume trọn vẹn
+checkpoint `adb-nang-gdp-viet-nam-78-phan-tram` (voice 6 dòng, composition, BGM, render, verify,
+publish 5 kênh) — xem log đầy đủ ở mục 11.
+
+**[PHÁT HIỆN HẠ TẦNG MỚI — 2026-09-30] Quota ElevenLabs Speech-to-Text (STT) dùng cho caption
+karaoke KHÔNG tách biệt với quota Text-to-Speech như `BRAND-SYSTEM-BOT-BAN-HANG.md` mục "Caption
+karaoke" mô tả** — gọi `POST /v1/speech-to-text` (`model_id=scribe_v1`) khi dựng video
+`adb-nang-gdp-viet-nam-78-phan-tram` trả về HTTP 401 `quota_exceeded`, cùng đúng số quota
+`character_count: 121029` / `character_limit: 121029` (0 credit, reset ~2026-10-10) đã ghi nhận
+cho sự cố TTS "Khánh Lâm" ở trên — tức là STT và TTS dùng CHUNG một quota ký tự/tháng của gói
+ElevenLabs `creator`, không phải 2 quota riêng. `openai-whisper` cũng không dùng được (model
+download vẫn bị chặn egress ở `openaipublic.azureedge.net`, sự cố đã biết từ mục 13 bên dưới) và
+Hugging Face (`huggingface.co`) cũng bị chặn CONNECT 403 khi thử làm nguồn ASR thay thế. **Giải
+pháp tạm đã áp dụng cho video này**: ước lượng timestamp từ-ngữ bằng thuật toán xác định (tỷ lệ độ
+dài âm tiết + phụ phí ngắt câu ở dấu phẩy/chấm, không mạng, không `Math.random()`) thay vì align
+thật bằng STT — chấp nhận được vì TTS Vbee đọc khá đều nhịp, nhưng KHÔNG chính xác 100% ở cấp
+từng-từ như STT thật. **Việc cần làm cho các video sau** (cho tới khi quota ElevenLabs hồi phục
+~2026-10-10, hoặc có nguồn ASR khác được duyệt): mặc định dùng luôn phương án ước lượng timestamp
+này cho caption karaoke thay vì thử gọi `/v1/speech-to-text` trước rồi mới phát hiện quota hết (tốn
+1 lượt gọi + phản hồi chờ vô ích) — trừ khi đã xác nhận quota STT hồi phục qua `GET /v1/user`
+(field chung, không có field tách riêng cho STT).
+
+**[BÀI HỌC BỔ SUNG — 2026-09-30] Caption karaoke KHÔNG được chạy đè lên act Hook**: Hook title-card
+đã tự hiển thị nội dung dòng 1 dưới dạng headline/số liệu/dòng phụ lớn trên màn hình — chạy thêm
+caption chạy chữ theo từng từ trong lúc Hook đang phát sẽ tạo ra 1 cụm chữ nổi cô lập, vô nghĩa khi
+đứng riêng (vd. video ADB: caption "năm hai nghìn không" — 1 mảnh của cách đọc số năm "2026" — lọt
+ngay vào giữa khung hình dùng làm thumbnail, trông như lỗi dựng). Quy tắc: mảng caption/timestamp
+PHẢI bỏ qua toàn bộ khoảng thời gian của act Hook (0 → `data-duration` của frame Hook), chỉ bắt đầu
+từ đầu voice dòng 2 (act "What happened") trở đi — đúng cách `vinspeed-hop-dong-1-ty-euro-voi-siemens`
+đã làm trước đó (xem comment "line1 -- Hook: no karaoke captions" trong `index.html` project đó).
+Thêm quy tắc này vào checklist dựng caption karaoke ở `BRAND-SYSTEM-BOT-BAN-HANG.md` nếu chưa có.
 
 ## 3. Dựng composition
 
