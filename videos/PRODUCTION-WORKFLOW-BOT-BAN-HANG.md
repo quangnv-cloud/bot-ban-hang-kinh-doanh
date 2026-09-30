@@ -78,15 +78,21 @@ liệu/tác động kinh tế rõ hơn.
    routine chết ở bước 1 (2026-09-01→09-04). Apps Script tải ảnh hộ từ IP Google (không bị chặn)
    và cache lại. Nếu `?image=` trả `ok:false` (ảnh gốc 404/lỗi), chọn tin khác có `hasImage:true`.
 
-## 2. Sinh giọng đọc (ElevenLabs)
+## 2. Sinh giọng đọc (Vbee TTS — đổi từ ElevenLabs 2026-09-30)
 
-Xem chi tiết đầy đủ (voice_id, lý do bắt buộc `eleven_v3`, cách verify bằng Whisper) tại mục
+Xem chi tiết đầy đủ (voice_code, cảnh báo encoding UTF-8, cách verify bằng Whisper) tại mục
 "Audio" trong `BRAND-SYSTEM-BOT-BAN-HANG.md`. Tóm tắt thao tác:
 
 1. Tạo TỪNG file mp3 riêng cho từng dòng script (`line1.mp3`, `line2.mp3`...) — không gộp cả kịch
    bản vào một lần gọi API.
-2. `model_id: eleven_v3` (KHÔNG `eleven_multilingual_v2` — model đó không hỗ trợ tiếng Việt dù
-   tên gọi "Multilingual"), `voice_id: RCmOaM1iiIH5xX3QXjIF` ("Khánh Lâm - tin tức, thời sự").
+2. Giọng **"Ngọc Huyền nâng cao (Beta)"** (`voice_code: hn_female_ngochuyen_full_24k-stl`),
+   `speed_rate: 1.09`. Endpoint `POST https://vbee.vn/api/v1/tts` (API legacy), key từ biến môi
+   trường `VBEE_APP_ID`/`VBEE_TOKEN`.
+   ⚠️ **BẮT BUỘC ghi `input_text` ra file JSON UTF-8 trước (Write tool), TUYỆT ĐỐI KHÔNG gõ thẳng
+   text tiếng Việt vào `curl -d "..."`** — dễ lệch encoding qua Git Bash, server nhận text méo
+   nên tổng hợp giọng sai/vô nghĩa dù HTTP vẫn trả `status:1`/200 bình thường (không có lỗi rõ
+   ràng để phát hiện). Gọi `--data-binary @lineN.json`, `--max-time 90` trở lên (phản hồi mất
+   15-25 giây, KHÔNG phải lỗi). `audio_link` trong response chỉ hiệu lực ~3 phút — tải ngay.
 3. Đo thời lượng thật từng file (`ffprobe`), đây là input bắt buộc cho bước 4 (timing).
 4. Verify nhanh bằng Whisper (`base` model, ép `language=Vietnamese`) — so với script gốc, chấp
    nhận lỗi ASR kiểu nhầm âm gần giống, không chấp nhận câu sai cấu trúc/nghĩa hoàn toàn.
@@ -309,6 +315,16 @@ dấu hiệu nâng gói. Dừng ngay ở bước tiền kiểm tra, ghi log thu 
 tin mới, KHÔNG `claim_style`, KHÔNG gọi ElevenLabs TTS, KHÔNG gửi `PushNotification` (tình trạng
 chưa đổi so với lần 18). Checkpoint `videos/adb-nang-gdp-viet-nam-78-phan-tram` vẫn là project cần
 resume trước. Việc-cần-làm (1)-(3) ở mục [BLOCKER — 2026-09-23] phía trên vẫn nguyên giá trị.
+
+**[RESOLVED — 2026-09-30] Đổi hẳn sang Vbee TTS, không còn phụ thuộc quota ElevenLabs cho giọng
+đọc nữa** — xem bước 2 phía trên (đã sửa lại toàn bộ). Checkpoint `videos/adb-nang-gdp-viet-nam-78-phan-tram`
+(BRIEF/SCRIPT/ảnh Hook/style `2-chip-and-leaderboard` đã claim sẵn từ 2026-09-23) là project cần
+RESUME NGAY ở lần chạy tiếp theo — sinh voice bằng Vbee (bước 2 mới) cho đúng project này trước,
+KHÔNG chọn tin mới / KHÔNG `claim_style` mới cho tới khi video đó hoàn tất và đã đăng. 19 lần kiểm
+tra quota `character_count: 121029/121029` ở trên là LỊCH SỬ sự cố đã qua — không cần kiểm tra lại
+`GET https://api.elevenlabs.io/v1/user` cho bước sinh giọng đọc nữa (property `ELEVENLABS_API_KEY`
+vẫn giữ lại vì vẫn dùng cho STT karaoke caption + fallback nhạc nền, xem mục Audio trong
+`BRAND-SYSTEM-BOT-BAN-HANG.md`).
 
 ## 3. Dựng composition
 
