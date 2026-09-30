@@ -307,6 +307,12 @@
             "style": "10-stock-terminal",
             "project": "vinspeed-hop-dong-1-ty-euro-voi-siemens",
             "date": "2026-09-23"
+        },
+        {
+            "index": 1,
+            "style": "2-chip-and-leaderboard",
+            "project": "adb-nang-gdp-viet-nam-78-phan-tram",
+            "date": "2026-09-30"
         }
     ]
 }

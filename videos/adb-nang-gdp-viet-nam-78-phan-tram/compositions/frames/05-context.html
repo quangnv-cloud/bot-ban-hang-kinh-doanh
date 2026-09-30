@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Montserrat"; font-weight: 500; font-style: normal;
+          src: url("assets/fonts/Montserrat-500-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 500; font-style: normal;
+          src: url("assets/fonts/Montserrat-500-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal;
+          src: url("assets/fonts/Montserrat-900-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal;
+          src: url("assets/fonts/Montserrat-900-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+        #root { position: absolute; inset: 0; font-family: "Montserrat", sans-serif; overflow: hidden; }
+
+        #cx-kicker { position: absolute; top: 220px; left: 90px; display: inline-flex; align-items: center; padding: 10px 20px;
+          border: 1.5px solid #E8441E; border-radius: 999px; background: rgba(232,68,30,0.08); }
+        #cx-kicker span { font-weight: 700; font-size: 21px; color: #E8441E; letter-spacing: 0.09em; text-transform: uppercase; }
+
+        #cx-headline { position: absolute; top: 300px; left: 90px; width: 900px; font-weight: 700; font-size: 46px; line-height: 1.28; color: #ffffff; }
+
+        #cx-watermark { position: absolute; top: 560px; left: 0; width: 1080px; text-align: center; font-weight: 900;
+          font-size: 620px; color: rgba(255,255,255,0.1); line-height: 1; pointer-events: none; }
+
+        .cx-row { position: absolute; left: 90px; width: 900px; height: 108px; display: flex; align-items: center; gap: 24px; }
+        .cx-year { flex: none; width: 130px; font-weight: 700; font-size: 34px; color: #ffffff; }
+        .cx-track { position: relative; flex: 1; height: 22px; border-radius: 11px; background: rgba(255,255,255,0.12); overflow: hidden; }
+        .cx-fill { position: absolute; top: 0; left: 0; height: 100%; border-radius: 11px; background: linear-gradient(90deg, #E8441E, #ff6a3d); transform-origin: left center; }
+        .cx-val { flex: none; width: 130px; text-align: right; font-weight: 800; font-size: 38px; color: #E8441E; }
+
+        #cx-row-1 { top: 1120px; }
+        #cx-row-2 { top: 1290px; }
+
+        #cx-sub { position: absolute; top: 1460px; left: 110px; width: 860px; font-weight: 500; font-size: 29px; line-height: 1.4; color: rgba(255,255,255,0.62); }
+      </style>
+
+      <div data-hf-id="hf-3o8a" id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-2cwk" id="cx-watermark">%</div>
+
+        <div data-hf-id="hf-bl4m" id="cx-kicker"><span data-hf-id="hf-bpp6">Lạm phát dự kiến</span></div>
+        <div data-hf-id="hf-6q75" id="cx-headline">Song song với tăng trưởng, ADB dự báo lạm phát duy trì trong tầm kiểm soát</div>
+
+        <div data-hf-id="hf-rmg0" id="cx-row-1" class="cx-row">
+          <div data-hf-id="hf-if03" class="cx-year">2026</div>
+          <div data-hf-id="hf-ut3v" class="cx-track"><div data-hf-id="hf-49jk" id="cx-fill-1" class="cx-fill" style="width:71.6%;"></div></div>
+          <div data-hf-id="hf-fmnb" class="cx-val">4,3%</div>
+        </div>
+
+        <div data-hf-id="hf-2hxn" id="cx-row-2" class="cx-row">
+          <div data-hf-id="hf-itb4" class="cx-year">2027</div>
+          <div data-hf-id="hf-dzx7" class="cx-track"><div data-hf-id="hf-qbex" id="cx-fill-2" class="cx-fill" style="width:66.6%;"></div></div>
+          <div data-hf-id="hf-5x80" class="cx-val">4%</div>
+        </div>
+
+        <div data-hf-id="hf-olur" id="cx-sub">Giữa lúc áp lực cầu và chi phí nhập khẩu vẫn còn</div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo("#cx-watermark", { opacity: 0 }, { opacity: 1, duration: 1.0, ease: "power1.out" }, 0);
+          tl.fromTo("#cx-kicker", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.28, ease: "power2.out" }, 0.1);
+          tl.fromTo("#cx-headline", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.36, ease: "power2.out" }, 0.32);
+
+          tl.fromTo("#cx-row-1", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 1.6);
+          tl.fromTo("#cx-fill-1", { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "power2.out" }, 1.6);
+
+          tl.fromTo("#cx-row-2", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 3.0);
+          tl.fromTo("#cx-fill-2", { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "power2.out" }, 3.0);
+
+          tl.fromTo("#cx-sub", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 3.8);
+
+          window.__timelines["05-context"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
