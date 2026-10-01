@@ -313,6 +313,12 @@
             "style": "2-chip-and-leaderboard",
             "project": "adb-nang-gdp-viet-nam-78-phan-tram",
             "date": "2026-09-30"
+        },
+        {
+            "index": 2,
+            "style": "3-ticker-tape",
+            "project": "tphcm-tang-17-bac-trung-tam-tai-chinh",
+            "date": "2026-10-01"
         }
     ]
 }
