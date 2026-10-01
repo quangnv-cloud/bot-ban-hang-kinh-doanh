@@ -60,7 +60,14 @@
         #wh-stat span { font-weight: 700; font-size: 26px; letter-spacing: 0.02em; color: #ffffff; }
         #wh-stat b { color: #E8441E; }
 
-        #wh-strip { position: absolute; top: 1480px; left: 90px; width: 900px; display: flex; align-items: center; justify-content: space-between; }
+        /* ---- Secondary ticker bar (edition / methodology restate) — fills vertical gap before caption safe-zone ---- */
+        #wh-ticker2 { position: absolute; top: 1470px; left: 0; width: 1080px; height: 86px; display: flex; align-items: center;
+          gap: 16px; padding: 0 64px; background: rgba(10,10,10,0.62); backdrop-filter: blur(2px);
+          border-top: 1.5px solid rgba(232,68,30,0.5); border-bottom: 1.5px solid rgba(232,68,30,0.5); }
+        #wh-ticker2-label { flex: none; font-weight: 800; font-size: 18px; color: rgba(232,68,30,0.85); letter-spacing: 0.14em; }
+        #wh-ticker2-text { font-weight: 600; font-size: 21px; color: rgba(255,255,255,0.78); letter-spacing: 0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 1 1 auto; }
+
+        #wh-strip { position: absolute; top: 1598px; left: 90px; width: 900px; display: flex; align-items: center; justify-content: space-between; }
         #wh-strip .tick { height: 1px; background: rgba(255,255,255,0.16); flex: 1; }
         #wh-strip .dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: #E8441E; margin: 0 14px; }
       </style>
@@ -86,6 +93,11 @@
           <span data-hf-id="hf-lszd">Tăng <b data-hf-id="hf-n30b">17 bậc</b> so với kỳ tháng 3/2026</span>
         </div>
 
+        <div data-hf-id="hf-k2tm" id="wh-ticker2">
+          <div data-hf-id="hf-k2lb" id="wh-ticker2-label">NGUỒN DỮ LIỆU</div>
+          <div data-hf-id="hf-k2tx" id="wh-ticker2-text">Z/Yen Partners &amp; CDI · công bố 2 lần/năm</div>
+        </div>
+
         <div data-hf-id="hf-7qit" id="wh-strip">
           <div data-hf-id="hf-32lj" class="tick"></div><div data-hf-id="hf-lu65" class="dot"></div>
           <div data-hf-id="hf-6c1z" class="tick"></div><div data-hf-id="hf-ww7l" class="dot"></div>
@@ -107,8 +119,9 @@
           tl.to("#wh-live-dot", { opacity: 1, scale: 1, duration: 0.5, ease: "sine.inOut", repeat: 9, yoyo: true }, 1.7);
 
           tl.fromTo("#wh-stat", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "back.out(1.5)" }, 2.1);
-          tl.fromTo("#wh-strip .tick", { scaleX: 0 }, { scaleX: 1, duration: 0.4, stagger: 0.08, ease: "power1.out", transformOrigin: "left center" }, 2.5);
-          tl.fromTo("#wh-strip .dot", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.24, stagger: 0.08, ease: "back.out(1.6)" }, 2.7);
+          tl.fromTo("#wh-ticker2", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.36, ease: "power2.out" }, 2.55);
+          tl.fromTo("#wh-strip .tick", { scaleX: 0 }, { scaleX: 1, duration: 0.4, stagger: 0.08, ease: "power1.out", transformOrigin: "left center" }, 2.95);
+          tl.fromTo("#wh-strip .dot", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.24, stagger: 0.08, ease: "back.out(1.6)" }, 3.15);
 
           window.__timelines["02-what-happened"] = tl;
         })();

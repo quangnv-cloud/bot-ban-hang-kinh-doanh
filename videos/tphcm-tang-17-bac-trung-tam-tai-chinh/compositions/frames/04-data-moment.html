@@ -43,10 +43,23 @@
         #dm-sub { position: absolute; top: 800px; left: 0; width: 1080px; text-align: center; font-weight: 500; font-size: 32px; color: rgba(255,255,255,0.68); }
         #dm-sub b { color: #ffffff; font-weight: 700; text-decoration: line-through; text-decoration-color: rgba(255,255,255,0.4); }
 
-        #dm-city { position: absolute; top: 1440px; left: 0; width: 1080px; text-align: center; font-weight: 500; font-size: 26px;
+        /* ---- Ratio bar chart (§6 brand doc: real bar chart over 2 static number cards) ---- */
+        #dm-compare { position: absolute; top: 940px; left: 140px; width: 800px; height: 326px; display: flex;
+          align-items: flex-end; justify-content: center; gap: 140px; }
+        .dm-bar-col { display: flex; flex-direction: column; align-items: center; width: 180px; }
+        .dm-bar-value { font-weight: 800; font-size: 34px; letter-spacing: -0.005em; margin-bottom: 14px; font-variant-numeric: tabular-nums; }
+        #dm-bar-col-old .dm-bar-value { color: rgba(255,255,255,0.55); }
+        #dm-bar-col-new .dm-bar-value { color: #E8441E; }
+        .dm-bar-track { width: 92px; height: 240px; display: flex; align-items: flex-end; justify-content: center; }
+        .dm-bar { width: 100%; border-radius: 12px 12px 4px 4px; transform-origin: bottom center; }
+        #dm-bar-old { height: 72px; background: rgba(255,255,255,0.2); }
+        #dm-bar-new { height: 110px; background: #E8441E; box-shadow: 0 0 34px rgba(232,68,30,0.4); }
+        .dm-bar-period { margin-top: 16px; font-weight: 600; font-size: 20px; color: rgba(255,255,255,0.5); letter-spacing: 0.02em; }
+
+        #dm-city { position: absolute; top: 1430px; left: 0; width: 1080px; text-align: center; font-weight: 500; font-size: 26px;
           color: rgba(255,255,255,0.5); letter-spacing: 0.02em; }
 
-        #dm-badge { position: absolute; top: 1512px; left: 390px; width: 300px; display: flex; align-items: center; justify-content: center;
+        #dm-badge { position: absolute; top: 1502px; left: 390px; width: 300px; display: flex; align-items: center; justify-content: center;
           gap: 10px; padding: 16px 0; border: 1.5px solid #E8441E; border-radius: 999px; background: rgba(232,68,30,0.08); }
         #dm-badge span { font-weight: 700; font-size: 24px; color: #E8441E; letter-spacing: 0.02em; }
       </style>
@@ -63,6 +76,19 @@
         </div>
 
         <div data-hf-id="hf-gjc2" id="dm-sub">Từ hạng <b data-hf-id="hf-58o9">84</b> kỳ tháng 3/2026</div>
+
+        <div data-hf-id="hf-dc01" id="dm-compare">
+          <div data-hf-id="hf-dc02" id="dm-bar-col-old" class="dm-bar-col">
+            <div data-hf-id="hf-dc03" class="dm-bar-value">84</div>
+            <div data-hf-id="hf-dc04" class="dm-bar-track"><div data-hf-id="hf-dc05" id="dm-bar-old" class="dm-bar"></div></div>
+            <div data-hf-id="hf-dc06" class="dm-bar-period">T3/2026</div>
+          </div>
+          <div data-hf-id="hf-dc07" id="dm-bar-col-new" class="dm-bar-col">
+            <div data-hf-id="hf-dc08" class="dm-bar-value">67</div>
+            <div data-hf-id="hf-dc09" class="dm-bar-track"><div data-hf-id="hf-dc10" id="dm-bar-new" class="dm-bar"></div></div>
+            <div data-hf-id="hf-dc11" class="dm-bar-period">T9/2026</div>
+          </div>
+        </div>
 
         <div data-hf-id="hf-99au" id="dm-city">Thành phố Hồ Chí Minh · GFCI 40</div>
         <div data-hf-id="hf-vnra" id="dm-badge"><span data-hf-id="hf-fhxp">▲ 17 bậc</span></div>
@@ -89,8 +115,16 @@
           }, 0.38);
 
           tl.fromTo("#dm-sub", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 1.6);
-          tl.fromTo("#dm-city", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power1.out" }, 2.0);
-          tl.fromTo("#dm-badge", { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.32, ease: "back.out(1.6)" }, 2.3);
+
+          tl.fromTo("#dm-bar-col-old .dm-bar-value", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 2.0);
+          tl.fromTo("#dm-bar-old", { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: "power2.out" }, 2.0);
+          tl.fromTo("#dm-bar-col-old .dm-bar-period", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 2.2);
+          tl.fromTo("#dm-bar-col-new .dm-bar-value", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 2.25);
+          tl.fromTo("#dm-bar-new", { scaleY: 0 }, { scaleY: 1, duration: 0.55, ease: "power2.out" }, 2.25);
+          tl.fromTo("#dm-bar-col-new .dm-bar-period", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, 2.5);
+
+          tl.fromTo("#dm-city", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power1.out" }, 2.9);
+          tl.fromTo("#dm-badge", { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.32, ease: "back.out(1.6)" }, 3.2);
 
           window.__timelines["04-data-moment"] = tl;
         })();

@@ -47,7 +47,16 @@
         .im-num { font-weight: 800; font-size: 64px; color: #E8441E; letter-spacing: -0.01em; line-height: 1; font-variant-numeric: tabular-nums; }
         .im-tag { margin-top: 6px; font-weight: 700; font-size: 22px; color: rgba(255,255,255,0.6); letter-spacing: 0.01em; }
 
-        #im-final { position: absolute; top: 1440px; left: 90px; width: 900px; padding: 26px 32px; border-radius: 18px;
+        /* ---- Closing stat card — 3rd supporting element, fills gap below the 2-row board ---- */
+        #im-stat-card { position: absolute; top: 900px; left: 90px; width: 900px; padding: 40px 46px; border-radius: 22px;
+          border: 1.5px solid #E8441E; background: rgba(232,68,30,0.08); box-shadow: 0 0 44px rgba(232,68,30,0.16);
+          display: flex; align-items: center; gap: 34px; }
+        #im-stat-card .im-stat-num { flex: none; font-weight: 900; font-size: 108px; line-height: 1; color: #E8441E;
+          letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+        #im-stat-card .im-stat-text .t1 { font-weight: 700; font-size: 32px; color: #ffffff; letter-spacing: -0.005em; }
+        #im-stat-card .im-stat-text .t2 { margin-top: 10px; font-weight: 500; font-size: 23px; line-height: 1.4; color: rgba(255,255,255,0.62); }
+
+        #im-final { position: absolute; top: 1340px; left: 90px; width: 900px; padding: 26px 32px; border-radius: 18px;
           border: 1.5px solid rgba(255,255,255,0.12); background: rgba(17,17,17,0.5); text-align: center; }
         #im-final span { font-weight: 600; font-size: 28px; line-height: 1.4; color: #ffffff; }
         #im-final b { color: #E8441E; }
@@ -82,6 +91,14 @@
           <div data-hf-id="hf-6uy5" id="im-rule-2" class="im-rule"></div>
         </div>
 
+        <div data-hf-id="hf-is01" id="im-stat-card">
+          <div data-hf-id="hf-is02" class="im-stat-num">2</div>
+          <div data-hf-id="hf-is03" class="im-stat-text">
+            <div data-hf-id="hf-is04" class="t1">thành phố Việt Nam</div>
+            <div data-hf-id="hf-is05" class="t2">cùng góp mặt trong bảng xếp hạng GFCI 40 kỳ này</div>
+          </div>
+        </div>
+
         <div data-hf-id="hf-6yh4" id="im-final"><span data-hf-id="hf-9tq6">Hai thành phố Việt Nam cùng góp mặt trong bảng xếp hạng <b data-hf-id="hf-c05w">GFCI 40</b></span></div>
       </div>
 
@@ -101,7 +118,10 @@
 
           tl.fromTo("#im-rule-2", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power1.out" }, 2.6);
 
-          tl.fromTo("#im-final", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }, 2.95);
+          tl.fromTo("#im-stat-card", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.44, ease: "power2.out" }, 2.95);
+          tl.fromTo("#im-stat-card .im-stat-num", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.38, ease: "back.out(1.5)" }, 3.2);
+
+          tl.fromTo("#im-final", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }, 3.7);
 
           window.__timelines["06-impact"] = tl;
         })();

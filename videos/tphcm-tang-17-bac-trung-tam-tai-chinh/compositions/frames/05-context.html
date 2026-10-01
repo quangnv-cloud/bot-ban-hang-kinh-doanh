@@ -52,6 +52,15 @@
         #ctx-row-3 .ctx-badge span { font-weight: 700; font-size: 24px; color: #ffffff; letter-spacing: 0.02em; }
         #ctx-row-3 .ctx-badge b { color: #E8441E; }
 
+        /* ---- 4th supporting note card — fills the gap below the 3-row sparkline group ---- */
+        #ctx-note { position: absolute; top: 1120px; left: 90px; width: 900px; padding: 28px 32px; border-radius: 18px;
+          border: 1.5px solid rgba(255,255,255,0.08); background: rgba(17,17,17,0.4); display: flex; align-items: center; gap: 22px; }
+        #ctx-note .note-icon { flex: none; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid #E8441E;
+          background: rgba(232,68,30,0.1); display: flex; align-items: center; justify-content: center; }
+        #ctx-note .note-icon svg { width: 22px; height: 22px; }
+        #ctx-note span { font-weight: 600; font-size: 26px; line-height: 1.34; color: rgba(255,255,255,0.82); letter-spacing: 0.002em; }
+        #ctx-note b { color: #E8441E; font-weight: 700; }
+
         #ctx-final { position: absolute; top: 1460px; left: 190px; width: 700px; display: flex; align-items: center; justify-content: center;
           gap: 14px; padding: 24px 0; border-radius: 999px; border: 1.5px solid #E8441E; background: rgba(232,68,30,0.08); }
         #ctx-final span { font-weight: 700; font-size: 27px; color: #ffffff; letter-spacing: 0.01em; }
@@ -88,6 +97,13 @@
           </div>
         </div>
 
+        <div data-hf-id="hf-cn01" id="ctx-note">
+          <div data-hf-id="hf-cn02" class="note-icon">
+            <svg data-hf-id="hf-cn03" viewBox="0 0 24 24" fill="none"><path data-hf-id="hf-cn04" d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" fill="#E8441E" /></svg>
+          </div>
+          <span data-hf-id="hf-cn05">Thành phố Hồ Chí Minh là trung tâm tài chính <b data-hf-id="hf-cn06">thăng hạng nhanh nhất</b> trong kỳ đánh giá GFCI 40 lần này</span>
+        </div>
+
         <div data-hf-id="hf-ewlb" id="ctx-final"><span data-hf-id="hf-i6fa">Sau <b data-hf-id="hf-hfa9">Singapore</b> và <b data-hf-id="hf-n5y8">Kuala Lumpur</b></span></div>
       </div>
 
@@ -116,7 +132,9 @@
           tl.fromTo("#ctx-row-3 .spk-dot", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.24, ease: "back.out(1.7)" }, 3.9);
           tl.fromTo("#ctx-row-3 .ctx-badge", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 4.2);
 
-          tl.fromTo("#ctx-final", { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.36, ease: "back.out(1.5)" }, 4.7);
+          tl.fromTo("#ctx-note", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.36, ease: "power2.out" }, 4.6);
+
+          tl.fromTo("#ctx-final", { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.36, ease: "back.out(1.5)" }, 5.1);
 
           window.__timelines["05-context"] = tl;
         })();
