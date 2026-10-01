@@ -325,6 +325,12 @@
             "style": "4-split-comparison",
             "project": "vinhomes-tang-von-cam-ranh-194-nghin-ty",
             "date": "2026-10-01"
+        },
+        {
+            "index": 4,
+            "style": "5-map-and-geo",
+            "project": "nhnn-nang-tran-cho-vay-tien-gui-95-phan-tram",
+            "date": "2026-10-01"
         }
     ]
 }
