@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Montserrat"; font-weight: 500; font-style: normal;
+          src: url("assets/fonts/Montserrat-500-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 500; font-style: normal;
+          src: url("assets/fonts/Montserrat-500-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal;
+          src: url("assets/fonts/Montserrat-800-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal;
+          src: url("assets/fonts/Montserrat-800-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+        #root { position: absolute; inset: 0; font-family: "Montserrat", sans-serif; overflow: hidden; }
+
+        #ctx-kicker { position: absolute; top: 180px; left: 90px; display: inline-flex; align-items: center; padding: 10px 20px;
+          border: 1.5px solid #E8441E; border-radius: 999px; background: rgba(232,68,30,0.08); }
+        #ctx-kicker span { font-weight: 700; font-size: 21px; color: #E8441E; letter-spacing: 0.09em; text-transform: uppercase; }
+
+        .ctx-row { position: absolute; left: 90px; width: 900px; padding: 26px 32px; border-radius: 18px; border: 1.5px solid rgba(255,255,255,0.08); background: rgba(17,17,17,0.4); }
+        .ctx-row.active { border: 1.5px solid #E8441E; background: rgba(232,68,30,0.08); box-shadow: 0 0 40px rgba(232,68,30,0.14); }
+        .ctx-top { display: flex; align-items: baseline; justify-content: space-between; }
+        .ctx-city { font-weight: 700; font-size: 34px; color: #ffffff; letter-spacing: -0.005em; }
+        .ctx-rank { font-weight: 700; font-size: 26px; color: rgba(255,255,255,0.55); }
+        .ctx-row.active .ctx-city, .ctx-row.active .ctx-rank { color: #ffffff; }
+        .ctx-row.active .ctx-rank { color: #E8441E; }
+        .ctx-spark { display: block; width: 100%; height: 68px; margin-top: 12px; }
+
+        #ctx-row-1 { top: 280px; }
+        #ctx-row-2 { top: 540px; }
+        #ctx-row-3 { top: 800px; height: 232px; }
+        #ctx-row-3 .ctx-badge-wrap { margin-top: 14px; display: flex; justify-content: center; }
+        #ctx-row-3 .ctx-badge { display: inline-flex; align-items: center; padding: 10px 24px; border-radius: 999px; border: 1.5px solid #E8441E; background: rgba(232,68,30,0.14); }
+        #ctx-row-3 .ctx-badge span { font-weight: 700; font-size: 24px; color: #ffffff; letter-spacing: 0.02em; }
+        #ctx-row-3 .ctx-badge b { color: #E8441E; }
+
+        #ctx-final { position: absolute; top: 1460px; left: 190px; width: 700px; display: flex; align-items: center; justify-content: center;
+          gap: 14px; padding: 24px 0; border-radius: 999px; border: 1.5px solid #E8441E; background: rgba(232,68,30,0.08); }
+        #ctx-final span { font-weight: 700; font-size: 27px; color: #ffffff; letter-spacing: 0.01em; }
+        #ctx-final b { color: #E8441E; }
+      </style>
+
+      <div data-hf-id="hf-3o8a" id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-rh0y" id="ctx-kicker"><span data-hf-id="hf-5sc5">Đông Nam Á</span></div>
+
+        <div data-hf-id="hf-r5bc" id="ctx-row-1" class="ctx-row">
+          <div data-hf-id="hf-ox61" class="ctx-top"><div data-hf-id="hf-lu55" class="ctx-city">Singapore</div><div data-hf-id="hf-eoa8" class="ctx-rank">Hạng 4 toàn cầu</div></div>
+          <svg data-hf-id="hf-jnta" class="ctx-spark" viewBox="0 0 900 68" preserveAspectRatio="none">
+            <path data-hf-id="hf-56ps" class="spk-line" d="M10,54 C 140,50 260,40 400,30 C 560,20 700,16 890,12" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="3" stroke-linecap="round" />
+            <circle data-hf-id="hf-jy6s" class="spk-dot" cx="890" cy="12" r="6" fill="#ffffff" style="opacity:0;" />
+          </svg>
+        </div>
+
+        <div data-hf-id="hf-zt77" id="ctx-row-2" class="ctx-row">
+          <div data-hf-id="hf-kxr1" class="ctx-top"><div data-hf-id="hf-5fso" class="ctx-city">Kuala Lumpur</div><div data-hf-id="hf-x5z0" class="ctx-rank">Hạng 39 toàn cầu</div></div>
+          <svg data-hf-id="hf-q6aa" class="ctx-spark" viewBox="0 0 900 68" preserveAspectRatio="none">
+            <path data-hf-id="hf-exj2" class="spk-line" d="M10,58 C 140,56 260,50 400,42 C 560,34 700,30 890,26" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="3" stroke-linecap="round" />
+            <circle data-hf-id="hf-mv4h" class="spk-dot" cx="890" cy="26" r="6" fill="#ffffff" style="opacity:0;" />
+          </svg>
+        </div>
+
+        <div data-hf-id="hf-dsnk" id="ctx-row-3" class="ctx-row active">
+          <div data-hf-id="hf-m4o4" class="ctx-top"><div data-hf-id="hf-cdwr" class="ctx-city">Thành phố Hồ Chí Minh</div><div data-hf-id="hf-o5zh" class="ctx-rank">Hạng 67 toàn cầu</div></div>
+          <svg data-hf-id="hf-qklb" class="ctx-spark" viewBox="0 0 900 68" preserveAspectRatio="none">
+            <path data-hf-id="hf-w0h6" class="spk-line" d="M10,62 C 140,58 260,46 400,32 C 560,18 700,10 890,6" fill="none" stroke="#E8441E" stroke-width="3.4" stroke-linecap="round" />
+            <circle data-hf-id="hf-6ccp" class="spk-dot" cx="890" cy="6" r="7" fill="#E8441E" style="opacity:0;" />
+          </svg>
+          <div data-hf-id="hf-8fg2" class="ctx-badge-wrap">
+            <div data-hf-id="hf-m541" class="ctx-badge"><span data-hf-id="hf-3tgw">Giữ vị trí <b data-hf-id="hf-xma9">thứ 3</b> khu vực Đông Nam Á</span></div>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-ewlb" id="ctx-final"><span data-hf-id="hf-i6fa">Sau <b data-hf-id="hf-hfa9">Singapore</b> và <b data-hf-id="hf-n5y8">Kuala Lumpur</b></span></div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          document.querySelectorAll(".spk-line").forEach(function (p) {
+            var len = p.getTotalLength();
+            p.style.strokeDasharray = len;
+            p.style.strokeDashoffset = len;
+          });
+
+          tl.fromTo("#ctx-kicker", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.28, ease: "power2.out" }, 0);
+
+          tl.fromTo("#ctx-row-1", { x: 50, opacity: 0 }, { x: 0, opacity: 1, duration: 0.4, ease: "power2.out" }, 0.3);
+          tl.to("#ctx-row-1 .spk-line", { strokeDashoffset: 0, duration: 0.7, ease: "power1.out" }, 0.55);
+          tl.fromTo("#ctx-row-1 .spk-dot", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(1.6)" }, 1.2);
+
+          tl.fromTo("#ctx-row-2", { x: 50, opacity: 0 }, { x: 0, opacity: 1, duration: 0.4, ease: "power2.out" }, 1.6);
+          tl.to("#ctx-row-2 .spk-line", { strokeDashoffset: 0, duration: 0.7, ease: "power1.out" }, 1.85);
+          tl.fromTo("#ctx-row-2 .spk-dot", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(1.6)" }, 2.5);
+
+          tl.fromTo("#ctx-row-3", { x: 50, opacity: 0 }, { x: 0, opacity: 1, duration: 0.42, ease: "power2.out" }, 2.9);
+          tl.to("#ctx-row-3 .spk-line", { strokeDashoffset: 0, duration: 0.8, ease: "power1.out" }, 3.15);
+          tl.fromTo("#ctx-row-3 .spk-dot", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.24, ease: "back.out(1.7)" }, 3.9);
+          tl.fromTo("#ctx-row-3 .ctx-badge", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 4.2);
+
+          tl.fromTo("#ctx-final", { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.36, ease: "back.out(1.5)" }, 4.7);
+
+          window.__timelines["05-context"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

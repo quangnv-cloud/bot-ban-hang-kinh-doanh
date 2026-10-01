@@ -2,6 +2,7 @@
 node_modules/
 renders/
 .thumbnails/
+.hyperframes/
 .claude/
 .agents/
 *.log

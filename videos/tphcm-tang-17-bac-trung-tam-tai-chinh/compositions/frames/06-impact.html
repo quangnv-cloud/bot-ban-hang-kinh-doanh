@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Montserrat"; font-weight: 500; font-style: normal;
+          src: url("assets/fonts/Montserrat-500-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 500; font-style: normal;
+          src: url("assets/fonts/Montserrat-500-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal;
+          src: url("assets/fonts/Montserrat-800-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal;
+          src: url("assets/fonts/Montserrat-800-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+        #root { position: absolute; inset: 0; font-family: "Montserrat", sans-serif; overflow: hidden; }
+
+        #im-kicker { position: absolute; top: 220px; left: 90px; display: inline-flex; align-items: center; padding: 10px 20px;
+          border: 1.5px solid #E8441E; border-radius: 999px; background: rgba(232,68,30,0.08); }
+        #im-kicker span { font-weight: 700; font-size: 21px; color: #E8441E; letter-spacing: 0.09em; text-transform: uppercase; }
+
+        #im-board { position: absolute; top: 330px; left: 90px; width: 900px; }
+        .im-rule { height: 1px; background: rgba(255,255,255,0.14); transform-origin: left center; }
+
+        .im-row { display: flex; align-items: center; justify-content: space-between; padding: 36px 6px; }
+        .im-left .im-title { font-weight: 700; font-size: 36px; color: #ffffff; letter-spacing: -0.005em; }
+        .im-left .im-sub { margin-top: 8px; font-weight: 500; font-size: 24px; color: rgba(255,255,255,0.55); }
+        .im-right { text-align: right; display: flex; align-items: center; gap: 12px; }
+        .im-right .arrow { width: 28px; height: 28px; flex: none; }
+        .im-right .stack { display: flex; flex-direction: column; align-items: flex-end; }
+        .im-num { font-weight: 800; font-size: 64px; color: #E8441E; letter-spacing: -0.01em; line-height: 1; font-variant-numeric: tabular-nums; }
+        .im-tag { margin-top: 6px; font-weight: 700; font-size: 22px; color: rgba(255,255,255,0.6); letter-spacing: 0.01em; }
+
+        #im-final { position: absolute; top: 1440px; left: 90px; width: 900px; padding: 26px 32px; border-radius: 18px;
+          border: 1.5px solid rgba(255,255,255,0.12); background: rgba(17,17,17,0.5); text-align: center; }
+        #im-final span { font-weight: 600; font-size: 28px; line-height: 1.4; color: #ffffff; }
+        #im-final b { color: #E8441E; }
+      </style>
+
+      <div data-hf-id="hf-repe" id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-faur" id="im-kicker"><span data-hf-id="hf-mids">Ý nghĩa thị trường</span></div>
+
+        <div data-hf-id="hf-kc60" id="im-board">
+          <div data-hf-id="hf-er67" id="im-rule-0" class="im-rule"></div>
+          <div data-hf-id="hf-v3qk" id="im-row-1" class="im-row">
+            <div data-hf-id="hf-su5s" class="im-left">
+              <div data-hf-id="hf-h114" class="im-title">Fintech Thành phố Hồ Chí Minh</div>
+              <div data-hf-id="hf-7v32" class="im-sub">Tăng 12 bậc</div>
+            </div>
+            <div data-hf-id="hf-536n" class="im-right">
+              <svg data-hf-id="hf-p2ld" class="arrow" viewBox="0 0 24 24" fill="none"><path data-hf-id="hf-9w57" d="M12 19V5M12 5L5 12M12 5L19 12" stroke="#E8441E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              <div data-hf-id="hf-d1zs" class="stack"><div data-hf-id="hf-vilt" class="im-num">71</div><div data-hf-id="hf-he9k" class="im-tag">Hạng Fintech</div></div>
+            </div>
+          </div>
+          <div data-hf-id="hf-at26" id="im-rule-1" class="im-rule"></div>
+          <div data-hf-id="hf-5z87" id="im-row-2" class="im-row">
+            <div data-hf-id="hf-jtl4" class="im-left">
+              <div data-hf-id="hf-jn67" class="im-title">Đà Nẵng</div>
+              <div data-hf-id="hf-mhw9" class="im-sub">Lần đầu vào bảng xếp hạng</div>
+            </div>
+            <div data-hf-id="hf-ndnj" class="im-right">
+              <svg data-hf-id="hf-lsol" class="arrow" viewBox="0 0 24 24" fill="none"><path data-hf-id="hf-rr23" d="M12 19V5M12 5L5 12M12 5L19 12" stroke="#E8441E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              <div data-hf-id="hf-g2wg" class="stack"><div data-hf-id="hf-0nol" class="im-num">71</div><div data-hf-id="hf-zu40" class="im-tag">Thứ 4 Đông Nam Á</div></div>
+            </div>
+          </div>
+          <div data-hf-id="hf-6uy5" id="im-rule-2" class="im-rule"></div>
+        </div>
+
+        <div data-hf-id="hf-6yh4" id="im-final"><span data-hf-id="hf-9tq6">Hai thành phố Việt Nam cùng góp mặt trong bảng xếp hạng <b data-hf-id="hf-c05w">GFCI 40</b></span></div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo("#im-kicker", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.28, ease: "power2.out" }, 0);
+
+          tl.fromTo("#im-rule-0", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power1.out" }, 0.3);
+          tl.fromTo("#im-row-1", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.42, ease: "power2.out" }, 0.5);
+          tl.fromTo("#im-row-1 .im-num", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.36, ease: "back.out(1.5)" }, 0.78);
+
+          tl.fromTo("#im-rule-1", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power1.out" }, 1.5);
+          tl.fromTo("#im-row-2", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.42, ease: "power2.out" }, 1.7);
+          tl.fromTo("#im-row-2 .im-num", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.36, ease: "back.out(1.5)" }, 1.98);
+
+          tl.fromTo("#im-rule-2", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power1.out" }, 2.6);
+
+          tl.fromTo("#im-final", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }, 2.95);
+
+          window.__timelines["06-impact"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
