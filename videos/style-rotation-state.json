@@ -319,6 +319,12 @@
             "style": "3-ticker-tape",
             "project": "tphcm-tang-17-bac-trung-tam-tai-chinh",
             "date": "2026-10-01"
+        },
+        {
+            "index": 3,
+            "style": "4-split-comparison",
+            "project": "vinhomes-tang-von-cam-ranh-194-nghin-ty",
+            "date": "2026-10-01"
         }
     ]
 }
