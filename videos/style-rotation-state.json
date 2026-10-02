@@ -331,6 +331,12 @@
             "style": "5-map-and-geo",
             "project": "nhnn-nang-tran-cho-vay-tien-gui-95-phan-tram",
             "date": "2026-10-01"
+        },
+        {
+            "index": 5,
+            "style": "6-ring-progress",
+            "project": "tphcm-grdp-quy-3-tang-986-phan-tram",
+            "date": "2026-10-02"
         }
     ]
 }
