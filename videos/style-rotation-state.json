@@ -337,6 +337,12 @@
             "style": "6-ring-progress",
             "project": "tphcm-grdp-quy-3-tang-986-phan-tram",
             "date": "2026-10-02"
+        },
+        {
+            "index": 6,
+            "style": "7-timeline-chronology",
+            "project": "lai-suat-tiet-kiem-len-87-phan-tram",
+            "date": "2026-10-02"
         }
     ]
 }
