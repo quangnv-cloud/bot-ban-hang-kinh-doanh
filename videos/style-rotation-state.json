@@ -343,6 +343,12 @@
             "style": "7-timeline-chronology",
             "project": "lai-suat-tiet-kiem-len-87-phan-tram",
             "date": "2026-10-02"
+        },
+        {
+            "index": 7,
+            "style": "8-icon-grid",
+            "project": "sjc-doanh-thu-94-nghin-ty-5-nam",
+            "date": "2026-10-02"
         }
     ]
 }

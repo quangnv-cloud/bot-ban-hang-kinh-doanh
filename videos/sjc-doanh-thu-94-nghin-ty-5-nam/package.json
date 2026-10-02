@@ -9,6 +9,6 @@
     "publish": "npx --yes hyperframes@0.8.108 publish"
   },
   "devDependencies": {
-    "@hyperframes/core": "^0.8.108"
+    "@hyperframes/core": "^0.8.111"
   }
 }
