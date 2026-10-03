@@ -52,10 +52,11 @@ giới hạn sẵn `range` — vì tab nguồn có nhiều bảng khác (BU, Pag
 biểu đồ, nhận xét tự động...) nằm cùng dòng/cột với bảng mong muốn, không
 giới hạn range sẽ lấy kèm hết:
 
-| report        | Nguồn                                                                          | range         |
-|---------------|----------------------------------------------------------------------------------------------------|---------------|
-| `sale`        | Sheet 1 (`1Sd97m...`, gid `462434893`) — bảng Lịch meet/Chi phí Ads theo Sale  | `B9:H22`      |
-| `compare`     | Sheet 2 (`1Zxjj2...`, gid `1616235685`) — bảng So sánh chi tiết tuần 34 vs 35  | `A20:P45`     |
+| report            | Nguồn                                                                             | range         |
+|-------------------|------------------------------------------------------------------------------------------------------|---------------|
+| `sale`            | Sheet 1 (`1Sd97m...`, gid `462434893`) — bảng Lịch meet/Chi phí Ads theo Sale    | `B9:H22`      |
+| `compare`         | Sheet 2 (`1Zxjj2...`, gid `1616235685`) — bảng So sánh chi tiết theo tuần       | `A20:P45`     |
+| `compare_month`   | Sheet 2 (`1Zxjj2...`, gid `661100457`) — bảng So sánh chi tiết theo tháng       | `A20:P46`     |
 
 (Range này dò ra bằng cách gọi thử `&range=...` trên deployment thật rồi so
 khớp từng dòng trả về — nếu bạn chỉnh sửa lại layout của 2 tab này sau này,
