@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <!-- GSAP vendored locally: cdn.jsdelivr.net is not in this sandbox's egress allowlist. -->
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family:'Montserrat'; font-style:normal; font-weight:400; src:url('assets/fonts/Montserrat-400-latin.woff2') format('woff2'); unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+      @font-face { font-family:'Montserrat'; font-style:normal; font-weight:400; src:url('assets/fonts/Montserrat-400-vietnamese.woff2') format('woff2'); unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB; }
+      @font-face { font-family:'Montserrat'; font-style:normal; font-weight:500; src:url('assets/fonts/Montserrat-500-latin.woff2') format('woff2'); unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+      @font-face { font-family:'Montserrat'; font-style:normal; font-weight:500; src:url('assets/fonts/Montserrat-500-vietnamese.woff2') format('woff2'); unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB; }
+      @font-face { font-family:'Montserrat'; font-style:normal; font-weight:600; src:url('assets/fonts/Montserrat-600-latin.woff2') format('woff2'); unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+      @font-face { font-family:'Montserrat'; font-style:normal; font-weight:600; src:url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2'); unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB; }
+      @font-face { font-family:'Montserrat'; font-style:normal; font-weight:700; src:url('assets/fonts/Montserrat-700-latin.woff2') format('woff2'); unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+      @font-face { font-family:'Montserrat'; font-style:normal; font-weight:700; src:url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2'); unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB; }
+      @font-face { font-family:'Montserrat'; font-style:normal; font-weight:800; src:url('assets/fonts/Montserrat-800-latin.woff2') format('woff2'); unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+      @font-face { font-family:'Montserrat'; font-style:normal; font-weight:800; src:url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2'); unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB; }
+      @font-face { font-family:'Montserrat'; font-style:normal; font-weight:900; src:url('assets/fonts/Montserrat-900-latin.woff2') format('woff2'); unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+      @font-face { font-family:'Montserrat'; font-style:normal; font-weight:900; src:url('assets/fonts/Montserrat-900-vietnamese.woff2') format('woff2'); unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB; }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #111111;
+        font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+      }
+
+      /* Depth background (mounted once at root, behind every scene) */
+      #bg-depth { position: absolute; inset: 0; overflow: hidden; z-index: 0; }
+      #bg-depth .blob { position: absolute; border-radius: 50%; filter: blur(60px); }
+      #bg-blob-1 { width: 620px; height: 620px; background: radial-gradient(circle, rgba(232,68,30,0.19), transparent 70%); top: -140px; right: -170px; }
+      #bg-blob-2 { width: 560px; height: 560px; background: radial-gradient(circle, rgba(232,68,30,0.13), transparent 70%); top: 860px; left: -220px; }
+      #bg-blob-3 { width: 540px; height: 540px; background: radial-gradient(circle, rgba(232,68,30,0.12), transparent 70%); bottom: -190px; right: 160px; }
+      #bg-stars { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+      .scene { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; }
+
+      /* Caption karaoke layer */
+      #cap-layer { position: absolute; left: 64px; top: 1468px; width: 816px; height: 120px; z-index: 80; }
+      #cap-layer .cap-chunk {
+        position: absolute; left: 0; top: 0; width: 816px;
+        font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+        font-weight: 700; font-size: 37px; line-height: 1.26; letter-spacing: -0.005em;
+        opacity: 0;
+      }
+      #cap-layer .w { display: inline-block; margin-right: 0.26em; color: rgba(255,255,255,0.55); }
+
+      /* Fixed Brand Anchor -- logo TOP-RIGHT, source TOP-LEFT, from end of Hook. */
+      #brand-anchor-logo { position: absolute; right: 48px; top: 48px; width: 108px; height: 117px; z-index: 90; }
+      #brand-anchor-logo img { display: block; width: 100%; height: 100%; object-fit: contain; }
+      #brand-anchor-source {
+        position: absolute; left: 48px; top: 48px; z-index: 90;
+        display: flex; align-items: center;
+        padding: 10px 18px; border-radius: 8px;
+        background: rgba(17, 17, 17, 0.55);
+        backdrop-filter: blur(2px);
+      }
+      #brand-anchor-source span {
+        font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+        font-weight: 500; font-size: 22px; letter-spacing: 0.04em;
+        color: rgba(255, 255, 255, 0.88);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="49.6" data-width="1080" data-height="1920">
+
+      <div id="bg-depth">
+        <div id="bg-blob-1" class="blob"></div>
+        <div id="bg-blob-2" class="blob"></div>
+        <div id="bg-blob-3" class="blob"></div>
+        <svg id="bg-stars" viewBox="0 0 1080 1920"></svg>
+      </div>
+
+      <div id="el-01-hook" class="scene" data-composition-id="01-hook" data-composition-src="compositions/frames/01-hook.html" data-start="0" data-duration="5.6" data-track-index="1"></div>
+      <div id="el-02-what-happened" class="scene" data-composition-id="02-what-happened" data-composition-src="compositions/frames/02-what-happened.html" data-start="5.6" data-duration="7.6" data-track-index="2"></div>
+      <div id="el-03-key-facts" class="scene" data-composition-id="03-key-facts" data-composition-src="compositions/frames/03-key-facts.html" data-start="13.2" data-duration="9.1" data-track-index="3"></div>
+      <div id="el-04-data-moment" class="scene" data-composition-id="04-data-moment" data-composition-src="compositions/frames/04-data-moment.html" data-start="22.3" data-duration="6.4" data-track-index="4"></div>
+      <div id="el-05-context" class="scene" data-composition-id="05-context" data-composition-src="compositions/frames/05-context.html" data-start="28.7" data-duration="9.5" data-track-index="5"></div>
+      <div id="el-06-impact" class="scene" data-composition-id="06-impact" data-composition-src="compositions/frames/06-impact.html" data-start="38.2" data-duration="11.4" data-track-index="6"></div>
+
+      <div id="cap-layer" class="clip" data-start="0" data-duration="49.6" data-track-index="80"></div>
+
+      <div id="brand-anchor-logo" class="clip" data-start="5.6" data-duration="44.0" data-track-index="90">
+        <img src="public/logo-bbh-mark.png" alt="">
+      </div>
+      <div id="brand-anchor-source" class="clip" data-start="5.6" data-duration="44.0" data-track-index="91">
+        <span>Nguồn: Znews</span>
+      </div>
+
+      <audio id="el-voice-1" src="assets/audio/voice/line1.mp3" data-start="0" data-duration="5.160" data-track-index="10" data-audio-group="voiceover"></audio>
+      <audio id="el-voice-2" src="assets/audio/voice/line2.mp3" data-start="5.6" data-duration="7.176" data-track-index="10" data-audio-group="voiceover"></audio>
+      <audio id="el-voice-3" src="assets/audio/voice/line3.mp3" data-start="13.2" data-duration="8.640" data-track-index="10" data-audio-group="voiceover"></audio>
+      <audio id="el-voice-4" src="assets/audio/voice/line4.mp3" data-start="22.3" data-duration="5.904" data-track-index="10" data-audio-group="voiceover"></audio>
+      <audio id="el-voice-5" src="assets/audio/voice/line5.mp3" data-start="28.7" data-duration="9.072" data-track-index="10" data-audio-group="voiceover"></audio>
+      <audio id="el-voice-6" src="assets/audio/voice/line6.mp3" data-start="38.2" data-duration="10.824" data-track-index="10" data-audio-group="voiceover"></audio>
+
+      <audio id="el-bgm" src="assets/bgm/track.mp3" data-start="0" data-duration="49.6" data-track-index="15" data-volume="0.5"></audio>
+
+      <audio id="el-sfx-0" src="assets/sfx/impact-bass-1.mp3" data-start="0.05" data-duration="2.115906" data-track-index="20" data-volume="0.34"></audio>
+      <audio id="el-sfx-1" src="assets/sfx/pop.mp3" data-start="1.55" data-duration="0.72" data-track-index="21" data-volume="0.30"></audio>
+
+      <audio id="el-sfx-2" src="assets/sfx/whoosh-short.mp3" data-start="5.6" data-duration="0.574688" data-track-index="22" data-volume="0.30"></audio>
+
+      <audio id="el-sfx-3" src="assets/sfx/whoosh-short.mp3" data-start="13.2" data-duration="0.574688" data-track-index="23" data-volume="0.30"></audio>
+      <audio id="el-sfx-4" src="assets/sfx/click.mp3" data-start="13.75" data-duration="0.365688" data-track-index="24" data-volume="0.30"></audio>
+      <audio id="el-sfx-5" src="assets/sfx/click.mp3" data-start="16.2" data-duration="0.365688" data-track-index="25" data-volume="0.28"></audio>
+      <audio id="el-sfx-6" src="assets/sfx/click.mp3" data-start="18.8" data-duration="0.365688" data-track-index="26" data-volume="0.28"></audio>
+
+      <audio id="el-sfx-7" src="assets/sfx/whoosh-short.mp3" data-start="22.3" data-duration="0.574688" data-track-index="27" data-volume="0.30"></audio>
+      <audio id="el-sfx-8" src="assets/sfx/impact-bass-1.mp3" data-start="23.65" data-duration="2.115906" data-track-index="28" data-volume="0.30"></audio>
+
+      <audio id="el-sfx-9" src="assets/sfx/whoosh-short.mp3" data-start="28.7" data-duration="0.574688" data-track-index="29" data-volume="0.30"></audio>
+      <audio id="el-sfx-10" src="assets/sfx/pop.mp3" data-start="29.45" data-duration="0.72" data-track-index="30" data-volume="0.26"></audio>
+      <audio id="el-sfx-11" src="assets/sfx/pop.mp3" data-start="30.45" data-duration="0.72" data-track-index="31" data-volume="0.26"></audio>
+
+      <audio id="el-sfx-12" src="assets/sfx/whoosh-short.mp3" data-start="38.2" data-duration="0.574688" data-track-index="32" data-volume="0.30"></audio>
+      <audio id="el-sfx-13" src="assets/sfx/click-soft.mp3" data-start="39.85" data-duration="0.4" data-track-index="33" data-volume="0.28"></audio>
+      <audio id="el-sfx-14" src="assets/sfx/click-soft.mp3" data-start="41.6" data-duration="0.4" data-track-index="34" data-volume="0.28"></audio>
+      <audio id="el-sfx-15" src="assets/sfx/chime.mp3" data-start="43.3" data-duration="2.544" data-track-index="35" data-volume="0.22"></audio>
+    </div>
+
+    <script>
+      (function () {
+        window.__timelines = window.__timelines || {};
+
+        // seeded PRNG -- deterministic star field, seed unique to this project (not reused).
+        function mulberry32(seed) {
+          return function () {
+            seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+            var t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+            t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+            return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+          };
+        }
+        var rand = mulberry32(20261003);
+        var starsSvg = document.getElementById("bg-stars");
+        for (var i = 0; i < 40; i++) {
+          var c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+          c.setAttribute("cx", (rand() * 1080).toFixed(1));
+          c.setAttribute("cy", (rand() * 1920).toFixed(1));
+          c.setAttribute("r", (1.5 + rand() * 1.5).toFixed(2));
+          c.setAttribute("fill", "#fff");
+          c.setAttribute("opacity", (0.15 + rand() * 0.25).toFixed(2));
+          starsSvg.appendChild(c);
+        }
+
+        // Caption karaoke data: [chunkStart, chunkEnd, [[word, wordStartAbs], ...]]
+        // absolute composition seconds. ElevenLabs STT quota was 0/0 at production time
+        // (see PRODUCTION-WORKFLOW-BOT-BAN-HANG.md 2026-09-30 notes), so timestamps are the
+        // documented deterministic fallback: per-word duration proportional to character
+        // length within each line's real measured voice duration, with small pauses added
+        // after commas/semicolons. No STT call was made (quota already known to be 0).
+        var CAPS = [[5.6, 6.8, [["Theo", 5.6], ["Tổng", 5.82], ["cục", 6.04], ["Thống", 6.21], ["kê,", 6.49]]], [6.8, 7.96, [["kim", 6.8], ["ngạch", 6.96], ["xuất", 7.24], ["khẩu", 7.46], ["tháng", 7.69]]], [7.96, 8.97, [["chín", 7.96], ["đạt", 8.19], ["năm", 8.35], ["mươi", 8.52], ["chín", 8.74]]], [8.97, 9.74, [["phẩy", 8.97], ["bốn", 9.19], ["tám", 9.35], ["tỷ", 9.52], ["đô", 9.63]]], [9.74, 10.83, [["la", 9.74], ["Mỹ,", 9.86], ["trong", 10.16], ["khi", 10.44], ["nhập", 10.61]]], [10.83, 11.72, [["khẩu", 10.83], ["là", 11.05], ["năm", 11.16], ["mươi", 11.33], ["tám", 11.55]]], [11.72, 12.5, [["phẩy", 11.72], ["hai", 11.94], ["mốt", 12.11], ["tỷ", 12.28], ["đô", 12.39]]], [12.5, 12.78, [["la", 12.5], ["Mỹ.", 12.61]]], [13.2, 14.28, [["Tổng", 13.2], ["kim", 13.42], ["ngạch", 13.58], ["xuất", 13.85], ["nhập", 14.07]]], [14.28, 15.31, [["khẩu", 14.28], ["tháng", 14.5], ["chín", 14.77], ["đạt", 14.99], ["một", 15.15]]], [15.31, 16.29, [["trăm", 15.31], ["mười", 15.53], ["bảy", 15.74], ["phẩy", 15.91], ["sáu", 16.12]]], [16.29, 17.13, [["chín", 16.29], ["tỷ", 16.5], ["đô", 16.61], ["la", 16.72], ["Mỹ,", 16.83]]], [17.13, 18.05, [["tăng", 17.13], ["bảy", 17.35], ["phẩy", 17.51], ["ba", 17.73], ["phần", 17.83]]], [18.05, 19.08, [["trăm", 18.05], ["so", 18.27], ["với", 18.38], ["tháng", 18.54], ["trước", 18.81]]], [19.08, 19.95, [["và", 19.08], ["tăng", 19.19], ["bốn", 19.4], ["mươi", 19.57], ["hai", 19.78]]], [19.95, 20.87, [["phẩy", 19.95], ["bốn", 20.16], ["phần", 20.32], ["trăm", 20.54], ["so", 20.76]]], [20.87, 21.84, [["với", 20.87], ["cùng", 21.03], ["kỳ", 21.24], ["năm", 21.35], ["ngoái.", 21.52]]], [22.3, 23.38, [["Mức", 22.3], ["xuất", 22.48], ["siêu", 22.72], ["một", 22.96], ["phẩy", 23.14]]], [23.38, 24.1, [["hai", 23.38], ["bảy", 23.56], ["tỷ", 23.74], ["đô", 23.86], ["la", 23.98]]], [24.1, 24.94, [["Mỹ", 24.1], ["là", 24.22], ["lần", 24.34], ["đầu", 24.52], ["tiên", 24.7]]], [24.94, 26.04, [["dương", 24.94], ["kể", 25.24], ["từ", 25.36], ["đầu", 25.48], ["năm,", 25.66]]], [26.04, 27.24, [["sau", 26.04], ["chín", 26.22], ["tháng", 26.46], ["liên", 26.76], ["tiếp", 27.0]]], [27.24, 28.2, [["Việt", 27.24], ["Nam", 27.48], ["nhập", 27.66], ["siêu.", 27.9]]], [28.7, 29.85, [["Tính", 28.7], ["chung", 28.92], ["chín", 29.19], ["tháng", 29.41], ["đầu", 29.69]]], [29.85, 31.03, [["năm,", 29.85], ["tổng", 30.21], ["kim", 30.43], ["ngạch", 30.59], ["đạt", 30.87]]], [31.03, 31.96, [["tám", 31.03], ["trăm", 31.19], ["tám", 31.41], ["mươi", 31.58], ["tám", 31.8]]], [31.96, 32.84, [["phẩy", 31.96], ["không", 32.18], ["hai", 32.45], ["tỷ", 32.62], ["đô", 32.73]]], [32.84, 33.8, [["la", 32.84], ["Mỹ,", 32.95], ["tăng", 33.25], ["ba", 33.47], ["mươi", 33.58]]], [33.8, 34.73, [["phần", 33.8], ["trăm", 34.02], ["so", 34.24], ["với", 34.35], ["cùng", 34.51]]], [34.73, 35.86, [["kỳ,", 34.73], ["nhưng", 35.03], ["Việt", 35.31], ["Nam", 35.53], ["vẫn", 35.69]]], [35.86, 36.95, [["nhập", 35.86], ["siêu", 36.07], ["mười", 36.29], ["chín", 36.51], ["phẩy", 36.73]]], [36.95, 37.61, [["bốn", 36.95], ["hai", 37.11], ["tỷ", 37.28], ["đô", 37.39], ["la", 37.5]]], [37.61, 37.77, [["Mỹ.", 37.61]]], [38.2, 39.19, [["Nhóm", 38.2], ["hàng", 38.43], ["điện", 38.65], ["tử,", 38.88]]], [39.19, 40.15, [["máy", 39.19], ["tính", 39.36], ["và", 39.59], ["linh", 39.7], ["kiện", 39.93]]], [40.15, 41.12, [["dẫn", 40.15], ["đầu", 40.32], ["xuất", 40.49], ["khẩu", 40.72], ["với", 40.95]]], [41.12, 42.08, [["hơn", 41.12], ["một", 41.29], ["trăm", 41.46], ["hai", 41.69], ["mươi", 41.86]]], [42.08, 42.85, [["ba", 42.08], ["tỷ", 42.2], ["đô", 42.31], ["la", 42.42], ["Mỹ;", 42.54]]], [42.85, 43.75, [["Hoa", 42.85], ["Kỳ", 43.02], ["là", 43.13], ["thị", 43.24], ["trường", 43.41]]], [43.75, 44.8, [["xuất", 43.75], ["khẩu", 43.98], ["lớn", 44.21], ["nhất,", 44.38]]], [44.8, 45.94, [["Trung", 44.8], ["Quốc", 45.08], ["là", 45.31], ["nguồn", 45.42], ["nhập", 45.71]]], [45.94, 46.76, [["khẩu", 45.94], ["lớn", 46.16], ["nhất,", 46.33]]], [46.76, 47.78, [["theo", 46.76], ["Tổng", 46.98], ["cục", 47.21], ["Thống", 47.38], ["kê", 47.66]]], [47.78, 48.74, [["công", 47.78], ["bố", 48.0], ["ngày", 48.12], ["ba", 48.34], ["tháng", 48.46]]], [48.74, 49.02, [["mười.", 48.74]]]];
+
+        var capLayer = document.getElementById("cap-layer");
+        var chunkEls = [];
+        var wordEls = [];
+        for (var ci = 0; ci < CAPS.length; ci++) {
+          var chunk = document.createElement("div");
+          chunk.className = "cap-chunk";
+          chunk.id = "cap-c" + ci;
+          var words = CAPS[ci][2];
+          var refs = [];
+          for (var wi = 0; wi < words.length; wi++) {
+            var sp = document.createElement("span");
+            sp.className = "w";
+            sp.id = "cap-c" + ci + "-w" + wi;
+            sp.textContent = words[wi][0];
+            chunk.appendChild(sp);
+            refs.push(sp);
+          }
+          capLayer.appendChild(chunk);
+          chunkEls.push(chunk);
+          wordEls.push(refs);
+        }
+
+        var tl = gsap.timeline({ paused: true });
+
+        // Depth motion. Finite repeat counts so the timeline stays bounded and
+        // deterministic for a seek-based renderer; cycles cover the full 49.6s runtime.
+        tl.to("#bg-depth .blob", { x: "+=40", y: "-=30", duration: 16, ease: "sine.inOut", repeat: 3, yoyo: true, stagger: 3 }, 0);
+        tl.to("#bg-stars circle", { opacity: "+=0.25", duration: 4, ease: "sine.inOut", repeat: 11, yoyo: true, stagger: { each: 0.15, from: "random" } }, 0);
+
+        // Caption chunks: fade in, karaoke each word to brand orange at the exact
+        // moment it is spoken, fade the chunk out at its end. Skipped during Hook
+        // (0 - 5.6s) per brand rule -- Hook title-card already shows the headline.
+        for (var k = 0; k < CAPS.length; k++) {
+          var cs = CAPS[k][0], ce = CAPS[k][1], ws = CAPS[k][2];
+          var nextIn = (k + 1 < CAPS.length) ? CAPS[k + 1][0] - 0.06 : Infinity;
+          var outAt = Math.min(ce, nextIn - 0.12);
+          tl.fromTo(chunkEls[k], { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.16, ease: "power2.out" }, Math.max(0, cs - 0.06));
+          for (var m = 0; m < ws.length; m++) {
+            tl.fromTo(
+              wordEls[k][m],
+              { color: "rgba(255,255,255,0.55)" },
+              { color: "#e8441e", duration: 0.1, ease: "none" },
+              ws[m][1]
+            );
+          }
+          tl.to(chunkEls[k], { opacity: 0, duration: 0.1, ease: "power1.in" }, outAt);
+        }
+
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>
