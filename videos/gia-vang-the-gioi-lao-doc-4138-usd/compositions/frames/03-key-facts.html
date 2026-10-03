@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; font-family: "Montserrat", sans-serif; background: #111111; overflow: hidden; }
+
+        #kf-kicker-wrap { position: absolute; top: 96px; left: 90px; z-index: 5; }
+        #kf-kicker { display: inline-flex; align-items: center; gap: 10px; padding: 10px 20px; background: #E8441E;
+          transform: rotate(-1deg); box-shadow: 0 10px 24px rgba(0,0,0,0.35); }
+        #kf-kicker span { font-weight: 700; font-size: 22px; color: #ffffff; letter-spacing: 0.04em; text-transform: uppercase; }
+        #kf-title { margin-top: 26px; font-weight: 700; font-size: 44px; line-height: 1.26; color: #ffffff; max-width: 900px; }
+
+        .kf-clip { position: absolute; left: 90px; width: 900px; background: #ffffff; padding: 32px 36px 36px; box-shadow: 0 20px 50px rgba(0,0,0,0.45), 0 0 36px rgba(232,68,30,0.12); }
+        #kf-clip-1 { top: 500px; transform: rotate(-1.6deg); }
+        #kf-clip-2 { top: 1040px; transform: rotate(1.3deg); }
+
+        .kf-clip-quote { position: absolute; top: -40px; right: 20px; font-family: Georgia, serif; font-weight: 900; font-size: 160px;
+          color: rgba(232,68,30,0.14); line-height: 1; z-index: 0; }
+
+        .kf-clip-label { display: inline-block; font-weight: 700; font-size: 18px; letter-spacing: 0.06em; text-transform: uppercase;
+          color: #C23815; border-bottom: 3px solid #E8441E; padding-bottom: 4px; position: relative; z-index: 1; }
+        .kf-clip-head { margin-top: 14px; font-weight: 800; font-size: 34px; line-height: 1.28; color: #111111; position: relative; z-index: 1; }
+        .kf-clip-sub { margin-top: 10px; font-weight: 500; font-size: 23px; line-height: 1.4; color: #3a3a3a; position: relative; z-index: 1; max-width: 760px; }
+
+        #kf-clip-2-number-row { display: flex; align-items: baseline; gap: 14px; margin-top: 14px; position: relative; z-index: 1; }
+        #kf-clip-2-number { font-weight: 900; font-size: 68px; color: #E8441E; letter-spacing: -0.01em; }
+        #kf-clip-2-unit { font-weight: 700; font-size: 26px; color: #111111; }
+
+        .kf-pin { position: absolute; width: 18px; height: 18px; border-radius: 50%; background: #E8441E; box-shadow: 0 2px 6px rgba(0,0,0,0.4); z-index: 6; }
+        #kf-pin-1 { top: 494px; left: 70px; }
+        #kf-pin-2 { top: 1034px; left: 970px; }
+
+        #cutflash-kf { position: absolute; inset: 0; z-index: 10; pointer-events: none; opacity: 0;
+          background: linear-gradient(180deg, rgba(232,68,30,0.4), rgba(232,68,30,0.16)); }
+      </style>
+
+      <div data-hf-id="hf-chzy" id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-w4f9" id="kf-kicker-wrap">
+          <div data-hf-id="hf-xew8" id="kf-kicker"><span data-hf-id="hf-qhmg">Vì sao vàng lao dốc?</span></div>
+          <div data-hf-id="hf-fs3r" id="kf-title">Hai áp lực cùng lúc đè lên giá vàng</div>
+        </div>
+
+        <div data-hf-id="hf-aovw" class="kf-pin" id="kf-pin-1"></div>
+        <div data-hf-id="hf-81j4" class="kf-clip" id="kf-clip-1">
+          <div data-hf-id="hf-zavb" class="kf-clip-quote" data-layout-allow-overlap data-layout-allow-overflow>“</div>
+          <div data-hf-id="hf-d9wo" class="kf-clip-label">Áp lực vĩ mô</div>
+          <div data-hf-id="hf-dxoe" class="kf-clip-head">USD mạnh lên, lợi suất trái phiếu Mỹ cao nhất từ 2002</div>
+          <div data-hf-id="hf-0j9z" class="kf-clip-sub">Lợi suất trái phiếu kho bạc Mỹ kỳ hạn 10 năm và 30 năm cùng tăng lên mức cao nhất kể từ năm 2002.</div>
+        </div>
+
+        <div data-hf-id="hf-lkdj" class="kf-pin" id="kf-pin-2"></div>
+        <div data-hf-id="hf-gpez" class="kf-clip" id="kf-clip-2">
+          <div data-hf-id="hf-tjon" class="kf-clip-quote" data-layout-allow-overlap data-layout-allow-overflow>“</div>
+          <div data-hf-id="hf-rj88" class="kf-clip-label">Thị trường tương lai</div>
+          <div data-hf-id="hf-pp0r" class="kf-clip-head">Hợp đồng vàng tương lai Comex cũng giảm sâu</div>
+          <div data-hf-id="hf-b2ih" id="kf-clip-2-number-row">
+            <div data-hf-id="hf-jun8" id="kf-clip-2-number">4.163</div>
+            <div data-hf-id="hf-omi0" id="kf-clip-2-unit">USD/ounce</div>
+          </div>
+          <div data-hf-id="hf-hk0a" class="kf-clip-sub">Hợp đồng giao tháng 12 trên sàn Comex giảm hơn 38 USD/ounce.</div>
+        </div>
+
+        <div data-hf-id="hf-yvfv" id="cutflash-kf"></div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo("#kf-kicker", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }, 0);
+          tl.fromTo("#kf-title", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.28);
+
+          tl.fromTo("#kf-clip-1", { opacity: 0, y: 40, rotate: -8 }, { opacity: 1, y: 0, rotate: -1.6, duration: 0.5, ease: "back.out(1.3)" }, 1.1);
+          tl.fromTo("#kf-pin-1", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 1.35);
+
+          // Pivot: from the macro cause to the market-reaction number -- genuine content shift
+          tl.fromTo("#cutflash-kf", { opacity: 0 }, { opacity: 0.45, duration: 0.05, ease: "none" }, 7.0);
+          tl.to("#cutflash-kf", { opacity: 0, duration: 0.16, ease: "power1.in" }, 7.05);
+          tl.fromTo("#root", { scale: 1 }, { scale: 0.986, duration: 0.06, ease: "power1.out" }, 7.0);
+          tl.to("#root", { scale: 1, duration: 0.14, ease: "power2.out" }, 7.061);
+
+          tl.fromTo("#kf-clip-2", { opacity: 0, y: 40, rotate: 7 }, { opacity: 1, y: 0, rotate: 1.3, duration: 0.5, ease: "back.out(1.3)" }, 7.2);
+          tl.fromTo("#kf-pin-2", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 7.45);
+          tl.fromTo("#kf-clip-2-number", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.6)" }, 7.65);
+          tl.fromTo("#kf-clip-2-unit", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 7.95);
+
+          window.__timelines["03-key-facts"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

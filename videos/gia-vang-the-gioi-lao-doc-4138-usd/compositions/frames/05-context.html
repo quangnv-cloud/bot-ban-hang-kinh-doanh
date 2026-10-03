@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; font-family: "Montserrat", sans-serif; background: #111111; overflow: hidden; }
+
+        #cx-kicker-wrap { position: absolute; top: 100px; left: 90px; z-index: 4; }
+        #cx-kicker { display: inline-flex; align-items: center; gap: 10px; padding: 11px 22px; background: #E8441E;
+          transform: rotate(-1deg); box-shadow: 0 10px 24px rgba(0,0,0,0.35); }
+        #cx-kicker span { font-weight: 700; font-size: 22px; color: #ffffff; letter-spacing: 0.05em; text-transform: uppercase; }
+        #cx-title { margin-top: 26px; font-weight: 700; font-size: 44px; line-height: 1.26; color: #ffffff; max-width: 900px; }
+
+        #cx-clip { position: absolute; top: 460px; left: 90px; width: 900px; background: #ffffff; padding: 40px 44px 44px;
+          transform: rotate(1.4deg); box-shadow: 0 22px 54px rgba(0,0,0,0.45), 0 0 40px rgba(232,68,30,0.12); z-index: 3; }
+        #cx-clip-quote { position: absolute; top: -56px; left: 28px; font-family: Georgia, serif; font-weight: 900; font-size: 200px;
+          color: rgba(232,68,30,0.16); line-height: 1; }
+        #cx-dash-line { font-weight: 700; font-size: 29px; color: #111111; line-height: 1.4; position: relative; z-index: 1; }
+        #cx-dash-line b { color: #E8441E; }
+
+        #cx-prob-row { display: flex; align-items: center; gap: 26px; margin-top: 30px; position: relative; z-index: 1; }
+        #cx-prob-before { text-align: center; }
+        #cx-prob-before .cx-prob-val { font-weight: 800; font-size: 60px; color: #b7b7b7; text-decoration: line-through; text-decoration-color: #c7574a; }
+        #cx-prob-before .cx-prob-tag { font-weight: 600; font-size: 17px; color: #8a8a8a; text-transform: uppercase; letter-spacing: 0.04em; }
+        #cx-prob-arrow { font-size: 44px; color: #E8441E; font-weight: 900; }
+        #cx-prob-after { text-align: center; }
+        #cx-prob-after .cx-prob-val { font-weight: 900; font-size: 92px; color: #E8441E; }
+        #cx-prob-after .cx-prob-tag { font-weight: 700; font-size: 17px; color: #C23815; text-transform: uppercase; letter-spacing: 0.04em; }
+
+        #cx-cite { margin-top: 26px; font-weight: 500; font-style: italic; font-size: 22px; color: #5a5a5a; position: relative; z-index: 1; }
+
+        #cx-footer { position: absolute; top: 1440px; left: 90px; width: 900px; z-index: 3; display: flex; align-items: center; gap: 16px;
+          padding: 26px 30px; border-left: 5px solid #E8441E; background: rgba(255,255,255,0.05); }
+        #cx-footer span { font-weight: 600; font-size: 25px; color: rgba(255,255,255,0.82); line-height: 1.4; }
+      </style>
+
+      <div data-hf-id="hf-3o8a" id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-b7tz" id="cx-kicker-wrap">
+          <div data-hf-id="hf-bl4m" id="cx-kicker"><span data-hf-id="hf-rvt9">Kỳ vọng chính sách Fed</span></div>
+          <div data-hf-id="hf-aukp" id="cx-title">Báo cáo việc làm yếu làm lung lay kỳ vọng tăng lãi suất</div>
+        </div>
+
+        <div data-hf-id="hf-2upr" id="cx-clip">
+          <div data-hf-id="hf-jxcg" id="cx-clip-quote" data-layout-allow-overlap data-layout-allow-overflow>“</div>
+          <div data-hf-id="hf-mete" id="cx-dash-line">– Xác suất Cục Dự trữ Liên bang Mỹ <b data-hf-id="hf-hhx5">tăng lãi suất trong tháng 10</b> giảm mạnh:</div>
+          <div data-hf-id="hf-0grz" id="cx-prob-row">
+            <div data-hf-id="hf-mgdc" id="cx-prob-before">
+              <div data-hf-id="hf-m3xd" class="cx-prob-val">70%</div>
+              <div data-hf-id="hf-inzm" class="cx-prob-tag">Đầu tuần</div>
+            </div>
+            <div data-hf-id="hf-z3tm" id="cx-prob-arrow">→</div>
+            <div data-hf-id="hf-9zxx" id="cx-prob-after">
+              <div data-hf-id="hf-v8is" class="cx-prob-val">22%</div>
+              <div data-hf-id="hf-eeo0" class="cx-prob-tag">Sau báo cáo</div>
+            </div>
+          </div>
+          <div data-hf-id="hf-lrp6" id="cx-cite">— Công cụ FedWatch, sàn CME</div>
+        </div>
+
+        <div data-hf-id="hf-49eo" id="cx-footer">
+          <span data-hf-id="hf-1lxe">Kỳ vọng chính sách tiền tệ đảo chiều chỉ sau một báo cáo việc làm</span>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo("#cx-kicker", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }, 0);
+          tl.fromTo("#cx-title", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.28);
+
+          tl.fromTo("#cx-clip", { opacity: 0, y: 36, rotate: 8 }, { opacity: 1, y: 0, rotate: 1.4, duration: 0.5, ease: "back.out(1.3)" }, 1.1);
+          tl.fromTo("#cx-dash-line", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 1.5);
+
+          tl.fromTo("#cx-prob-before", { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out" }, 3.6);
+          tl.fromTo("#cx-prob-arrow", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 4.1);
+          tl.fromTo("#cx-prob-after", { opacity: 0, scale: 0.75, x: 16 }, { opacity: 1, scale: 1, x: 0, duration: 0.42, ease: "back.out(1.6)" }, 4.35);
+          tl.fromTo("#cx-cite", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 5.0);
+
+          tl.fromTo("#cx-footer", { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.36, ease: "power2.out" }, 6.3);
+
+          window.__timelines["05-context"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
