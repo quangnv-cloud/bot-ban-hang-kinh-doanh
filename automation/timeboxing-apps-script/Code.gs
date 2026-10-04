@@ -2,88 +2,85 @@
  * Tự động tạo task TimeBoxing (merchant.vn) cho tuần sau: Thứ 2 → Thứ 7.
  * Chạy bằng time-driven trigger của Google Apps Script (không cần mở máy).
  *
- * Apps Script KHÔNG bấm được giao diện web — nó gọi thẳng API mà trang web dùng.
- * Vì vậy cần bắt 2 request thật bằng Chrome DevTools rồi điền vào CONFIG.API (xem README.md).
+ * Apps Script KHÔNG bấm được giao diện web — nó gọi thẳng API mà app TimeBoxing dùng:
+ *   POST https://api-timeboxing.merchant.vn/task/template  {action:'READ'}  → danh sách template
+ *   POST https://api-timeboxing.merchant.vn/task/get_tasks                  → kiểm tra trùng
+ *   POST https://api-timeboxing.merchant.vn/task/create_task                → tạo task (kèm start_time)
+ * Header xác thực: "Token-Business: <token_business>".
  *
- * Token đăng nhập KHÔNG để trong code: lưu ở Project Settings → Script Properties → AUTH_TOKEN.
+ * Token KHÔNG để trong code: lưu ở Project Settings → Script Properties → AUTH_TOKEN.
+ * Token có hạn 30 ngày — script tự gửi email nhắc khi còn < 7 ngày (xem README.md cách lấy token mới).
  */
 
 const CONFIG = {
   TIMEZONE: 'Asia/Ho_Chi_Minh',
-  START_TIME: '23:45',        // giờ bắt đầu mặc định
+  START_TIME: '23:45',          // giờ bắt đầu mặc định
   WEEKDAYS: [1, 2, 3, 4, 5, 6], // 1 = Thứ 2 ... 6 = Thứ 7
-  DRY_RUN: true,              // true = chỉ log, không gọi API. Đổi thành false khi đã test xong.
-  NOTIFY_EMAIL: '',           // để trống = gửi về email chủ script khi lỗi
+  DRY_RUN: true,                // true = chỉ log, không tạo task. Đổi thành false khi đã test xong.
+  NOTIFY_EMAIL: '',             // để trống = gửi về email chủ script
+  TOKEN_WARN_DAYS: 7,           // nhắc cập nhật token khi còn ít hơn số ngày này
 
   // Mỗi phần tử = 1 task/ngày. {dd}, {MM}, {yyyy} được thay theo ngày tương ứng.
+  // templateId lấy từ danh sách template (chạy listTemplates để xem).
   TASKS: [
-    {
-      title: '[Nhân sự] Hậu kiểm nhân sự ngày {dd}.{MM}',
-      templateId: 'DIEN_TEMPLATE_ID',
-    },
+    { title: '[Nhân sự] Hậu kiểm nhân sự ngày {dd}.{MM}', templateId: 234778 },
+    { title: '[Chatbox AI] Hậu kiểm data trên Chatbox + Danh bạ ngày {dd}.{MM}', templateId: 282241 },
+    { title: '[Tài chính] Xác nhận các khoản tiền chuyển Bu Ads ngày {dd}.{MM}', templateId: 59146 },
+    { title: '[Chatbox AI] Triển khai chatbox AI ngày {dd}.{MM}', templateId: 59262 },
+    { title: '[Mastercy] - Kiểm tra chất lượng & tài nguyên QC ngày {dd}.{MM}', templateId: 59137 },
+    { title: '[Plan] Kế hoạch công việc hàng ngày {dd}.{MM}', templateId: 59139 },
   ],
 
-  // Điền từ request thật (DevTools → Network → Copy as cURL). Placeholder dùng được trong url/body:
-  // {{TITLE}} {{TEMPLATE_ID}} {{TASK_ID}} {{START_ISO}} {{START_MS}} {{START_SEC}} {{DATE}}
-  API: {
-    AUTH_HEADER: 'Authorization',   // tên header chứa token (có thể là 'token', 'x-access-token'...)
-    AUTH_PREFIX: 'Bearer ',          // để '' nếu token không có tiền tố
-    EXTRA_HEADERS: {},               // header bắt buộc khác nếu có (vd: {'x-merchant-id': '...'})
-
-    // Bước "Tạo và xem chi tiết"
-    CREATE: {
-      method: 'post',
-      url: 'https://DIEN_API_HOST/DIEN_DUONG_DAN_TAO_TASK',
-      body: {
-        title: '{{TITLE}}',
-        template_id: '{{TEMPLATE_ID}}',
-      },
-      idPath: 'data._id', // đường dẫn tới id task trong JSON response
-    },
-
-    // Bước "Chọn thời gian bắt đầu" → "Chọn". Đặt null nếu CREATE đã nhận luôn giờ bắt đầu.
-    SET_START: {
-      method: 'put',
-      url: 'https://DIEN_API_HOST/DIEN_DUONG_DAN/{{TASK_ID}}',
-      body: {
-        start_time: '{{START_ISO}}',
-      },
-    },
-  },
+  API_HOST: 'https://api-timeboxing.merchant.vn',
 };
 
 /* ====================== Entry points ====================== */
 
 /** Hàm trigger gọi mỗi Thứ 7 ~16:00. */
 function createNextWeekTasks() {
+  const results = [];
+  const warn = checkTokenExpiry_();
+  if (warn) results.push('CẢNH BÁO: ' + warn);
+
   const days = nextWeekDays_(new Date());
   const done = loadDone_();
-  const results = [];
+  let templates = null;
+  let existing = null;
 
   days.forEach(function (day) {
     CONFIG.TASKS.forEach(function (task) {
-      const key = Utilities.formatDate(day, CONFIG.TIMEZONE, 'yyyy-MM-dd') + '|' + task.title;
+      const v = vars_(task, day);
+      const key = v.DATE + '|' + task.title;
       if (done[key]) {
-        results.push('BỎ QUA (đã tạo): ' + key);
+        results.push('BỎ QUA (đã tạo): ' + v.TITLE);
         return;
       }
       try {
-        const id = createOne_(task, day);
+        templates = templates || loadTemplates_();
+        existing = existing || existingTitles_();
+        if (existing[v.TITLE]) {
+          results.push('BỎ QUA (đã có trên merchant): ' + v.TITLE);
+          done[key] = existing[v.TITLE];
+          if (!CONFIG.DRY_RUN) saveDone_(done);
+          return;
+        }
+        const id = createOne_(task, v, templates);
         if (!CONFIG.DRY_RUN) {
-          done[key] = id || true;
+          done[key] = id;
           saveDone_(done);
         }
-        results.push('OK: ' + key + (id ? ' → ' + id : ''));
+        results.push('OK: ' + v.TITLE + ' → ' + id);
       } catch (e) {
-        results.push('LỖI: ' + key + ' → ' + e.message);
+        results.push('LỖI: ' + v.TITLE + ' → ' + e.message);
       }
     });
   });
 
   const report = results.join('\n');
   Logger.log(report);
-  if (results.some(function (r) { return r.indexOf('LỖI') === 0; })) {
-    notify_('[TimeBoxing] Tạo task tuần sau có LỖI', report);
+  const hasError = results.some(function (r) { return r.indexOf('LỖI') === 0; });
+  if (hasError || warn) {
+    notify_('[TimeBoxing] ' + (hasError ? 'Tạo task tuần sau có LỖI' : 'Token sắp hết hạn'), report);
   }
   return report;
 }
@@ -102,20 +99,40 @@ function installTrigger() {
   Logger.log('Đã cài trigger Thứ 7, 16:00–17:00 (' + CONFIG.TIMEZONE + ')');
 }
 
-/** Test nhanh: tạo đúng 1 task cho ngày mai (vẫn tôn trọng DRY_RUN). */
+/**
+ * Test thật: tạo đúng 1 task cho ngày TEST_DATE (yyyy-MM-dd), bỏ qua DRY_RUN.
+ * Không tạo nếu trên merchant đã có task cùng tiêu đề.
+ */
 function testOne() {
-  const d = new Date(Date.now() + 24 * 3600 * 1000);
-  Logger.log(createOne_(CONFIG.TASKS[0], d));
+  const TEST_DATE = '2026-10-06';
+  const day = new Date(TEST_DATE + 'T12:00:00+07:00');
+  const task = CONFIG.TASKS[0];
+  const v = vars_(task, day);
+  if (existingTitles_()[v.TITLE]) {
+    Logger.log('Đã có trên merchant, không tạo: ' + v.TITLE);
+    return;
+  }
+  const id = createOne_(task, v, loadTemplates_(), true);
+  Logger.log('Đã tạo: ' + v.TITLE + ' → id ' + id);
 }
 
-/** Xem trước danh sách sẽ tạo, không gọi API. */
+/** Xem trước danh sách sẽ tạo (không gọi API). */
 function preview() {
   nextWeekDays_(new Date()).forEach(function (day) {
     CONFIG.TASKS.forEach(function (task) {
       const v = vars_(task, day);
-      Logger.log(v.TITLE + '  |  bắt đầu ' + v.START_ISO);
+      Logger.log(v.TITLE + '  |  bắt đầu ' + Utilities.formatDate(new Date(v.START_MS), CONFIG.TIMEZONE, 'dd/MM/yyyy HH:mm'));
     });
   });
+}
+
+/** Liệt kê template (id + tiêu đề) để điền vào CONFIG.TASKS. Đồng thời kiểm tra token còn dùng được. */
+function listTemplates() {
+  const list = loadTemplates_();
+  Object.keys(list).forEach(function (id) {
+    Logger.log(id + '  |  ' + list[id].type + '  |  ' + list[id].title);
+  });
+  Logger.log(checkTokenExpiry_() || 'Token còn hạn: ' + tokenExpiry_());
 }
 
 /** Xoá bộ nhớ chống tạo trùng (khi cần tạo lại). */
@@ -125,18 +142,69 @@ function resetDone() {
 
 /* ====================== Core ====================== */
 
-function createOne_(task, day) {
-  const v = vars_(task, day);
-  const created = call_(CONFIG.API.CREATE, v);
-  if (CONFIG.DRY_RUN) return 'DRY_RUN';
+function createOne_(task, v, templates, force) {
+  const tpl = templates[String(task.templateId)];
+  if (!tpl) throw new Error('Không tìm thấy template id ' + task.templateId + ' (chạy listTemplates để xem id đúng)');
 
-  const id = getPath_(created, CONFIG.API.CREATE.idPath);
-  if (CONFIG.API.SET_START) {
-    if (!id) throw new Error('Không lấy được task id tại "' + CONFIG.API.CREATE.idPath + '": ' + JSON.stringify(created).slice(0, 300));
-    v.TASK_ID = String(id);
-    call_(CONFIG.API.SET_START, v);
+  // Giống thao tác "Chọn Template" trên web: copy các trường này từ template.
+  const body = {
+    type: tpl.type || 'day',
+    kind_process: tpl.kind_process || 'proactive',
+    assignment_task: tpl.assignment_task || tpl.template_creator,
+    title: v.TITLE,
+    pre_title: tpl.pre_title,
+    result_content: tpl.result_content,
+    using_ai: tpl.using_ai,
+    prompt_ai: tpl.prompt_ai,
+    template_id: tpl.id,
+    template_creator: tpl.employee_id || tpl.template_creator,
+    start_time: v.START_MS,
+  };
+  if (tpl.project_id) body.project_id = tpl.project_id;
+  if (tpl.versioning_id) body.versioning_id = tpl.versioning_id;
+
+  if (CONFIG.DRY_RUN && !force) {
+    Logger.log('[DRY_RUN] create_task ' + JSON.stringify(Object.assign({}, body, { result_content: '(' + String(body.result_content || '').length + ' ký tự)' })));
+    return 'DRY_RUN';
   }
-  return id;
+  const res = api_('/task/create_task', body);
+  const created = res && res.data ? res.data : res;
+  if (!created || !created.id) throw new Error('Không nhận được id task: ' + JSON.stringify(res).slice(0, 300));
+  return created.id;
+}
+
+/** { "<id>": template } */
+function loadTemplates_() {
+  const res = api_('/task/template', { action: 'READ' });
+  const arr = Array.isArray(res) ? res : (res && res.data) || [];
+  const map = {};
+  arr.forEach(function (t) { map[String(t.id)] = t; });
+  return map;
+}
+
+/** { "<tiêu đề>": id } của các task gần đây — để không tạo trùng task đã tạo tay. */
+function existingTitles_() {
+  const assignee = assignee_();
+  const body = { skip: 0, limit: 200 };
+  if (assignee) body.assignment_task = assignee;
+  const res = api_('/task/get_tasks', body);
+  const d = res && res.data ? res.data : res;
+  const tasks = (d && d.tasks) || (Array.isArray(d) ? d : []);
+  const map = {};
+  tasks.forEach(function (t) { if (t.title) map[String(t.title).trim()] = t.id; });
+  return map;
+}
+
+function assignee_() {
+  const firstId = String(CONFIG.TASKS[0].templateId);
+  const cache = CacheService.getScriptCache();
+  let a = cache.get('ASSIGNEE');
+  if (!a) {
+    const t = loadTemplates_()[firstId];
+    a = t ? (t.assignment_task || t.template_creator || '') : '';
+    if (a) cache.put('ASSIGNEE', a, 3600);
+  }
+  return a;
 }
 
 /** Thứ 2 → Thứ 7 của tuần kế tiếp, tính theo giờ Việt Nam. */
@@ -161,63 +229,62 @@ function vars_(task, day) {
     .replace('{yyyy}', Utilities.formatDate(day, tz, 'yyyy'));
   return {
     TITLE: title,
-    TEMPLATE_ID: task.templateId,
     DATE: date,
-    START_ISO: start.toISOString(),
-    START_MS: String(start.getTime()),
-    START_SEC: String(Math.floor(start.getTime() / 1000)),
-    TASK_ID: '',
+    START_MS: start.getTime(), // merchant lưu start_time dạng mili-giây
   };
 }
 
-function call_(req, v) {
-  const url = fill_(req.url, v);
-  const body = fillDeep_(req.body, v);
-  if (CONFIG.DRY_RUN) {
-    Logger.log('[DRY_RUN] ' + req.method.toUpperCase() + ' ' + url + '\n' + JSON.stringify(body));
-    return {};
-  }
-  const token = PropertiesService.getScriptProperties().getProperty('AUTH_TOKEN');
-  if (!token) throw new Error('Chưa có Script Property AUTH_TOKEN');
-
-  const headers = Object.assign({}, CONFIG.API.EXTRA_HEADERS);
-  headers[CONFIG.API.AUTH_HEADER] = CONFIG.API.AUTH_PREFIX + token;
-
-  const res = UrlFetchApp.fetch(url, {
-    method: req.method,
+function api_(path, body) {
+  const token = token_();
+  const res = UrlFetchApp.fetch(CONFIG.API_HOST + path, {
+    method: 'post',
     contentType: 'application/json',
-    headers: headers,
-    payload: body ? JSON.stringify(body) : undefined,
+    headers: { 'Token-Business': token },
+    payload: JSON.stringify(body),
     muteHttpExceptions: true,
   });
   const code = res.getResponseCode();
   const text = res.getContentText();
   if (code === 401 || code === 403) throw new Error('Token hết hạn/không hợp lệ (HTTP ' + code + '). Cập nhật AUTH_TOKEN.');
   if (code >= 300) throw new Error('HTTP ' + code + ': ' + text.slice(0, 300));
-  try { return JSON.parse(text); } catch (e) { return {}; }
+  let json;
+  try { json = JSON.parse(text); } catch (e) { throw new Error('Response không phải JSON: ' + text.slice(0, 200)); }
+  if (json && json.data === undefined && json.message && !json.id) throw new Error('API báo lỗi: ' + json.message);
+  return json;
+}
+
+/* ====================== Token ====================== */
+
+function token_() {
+  const token = PropertiesService.getScriptProperties().getProperty('AUTH_TOKEN');
+  if (!token) throw new Error('Chưa có Script Property AUTH_TOKEN');
+  return token.trim();
+}
+
+/** Ngày hết hạn token (đọc từ JWT), hoặc null nếu không đọc được. */
+function tokenExpiry_() {
+  try {
+    const part = token_().split('.')[1];
+    const json = Utilities.newBlob(Utilities.base64DecodeWebSafe(part + '==='.slice((part.length + 3) % 4))).getDataAsString();
+    const exp = JSON.parse(json).exp;
+    return exp ? new Date(exp * 1000) : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+/** Trả về chuỗi cảnh báo nếu token sắp/đã hết hạn, ngược lại ''. */
+function checkTokenExpiry_() {
+  const exp = tokenExpiry_();
+  if (!exp) return '';
+  const daysLeft = (exp.getTime() - Date.now()) / 86400000;
+  const when = Utilities.formatDate(exp, CONFIG.TIMEZONE, 'dd/MM/yyyy HH:mm');
+  if (daysLeft <= 0) return 'Token đã hết hạn lúc ' + when + '. Lấy token mới (README.md) và cập nhật AUTH_TOKEN.';
+  if (daysLeft < CONFIG.TOKEN_WARN_DAYS) return 'Token hết hạn lúc ' + when + ' (còn ' + daysLeft.toFixed(1) + ' ngày). Lấy token mới (README.md) và cập nhật AUTH_TOKEN.';
+  return '';
 }
 
 /* ====================== Helpers ====================== */
-
-function fill_(s, v) {
-  return String(s).replace(/\{\{(\w+)\}\}/g, function (_, k) { return k in v ? v[k] : _; });
-}
-
-function fillDeep_(x, v) {
-  if (x === null || x === undefined) return x;
-  if (typeof x === 'string') return fill_(x, v);
-  if (Array.isArray(x)) return x.map(function (i) { return fillDeep_(i, v); });
-  if (typeof x === 'object') {
-    const o = {};
-    Object.keys(x).forEach(function (k) { o[k] = fillDeep_(x[k], v); });
-    return o;
-  }
-  return x;
-}
-
-function getPath_(obj, path) {
-  return String(path).split('.').reduce(function (o, k) { return o == null ? o : o[k]; }, obj);
-}
 
 function loadDone_() {
   const raw = PropertiesService.getScriptProperties().getProperty('DONE');
