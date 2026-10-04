@@ -13,6 +13,7 @@
         "10-stock-terminal"
     ],
     "last_used_index": 2,
+    "_last_used_index_as_of": "2026-10-04 (copy only, see _note above for true source)",
     "log": [
         {
             "index": 0,
@@ -366,6 +367,19 @@
             "index": 0,
             "style": "1-card-and-bar",
             "project": "gdp-quy3-tang-995-chung-khoan-van-lao-doc",
+            "date": "2026-10-04"
+        },
+        {
+            "index": 1,
+            "style": "2-chip-and-leaderboard",
+            "project": null,
+            "date": "2026-10-04",
+            "note": "Slot cháy do thao tác retry nhầm gọi claim_style 2 lần liên tiếp khi không đọc được response của lệnh đầu (POST qua script.google.com trả 302 + body rỗng khi không theo đúng flow đọc Location header) — không dùng cho video nào, xem BRIEF.md của 5000-du-an-mac-ket-35-trieu-ty."
+        },
+        {
+            "index": 2,
+            "style": "3-ticker-tape",
+            "project": "5000-du-an-mac-ket-35-trieu-ty",
             "date": "2026-10-04"
         }
     ]
