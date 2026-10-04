@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Montserrat"; font-weight: 500; font-style: normal;
+          src: url("assets/fonts/Montserrat-500-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 500; font-style: normal;
+          src: url("assets/fonts/Montserrat-500-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal;
+          src: url("assets/fonts/Montserrat-800-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal;
+          src: url("assets/fonts/Montserrat-800-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal;
+          src: url("assets/fonts/Montserrat-900-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal;
+          src: url("assets/fonts/Montserrat-900-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+        #root { position: absolute; inset: 0; font-family: "Montserrat", sans-serif; background: #0e0e0e; overflow: hidden; }
+
+        #dm-code { position: absolute; top: 190px; left: 90px; display: inline-flex; align-items: center; gap: 10px; }
+        #dm-code .sq { padding: 8px 16px; border-radius: 8px; background: rgba(232,68,30,0.12); border: 1.5px solid #E8441E; }
+        #dm-code .sq span { font-weight: 800; font-size: 24px; letter-spacing: 0.12em; color: #E8441E; }
+        #dm-code .lbl { font-weight: 600; font-size: 22px; letter-spacing: 0.04em; color: rgba(255,255,255,0.55); text-transform: uppercase; }
+
+        #dm-rule-top { position: absolute; top: 290px; left: 90px; width: 900px; height: 2px; background: rgba(232,68,30,0.5); }
+        #dm-hero-wrap { position: absolute; top: 330px; left: 90px; width: 900px; display: flex; align-items: baseline; gap: 20px; }
+        #dm-hero { font-weight: 900; font-size: 196px; line-height: 1; color: #E8441E; letter-spacing: -0.02em; }
+        #dm-hero-unit { font-weight: 700; font-size: 40px; color: #ffffff; }
+        #dm-rule-bot { position: absolute; top: 570px; left: 90px; width: 900px; height: 2px; background: rgba(232,68,30,0.5); }
+
+        #dm-cap { position: absolute; top: 610px; left: 90px; width: 900px; font-weight: 600; font-size: 28px; color: rgba(255,255,255,0.7); }
+
+        /* ---- Proportional bar rows (real ratio, not static chips) ---- */
+        #dm-bars { position: absolute; top: 710px; left: 90px; width: 900px; }
+        .dm-bar-row { margin-bottom: 44px; }
+        .dm-bar-row .top-line { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
+        .dm-bar-row .name { font-weight: 700; font-size: 26px; color: #ffffff; }
+        .dm-bar-row .val { font-weight: 800; font-size: 30px; color: #E8441E; }
+        .dm-bar-track { position: relative; width: 100%; height: 22px; border-radius: 11px; background: rgba(255,255,255,0.08); overflow: hidden; }
+        .dm-bar-fill { position: absolute; left: 0; top: 0; height: 100%; border-radius: 11px; background: linear-gradient(90deg, #E8441E, #ff7a52); transform-origin: left center; transform: scaleX(0); }
+
+        #dm-footer { position: absolute; top: 1290px; left: 90px; width: 900px; display: flex; align-items: center; gap: 18px;
+          padding: 24px 30px; border-radius: 16px; border: 1.5px solid #E8441E; background: rgba(232,68,30,0.08); }
+        #dm-footer span { font-weight: 700; font-size: 26px; letter-spacing: 0.01em; color: #ffffff; line-height: 1.3; }
+        #dm-footer b { color: #E8441E; }
+
+        #dm-strip { position: absolute; top: 1540px; left: 90px; width: 900px; display: flex; align-items: center; justify-content: space-between; }
+        #dm-strip .tick { height: 1px; background: rgba(255,255,255,0.16); flex: 1; }
+        #dm-strip .dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: #E8441E; margin: 0 14px; }
+      </style>
+
+      <div data-hf-id="hf-dm01" id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-dm02" id="dm-code">
+          <div data-hf-id="hf-dm03" class="sq"><span data-hf-id="hf-dm04">DA·5000+</span></div>
+          <span data-hf-id="hf-dm05" class="lbl">Dự án tồn đọng</span>
+        </div>
+
+        <div data-hf-id="hf-dm06" id="dm-rule-top"></div>
+        <div data-hf-id="hf-dm07" id="dm-hero-wrap">
+          <span data-hf-id="hf-dm08" id="dm-hero">5.000+</span>
+          <span data-hf-id="hf-dm09" id="dm-hero-unit">dự án</span>
+        </div>
+        <div data-hf-id="hf-dm10" id="dm-rule-bot"></div>
+
+        <div data-hf-id="hf-dm11" id="dm-cap">Đang được phân loại xử lý theo 3 nhóm</div>
+
+        <div data-hf-id="hf-dm12" id="dm-bars">
+          <div data-hf-id="hf-dm13" class="dm-bar-row">
+            <div data-hf-id="hf-dm14" class="top-line"><span data-hf-id="hf-dm15" class="name">Đã xử lý</span><span data-hf-id="hf-dm16" class="val">~4.000</span></div>
+            <div data-hf-id="hf-dm17" class="dm-bar-track"><div data-hf-id="hf-dm18" class="dm-bar-fill" id="bar-1" style="width:100%"></div></div>
+          </div>
+          <div data-hf-id="hf-dm19" class="dm-bar-row">
+            <div data-hf-id="hf-dm20" class="top-line"><span data-hf-id="hf-dm21" class="name">Đang chỉ đạo xử lý</span><span data-hf-id="hf-dm22" class="val">~1.300</span></div>
+            <div data-hf-id="hf-dm23" class="dm-bar-track"><div data-hf-id="hf-dm24" class="dm-bar-fill" id="bar-2" style="width:33%"></div></div>
+          </div>
+          <div data-hf-id="hf-dm25" class="dm-bar-row">
+            <div data-hf-id="hf-dm26" class="top-line"><span data-hf-id="hf-dm27" class="name">Thuộc Trung ương</span><span data-hf-id="hf-dm28" class="val">158</span></div>
+            <div data-hf-id="hf-dm29" class="dm-bar-track"><div data-hf-id="hf-dm30" class="dm-bar-fill" id="bar-3" style="width:10%"></div></div>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-dm37" id="dm-footer">
+          <span data-hf-id="hf-dm38">158 dự án thuộc thẩm quyền <b data-hf-id="hf-dm39">Trung ương</b> sẽ được xử lý sớm nhất</span>
+        </div>
+
+        <div data-hf-id="hf-dm31" id="dm-strip">
+          <div data-hf-id="hf-dm32" class="tick"></div><div data-hf-id="hf-dm33" class="dot"></div>
+          <div data-hf-id="hf-dm34" class="tick"></div><div data-hf-id="hf-dm35" class="dot"></div>
+          <div data-hf-id="hf-dm36" class="tick"></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo("#dm-code", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 0);
+          tl.fromTo("#dm-rule-top", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power1.out", transformOrigin: "left center" }, 0.3);
+          tl.fromTo("#dm-rule-bot", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power1.out", transformOrigin: "left center" }, 0.3);
+
+          // Count-up hero number
+          var heroObj = { v: 0 };
+          tl.fromTo(heroObj, { v: 0 }, {
+            v: 5000, duration: 1.1, ease: "power1.out",
+            onUpdate: function () {
+              document.getElementById("dm-hero").textContent = Math.round(heroObj.v).toLocaleString("vi-VN") + "+";
+            }
+          }, 0.5);
+          tl.fromTo("#dm-hero-wrap", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 0.5);
+          tl.fromTo("#dm-hero-unit", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 1.3);
+
+          tl.fromTo("#dm-cap", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 1.75);
+
+          tl.fromTo(".dm-bar-row:nth-child(1) .top-line", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.26 }, 2.1);
+          tl.fromTo("#bar-1", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.out" }, 2.2);
+          tl.fromTo(".dm-bar-row:nth-child(2) .top-line", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.26 }, 2.7);
+          tl.fromTo("#bar-2", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.out" }, 2.8);
+          tl.fromTo(".dm-bar-row:nth-child(3) .top-line", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.26 }, 3.3);
+          tl.fromTo("#bar-3", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.out" }, 3.4);
+
+          tl.fromTo("#dm-footer", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.36, ease: "back.out(1.5)" }, 4.0);
+
+          tl.fromTo("#dm-strip .tick", { scaleX: 0 }, { scaleX: 1, duration: 0.36, stagger: 0.08, ease: "power1.out", transformOrigin: "left center" }, 4.4);
+          tl.fromTo("#dm-strip .dot", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.22, stagger: 0.08, ease: "back.out(1.6)" }, 4.58);
+
+          window.__timelines["04-data-moment"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
