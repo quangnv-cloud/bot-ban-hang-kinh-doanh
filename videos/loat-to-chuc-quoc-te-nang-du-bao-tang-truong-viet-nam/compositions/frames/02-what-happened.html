@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Montserrat"; font-weight: 500; font-style: normal;
+          src: url("assets/fonts/Montserrat-500-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 500; font-style: normal;
+          src: url("assets/fonts/Montserrat-500-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal;
+          src: url("assets/fonts/Montserrat-800-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal;
+          src: url("assets/fonts/Montserrat-800-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+        #root { position: absolute; inset: 0; font-family: "Montserrat", sans-serif; overflow: hidden; }
+
+        /* ---- Left column: Article Image Card (bordered editorial frame, not full-bleed) ---- */
+        #wh-imgcard { position: absolute; top: 460px; left: 48px; width: 460px; height: 760px; border-radius: 22px; overflow: hidden;
+          border: 2px solid rgba(255,255,255,0.10); box-shadow: 0 0 40px rgba(232,68,30,0.16); }
+        #wh-imgcard img { width: 100%; height: 100%; object-fit: cover; object-position: center 36%; display: block; }
+        #wh-imgcard-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,10,10,0) 55%, rgba(10,10,10,0.8) 100%); }
+        #wh-imgcard-tag { position: absolute; left: 18px; top: 18px; padding: 7px 14px; border-radius: 7px; background: rgba(10,10,10,0.6); backdrop-filter: blur(2px); }
+        #wh-imgcard-tag span { font-weight: 700; font-size: 15px; color: #ffffff; letter-spacing: 0.06em; }
+        #wh-imgcard-cap { position: absolute; left: 18px; bottom: 18px; right: 18px; }
+        #wh-imgcard-cap span { font-weight: 600; font-size: 16px; color: rgba(255,255,255,0.88); letter-spacing: 0.01em; line-height: 1.3; }
+
+        #wh-divider { position: absolute; top: 0; left: 540px; width: 3px; height: 1920px; background: #E8441E;
+          box-shadow: 0 0 22px rgba(232,68,30,0.6); transform-origin: top center; }
+
+        /* ---- Right column text ---- */
+        #wh-kicker { position: absolute; top: 560px; left: 584px; display: inline-flex; align-items: center; padding: 9px 18px;
+          border: 1.5px solid #E8441E; border-radius: 999px; background: rgba(232,68,30,0.08); }
+        #wh-kicker span { font-weight: 700; font-size: 17px; color: #E8441E; letter-spacing: 0.06em; text-transform: uppercase; }
+
+        #wh-headline { position: absolute; top: 644px; left: 584px; width: 452px; font-weight: 700; font-size: 33px; line-height: 1.3; color: #ffffff; letter-spacing: -0.005em; }
+        #wh-headline .accent { color: #E8441E; }
+
+        #wh-chiprow { position: absolute; top: 962px; left: 584px; width: 452px; display: flex; flex-wrap: wrap; gap: 11px; }
+        .wh-chip { display: inline-flex; align-items: center; padding: 11px 18px; border-radius: 11px; border: 1.5px solid rgba(255,255,255,0.14);
+          background: rgba(255,255,255,0.04); }
+        .wh-chip span { font-weight: 600; font-size: 19px; color: #ffffff; letter-spacing: 0.01em; white-space: nowrap; }
+
+        #wh-counter { position: absolute; top: 1380px; left: 584px; width: 452px; padding: 16px 24px; border-radius: 16px;
+          border: 1.5px solid #E8441E; background: rgba(232,68,30,0.08); box-shadow: 0 0 36px rgba(232,68,30,0.14); }
+        #wh-counter .row { display: flex; align-items: baseline; gap: 14px; }
+        #wh-counter .num { font-weight: 900; font-size: 54px; color: #E8441E; letter-spacing: -0.01em; }
+        #wh-counter .lbl { font-weight: 600; font-size: 20px; color: rgba(255,255,255,0.74); letter-spacing: 0.005em; line-height: 1.3; max-width: 280px; }
+      </style>
+
+      <div data-hf-id="hf-5ubw" id="root" data-composition-id="02-what-happened" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-jtjo" id="wh-imgcard">
+          <img data-hf-id="hf-6bzw" src="assets/images/hook-photo.jpg" alt="">
+          <div data-hf-id="hf-lbv1" id="wh-imgcard-scrim"></div>
+          <div data-hf-id="hf-pnir" id="wh-imgcard-tag"><span data-hf-id="hf-pgke">BOT BÁN HÀNG</span></div>
+          <div data-hf-id="hf-2fu3" id="wh-imgcard-cap"><span data-hf-id="hf-j8pn">Dự báo tăng trưởng GDP Việt Nam 2026</span></div>
+        </div>
+        <div data-hf-id="hf-fkrg" id="wh-divider"></div>
+
+        <div data-hf-id="hf-m1du" id="wh-kicker"><span data-hf-id="hf-u9qo">Znews · 4/10/2026</span></div>
+        <div data-hf-id="hf-4spg" id="wh-headline">Hàng loạt tổ chức tài chính quốc tế <span data-hf-id="hf-2q4a" class="accent">nâng dự báo tăng trưởng GDP</span> Việt Nam 2026</div>
+
+        <div data-hf-id="hf-lvtt" id="wh-chiprow">
+          <div data-hf-id="hf-dwn0" class="wh-chip"><span data-hf-id="hf-0k16">ADB</span></div>
+          <div data-hf-id="hf-whkk" class="wh-chip"><span data-hf-id="hf-bidn">IMF</span></div>
+          <div data-hf-id="hf-vanh" class="wh-chip"><span data-hf-id="hf-zfev">HSBC</span></div>
+          <div data-hf-id="hf-voyi" class="wh-chip"><span data-hf-id="hf-yf1e">Standard Chartered</span></div>
+          <div data-hf-id="hf-xohn" class="wh-chip"><span data-hf-id="hf-i0hc">AMRO</span></div>
+        </div>
+
+        <div data-hf-id="hf-lciz" id="wh-counter">
+          <div data-hf-id="hf-thy4" class="row"><span data-hf-id="hf-mfla" class="num">5</span><span data-hf-id="hf-4nqf" class="lbl">tổ chức quốc tế đồng loạt nâng dự báo</span></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo("#wh-imgcard img", { scale: 1.1, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.55, ease: "power2.out" }, 0);
+          tl.fromTo("#wh-imgcard-tag", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 0.4);
+          tl.fromTo("#wh-imgcard-cap", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: "power1.out" }, 0.48);
+          tl.fromTo("#wh-divider", { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: "power2.out" }, 0.3);
+          tl.fromTo("#wh-kicker", { x: 20, opacity: 0 }, { x: 0, opacity: 1, duration: 0.32, ease: "power2.out" }, 0.62);
+          tl.fromTo("#wh-headline", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 0.86);
+          tl.fromTo(".wh-chip", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.32, stagger: 0.1, ease: "power2.out" }, 1.5);
+          tl.fromTo("#wh-counter", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, 2.5);
+
+          window.__timelines["02-what-happened"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
