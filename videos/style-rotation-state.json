@@ -361,6 +361,12 @@
             "style": "10-stock-terminal",
             "project": "xuat-sieu-127-ty-usd-sau-9-thang-nhap-sieu",
             "date": "2026-10-03"
+        },
+        {
+            "index": 0,
+            "style": "1-card-and-bar",
+            "project": "gdp-quy3-tang-995-chung-khoan-van-lao-doc",
+            "date": "2026-10-04"
         }
     ]
 }
