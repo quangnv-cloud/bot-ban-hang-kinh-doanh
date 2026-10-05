@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Montserrat"; font-weight: 500; font-style: normal;
+          src: url("assets/fonts/Montserrat-500-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 500; font-style: normal;
+          src: url("assets/fonts/Montserrat-500-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal;
+          src: url("assets/fonts/Montserrat-800-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal;
+          src: url("assets/fonts/Montserrat-800-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal;
+          src: url("assets/fonts/Montserrat-900-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal;
+          src: url("assets/fonts/Montserrat-900-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+        #root { position: absolute; inset: 0; background: #111111; font-family: "Montserrat", sans-serif; overflow: hidden; }
+
+        #im-kicker { position: absolute; top: 200px; left: 56px; font-size: 24px; font-weight: 800; letter-spacing: 0.12em; color: #E8441E; text-transform: uppercase; }
+        #im-sub { position: absolute; top: 244px; left: 56px; width: 968px; font-size: 30px; font-weight: 700; color: #ffffff; line-height: 1.3; }
+
+        #im-trunk-wrap { position: absolute; top: 420px; left: 0; width: 1080px; height: 60px; }
+        #im-trunk { position: absolute; left: 180px; top: 28px; width: 720px; height: 4px; background: rgba(255,255,255,0.18); }
+        #im-trunk-fill { position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: #E8441E; transform-origin: left center; }
+        .im-node { position: absolute; border-radius: 50%; background: #E8441E; }
+        #im-n1 { left: 300px; top: -22px; width: 48px; height: 48px; box-shadow: 0 0 0 7px rgba(232,68,30,0.18), 0 0 26px rgba(232,68,30,0.7); }
+        #im-n2 { left: 790px; top: -26px; width: 56px; height: 56px; box-shadow: 0 0 0 8px rgba(232,68,30,0.2), 0 0 32px rgba(232,68,30,0.8); }
+        .im-connector { position: absolute; top: 48px; width: 3px; height: 70px; background: rgba(232,68,30,0.5); }
+        #im-con1 { left: 322px; } #im-con2 { left: 816px; }
+
+        #im-cards { position: absolute; top: 606px; left: 50px; width: 980px; height: 860px; display: flex; gap: 20px; }
+        .im-card { flex: 1; border-radius: 22px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+          box-shadow: 0 0 40px rgba(232,68,30,0.12); padding: 34px 28px; display: flex; flex-direction: column; }
+        .im-card .lbl { font-size: 21px; font-weight: 800; letter-spacing: 0.06em; color: rgba(255,255,255,0.65); text-transform: uppercase; line-height: 1.3; }
+        .im-card .big { font-size: 88px; font-weight: 900; color: #ffffff; margin-top: 18px; line-height: 1.02; }
+        .im-card .big b { color: #E8441E; }
+        .im-card .unit { font-size: 26px; font-weight: 700; color: #E8441E; margin-top: 6px; }
+        .im-card .chip { margin-top: auto; align-self: flex-start; padding: 10px 18px; border-radius: 10px; background: rgba(232,68,30,0.14);
+          border: 1px solid rgba(232,68,30,0.4); }
+        .im-card .chip span { font-size: 20px; font-weight: 700; color: #ffffff; }
+        .im-card .note { margin-top: auto; font-size: 20px; font-weight: 600; color: rgba(255,255,255,0.7); line-height: 1.35; }
+      </style>
+
+      <div data-hf-id="im-root" id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+        <div data-hf-id="im-kicker" id="im-kicker">Kết quả ngân sách thành phố</div>
+        <div data-hf-id="im-sub" id="im-sub">Tổng thu ngân sách Nhà nước trên địa bàn Hà Nội, 9 tháng đầu năm 2026</div>
+
+        <div data-hf-id="im-trunk-wrap" id="im-trunk-wrap">
+          <div data-hf-id="im-trunk" id="im-trunk"><div data-hf-id="im-trunk-fill" id="im-trunk-fill"></div></div>
+          <div data-hf-id="im-n1" id="im-n1" class="im-node"></div>
+          <div data-hf-id="im-n2" id="im-n2" class="im-node"></div>
+          <div data-hf-id="im-con1" id="im-con1" class="im-connector"></div>
+          <div data-hf-id="im-con2" id="im-con2" class="im-connector"></div>
+        </div>
+
+        <div data-hf-id="im-cards" id="im-cards">
+          <div data-hf-id="im-card-1" id="im-card-1" class="im-card">
+            <div data-hf-id="im-c1-lbl" class="lbl">Tổng thu ngân sách Hà Nội</div>
+            <div data-hf-id="im-c1-big" class="big">567.600</div>
+            <div data-hf-id="im-c1-unit" class="unit">TỶ ĐỒNG</div>
+            <div data-hf-id="im-c1-chip" class="chip"><span data-hf-id="im-c1-chip-span">Tăng gần 6% so với cùng kỳ</span></div>
+          </div>
+          <div data-hf-id="im-card-2" id="im-card-2" class="im-card">
+            <div data-hf-id="im-c2-lbl" class="lbl">Tiền sử dụng đất</div>
+            <div data-hf-id="im-c2-big" class="big">~<b data-hf-id="hf-ywsq">15%</b></div>
+            <div data-hf-id="im-c2-unit" class="unit">TỔNG SỐ THU</div>
+            <div data-hf-id="im-c2-note" class="note">Trong tổng thu ngân sách 9 tháng đầu năm 2026 của thành phố</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          gsap.set("#im-trunk-fill", { scaleX: 0 });
+          gsap.set("#im-kicker", { y: -14, opacity: 0 });
+          gsap.set("#im-sub", { y: 14, opacity: 0 });
+          gsap.set(".im-node", { scale: 0, opacity: 0 });
+          gsap.set(".im-connector", { scaleY: 0, opacity: 0, transformOrigin: "top center" });
+          gsap.set(".im-card", { y: 34, opacity: 0 });
+
+          tl.fromTo("#im-kicker", { y: -14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35 }, 0.05);
+          tl.fromTo("#im-sub", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4 }, 0.28);
+
+          tl.fromTo("#im-trunk-fill", { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "power1.out" }, 0.8);
+          tl.fromTo("#im-n1", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.2)" }, 1.0);
+          tl.fromTo("#im-n2", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.2)" }, 1.25);
+
+          tl.fromTo("#im-con1", { scaleY: 0, opacity: 0 }, { scaleY: 1, opacity: 1, duration: 0.3, ease: "power1.out" }, 1.45);
+          tl.fromTo("#im-con2", { scaleY: 0, opacity: 0 }, { scaleY: 1, opacity: 1, duration: 0.3, ease: "power1.out" }, 1.6);
+
+          tl.fromTo("#im-card-1", { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 1.8);
+          tl.fromTo("#im-card-2", { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 2.05);
+
+          window.__timelines["06-impact"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

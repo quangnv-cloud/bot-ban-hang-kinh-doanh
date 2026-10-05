@@ -1,0 +1,14 @@
+{
+  "name": "ha-noi-thu-85000-ty-tien-su-dung-dat",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.8.133 preview",
+    "check": "npx --yes hyperframes@0.8.133 check",
+    "render": "npx --yes hyperframes@0.8.133 render",
+    "publish": "npx --yes hyperframes@0.8.133 publish"
+  },
+  "devDependencies": {
+    "@hyperframes/core": "^0.8.133"
+  }
+}

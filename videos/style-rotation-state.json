@@ -399,6 +399,12 @@
             "style": "6-ring-progress",
             "project": "lai-suat-trai-phieu-cp-cao-nhat-4-nam",
             "date": "2026-10-05"
+        },
+        {
+            "index": 6,
+            "style": "7-timeline-chronology",
+            "project": "ha-noi-thu-85000-ty-tien-su-dung-dat",
+            "date": "2026-10-05"
         }
     ]
 }
