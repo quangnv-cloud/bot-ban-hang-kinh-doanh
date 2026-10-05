@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal;
+          src: url("assets/fonts/Montserrat-900-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal;
+          src: url("assets/fonts/Montserrat-900-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+        #root { position: absolute; inset: 0; font-family: "Montserrat", sans-serif; overflow: hidden; }
+
+        #kf-map { position: absolute; right: 30px; top: 420px; width: 420px; height: 1120px; opacity: 0; }
+        #kf-map path { fill: none; stroke: rgba(255,255,255,0.16); stroke-width: 2.4; }
+
+        #kf-kicker { position: absolute; top: 210px; left: 90px; display: inline-flex; align-items: center; padding: 10px 20px;
+          border: 1.5px solid #E8441E; border-radius: 999px; background: rgba(232,68,30,0.08); }
+        #kf-kicker span { font-weight: 700; font-size: 18px; color: #E8441E; letter-spacing: 0.07em; text-transform: uppercase; }
+
+        #kf-headline { position: absolute; top: 288px; left: 90px; width: 760px; font-weight: 700; font-size: 42px; line-height: 1.26; color: #ffffff; letter-spacing: -0.005em; }
+
+        .kf-row { position: absolute; left: 90px; width: 900px; display: flex; align-items: center; gap: 26px; }
+        .kf-pin { width: 64px; height: 64px; border-radius: 50%; border: 2px solid #E8441E; background: rgba(232,68,30,0.1);
+          display: flex; align-items: center; justify-content: center; flex: none; }
+        .kf-pin .dot { width: 14px; height: 14px; border-radius: 50%; background: #E8441E; }
+        .kf-numwrap { flex: none; width: 240px; }
+        .kf-num { font-weight: 900; font-size: 50px; color: #ffffff; letter-spacing: -0.01em; white-space: nowrap; }
+        .kf-num .accent { color: #E8441E; }
+        .kf-text { font-weight: 600; font-size: 24px; color: rgba(255,255,255,0.82); line-height: 1.35; max-width: 490px; }
+
+        #kf-row1 { top: 456px; }
+        #kf-row2 { top: 616px; }
+        #kf-row3 { top: 776px; }
+
+        .kf-divider { position: absolute; left: 90px; width: 900px; height: 1px; background: rgba(255,255,255,0.10); }
+        #kf-div1 { top: 576px; }
+        #kf-div2 { top: 736px; }
+
+        #kf-recap { position: absolute; top: 1340px; left: 90px; width: 900px; padding: 24px 38px; border-radius: 18px;
+          border: 1.5px solid #E8441E; background: rgba(232,68,30,0.08); box-shadow: 0 0 40px rgba(232,68,30,0.14);
+          display: flex; align-items: center; gap: 24px; opacity: 0; }
+        #kf-recap .kf-recap-num { font-weight: 900; font-size: 46px; color: #E8441E; white-space: nowrap; }
+        #kf-recap .kf-recap-lbl { font-weight: 600; font-size: 21px; color: rgba(255,255,255,0.72); line-height: 1.35; }
+      </style>
+
+      <div data-hf-id="hf-chzy" id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+        <svg data-hf-id="hf-bn5n" id="kf-map" viewBox="0 0 240 640" preserveAspectRatio="xMidYMid meet">
+          <path data-hf-id="hf-c8ct" d="M120,20 C90,20 70,50 75,90 C80,130 110,150 100,180 C90,210 70,230 75,270 C80,310 100,330 95,370 C90,410 70,430 75,470 C80,510 100,530 95,560 C90,590 100,615 130,620 C160,615 175,590 165,560 C175,530 190,510 180,470 C190,440 205,415 195,380 C205,350 195,320 180,300 C195,270 190,240 175,215 C190,190 180,160 160,140 C175,115 165,85 145,65 C155,45 150,25 120,20 Z" />
+        </svg>
+
+        <div data-hf-id="hf-xew8" id="kf-kicker"><span data-hf-id="hf-bwxv">Ai · Điều gì · Ở đâu</span></div>
+        <div data-hf-id="hf-45j7" id="kf-headline">3 con số đáng chú ý về dòng vốn FDI</div>
+
+        <div data-hf-id="hf-ammn" class="kf-row" id="kf-row1">
+          <div data-hf-id="hf-r945" class="kf-pin"><span data-hf-id="hf-9gry" class="dot"></span></div>
+          <div data-hf-id="hf-0ad8" class="kf-numwrap"><div data-hf-id="hf-f0ua" class="kf-num">21,07 <span data-hf-id="hf-iilm" class="accent">tỷ</span></div></div>
+          <div data-hf-id="hf-cce0" class="kf-text">Vốn FDI thực hiện, tăng 12% so với cùng kỳ</div>
+        </div>
+        <div data-hf-id="hf-xj2d" class="kf-divider" id="kf-div1"></div>
+
+        <div data-hf-id="hf-1yqs" class="kf-row" id="kf-row2">
+          <div data-hf-id="hf-cshl" class="kf-pin"><span data-hf-id="hf-zcc2" class="dot"></span></div>
+          <div data-hf-id="hf-6ktw" class="kf-numwrap"><div data-hf-id="hf-e5cd" class="kf-num">36<span data-hf-id="hf-nr06" class="accent">%</span></div></div>
+          <div data-hf-id="hf-7l6s" class="kf-text">Tỷ trọng vốn FDI mà Thành phố Hồ Chí Minh chiếm giữ</div>
+        </div>
+        <div data-hf-id="hf-1h6e" class="kf-divider" id="kf-div2"></div>
+
+        <div data-hf-id="hf-2qel" class="kf-row" id="kf-row3">
+          <div data-hf-id="hf-dzeo" class="kf-pin"><span data-hf-id="hf-zqn3" class="dot"></span></div>
+          <div data-hf-id="hf-5dwt" class="kf-numwrap"><div data-hf-id="hf-fuii" class="kf-num">1.593</div></div>
+          <div data-hf-id="hf-2htn" class="kf-text">Dự án FDI đã đăng ký tại Thành phố Hồ Chí Minh</div>
+        </div>
+
+        <div id="kf-recap">
+          <div class="kf-recap-num">50,36 tỷ</div>
+          <div class="kf-recap-lbl">Tổng vốn FDI đăng ký toàn quốc 9 tháng đầu năm, tăng 76% so với cùng kỳ</div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo("#kf-map", { opacity: 0 }, { opacity: 1, duration: 0.8, ease: "power1.out" }, 0.1);
+          tl.fromTo("#kf-kicker", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 0.15);
+          tl.fromTo("#kf-headline", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }, 0.4);
+
+          var rows = [
+            { sel: "#kf-row1", div: "#kf-div1", at: 1.1 },
+            { sel: "#kf-row2", div: "#kf-div2", at: 3.9 },
+            { sel: "#kf-row3", div: null, at: 6.7 }
+          ];
+          rows.forEach(function (r) {
+            tl.fromTo(r.sel + " .kf-pin", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.36, ease: "back.out(1.8)" }, r.at);
+            tl.fromTo(r.sel + " .kf-num", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.32, ease: "power2.out" }, r.at + 0.1);
+            tl.fromTo(r.sel + " .kf-text", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.32, ease: "power2.out" }, r.at + 0.18);
+            if (r.div) tl.fromTo(r.div, { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power1.out", transformOrigin: "left center" }, r.at + 0.3);
+          });
+
+          tl.fromTo("#kf-recap", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }, 8.0);
+
+          window.__timelines["03-key-facts"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
