@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal;
+          src: url("assets/fonts/Montserrat-800-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal;
+          src: url("assets/fonts/Montserrat-800-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+        #root { position: absolute; inset: 0; font-family: "Montserrat", sans-serif; overflow: hidden; }
+
+        #ctx-kicker { position: absolute; top: 240px; left: 90px; display: inline-flex; align-items: center; padding: 10px 20px;
+          border: 1.5px solid #E8441E; border-radius: 999px; background: rgba(232,68,30,0.08); }
+        #ctx-kicker span { font-weight: 700; font-size: 18px; color: #EB5937; letter-spacing: 0.07em; text-transform: uppercase; }
+
+        #ctx-title { position: absolute; top: 310px; left: 90px; width: 900px; font-weight: 700; font-size: 40px; line-height: 1.3; color: #ffffff; }
+        #ctx-title .accent { color: #E8441E; }
+
+        #ctx-row { position: absolute; top: 620px; left: 90px; width: 900px; display: flex; justify-content: space-between; }
+        .ctx-col { width: 200px; display: flex; flex-direction: column; align-items: center; }
+        .ctx-ring-wrap { position: relative; width: 170px; height: 170px; }
+        .ctx-ring-wrap svg { width: 170px; height: 170px; transform: rotate(-90deg); }
+        .ctx-ring-track { fill: none; stroke: rgba(255,255,255,0.12); stroke-width: 13; }
+        .ctx-ring-fill { fill: none; stroke: #E8441E; stroke-width: 13; stroke-linecap: round; }
+        .ctx-ring-center { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+          font-weight: 800; font-size: 26px; color: #ffffff; letter-spacing: 0.02em; }
+        .ctx-col.is-vn .ctx-ring-fill { stroke: #E8441E; filter: drop-shadow(0 0 16px rgba(232,68,30,0.5)); }
+        .ctx-col:not(.is-vn) .ctx-ring-fill { stroke: rgba(255,255,255,0.55); }
+        .ctx-value { margin-top: 20px; font-weight: 800; font-size: 32px; color: #ffffff; }
+        .ctx-col.is-vn .ctx-value { color: #E8441E; }
+        .ctx-country { margin-top: 6px; font-weight: 600; font-size: 20px; color: rgba(255,255,255,0.55); }
+
+        #ctx-footer { position: absolute; top: 1420px; left: 90px; width: 900px; text-align: center; font-weight: 600; font-size: 24px;
+          color: rgba(255,255,255,0.5); }
+
+        #ctx-note { position: absolute; top: 1080px; left: 90px; width: 900px; text-align: center; font-weight: 600; font-size: 24px;
+          color: rgba(255,255,255,0.6); line-height: 1.4; }
+        #ctx-note b { color: #E8441E; font-weight: 700; }
+      </style>
+
+      <div data-hf-id="ctx-root" id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+        <div data-hf-id="ctx-kicker-el" id="ctx-kicker"><span data-hf-id="ctx-kicker-span">So sánh quốc tế</span></div>
+        <div data-hf-id="ctx-title-el" id="ctx-title">Mức tăng lãi suất 10 năm <span data-hf-id="ctx-title-accent" class="accent">từ đầu năm 2026</span> (điểm %)</div>
+
+        <div data-hf-id="ctx-row-el" id="ctx-row">
+          <div data-hf-id="ctx-col-vn" id="ctx-col-vn" class="ctx-col is-vn">
+            <div data-hf-id="ctx-ring-vn" class="ctx-ring-wrap">
+              <svg data-hf-id="ctx-svg-vn" viewBox="0 0 170 170">
+                <circle data-hf-id="ctx-track-vn" class="ctx-ring-track" cx="85" cy="85" r="72"></circle>
+                <circle data-hf-id="ctx-fill-vn" id="ctx-fill-vn" class="ctx-ring-fill" cx="85" cy="85" r="72" stroke-dasharray="452.4" stroke-dashoffset="452.4"></circle>
+              </svg>
+              <div data-hf-id="ctx-center-vn" class="ctx-ring-center">VN</div>
+            </div>
+            <div data-hf-id="ctx-val-vn" class="ctx-value">+0,4</div>
+            <div data-hf-id="ctx-country-vn" class="ctx-country">Việt Nam</div>
+          </div>
+
+          <div data-hf-id="ctx-col-us" id="ctx-col-us" class="ctx-col">
+            <div data-hf-id="ctx-ring-us" class="ctx-ring-wrap">
+              <svg data-hf-id="ctx-svg-us" viewBox="0 0 170 170">
+                <circle data-hf-id="ctx-track-us" class="ctx-ring-track" cx="85" cy="85" r="72"></circle>
+                <circle data-hf-id="ctx-fill-us" id="ctx-fill-us" class="ctx-ring-fill" cx="85" cy="85" r="72" stroke-dasharray="452.4" stroke-dashoffset="452.4"></circle>
+              </svg>
+              <div data-hf-id="ctx-center-us" class="ctx-ring-center">US</div>
+            </div>
+            <div data-hf-id="ctx-val-us" class="ctx-value">+1,1</div>
+            <div data-hf-id="ctx-country-us" class="ctx-country">Mỹ</div>
+          </div>
+
+          <div data-hf-id="ctx-col-uk" id="ctx-col-uk" class="ctx-col">
+            <div data-hf-id="ctx-ring-uk" class="ctx-ring-wrap">
+              <svg data-hf-id="ctx-svg-uk" viewBox="0 0 170 170">
+                <circle data-hf-id="ctx-track-uk" class="ctx-ring-track" cx="85" cy="85" r="72"></circle>
+                <circle data-hf-id="ctx-fill-uk" id="ctx-fill-uk" class="ctx-ring-fill" cx="85" cy="85" r="72" stroke-dasharray="452.4" stroke-dashoffset="452.4"></circle>
+              </svg>
+              <div data-hf-id="ctx-center-uk" class="ctx-ring-center">UK</div>
+            </div>
+            <div data-hf-id="ctx-val-uk" class="ctx-value">+0,87</div>
+            <div data-hf-id="ctx-country-uk" class="ctx-country">Anh</div>
+          </div>
+
+          <div data-hf-id="ctx-col-jp" id="ctx-col-jp" class="ctx-col">
+            <div data-hf-id="ctx-ring-jp" class="ctx-ring-wrap">
+              <svg data-hf-id="ctx-svg-jp" viewBox="0 0 170 170">
+                <circle data-hf-id="ctx-track-jp" class="ctx-ring-track" cx="85" cy="85" r="72"></circle>
+                <circle data-hf-id="ctx-fill-jp" id="ctx-fill-jp" class="ctx-ring-fill" cx="85" cy="85" r="72" stroke-dasharray="452.4" stroke-dashoffset="452.4"></circle>
+              </svg>
+              <div data-hf-id="ctx-center-jp" class="ctx-ring-center">JP</div>
+            </div>
+            <div data-hf-id="ctx-val-jp" class="ctx-value">+1,04</div>
+            <div data-hf-id="ctx-country-jp" class="ctx-country">Nhật Bản</div>
+          </div>
+        </div>
+
+        <div data-hf-id="ctx-note-el" id="ctx-note">Mức tăng của Việt Nam vẫn <b data-hf-id="ctx-note-b">thấp hơn</b> các nước phát triển</div>
+
+        <div data-hf-id="ctx-footer-el" id="ctx-footer">Theo VnExpress, 5/10/2026</div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          var C = 452.4; // 2 * PI * 72
+
+          tl.fromTo("#ctx-kicker", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 0);
+          tl.fromTo("#ctx-title", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }, 0.2);
+
+          // Sequential reveal left -> right: VN (0.4/1.1), US (1.1/1.1), UK (0.87/1.1), JP (1.04/1.1)
+          var cols = [
+            { col: "#ctx-col-vn", fill: "#ctx-fill-vn", frac: 0.4 / 1.1, t: 0.6 },
+            { col: "#ctx-col-us", fill: "#ctx-fill-us", frac: 1.1 / 1.1, t: 1.0 },
+            { col: "#ctx-col-uk", fill: "#ctx-fill-uk", frac: 0.87 / 1.1, t: 1.4 },
+            { col: "#ctx-col-jp", fill: "#ctx-fill-jp", frac: 1.04 / 1.1, t: 1.8 }
+          ];
+          cols.forEach(function (c) {
+            tl.fromTo(c.col, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, c.t);
+            tl.fromTo(c.fill, { strokeDashoffset: C }, { strokeDashoffset: C * (1 - c.frac), duration: 0.5, ease: "power2.out" }, c.t + 0.1);
+          });
+
+          tl.fromTo("#ctx-note", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 2.5);
+          tl.fromTo("#ctx-footer", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 2.9);
+
+          window.__timelines["05-context"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal;
+          src: url("assets/fonts/Montserrat-900-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal;
+          src: url("assets/fonts/Montserrat-900-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+        #root { position: absolute; inset: 0; font-family: "Montserrat", sans-serif; overflow: hidden; }
+
+        /* ---- Article Image Card ---- */
+        #wh-imgcard { position: absolute; top: 210px; left: 90px; width: 900px; height: 760px; border-radius: 24px; overflow: hidden;
+          border: 2px solid rgba(255,255,255,0.10); box-shadow: 0 0 44px rgba(232,68,30,0.16); }
+        #wh-imgcard img { width: 100%; height: 100%; object-fit: cover; object-position: center 38%; display: block; }
+        #wh-imgcard-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,10,10,0) 58%, rgba(10,10,10,0.82) 100%); }
+        #wh-imgcard-tag { position: absolute; left: 20px; top: 20px; padding: 7px 14px; border-radius: 7px; background: rgba(10,10,10,0.6); backdrop-filter: blur(2px); }
+        #wh-imgcard-tag span { font-weight: 700; font-size: 15px; color: #ffffff; letter-spacing: 0.06em; }
+
+        /* ---- Ring badge, bottom of image card (Ring Progress signature element) ---- */
+        #wh-ring-badge { position: absolute; left: 20px; bottom: 20px; display: inline-flex; align-items: center; gap: 12px;
+          padding: 8px 20px 8px 10px; border-radius: 999px; background: rgba(10,10,10,0.68); backdrop-filter: blur(2px); }
+        #wh-ring-badge .ring-wrap { position: relative; width: 48px; height: 48px; flex: none; }
+        #wh-ring-badge svg { width: 48px; height: 48px; transform: rotate(-90deg); }
+        #wh-ring-badge .ring-track { fill: none; stroke: rgba(255,255,255,0.18); stroke-width: 5; }
+        #wh-ring-badge .ring-fill { fill: none; stroke: #E8441E; stroke-width: 5; stroke-linecap: round; }
+        #wh-ring-badge .ring-pct { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+          font-weight: 700; font-size: 13px; color: #ffffff; }
+        #wh-ring-badge span.label { font-weight: 700; font-size: 20px; color: #ffffff; letter-spacing: 0.01em; }
+
+        #wh-kicker { position: absolute; top: 1022px; left: 90px; display: inline-flex; align-items: center; padding: 10px 20px;
+          border: 1.5px solid #E8441E; border-radius: 999px; background: rgba(232,68,30,0.08); }
+        #wh-kicker span { font-weight: 700; font-size: 18px; color: #E8441E; letter-spacing: 0.07em; text-transform: uppercase; }
+
+        #wh-headline { position: absolute; top: 1108px; left: 90px; width: 900px; font-weight: 700; font-size: 40px; line-height: 1.3; color: #ffffff; letter-spacing: -0.005em; }
+        #wh-headline .accent { color: #E8441E; }
+
+        #wh-sub { position: absolute; top: 1330px; left: 90px; width: 900px; font-weight: 600; font-size: 24px; color: rgba(255,255,255,0.62); line-height: 1.4; }
+      </style>
+
+      <div data-hf-id="wh-root" id="root" data-composition-id="02-what-happened" data-width="1080" data-height="1920">
+        <div data-hf-id="wh-card" id="wh-imgcard">
+          <img data-hf-id="wh-img" src="assets/images/hook-photo.jpg" alt="">
+          <div data-hf-id="wh-scrim" id="wh-imgcard-scrim"></div>
+          <div data-hf-id="wh-tag" id="wh-imgcard-tag"><span data-hf-id="wh-tag-span">BOT BÁN HÀNG</span></div>
+          <div data-hf-id="wh-ring" id="wh-ring-badge">
+            <div data-hf-id="wh-ring-wrap" class="ring-wrap">
+              <svg data-hf-id="wh-ring-svg" viewBox="0 0 48 48">
+                <circle data-hf-id="wh-ring-track" class="ring-track" cx="24" cy="24" r="19"></circle>
+                <circle data-hf-id="wh-ring-fill" id="wh-ring-fill" class="ring-fill" cx="24" cy="24" r="19" stroke-dasharray="119.4" stroke-dashoffset="119.4"></circle>
+              </svg>
+              <div data-hf-id="wh-ring-pct" class="ring-pct">10Y</div>
+            </div>
+            <span data-hf-id="wh-ring-label" class="label">Trái phiếu kỳ hạn 10 năm</span>
+          </div>
+        </div>
+
+        <div data-hf-id="wh-kicker-el" id="wh-kicker"><span data-hf-id="wh-kicker-span">Trái phiếu chính phủ — 5/10/2026</span></div>
+        <div data-hf-id="wh-headline-el" id="wh-headline">Kho bạc Nhà nước huy động <span data-hf-id="wh-headline-accent" class="accent">3.600 tỷ đồng</span> trái phiếu kỳ hạn 10 năm</div>
+        <div data-hf-id="wh-sub-el" id="wh-sub">Lãi suất trúng thầu 4,43% — theo VnExpress</div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo("#wh-imgcard", { scale: 0.96, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "power2.out" }, 0);
+          tl.fromTo("#wh-imgcard-tag", { opacity: 0 }, { opacity: 1, duration: 0.24, ease: "power1.out" }, 0.3);
+          tl.fromTo("#wh-ring-badge", { y: 16, opacity: 0, scale: 0.8 }, { y: 0, opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.7)" }, 0.55);
+          tl.fromTo("#wh-ring-fill", { strokeDashoffset: 119.4 }, { strokeDashoffset: 0, duration: 0.7, ease: "power2.out" }, 0.75);
+          tl.fromTo("#wh-kicker", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 0.95);
+          tl.fromTo("#wh-headline", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }, 1.15);
+          tl.fromTo("#wh-sub", { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 1.5);
+
+          window.__timelines["02-what-happened"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

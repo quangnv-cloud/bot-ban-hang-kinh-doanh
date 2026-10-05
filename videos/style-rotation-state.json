@@ -393,6 +393,12 @@
             "style": "5-map-and-geo",
             "project": "dia-phuong-hut-fdi-5036-ty-usd",
             "date": "2026-10-05"
+        },
+        {
+            "index": 5,
+            "style": "6-ring-progress",
+            "project": "lai-suat-trai-phieu-cp-cao-nhat-4-nam",
+            "date": "2026-10-05"
         }
     ]
 }
