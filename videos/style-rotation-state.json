@@ -387,6 +387,12 @@
             "style": "4-split-comparison",
             "project": "loat-to-chuc-quoc-te-nang-du-bao-tang-truong-viet-nam",
             "date": "2026-10-04"
+        },
+        {
+            "index": 4,
+            "style": "5-map-and-geo",
+            "project": "dia-phuong-hut-fdi-5036-ty-usd",
+            "date": "2026-10-05"
         }
     ]
 }
