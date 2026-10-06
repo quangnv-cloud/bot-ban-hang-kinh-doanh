@@ -1220,6 +1220,34 @@ Script Property hay domain allowlist nào (cùng domain/key TTS đã dùng). T�
 khi Lyria còn quota=0 sẽ tự rơi xuống fallback thay vì dừng lại — theo dõi cột nguồn BGM trong tóm
 tắt cuối mỗi routine để biết còn đang dùng fallback hay Lyria đã hồi phục.
 
+**[BLOCKER MỚI — 2026-10-06] `action: "publish_facebook"` (đăng Reel) báo lỗi "Out of memory error"
+của chính Apps Script, không phải lỗi mạng/redirect** — khi đăng video `ty-phu-cong-nghe-tang-845-ty-usd`
+(33,6 MB, 49s), `POST <exec> {"action":"publish_facebook", ...}` trả về **HTTP 200 trực tiếp (không
+có header `Location` 302 như các action khác)**, body là trang lỗi chuẩn của Apps Script
+(`<title>Error</title>` + `"Out of memory error."`) — tái hiện giống hệt **2 lần liên tiếp** (cùng
+payload, cách nhau vài phút). Đây KHÔNG phải sự cố timeout/redirect từng gặp (xem ghi chú về
+`curl -L` biến POST thành GET ở `style-rotation-state.json`) — lần này server trả lỗi thật, có
+`<title>Error</title>` và trang lỗi runtime chuẩn của Apps Script, không phải trang lỗi Drive. **Đối
+chứng quan trọng**: 4 action video khác dùng **cùng URL video 33,6 MB đó** (`publish_youtube`,
+`publish_instagram`, `publish_threads`) VÀ 1 action ảnh (`publish_facebook_photo`) đều chạy
+**thành công bình thường** trong cùng phiên — nên nguyên nhân khả năng cao nằm ở cách riêng hàm xử lý
+`publish_facebook` (Reels) nạp/xử lý blob video trong bộ nhớ Apps Script (có thể tải nguyên blob vào
+biến thay vì stream/chunked upload như các action khác), KHÔNG phải do kích thước video vượt giới
+hạn chung hay do mạng. **Quyết định**: không coi routine thất bại (đúng quy tắc mục 13 ở
+PRODUCTION-WORKFLOW) — Reel Facebook là kênh DUY NHẤT không đăng được, Story Facebook/YouTube/
+Instagram/Threads đều thành công. **Việc cần làm** (người vận hành xem lại `Code.gs`, hàm xử lý
+`publish_facebook`): so sánh cách hàm đó tải video (`UrlFetchApp`/`Blob`) với cách
+`publish_youtube`/`publish_instagram` đang làm (có vẻ ổn định hơn với video lớn), cân nhắc đổi sang
+cùng kỹ thuật (stream/chunked thay vì load nguyên blob) nếu Facebook Reels API cho phép.
+
+**[LƯU Ý — 2026-10-06] Threads giới hạn caption tối đa 500 ký tự** — `action: "publish_threads"` với
+`caption` đầy đủ (giống hệt bước 12, ~1.350 ký tự) trả lỗi `THApiException` code 100: `"Param text
+must be at most 500 characters long."`. Đã test: soạn riêng 1 bản caption rút gọn (~480 ký tự, giữ
+headline + 1-2 số liệu nổi bật + nguồn + 3 hashtag chính) cho RIÊNG action `publish_threads` thì đăng
+thành công. **Cập nhật quy trình bước 16**: không dùng `caption` đầy đủ của bước 12 cho Threads nữa —
+soạn thêm 1 bản Threads-safe (≤500 ký tự) mỗi video, chỉ dùng cho `action: "publish_threads"`, 4 kênh
+còn lại (Facebook Reel/Story, YouTube, Instagram) vẫn dùng `caption` đầy đủ như cũ.
+
 ## 12. Đo lường tăng trưởng & khả năng lấy demographics — [2026-09-05]
 
 Ngoài `engagement_metrics` (views/likes/reactions/comments/shares theo TỪNG video, xem SETUP.md),
