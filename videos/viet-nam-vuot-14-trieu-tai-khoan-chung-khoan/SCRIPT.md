@@ -47,7 +47,9 @@ file voice thật).
 
 **Delivery:** Chắc chắn, hạ giọng nhẹ ở cuối câu.
 
-    Giới chức đặt mục tiêu kênh chứng khoán đóng góp khoảng tám mươi tỷ đô la Mỹ vốn mỗi năm cho nền kinh tế trong năm năm tới, giữa lúc Việt Nam hướng tới tăng trưởng tổng sản phẩm quốc nội trên mười phần trăm mỗi năm.
+    Giới chức đặt mục tiêu kênh chứng khoán đóng góp khoảng tám mươi tỷ đô la Mỹ vốn mỗi năm cho nền kinh tế, giữa lúc Việt Nam hướng tới tăng trưởng tổng sản phẩm quốc nội trên mười phần trăm mỗi năm.
+
+**[QC 2026-10-06] Đã sửa Line 6**: bản gốc có cụm "trong năm năm tới" (5 năm tới) — TTS Vbee nuốt mất 1 chữ "năm" do trùng âm với "năm" (year) liền kề, 3 lượt ASR độc lập (Gemini `flash-latest`/`flash-lite-latest`/`3.1-flash-lite`) đều nghe ra "trong năm tới" (next year, sai nghĩa so với kịch bản "5 năm tới"). Đã bỏ hẳn cụm thời gian gây trùng âm thay vì cố viết lại bằng chữ số, sinh lại `line6.mp3` và xác nhận lại bằng ASR.
 
 **Lưu ý:** Không có act "Takeaway" — video kết thúc ngay sau Impact, giữ nguyên hình + brand anchor
 tới hết. Logo + "Nguồn: Znews" hiển thị cố định góc trên suốt video (trừ Hook, tự mang nguồn/logo
