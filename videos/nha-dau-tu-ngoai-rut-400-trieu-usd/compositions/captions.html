@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+        #root { position: absolute; inset: 0; pointer-events: none; }
+        #cap-stage { position: absolute; top: 1500px; left: 0; width: 1080px; height: 80px;
+          display: flex; align-items: center; justify-content: center; z-index: 50; }
+        .cap-group { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; }
+        .cap-pill { max-width: 960px; padding: 14px 34px; border-radius: 14px; background: rgba(10,10,10,0.68);
+          border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(2px); }
+        .cap-line { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 0.08em 0.34em;
+          font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 33px; line-height: 1.2; }
+        .cap-word { display: inline-block; color: rgba(255,255,255,0.5); }
+        .cap-word.is-active { color: #E8441E; }
+        .cap-word.is-spoken { color: #ffffff; }
+      </style>
+
+      <div data-hf-id="cap-root" id="root" data-composition-id="captions" data-width="1080" data-height="1920">
+        <div data-hf-id="cap-stage-el" id="cap-stage"></div>
+      </div>
+
+      <script>
+        (function () {
+          // Word-level timestamps ESTIMATED deterministically (character-length ratio + comma/semicolon
+          // pause surcharge), no STT call (ElevenLabs STT/Whisper both unavailable this run), no
+          // Math.random()/Date.now(). Absolute composition time.
+          // Hook (0 -> 7.72s) intentionally has no entries per brand rule.
+          var GROUPS = [{"start": 7.72, "end": 8.677, "words": [{"text": "Kể", "start": 7.72, "end": 7.826}, {"text": "từ", "start": 7.826, "end": 7.933}, {"text": "ngày", "start": 7.933, "end": 8.145}, {"text": "hai", "start": 8.145, "end": 8.305}, {"text": "mươi", "start": 8.305, "end": 8.517}, {"text": "mốt", "start": 8.517, "end": 8.677}]}, {"start": 8.677, "end": 10.228, "words": [{"text": "tháng", "start": 8.677, "end": 8.942}, {"text": "chín,", "start": 8.942, "end": 9.208}, {"text": "khi", "start": 9.325, "end": 9.484}, {"text": "thị", "start": 9.484, "end": 9.644}, {"text": "trường", "start": 9.644, "end": 9.963}, {"text": "chứng", "start": 9.963, "end": 10.228}]}, {"start": 10.228, "end": 11.557, "words": [{"text": "khoán", "start": 10.228, "end": 10.494}, {"text": "Việt", "start": 10.494, "end": 10.707}, {"text": "Nam", "start": 10.707, "end": 10.866}, {"text": "được", "start": 10.866, "end": 11.079}, {"text": "nâng", "start": 11.079, "end": 11.291}, {"text": "hạng,", "start": 11.291, "end": 11.557}]}, {"start": 11.674, "end": 12.843, "words": [{"text": "khối", "start": 11.674, "end": 11.887}, {"text": "ngoại", "start": 11.887, "end": 12.152}, {"text": "đã", "start": 12.152, "end": 12.259}, {"text": "bán", "start": 12.259, "end": 12.418}, {"text": "ròng", "start": 12.418, "end": 12.631}, {"text": "liên", "start": 12.631, "end": 12.843}]}, {"start": 12.843, "end": 14.076, "words": [{"text": "tục", "start": 12.843, "end": 13.003}, {"text": "mười", "start": 13.003, "end": 13.215}, {"text": "phiên,", "start": 13.215, "end": 13.534}, {"text": "rút", "start": 13.651, "end": 13.81}, {"text": "ra", "start": 13.81, "end": 13.917}, {"text": "hơn", "start": 13.917, "end": 14.076}]}, {"start": 14.076, "end": 15.256, "words": [{"text": "bốn", "start": 14.076, "end": 14.236}, {"text": "trăm", "start": 14.236, "end": 14.448}, {"text": "triệu", "start": 14.448, "end": 14.714}, {"text": "đô", "start": 14.714, "end": 14.82}, {"text": "la", "start": 14.82, "end": 14.926}, {"text": "Mỹ.", "start": 14.926, "end": 15.256}]}, {"start": 15.656, "end": 16.916, "words": [{"text": "Từ", "start": 15.656, "end": 15.776}, {"text": "đầu", "start": 15.776, "end": 15.956}, {"text": "năm", "start": 15.956, "end": 16.136}, {"text": "hai", "start": 16.136, "end": 16.316}, {"text": "nghìn", "start": 16.316, "end": 16.616}, {"text": "không", "start": 16.616, "end": 16.916}]}, {"start": 16.916, "end": 18.488, "words": [{"text": "trăm", "start": 16.916, "end": 17.156}, {"text": "hai", "start": 17.156, "end": 17.336}, {"text": "mươi", "start": 17.336, "end": 17.576}, {"text": "sáu,", "start": 17.576, "end": 17.816}, {"text": "khối", "start": 17.948, "end": 18.188}, {"text": "ngoại", "start": 18.188, "end": 18.488}]}, {"start": 18.488, "end": 19.688, "words": [{"text": "đã", "start": 18.488, "end": 18.608}, {"text": "rút", "start": 18.608, "end": 18.788}, {"text": "khoảng", "start": 18.788, "end": 19.148}, {"text": "ba", "start": 19.148, "end": 19.268}, {"text": "phẩy", "start": 19.268, "end": 19.508}, {"text": "bảy", "start": 19.508, "end": 19.688}]}, {"start": 19.688, "end": 20.84, "words": [{"text": "tỷ", "start": 19.688, "end": 19.808}, {"text": "đô", "start": 19.808, "end": 19.928}, {"text": "la", "start": 19.928, "end": 20.048}, {"text": "Mỹ,", "start": 20.048, "end": 20.228}, {"text": "tập", "start": 20.36, "end": 20.54}, {"text": "trung", "start": 20.54, "end": 20.84}]}, {"start": 20.84, "end": 21.92, "words": [{"text": "mạnh", "start": 20.84, "end": 21.08}, {"text": "nhất", "start": 21.08, "end": 21.32}, {"text": "ở", "start": 21.32, "end": 21.38}, {"text": "hai", "start": 21.38, "end": 21.56}, {"text": "mã", "start": 21.56, "end": 21.68}, {"text": "ngân", "start": 21.68, "end": 21.92}]}, {"start": 21.92, "end": 23.072, "words": [{"text": "hàng", "start": 21.92, "end": 22.16}, {"text": "HD", "start": 22.16, "end": 22.28}, {"text": "Bank", "start": 22.28, "end": 22.52}, {"text": "và", "start": 22.52, "end": 22.64}, {"text": "PNJ.", "start": 22.64, "end": 23.072}]}, {"start": 23.472, "end": 24.263, "words": [{"text": "Tỷ", "start": 23.472, "end": 23.577}, {"text": "lệ", "start": 23.577, "end": 23.683}, {"text": "sở", "start": 23.683, "end": 23.788}, {"text": "hữu", "start": 23.788, "end": 23.946}, {"text": "của", "start": 23.946, "end": 24.105}, {"text": "nhà", "start": 24.105, "end": 24.263}]}, {"start": 24.263, "end": 25.37, "words": [{"text": "đầu", "start": 24.263, "end": 24.421}, {"text": "tư", "start": 24.421, "end": 24.526}, {"text": "nước", "start": 24.526, "end": 24.737}, {"text": "ngoài", "start": 24.737, "end": 25.001}, {"text": "trên", "start": 25.001, "end": 25.211}, {"text": "thị", "start": 25.211, "end": 25.37}]}, {"start": 25.37, "end": 26.793, "words": [{"text": "trường", "start": 25.37, "end": 25.686}, {"text": "chứng", "start": 25.686, "end": 25.949}, {"text": "khoán", "start": 25.949, "end": 26.213}, {"text": "Việt", "start": 26.213, "end": 26.424}, {"text": "Nam", "start": 26.424, "end": 26.582}, {"text": "hiện", "start": 26.582, "end": 26.793}]}, {"start": 26.793, "end": 27.794, "words": [{"text": "chỉ", "start": 26.793, "end": 26.951}, {"text": "còn", "start": 26.951, "end": 27.109}, {"text": "mười", "start": 27.109, "end": 27.32}, {"text": "ba", "start": 27.32, "end": 27.425}, {"text": "phẩy", "start": 27.425, "end": 27.636}, {"text": "hai", "start": 27.636, "end": 27.794}]}, {"start": 27.794, "end": 29.228, "words": [{"text": "phần", "start": 27.794, "end": 28.005}, {"text": "trăm,", "start": 28.005, "end": 28.269}, {"text": "mức", "start": 28.385, "end": 28.543}, {"text": "thấp", "start": 28.543, "end": 28.754}, {"text": "nhất", "start": 28.754, "end": 28.964}, {"text": "trong", "start": 28.964, "end": 29.228}]}, {"start": 29.228, "end": 30.24, "words": [{"text": "lịch", "start": 29.228, "end": 29.439}, {"text": "sử", "start": 29.439, "end": 29.544}, {"text": "thị", "start": 29.544, "end": 29.702}, {"text": "trường.", "start": 29.702, "end": 30.24}]}, {"start": 30.64, "end": 31.74, "words": [{"text": "Giới", "start": 30.64, "end": 30.86}, {"text": "phân", "start": 30.86, "end": 31.08}, {"text": "tích", "start": 31.08, "end": 31.3}, {"text": "chỉ", "start": 31.3, "end": 31.465}, {"text": "ra", "start": 31.465, "end": 31.575}, {"text": "hai", "start": 31.575, "end": 31.74}]}, {"start": 31.74, "end": 33.182, "words": [{"text": "nguyên", "start": 31.74, "end": 32.071}, {"text": "nhân:", "start": 32.071, "end": 32.346}, {"text": "các", "start": 32.467, "end": 32.632}, {"text": "quỹ", "start": 32.632, "end": 32.797}, {"text": "chủ", "start": 32.797, "end": 32.962}, {"text": "động", "start": 32.962, "end": 33.182}]}, {"start": 33.182, "end": 34.117, "words": [{"text": "chốt", "start": 33.182, "end": 33.402}, {"text": "lời", "start": 33.402, "end": 33.567}, {"text": "để", "start": 33.567, "end": 33.677}, {"text": "tái", "start": 33.677, "end": 33.842}, {"text": "cơ", "start": 33.842, "end": 33.952}, {"text": "cấu", "start": 33.952, "end": 34.117}]}, {"start": 34.117, "end": 35.449, "words": [{"text": "danh", "start": 34.117, "end": 34.337}, {"text": "mục,", "start": 34.337, "end": 34.557}, {"text": "còn", "start": 34.678, "end": 34.844}, {"text": "dòng", "start": 34.844, "end": 35.064}, {"text": "vốn", "start": 35.064, "end": 35.229}, {"text": "toàn", "start": 35.229, "end": 35.449}]}, {"start": 35.449, "end": 36.604, "words": [{"text": "cầu", "start": 35.449, "end": 35.614}, {"text": "đang", "start": 35.614, "end": 35.834}, {"text": "dịch", "start": 35.834, "end": 36.054}, {"text": "chuyển", "start": 36.054, "end": 36.384}, {"text": "về", "start": 36.384, "end": 36.494}, {"text": "cổ", "start": 36.494, "end": 36.604}]}, {"start": 36.604, "end": 37.991, "words": [{"text": "phiếu", "start": 36.604, "end": 36.879}, {"text": "công", "start": 36.879, "end": 37.099}, {"text": "nghệ", "start": 37.099, "end": 37.319}, {"text": "tại", "start": 37.319, "end": 37.484}, {"text": "Mỹ,", "start": 37.484, "end": 37.65}, {"text": "Nhật", "start": 37.771, "end": 37.991}]}, {"start": 37.991, "end": 38.992, "words": [{"text": "Bản", "start": 37.991, "end": 38.156}, {"text": "và", "start": 38.156, "end": 38.266}, {"text": "Trung", "start": 38.266, "end": 38.541}, {"text": "Quốc.", "start": 38.541, "end": 38.992}]}, {"start": 39.392, "end": 40.705, "words": [{"text": "Chỉ", "start": 39.392, "end": 39.55}, {"text": "số", "start": 39.55, "end": 39.655}, {"text": "VN-Index", "start": 39.655, "end": 40.075}, {"text": "hiện", "start": 40.075, "end": 40.285}, {"text": "quanh", "start": 40.285, "end": 40.547}, {"text": "một", "start": 40.547, "end": 40.705}]}, {"start": 40.705, "end": 41.965, "words": [{"text": "nghìn", "start": 40.705, "end": 40.968}, {"text": "bảy", "start": 40.968, "end": 41.125}, {"text": "trăm", "start": 41.125, "end": 41.335}, {"text": "sáu", "start": 41.335, "end": 41.493}, {"text": "mươi", "start": 41.493, "end": 41.703}, {"text": "điểm,", "start": 41.703, "end": 41.965}]}, {"start": 42.081, "end": 43.236, "words": [{"text": "giảm", "start": 42.081, "end": 42.291}, {"text": "khoảng", "start": 42.291, "end": 42.606}, {"text": "ba", "start": 42.606, "end": 42.711}, {"text": "phần", "start": 42.711, "end": 42.921}, {"text": "trăm", "start": 42.921, "end": 43.131}, {"text": "so", "start": 43.131, "end": 43.236}]}, {"start": 43.236, "end": 44.77, "words": [{"text": "với", "start": 43.236, "end": 43.394}, {"text": "trước", "start": 43.394, "end": 43.657}, {"text": "nâng", "start": 43.657, "end": 43.867}, {"text": "hạng;", "start": 43.867, "end": 44.129}, {"text": "thanh", "start": 44.245, "end": 44.507}, {"text": "khoản", "start": 44.507, "end": 44.77}]}, {"start": 44.77, "end": 46.146, "words": [{"text": "vẫn", "start": 44.77, "end": 44.928}, {"text": "thấp,", "start": 44.928, "end": 45.19}, {"text": "chưa", "start": 45.306, "end": 45.516}, {"text": "phiên", "start": 45.516, "end": 45.778}, {"text": "nào", "start": 45.778, "end": 45.936}, {"text": "vượt", "start": 45.936, "end": 46.146}]}, {"start": 46.146, "end": 47.312, "words": [{"text": "hai", "start": 46.146, "end": 46.304}, {"text": "mươi", "start": 46.304, "end": 46.514}, {"text": "nghìn", "start": 46.514, "end": 46.776}, {"text": "tỷ", "start": 46.776, "end": 46.881}, {"text": "đồng.", "start": 46.881, "end": 47.312}]}];
+          var DURATION = 48.212;
+
+          var stage = document.getElementById("cap-stage");
+
+          GROUPS.forEach(function (group, g) {
+            var groupEl = document.createElement("div");
+            groupEl.className = "cap-group";
+            groupEl.id = "cap-group-" + g;
+            var pill = document.createElement("div");
+            pill.className = "cap-pill";
+            var line = document.createElement("div");
+            line.className = "cap-line";
+            (group.words || []).forEach(function (w, i) {
+              var span = document.createElement("span");
+              span.className = "cap-word";
+              span.id = "cap-word-" + g + "-" + i;
+              span.textContent = String(w.text);
+              line.appendChild(span);
+            });
+            pill.appendChild(line);
+            groupEl.appendChild(pill);
+            stage.appendChild(groupEl);
+          });
+
+          var tl = gsap.timeline({ paused: true });
+
+          GROUPS.forEach(function (group, g) {
+            var groupEl = document.getElementById("cap-group-" + g);
+            var words = group.words || [];
+            var next = GROUPS[g + 1];
+            var isLast = g === GROUPS.length - 1;
+            var start = Math.max(0, Number(group.start));
+            var end = isLast ? Math.min(DURATION, Number(group.end) + 0.6) : Math.min(Number(next.start), Number(group.end) + 0.3);
+            if (end <= start) end = start + 0.01;
+
+            tl.set(groupEl, { opacity: 1 }, start);
+            tl.set(groupEl, { opacity: 0 }, end);
+
+            words.forEach(function (w, i) {
+              var el = document.getElementById("cap-word-" + g + "-" + i);
+              var at = Math.max(start, Number(w.start));
+              tl.set(el, { className: "cap-word" }, start);
+              tl.set(el, { className: "cap-word is-active" }, at);
+              if (i + 1 < words.length) {
+                var nextAt = Math.max(start, Number(words[i + 1].start));
+                tl.set(el, { className: "cap-word is-spoken" }, nextAt);
+              }
+            });
+            if (words.length) {
+              var lastEl = document.getElementById("cap-word-" + g + "-" + (words.length - 1));
+              var lastSpoken = Math.min(end, Number(words[words.length - 1].end) + 0.1);
+              tl.set(lastEl, { className: "cap-word is-spoken" }, lastSpoken);
+            }
+          });
+
+          tl.to({}, { duration: DURATION }, 0);
+          window.__timelines["captions"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
