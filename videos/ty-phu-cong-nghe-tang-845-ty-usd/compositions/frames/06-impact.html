@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Montserrat"; font-weight: 500; font-style: normal;
+          src: url("assets/fonts/Montserrat-500-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 500; font-style: normal;
+          src: url("assets/fonts/Montserrat-500-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal;
+          src: url("assets/fonts/Montserrat-800-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal;
+          src: url("assets/fonts/Montserrat-800-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal;
+          src: url("assets/fonts/Montserrat-900-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal;
+          src: url("assets/fonts/Montserrat-900-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+        #root { position: absolute; inset: 0; font-family: "Montserrat", sans-serif; overflow: hidden; }
+        /* ---- Icon Grid shared vocabulary (style 8) ---- */
+        .g-kicker-row { position: absolute; top: 196px; left: 56px; display: flex; align-items: center; gap: 14px; }
+        .g-kicker-mark { display: grid; grid-template-columns: 10px 10px; gap: 4px; }
+        .g-kicker-mark i { display: block; width: 10px; height: 10px; border-radius: 2px; background: rgba(255,255,255,0.35); }
+        .g-kicker-mark i.on { background: #E8441E; }
+        .g-kicker { font-size: 24px; font-weight: 800; letter-spacing: 0.12em; color: #E8441E; }
+        .g-chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 10px; background: #E8441E; }
+        .g-chip span { font-size: 19px; font-weight: 700; color: #ffffff; letter-spacing: 0.02em; white-space: nowrap; }
+        .g-headline { position: absolute; top: 246px; left: 56px; width: 968px; font-size: 50px; font-weight: 800; color: #ffffff; line-height: 1.18; }
+        .g-headline b { color: #E8441E; font-weight: 800; }
+
+        .cell { position: absolute; border-radius: 20px; border: 1.5px solid rgba(255,255,255,0.16);
+          background: rgba(22,22,22,0.82); overflow: hidden; }
+        .cell.main { border-color: rgba(232,68,30,0.55); box-shadow: 0 0 40px rgba(232,68,30,0.14); }
+        .cell .tick { position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-left: 4px solid #E8441E;
+          border-top: 4px solid #E8441E; border-top-left-radius: 20px; }
+        .ico { width: 76px; height: 76px; border-radius: 16px; background: rgba(232,68,30,0.14);
+          border: 1.5px solid rgba(232,68,30,0.55); display: flex; align-items: center; justify-content: center; flex: none; }
+        .ico svg { width: 44px; height: 44px; fill: none; stroke: #E8441E; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        .ico.lg { width: 104px; height: 104px; border-radius: 22px; }
+        .ico.lg svg { width: 60px; height: 60px; }
+
+        /* 2 large cells side by side, big icon above title */
+        .im-cell { top: 420px; width: 482px; height: 740px; padding: 36px 32px 32px; display: flex; flex-direction: column; }
+        #im-cell-1 { left: 48px; }
+        #im-cell-2 { left: 550px; }
+        .im-title { margin-top: 28px; font-size: 32px; font-weight: 800; color: #ffffff; line-height: 1.2; }
+        .im-val { margin-top: 26px; font-size: 150px; font-weight: 900; color: #E8441E; line-height: 0.92; letter-spacing: -0.03em; white-space: nowrap; }
+        .im-desc { margin-top: 18px; font-size: 26px; font-weight: 600; color: rgba(255,255,255,0.82); line-height: 1.32; }
+        .im-desc b { color: #ffffff; font-weight: 800; }
+        .im-foot { margin-top: auto; padding-top: 18px; border-top: 1.5px solid rgba(255,255,255,0.14);
+          font-size: 24px; font-weight: 700; color: #ffffff; line-height: 1.3; }
+        .im-foot b { color: #E8441E; font-weight: 900; }
+
+        #im-states { margin-top: 24px; display: flex; flex-direction: column; gap: 12px; }
+        .im-st { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px;
+          border: 1.5px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.04); }
+        .im-st .sq { width: 14px; height: 14px; border-radius: 3px; border: 2px solid rgba(255,255,255,0.5); flex: none; }
+        .im-st span { font-size: 25px; font-weight: 700; color: #ffffff; }
+        .im-st em { margin-left: auto; font-style: normal; font-size: 17px; font-weight: 700; letter-spacing: 0.06em; color: rgba(255,255,255,0.7); }
+        .im-st.hot { border-color: #E8441E; background: rgba(232,68,30,0.14); }
+        .im-st.hot .sq { background: #E8441E; border-color: #E8441E; }
+        .im-st.hot em { color: #ffffff; }
+
+        /* true-proportion bars: 13.400 (peak) vs 12.600 (now) */
+        #im-strip { position: absolute; top: 1196px; left: 48px; width: 984px; height: 244px; padding: 26px 30px; }
+        .im-strip-title { font-size: 20px; font-weight: 800; letter-spacing: 0.1em; color: rgba(255,255,255,0.66); }
+        .im-row { margin-top: 18px; }
+        .im-row .top { display: flex; justify-content: space-between; align-items: baseline; }
+        .im-row .lab { font-size: 23px; font-weight: 700; color: rgba(255,255,255,0.85); }
+        .im-row .v { font-size: 28px; font-weight: 900; color: #ffffff; }
+        .im-row .v.o { color: #E8441E; }
+        .im-track { position: relative; margin-top: 8px; height: 22px; border-radius: 11px; background: rgba(255,255,255,0.08); overflow: hidden; }
+        .im-fill { position: absolute; left: 0; top: 0; height: 100%; border-radius: 11px; transform-origin: left center; }
+        #im-fill-1 { width: 100%; background: rgba(255,255,255,0.6); }
+        #im-fill-2 { width: 94.03%; background: #E8441E; box-shadow: 0 0 18px rgba(232,68,30,0.5); }
+      </style>
+
+      <div data-hf-id="im-root" id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+        <div data-hf-id="im-kicker-row" id="im-kicker-row" class="g-kicker-row">
+          <div data-hf-id="im-kmark" class="g-kicker-mark"><i data-hf-id="im-km1" class="on"></i><i data-hf-id="im-km2" class="on"></i><i data-hf-id="im-km3" class="on"></i><i data-hf-id="im-km4" class="on"></i></div>
+          <span data-hf-id="im-kicker" class="g-kicker">TÁC ĐỘNG</span>
+        </div>
+        <div data-hf-id="im-headline" id="im-headline" class="g-headline">Tài sản top 500 <b data-hf-id="im-hb1">giảm từ đỉnh</b>, áp lực thuế lan rộng</div>
+
+        <div data-hf-id="im-cell-1" id="im-cell-1" class="cell main im-cell">
+          <div data-hf-id="im-tick-1" class="tick"></div>
+          <div data-hf-id="im-ico-1" class="ico lg"><svg data-hf-id="im-svg-1" viewBox="0 0 24 24"><path data-hf-id="hf-hvbe" d="M3 7l6 6 4-4 8 8" /><path data-hf-id="hf-mr8k" d="M15 17h6v-6" /></svg></div>
+          <div data-hf-id="im-title-1" class="im-title">500 người giàu nhất thế giới</div>
+          <div data-hf-id="im-val-1" id="im-val-1" class="im-val">−6%</div>
+          <div data-hf-id="im-desc-1" class="im-desc">Tổng tài sản giảm so với <b data-hf-id="im-db1">đỉnh giữa tháng 6</b></div>
+          <div data-hf-id="im-foot-1" class="im-foot">Còn <b data-hf-id="im-fb1">12.600 tỷ USD</b></div>
+        </div>
+
+        <div data-hf-id="im-cell-2" id="im-cell-2" class="cell main im-cell">
+          <div data-hf-id="im-tick-2" class="tick"></div>
+          <div data-hf-id="im-ico-2" class="ico lg"><svg data-hf-id="im-svg-2" viewBox="0 0 24 24"><path data-hf-id="hf-jji2" d="M3 10l9-6 9 6" /><path data-hf-id="hf-an87" d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8" /><path data-hf-id="hf-r91k" d="M3 21h18" /></svg></div>
+          <div data-hf-id="im-title-2" class="im-title">Thuế tài sản tỷ phú lan rộng</div>
+          <div data-hf-id="im-states" id="im-states">
+            <div data-hf-id="im-st-1" class="im-st hot"><div data-hf-id="im-sq-1" class="sq"></div><span data-hf-id="im-sp-1">California</span><em data-hf-id="im-em-1">BỎ PHIẾU</em></div>
+            <div data-hf-id="im-st-2" class="im-st"><div data-hf-id="im-sq-2" class="sq"></div><span data-hf-id="im-sp-2">Washington</span><em data-hf-id="im-em-2">THẢO LUẬN</em></div>
+            <div data-hf-id="im-st-3" class="im-st"><div data-hf-id="im-sq-3" class="sq"></div><span data-hf-id="im-sp-3">New York</span><em data-hf-id="im-em-3">THẢO LUẬN</em></div>
+            <div data-hf-id="im-st-4" class="im-st"><div data-hf-id="im-sq-4" class="sq"></div><span data-hf-id="im-sp-4">Illinois</span><em data-hf-id="im-em-4">THẢO LUẬN</em></div>
+            <div data-hf-id="im-st-5" class="im-st"><div data-hf-id="im-sq-5" class="sq"></div><span data-hf-id="im-sp-5">Rhode Island</span><em data-hf-id="im-em-5">THẢO LUẬN</em></div>
+          </div>
+        </div>
+
+        <div data-hf-id="im-strip" id="im-strip" class="cell">
+          <div data-hf-id="im-strip-title" class="im-strip-title">TỔNG TÀI SẢN TOP 500 NGƯỜI GIÀU NHẤT</div>
+          <div data-hf-id="im-row-1" class="im-row">
+            <div data-hf-id="im-top-1" class="top"><span data-hf-id="im-lab-1" class="lab">Đỉnh giữa tháng 6</span><span data-hf-id="im-v-1" class="v">13.400 tỷ USD</span></div>
+            <div data-hf-id="im-track-1" class="im-track"><div data-hf-id="im-fill-1" id="im-fill-1" class="im-fill"></div></div>
+          </div>
+          <div data-hf-id="im-row-2" class="im-row">
+            <div data-hf-id="im-top-2" class="top"><span data-hf-id="im-lab-2" class="lab">Hiện tại</span><span data-hf-id="im-v-2" class="v o">12.600 tỷ USD</span></div>
+            <div data-hf-id="im-track-2" class="im-track"><div data-hf-id="im-fill-2" id="im-fill-2" class="im-fill"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          gsap.set("#im-kicker-row", { x: -20, opacity: 0 });
+          gsap.set("#im-headline", { y: 22, opacity: 0 });
+          gsap.set(".im-cell", { y: 50, opacity: 0, scale: 0.95 });
+          gsap.set(".im-cell .ico", { scale: 0, opacity: 0 });
+          gsap.set("#im-val-1", { opacity: 0, scale: 0.8 });
+          gsap.set(".im-st", { x: 24, opacity: 0 });
+          gsap.set("#im-strip", { y: 30, opacity: 0 });
+          gsap.set(".im-fill", { scaleX: 0 });
+
+          tl.fromTo("#im-kicker-row", { x: -20, opacity: 0 }, { x: 0, opacity: 1, duration: 0.35, ease: "power2.out" }, 0.08);
+          tl.fromTo("#im-headline", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 0.22);
+
+          // cell 1 — top 500 (~0.3s), "giảm sáu phần trăm" (~2.1s)
+          tl.fromTo("#im-cell-1", { y: 50, opacity: 0, scale: 0.95 }, { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: "power3.out" }, 0.45);
+          tl.fromTo("#im-cell-1 .ico", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2)" }, 0.65);
+          tl.fromTo("#im-val-1", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.6)" }, 2.0);
+          // bars — "còn mười hai nghìn sáu trăm tỷ" (~3.2s)
+          tl.fromTo("#im-strip", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power2.out" }, 2.85);
+          tl.fromTo("#im-fill-1", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.out" }, 3.0);
+          tl.fromTo("#im-fill-2", { scaleX: 0 }, { scaleX: 1, duration: 0.9, ease: "power2.out" }, 3.3);
+          // cell 2 — "nhiều bang của Mỹ ... đánh thuế" (~5.1s)
+          tl.fromTo("#im-cell-2", { y: 50, opacity: 0, scale: 0.95 }, { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: "power3.out" }, 4.95);
+          tl.fromTo("#im-cell-2 .ico", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2)" }, 5.15);
+          tl.fromTo(".im-st", { x: 24, opacity: 0 }, { x: 0, opacity: 1, duration: 0.35, ease: "power2.out", stagger: 0.14 }, 5.35);
+
+          window.__timelines["06-impact"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
