@@ -1,0 +1,120 @@
+<template>
+  <style>
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600;
+      src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600;
+      src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700;
+      src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700;
+      src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800;
+      src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800;
+      src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900;
+      src: url('assets/fonts/Montserrat-900-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900;
+      src: url('assets/fonts/Montserrat-900-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+
+    #root {
+      position: relative; width: 100%; height: 100%; overflow: hidden;
+      font-family: 'Montserrat', Arial, sans-serif; color: #ffffff;
+    }
+
+    .impact06-bg { position: absolute; inset: 0; background-color: #111111; overflow: hidden; }
+    .impact06-bg-photo {
+      position: absolute; inset: -30px; width: calc(100% + 60px); height: calc(100% + 60px);
+      object-fit: cover; object-position: 50% 36%;
+      filter: blur(22px) brightness(0.56); opacity: 0.46;
+    }
+    .impact06-bg-scrim {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 900px 1400px at 50% 50%, rgba(17, 17, 17, 0.52) 0%, rgba(17, 17, 17, 0.76) 60%, rgba(17,17,17,0.94) 100%);
+    }
+
+    .impact06-kicker {
+      position: absolute; top: 230px; left: 64px; right: 64px;
+      font-family: 'Montserrat', monospace; font-weight: 600; font-size: 26px;
+      letter-spacing: 0.14em; text-transform: uppercase; color: #e8441e; opacity: 0;
+    }
+
+    .impact06-panel {
+      position: absolute; left: 0; right: 0; height: 720px; overflow: hidden; opacity: 0;
+    }
+    .impact06-panel1 { top: 630px; }
+    .impact06-panel2 { top: 1350px; }
+
+    .impact06-panel-num {
+      position: absolute; right: 28px; top: 10px;
+      font-weight: 900; font-size: 160px; line-height: 1; color: rgba(232, 68, 30, 0.16);
+      letter-spacing: -0.03em;
+    }
+    .impact06-panel-rule {
+      position: absolute; left: 64px; top: 0; width: 64px; height: 4px; background: #e8441e;
+      transform: scaleX(0); transform-origin: left center;
+    }
+    .impact06-panel-title {
+      position: absolute; left: 64px; top: 46px; right: 64px;
+      font-weight: 800; font-size: 68px; line-height: 1.1; letter-spacing: -0.01em; color: #ffffff;
+    }
+    .impact06-panel-sub {
+      position: absolute; left: 64px; top: 220px; right: 110px;
+      font-weight: 400; font-size: 30px; line-height: 1.45; color: rgba(255, 255, 255, 0.68);
+    }
+  </style>
+
+  <div data-hf-id="hf-06root" id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-06bg" class="clip impact06-bg" data-start="0" data-duration="14.66" data-track-index="0">
+      <img data-hf-id="hf-06bgphoto" class="impact06-bg-photo" src="assets/images/hook-photo.jpg" alt="">
+      <div data-hf-id="hf-06scrim" class="impact06-bg-scrim"></div>
+    </div>
+
+    <div data-hf-id="hf-06kicker" class="clip impact06-kicker" data-start="0" data-duration="14.66" data-track-index="1">
+      Mốc thời gian &amp; phần còn lại
+    </div>
+
+    <div data-hf-id="hf-06p1" class="impact06-panel impact06-panel1" id="impactPanel1">
+      <div data-hf-id="hf-06p1n" class="impact06-panel-num">2027</div>
+      <div data-hf-id="hf-06p1r" class="impact06-panel-rule" id="impactRule1"></div>
+      <div data-hf-id="hf-06p1t" class="impact06-panel-title">Hoàn tất giữa 2027</div>
+      <div data-hf-id="hf-06p1s" class="impact06-panel-sub">Riêng Indonesia xong trước cuối 2026. AkzoNobel giữ lại mảng sơn bảo vệ công nghiệp.</div>
+    </div>
+
+    <div data-hf-id="hf-06p2" class="impact06-panel impact06-panel2" id="impactPanel2">
+      <div data-hf-id="hf-06p2n" class="impact06-panel-num">92</div>
+      <div data-hf-id="hf-06p2r" class="impact06-panel-rule" id="impactRule2"></div>
+      <div data-hf-id="hf-06p2t" class="impact06-panel-title">Tại Việt Nam từ 1992</div>
+      <div data-hf-id="hf-06p2s" class="impact06-panel-sub">Dulux từ 1992, Nippon Paint từ 1994 — cả hai đều có nhà máy trong khu vực.</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var tl = gsap.timeline({ paused: true });
+      window.__timelines = window.__timelines || {};
+      window.__timelines["06-impact"] = tl;
+
+      tl.fromTo(".impact06-kicker", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.5, ease: "power1.out" }, 0.15);
+
+      tl.fromTo("#impactPanel1", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, 0.8);
+      tl.fromTo("#impactRule1", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power2.out" }, 0.95);
+
+      tl.fromTo("#impactPanel2", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, 9.5);
+      tl.fromTo("#impactRule2", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power2.out" }, 9.65);
+
+      tl.to("#root", { y: -2, duration: 0.3, ease: "sine.inOut" }, 13.0)
+        .to("#root", { y: 0, duration: 0.3, ease: "sine.inOut" }, 13.3)
+        .to("#root", { y: -1.5, duration: 0.3, ease: "sine.inOut" }, 13.9)
+        .to("#root", { y: 0, duration: 0.3, ease: "sine.inOut" }, 14.2);
+    })();
+  </script>
+</template>

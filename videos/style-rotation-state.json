@@ -433,6 +433,13 @@
             "project": "nvidia-von-hoa-gan-6000-ty-usd",
             "date": "2026-10-07",
             "bgm_source": "Lyria RealTime (lyria-realtime-exp)"
+        },
+        {
+            "index": 1,
+            "style": "2-chip-and-leaderboard",
+            "project": "nippon-paint-thau-tom-dulux-135-ty-usd",
+            "date": "2026-10-07",
+            "bgm_source": "Lyria RealTime (lyria-realtime-exp)"
         }
     ]
 }

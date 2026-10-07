@@ -1,0 +1,157 @@
+<template>
+  <style>
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600;
+      src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600;
+      src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700;
+      src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700;
+      src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900;
+      src: url('assets/fonts/Montserrat-900-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900;
+      src: url('assets/fonts/Montserrat-900-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+
+    #root {
+      position: relative; width: 1080px; height: 1920px; overflow: hidden;
+      container-type: size; font-family: 'Montserrat', Arial, sans-serif;
+    }
+
+    #root .fdm-bg { position: absolute; inset: 0; background-color: #111111; overflow: hidden; }
+    #root .fdm-bg-photo {
+      position: absolute; inset: -30px; width: calc(100% + 60px); height: calc(100% + 60px);
+      object-fit: cover; object-position: 50% 40%;
+      filter: blur(22px) brightness(0.6); opacity: 0.4;
+    }
+    #root .fdm-bg-texture {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(180deg, rgba(17, 17, 17, 0.4) 0%, rgba(17, 17, 17, 0) 18%, rgba(17, 17, 17, 0) 82%, rgba(17, 17, 17, 0.4) 100%),
+        radial-gradient(ellipse 760px 620px at 50% 40%, rgba(232, 68, 30, 0.08), rgba(17, 17, 17, 0) 70%),
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 120px 120px, 120px 120px;
+    }
+    #root .fdm-bg-scrim {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 900px 1400px at 50% 50%, rgba(17, 17, 17, 0.5) 0%, rgba(17, 17, 17, 0.74) 55%, rgba(17, 17, 17, 0.92) 100%);
+    }
+
+    #root .fdm-top-wrap { position: absolute; top: 230px; left: 0; width: 100%; text-align: center; }
+    #root .fdm-top-label {
+      display: inline-block; font-family: 'Montserrat', monospace; font-weight: 600; font-size: 25px;
+      letter-spacing: 0.14em; text-transform: uppercase; color: #e8441e; opacity: 0;
+    }
+
+    #root .fdm-hero-wrap {
+      position: absolute; top: 760px; left: 0; width: 100%; height: 560px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    #root .fdm-hero-row { display: flex; align-items: baseline; justify-content: center; gap: 18px; opacity: 0; }
+    #root .fdm-counter {
+      display: inline-block; text-align: center; font-variant-numeric: tabular-nums;
+      font-family: 'Montserrat', Arial, sans-serif; font-weight: 900; font-size: 380px; line-height: 1;
+      letter-spacing: -0.02em; transform: scale(0.45); transform-origin: center center;
+      background-image: linear-gradient(100deg, #e8441e 0%, #e8441e 42%, #ffffff 50%, #e8441e 58%, #e8441e 100%);
+      background-size: 300% 100%; background-position: 0% 50%;
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    #root .fdm-suffix {
+      display: inline-block; font-family: 'Montserrat', Arial, sans-serif; font-weight: 700; font-size: 72px;
+      letter-spacing: 0.04em; text-transform: lowercase; color: #e8441e; opacity: 0;
+    }
+    #root .fdm-accent-line {
+      width: 460px; height: 4px; margin-top: 30px; background: rgba(232, 68, 30, 0.5);
+      transform: scaleX(0); transform-origin: left center;
+    }
+
+    #root .fdm-cond-wrap { position: absolute; top: 1300px; left: 0; width: 100%; text-align: center; }
+    #root .fdm-cond-label {
+      display: inline-block; font-family: 'Montserrat', monospace; font-weight: 600; font-size: 23px;
+      letter-spacing: 0.14em; text-transform: uppercase; color: #e8441e; opacity: 0;
+    }
+
+    #root .fdm-secondary-wrap { position: absolute; top: 1370px; left: 0; width: 100%; text-align: center; }
+    #root .fdm-secondary-stat {
+      display: inline-block; font-family: 'Montserrat', Arial, sans-serif; font-weight: 900; font-size: 62px;
+      line-height: 1.08; letter-spacing: -0.01em; transform: scale(0); transform-origin: center center; opacity: 0;
+    }
+    #root .fdm-secondary-stat .fdm-ge { color: #ffffff; }
+    #root .fdm-secondary-stat .fdm-amount { color: #e8441e; margin-left: 0.22em; }
+  </style>
+
+  <div data-hf-id="hf-04root" id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-04bg" class="fdm-bg clip" data-start="0" data-duration="8.032" data-track-index="0">
+      <img data-hf-id="hf-04bgphoto" class="fdm-bg-photo" src="assets/images/hook-photo.jpg" alt="">
+      <div data-hf-id="hf-04texture" class="fdm-bg-texture"></div>
+      <div data-hf-id="hf-04scrim" class="fdm-bg-scrim"></div>
+    </div>
+
+    <div data-hf-id="hf-04topwrap" class="fdm-top-wrap clip" data-start="0" data-duration="8.032" data-track-index="1">
+      <div data-hf-id="hf-04toplabel" class="fdm-top-label" id="fdmTopLabel">Giá trị thương vụ</div>
+    </div>
+
+    <div data-hf-id="hf-04herowrap" class="fdm-hero-wrap clip" data-start="0" data-duration="8.032" data-track-index="2">
+      <div data-hf-id="hf-04herorow" class="fdm-hero-row" id="fdmHeroRow">
+        <span data-hf-id="hf-04counter" class="fdm-counter" id="fdmCounter">0</span><span data-hf-id="hf-04suffix" class="fdm-suffix" id="fdmSuffix">lần lợi nhuận</span>
+      </div>
+      <div data-hf-id="hf-04accentline" class="fdm-accent-line" id="fdmAccentLine"></div>
+    </div>
+
+    <div data-hf-id="hf-04condwrap" class="fdm-cond-wrap clip" data-start="0" data-duration="8.032" data-track-index="3">
+      <div data-hf-id="hf-04condlabel" class="fdm-cond-label" id="fdmCondLabel">Lợi nhuận Dulux năm 2025</div>
+    </div>
+
+    <div data-hf-id="hf-04secwrap" class="fdm-secondary-wrap clip" data-start="0" data-duration="8.032" data-track-index="4">
+      <div data-hf-id="hf-04secstat" class="fdm-secondary-stat" id="fdmSecondaryStat">
+        <span data-hf-id="hf-04ge" class="fdm-ge">≈</span><span data-hf-id="hf-04amount" class="fdm-amount">1 TỶ USD</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#fdmTopLabel", { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" }, 0.15);
+
+      tl.fromTo("#fdmHeroRow", { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "power1.out" }, 1.0);
+
+      var counterEl = document.getElementById("fdmCounter");
+      var counterState = { value: 0 };
+      var COUNT_START = 1.15;
+      var COUNT_DUR = 1.5;
+
+      tl.to(counterState, {
+        value: 21,
+        duration: COUNT_DUR,
+        ease: "power3.out",
+        onUpdate: function () {
+          counterEl.textContent = Math.round(counterState.value);
+        },
+      }, COUNT_START);
+
+      tl.fromTo("#fdmCounter", { scale: 0.45 }, { scale: 1, duration: COUNT_DUR, ease: "power3.out" }, COUNT_START);
+      tl.fromTo("#fdmAccentLine", { scaleX: 0 }, { scaleX: 1, duration: COUNT_DUR, ease: "power2.out" }, COUNT_START);
+      tl.fromTo("#fdmSuffix", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.6)" }, COUNT_START + COUNT_DUR);
+
+      tl.fromTo("#fdmCounter", { backgroundPosition: "0% 50%" }, { backgroundPosition: "100% 50%", duration: 0.8, ease: "none" }, 3.3);
+
+      tl.fromTo("#fdmCondLabel", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" }, 4.1);
+
+      tl.fromTo("#fdmSecondaryStat", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "power3.out" }, 5.2);
+
+      tl.to("#fdmSecondaryStat", { y: "+=3", duration: 0.42, ease: "sine.inOut", yoyo: true, repeat: 2 }, 5.8);
+
+      window.__timelines["04-data-moment"] = tl;
+    })();
+  </script>
+</template>

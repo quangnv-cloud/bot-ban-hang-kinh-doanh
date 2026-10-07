@@ -1,0 +1,132 @@
+<template>
+  <style>
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600;
+      src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600;
+      src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700;
+      src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700;
+      src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900;
+      src: url('assets/fonts/Montserrat-900-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900;
+      src: url('assets/fonts/Montserrat-900-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+
+    #root {
+      position: relative; width: 1080px; height: 1920px; overflow: hidden;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+
+    .kf03-bg { position: absolute; inset: 0; background: #111111; overflow: hidden; }
+    .kf03-bg-photo {
+      position: absolute; inset: -30px; width: calc(100% + 60px); height: calc(100% + 60px);
+      object-fit: cover; object-position: 50% 40%;
+      filter: blur(26px) brightness(0.42); opacity: 0.4;
+    }
+    .kf03-bg-scrim {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 140% 90% at 50% 38%, rgba(17,17,17,0.8) 0%, rgba(17,17,17,0.92) 55%, rgba(17,17,17,0.98) 100%);
+    }
+
+    .kf03-kicker {
+      position: absolute; top: 230px; left: 0; width: 100%; text-align: center;
+      font-family: 'Montserrat', monospace; font-weight: 600; font-size: 25px;
+      letter-spacing: 0.14em; text-transform: uppercase; color: #e8441e; opacity: 0;
+    }
+
+    .kf03-hero-wrap {
+      position: absolute; top: 330px; left: 0; width: 100%; height: 420px;
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+      gap: 70px; opacity: 0;
+    }
+    .kf03-hero-num {
+      display: block; font-weight: 900; font-size: 260px; line-height: 1.1;
+      letter-spacing: -0.02em; color: #e8441e; text-shadow: 0 0 60px rgba(232,68,30,0.35);
+    }
+    .kf03-hero-label {
+      display: block; font-family: 'Montserrat', monospace; font-weight: 700;
+      font-size: 30px; letter-spacing: 0.1em; text-transform: uppercase; color: #ffffff;
+      text-align: center;
+    }
+
+    .kf03-tags {
+      position: absolute; top: 980px; left: 64px; right: 64px;
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 18px 16px;
+    }
+    .kf03-tag {
+      padding: 16px 28px; border-radius: 999px; border: 1.5px solid rgba(232,68,30,0.55);
+      background: rgba(255,255,255,0.04);
+      font-weight: 700; font-size: 30px; color: #ffffff;
+      opacity: 0; transform: scale(0.7);
+    }
+    .kf03-tag.is-vn { border-color: #e8441e; background: rgba(232,68,30,0.14); color: #ffffff; }
+
+    .kf03-closing {
+      position: absolute; left: 64px; right: 64px; top: 1680px; text-align: center;
+      font-family: 'Montserrat', monospace; font-weight: 600; font-size: 22px;
+      letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.7); opacity: 0;
+    }
+  </style>
+
+  <div data-hf-id="hf-03root" id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-03bg" class="clip kf03-bg" data-start="0" data-duration="7.936" data-track-index="0">
+      <img data-hf-id="hf-03bgphoto" class="kf03-bg-photo" src="assets/images/hook-photo.jpg" alt="">
+      <div data-hf-id="hf-03scrim" class="kf03-bg-scrim"></div>
+    </div>
+
+    <div data-hf-id="hf-03kicker" class="clip kf03-kicker" data-start="0" data-duration="7.936" data-track-index="1">
+      Phạm vi thương vụ
+    </div>
+
+    <div data-hf-id="hf-03hero" class="clip kf03-hero-wrap" id="kf03Hero" data-start="0" data-duration="7.936" data-track-index="2">
+      <span data-hf-id="hf-03heronum" class="kf03-hero-num">7</span>
+      <span data-hf-id="hf-03herolabel" class="kf03-hero-label">Quốc gia Đông Nam Á &amp; Úc</span>
+    </div>
+
+    <div data-hf-id="hf-03tags" class="kf03-tags">
+      <span data-hf-id="hf-03tag1" class="kf03-tag is-vn" id="kf03Tag1">Việt Nam</span>
+      <span data-hf-id="hf-03tag2" class="kf03-tag" id="kf03Tag2">Indonesia</span>
+      <span data-hf-id="hf-03tag3" class="kf03-tag" id="kf03Tag3">Malaysia</span>
+      <span data-hf-id="hf-03tag4" class="kf03-tag" id="kf03Tag4">Thái Lan</span>
+      <span data-hf-id="hf-03tag5" class="kf03-tag" id="kf03Tag5">Singapore</span>
+      <span data-hf-id="hf-03tag6" class="kf03-tag" id="kf03Tag6">Papua New Guinea</span>
+      <span data-hf-id="hf-03tag7" class="kf03-tag" id="kf03Tag7">Australia</span>
+    </div>
+
+    <div data-hf-id="hf-03closing" class="clip kf03-closing" id="kf03Closing" data-start="0" data-duration="7.936" data-track-index="3">
+      Cả hai thương hiệu đều có mặt tại khu vực
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo(".kf03-kicker", { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.2);
+
+      tl.fromTo("#kf03Hero", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.5)" }, 0.75);
+
+      var tagIds = ["kf03Tag1", "kf03Tag2", "kf03Tag3", "kf03Tag4", "kf03Tag5", "kf03Tag6", "kf03Tag7"];
+      var tagStart = 2.1;
+      var tagStagger = 0.42;
+      tagIds.forEach(function (id, i) {
+        tl.fromTo("#" + id, { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, tagStart + i * tagStagger);
+      });
+
+      tl.fromTo("#kf03Closing", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, tagStart + tagIds.length * tagStagger + 0.4);
+
+      tl.to(".kf03-tags", { y: -3, duration: 0.4, ease: "sine.inOut" }, 7.0)
+        .to(".kf03-tags", { y: 0, duration: 0.4, ease: "sine.inOut" }, 7.4);
+
+      window.__timelines["03-key-facts"] = tl;
+    })();
+  </script>
+</template>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+        #root { position: absolute; inset: 0; pointer-events: none; }
+        #cap-stage { position: absolute; top: 1500px; left: 0; width: 1080px; height: 80px;
+          display: flex; align-items: center; justify-content: center; z-index: 50; }
+        .cap-group { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; }
+        .cap-pill { max-width: 960px; padding: 14px 34px; border-radius: 14px; background: rgba(10,10,10,0.68);
+          border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(2px); }
+        .cap-line { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 0.08em 0.34em;
+          font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 33px; line-height: 1.2; }
+        .cap-word { display: inline-block; color: rgba(255,255,255,0.5); }
+        .cap-word.is-active { color: #E8441E; }
+        .cap-word.is-spoken { color: #ffffff; }
+      </style>
+
+      <div data-hf-id="cap-root" id="root" data-composition-id="captions" data-width="1080" data-height="1920">
+        <div data-hf-id="cap-stage-el" id="cap-stage"></div>
+      </div>
+
+      <script>
+        (function () {
+          // Word-level timestamps ESTIMATED deterministically (character-length ratio + comma/period
+          // pause surcharge), no STT call (same fallback method as prior videos per PRODUCTION-WORKFLOW
+          // §2), no Math.random()/Date.now(). Absolute composition time. Hook (0 -> 5.32s) intentionally
+          // has no entries per brand rule.
+          var GROUPS = [{"start": 5.561, "end": 6.927, "words": [{"text": "Tập", "start": 5.561, "end": 5.704}, {"text": "đoàn", "start": 5.736, "end": 5.927}, {"text": "sơn", "start": 5.969, "end": 6.112}, {"text": "Nippon", "start": 6.143, "end": 6.43}, {"text": "Paint", "start": 6.492, "end": 6.731}, {"text": "của", "start": 6.783, "end": 6.927}]}, {"start": 6.958, "end": 8.08, "words": [{"text": "Nhật", "start": 6.958, "end": 7.149}, {"text": "Bản", "start": 7.191, "end": 7.334}, {"text": "vừa", "start": 7.365, "end": 7.509}, {"text": "công", "start": 7.54, "end": 7.731}, {"text": "bố", "start": 7.773, "end": 7.868}, {"text": "thâu", "start": 7.889, "end": 8.08}]}, {"start": 8.122, "end": 9.292, "words": [{"text": "tóm", "start": 8.122, "end": 8.265}, {"text": "toàn", "start": 8.297, "end": 8.487}, {"text": "bộ", "start": 8.529, "end": 8.625}, {"text": "mảng", "start": 8.646, "end": 8.837}, {"text": "sơn", "start": 8.879, "end": 9.022}, {"text": "trang", "start": 9.053, "end": 9.292}]}, {"start": 9.344, "end": 10.884, "words": [{"text": "trí", "start": 9.344, "end": 9.487}, {"text": "của", "start": 9.519, "end": 9.662}, {"text": "AkzoNobel,", "start": 9.693, "end": 10.218}, {"text": "tập", "start": 10.334, "end": 10.477}, {"text": "đoàn", "start": 10.508, "end": 10.699}, {"text": "hóa", "start": 10.741, "end": 10.884}]}, {"start": 10.916, "end": 12.048, "words": [{"text": "chất", "start": 10.916, "end": 11.106}, {"text": "Hà", "start": 11.148, "end": 11.244}, {"text": "Lan,", "start": 11.265, "end": 11.503}, {"text": "tại", "start": 11.556, "end": 11.699}, {"text": "khu", "start": 11.73, "end": 11.874}, {"text": "vực", "start": 11.905, "end": 12.048}]}, {"start": 12.08, "end": 13.234, "words": [{"text": "Đông", "start": 12.08, "end": 12.27}, {"text": "Nam", "start": 12.312, "end": 12.456}, {"text": "Á", "start": 12.487, "end": 12.535}, {"text": "và", "start": 12.545, "end": 12.641}, {"text": "Australia.", "start": 12.662, "end": 13.234}]}, {"start": 13.986, "end": 15.387, "words": [{"text": "Thương", "start": 13.986, "end": 14.31}, {"text": "vụ", "start": 14.381, "end": 14.489}, {"text": "bao", "start": 14.513, "end": 14.675}, {"text": "gồm", "start": 14.71, "end": 14.872}, {"text": "hoạt", "start": 14.908, "end": 15.124}, {"text": "động", "start": 15.171, "end": 15.387}]}, {"start": 15.435, "end": 16.693, "words": [{"text": "tại", "start": 15.435, "end": 15.597}, {"text": "7", "start": 15.632, "end": 15.686}, {"text": "quốc", "start": 15.698, "end": 15.914}, {"text": "gia:", "start": 15.962, "end": 16.124}, {"text": "Việt", "start": 16.159, "end": 16.375}, {"text": "Nam,", "start": 16.423, "end": 16.693}]}, {"start": 16.752, "end": 19.722, "words": [{"text": "Indonesia,", "start": 16.752, "end": 17.346}, {"text": "Malaysia,", "start": 17.476, "end": 18.016}, {"text": "Thái", "start": 18.135, "end": 18.351}, {"text": "Lan,", "start": 18.398, "end": 18.668}, {"text": "Singapore,", "start": 18.728, "end": 19.322}, {"text": "Papua", "start": 19.452, "end": 19.722}]}, {"start": 19.781, "end": 21.154, "words": [{"text": "New", "start": 19.781, "end": 19.943}, {"text": "Guinea", "start": 19.979, "end": 20.303}, {"text": "và", "start": 20.374, "end": 20.482}, {"text": "Australia.", "start": 20.506, "end": 21.154}]}, {"start": 21.925, "end": 23.602, "words": [{"text": "Giá", "start": 21.925, "end": 22.104}, {"text": "trị", "start": 22.143, "end": 22.321}, {"text": "thương", "start": 22.36, "end": 22.718}, {"text": "vụ", "start": 22.796, "end": 22.915}, {"text": "tương", "start": 22.941, "end": 23.239}, {"text": "đương", "start": 23.304, "end": 23.602}]}, {"start": 23.667, "end": 25.126, "words": [{"text": "21", "start": 23.667, "end": 23.786}, {"text": "lần", "start": 23.812, "end": 23.991}, {"text": "lợi", "start": 24.03, "end": 24.208}, {"text": "nhuận", "start": 24.247, "end": 24.545}, {"text": "của", "start": 24.61, "end": 24.789}, {"text": "Dulux", "start": 24.828, "end": 25.126}]}, {"start": 25.191, "end": 27.329, "words": [{"text": "năm", "start": 25.191, "end": 25.37}, {"text": "2025;", "start": 25.409, "end": 25.766}, {"text": "sau", "start": 25.844, "end": 26.023}, {"text": "thuế,", "start": 26.062, "end": 26.419}, {"text": "AkzoNobel", "start": 26.497, "end": 27.033}, {"text": "thu", "start": 27.151, "end": 27.329}]}, {"start": 27.368, "end": 28.431, "words": [{"text": "về", "start": 27.368, "end": 27.487}, {"text": "khoảng", "start": 27.514, "end": 27.871}, {"text": "1", "start": 27.949, "end": 28.009}, {"text": "tỷ", "start": 28.022, "end": 28.141}, {"text": "đô", "start": 28.167, "end": 28.286}, {"text": "la", "start": 28.312, "end": 28.431}]}, {"start": 28.457, "end": 29.25, "words": [{"text": "Mỹ", "start": 28.457, "end": 28.576}, {"text": "tiền", "start": 28.602, "end": 28.84}, {"text": "mặt.", "start": 28.893, "end": 29.25}]}, {"start": 29.974, "end": 31.179, "words": [{"text": "Đây", "start": 29.974, "end": 30.12}, {"text": "là", "start": 30.152, "end": 30.25}, {"text": "một", "start": 30.271, "end": 30.417}, {"text": "phần", "start": 30.45, "end": 30.644}, {"text": "chiến", "start": 30.687, "end": 30.931}, {"text": "lược", "start": 30.984, "end": 31.179}]}, {"start": 31.222, "end": 32.794, "words": [{"text": "tái", "start": 31.222, "end": 31.368}, {"text": "cấu", "start": 31.4, "end": 31.546}, {"text": "trúc", "start": 31.578, "end": 31.773}, {"text": "của", "start": 31.816, "end": 31.962}, {"text": "AkzoNobel,", "start": 31.994, "end": 32.53}, {"text": "tập", "start": 32.648, "end": 32.794}]}, {"start": 32.826, "end": 34.209, "words": [{"text": "trung", "start": 32.826, "end": 33.07}, {"text": "vào", "start": 33.123, "end": 33.269}, {"text": "các", "start": 33.302, "end": 33.448}, {"text": "thị", "start": 33.48, "end": 33.626}, {"text": "trường", "start": 33.658, "end": 33.95}, {"text": "đang", "start": 34.015, "end": 34.209}]}, {"start": 34.252, "end": 35.517, "words": [{"text": "dẫn", "start": 34.252, "end": 34.398}, {"text": "đầu;", "start": 34.43, "end": 34.674}, {"text": "trước", "start": 34.728, "end": 34.971}, {"text": "đó", "start": 35.025, "end": 35.122}, {"text": "tập", "start": 35.143, "end": 35.29}, {"text": "đoàn", "start": 35.322, "end": 35.517}]}, {"start": 35.559, "end": 36.716, "words": [{"text": "đã", "start": 35.559, "end": 35.657}, {"text": "bán", "start": 35.678, "end": 35.824}, {"text": "mảng", "start": 35.856, "end": 36.051}, {"text": "sơn", "start": 36.094, "end": 36.24}, {"text": "trang", "start": 36.272, "end": 36.516}, {"text": "trí", "start": 36.569, "end": 36.716}]}, {"start": 36.748, "end": 37.818, "words": [{"text": "tại", "start": 36.748, "end": 36.894}, {"text": "Ấn", "start": 36.926, "end": 37.023}, {"text": "Độ", "start": 37.045, "end": 37.142}, {"text": "và", "start": 37.164, "end": 37.261}, {"text": "Pakistan.", "start": 37.282, "end": 37.818}]}, {"start": 38.761, "end": 40.464, "words": [{"text": "Giao", "start": 38.761, "end": 39.034}, {"text": "dịch", "start": 39.094, "end": 39.367}, {"text": "dự", "start": 39.427, "end": 39.563}, {"text": "kiến", "start": 39.593, "end": 39.866}, {"text": "hoàn", "start": 39.926, "end": 40.199}, {"text": "tất", "start": 40.259, "end": 40.464}]}, {"start": 40.509, "end": 43.03, "words": [{"text": "giữa", "start": 40.509, "end": 40.782}, {"text": "năm", "start": 40.842, "end": 41.047}, {"text": "2027,", "start": 41.092, "end": 41.501}, {"text": "riêng", "start": 41.591, "end": 41.932}, {"text": "Indonesia", "start": 42.007, "end": 42.622}, {"text": "xong", "start": 42.756, "end": 43.03}]}, {"start": 43.089, "end": 45.625, "words": [{"text": "trước", "start": 43.089, "end": 43.431}, {"text": "cuối", "start": 43.506, "end": 43.779}, {"text": "năm", "start": 43.839, "end": 44.043}, {"text": "2026.", "start": 44.088, "end": 44.566}, {"text": "AkzoNobel", "start": 44.671, "end": 45.285}, {"text": "giữ", "start": 45.42, "end": 45.625}]}, {"start": 45.67, "end": 47.192, "words": [{"text": "lại", "start": 45.67, "end": 45.875}, {"text": "mảng", "start": 45.92, "end": 46.193}, {"text": "sơn", "start": 46.253, "end": 46.458}, {"text": "bảo", "start": 46.502, "end": 46.707}, {"text": "vệ", "start": 46.752, "end": 46.889}, {"text": "công", "start": 46.919, "end": 47.192}]}, {"start": 47.252, "end": 49.356, "words": [{"text": "nghiệp.", "start": 47.252, "end": 47.866}, {"text": "Dulux", "start": 48.001, "end": 48.342}, {"text": "có", "start": 48.417, "end": 48.554}, {"text": "mặt", "start": 48.584, "end": 48.788}, {"text": "tại", "start": 48.833, "end": 49.038}, {"text": "Việt", "start": 49.083, "end": 49.356}]}, {"start": 49.416, "end": 51.422, "words": [{"text": "Nam", "start": 49.416, "end": 49.621}, {"text": "từ", "start": 49.666, "end": 49.802}, {"text": "năm", "start": 49.832, "end": 50.037}, {"text": "1992,", "start": 50.082, "end": 50.491}, {"text": "Nippon", "start": 50.581, "end": 50.991}, {"text": "Paint", "start": 51.081, "end": 51.422}]}, {"start": 51.497, "end": 52.391, "words": [{"text": "từ", "start": 51.497, "end": 51.634}, {"text": "năm", "start": 51.664, "end": 51.868}, {"text": "1994.", "start": 51.913, "end": 52.391}]}];
+          var DURATION = 52.996;
+
+          var stage = document.getElementById("cap-stage");
+
+          GROUPS.forEach(function (group, g) {
+            var groupEl = document.createElement("div");
+            groupEl.className = "cap-group";
+            groupEl.id = "cap-group-" + g;
+            var pill = document.createElement("div");
+            pill.className = "cap-pill";
+            var line = document.createElement("div");
+            line.className = "cap-line";
+            (group.words || []).forEach(function (w, i) {
+              var span = document.createElement("span");
+              span.className = "cap-word";
+              span.id = "cap-word-" + g + "-" + i;
+              span.textContent = String(w.text);
+              line.appendChild(span);
+            });
+            pill.appendChild(line);
+            groupEl.appendChild(pill);
+            stage.appendChild(groupEl);
+          });
+
+          var tl = gsap.timeline({ paused: true });
+
+          GROUPS.forEach(function (group, g) {
+            var groupEl = document.getElementById("cap-group-" + g);
+            var words = group.words || [];
+            var next = GROUPS[g + 1];
+            var isLast = g === GROUPS.length - 1;
+            var start = Math.max(0, Number(group.start));
+            var end = isLast ? Math.min(DURATION, Number(group.end) + 0.6) : Math.min(Number(next.start), Number(group.end) + 0.3);
+            if (end <= start) end = start + 0.01;
+
+            tl.set(groupEl, { opacity: 1 }, start);
+            tl.set(groupEl, { opacity: 0 }, end);
+
+            words.forEach(function (w, i) {
+              var el = document.getElementById("cap-word-" + g + "-" + i);
+              var at = Math.max(start, Number(w.start));
+              tl.set(el, { className: "cap-word" }, start);
+              tl.set(el, { className: "cap-word is-active" }, at);
+              if (i + 1 < words.length) {
+                var nextAt = Math.max(start, Number(words[i + 1].start));
+                tl.set(el, { className: "cap-word is-spoken" }, nextAt);
+              }
+            });
+            if (words.length) {
+              var lastEl = document.getElementById("cap-word-" + g + "-" + (words.length - 1));
+              var lastSpoken = Math.min(end, Number(words[words.length - 1].end) + 0.1);
+              tl.set(lastEl, { className: "cap-word is-spoken" }, lastSpoken);
+            }
+          });
+
+          tl.to({}, { duration: DURATION }, 0);
+          window.__timelines["captions"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

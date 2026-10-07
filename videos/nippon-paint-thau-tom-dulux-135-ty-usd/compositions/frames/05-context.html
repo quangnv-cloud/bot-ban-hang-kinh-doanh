@@ -1,0 +1,131 @@
+<template>
+  <style>
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600;
+      src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600;
+      src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700;
+      src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700;
+      src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800;
+      src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800;
+      src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+
+    #root {
+      position: relative; width: 1080px; height: 1920px; overflow: hidden; box-sizing: border-box;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    #root * { box-sizing: border-box; }
+
+    .fr05-bg { position: absolute; inset: 0; background: #111111; overflow: hidden; }
+    .fr05-bg-photo {
+      position: absolute; inset: -30px; width: calc(100% + 60px); height: calc(100% + 60px);
+      object-fit: cover; object-position: 50% 38%;
+      filter: blur(24px) brightness(0.58); opacity: 0.5;
+    }
+    .fr05-bg-scrim {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 140% 90% at 50% 42%, rgba(17,17,17,0.6) 0%, rgba(17,17,17,0.8) 55%, rgba(17,17,17,0.94) 100%);
+    }
+
+    .fr05-kicker {
+      position: absolute; top: 230px; left: 64px; right: 64px;
+      font-family: 'Montserrat', monospace; font-weight: 600; font-size: 24px;
+      letter-spacing: 0.14em; text-transform: uppercase; color: #e8441e; opacity: 0;
+    }
+
+    .fr05-list { position: absolute; left: 64px; right: 64px; top: 0; }
+    .fr05-connector {
+      position: absolute; left: 92px; top: 620px; width: 2px; height: 420px;
+      background: linear-gradient(180deg, rgba(232,68,30,0.6), rgba(232,68,30,0.15));
+      transform: scaleY(0); transform-origin: top center;
+    }
+    .fr05-row {
+      position: absolute; left: 0; right: 0;
+      opacity: 0; transform: translateY(14px);
+      border-left: 4px solid #e8441e; padding: 26px 24px 30px 28px;
+      background: rgba(255,255,255,0.03);
+      box-shadow: -2px 0 24px rgba(232,68,30,0.14);
+    }
+    .fr05-row1 { top: 420px; }
+    .fr05-row2 { top: 1040px; }
+    .fr05-row-top { display: flex; align-items: baseline; gap: 16px; margin-bottom: 14px; }
+    .fr05-badge {
+      font-family: 'Montserrat', monospace; font-weight: 700; font-size: 24px;
+      letter-spacing: 0.1em; text-transform: uppercase; color: #e8441e; flex: none;
+    }
+    .fr05-name { font-weight: 800; font-size: 46px; color: #ffffff; flex: 1 1 auto; }
+    .fr05-desc { font-weight: 500; font-size: 29px; line-height: 1.45; color: rgba(255,255,255,0.74); }
+
+    .fr05-closing {
+      position: absolute; left: 64px; right: 64px; top: 1650px;
+      font-family: 'Montserrat', monospace; font-weight: 600; font-size: 22px;
+      letter-spacing: 0.08em; text-transform: uppercase; color: #ffffff; opacity: 0;
+    }
+  </style>
+
+  <div data-hf-id="hf-05root" id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-05bg" class="clip fr05-bg" data-start="0" data-duration="8.608" data-track-index="0">
+      <img data-hf-id="hf-05bgphoto" class="fr05-bg-photo" src="assets/images/hook-photo.jpg" alt="">
+      <div data-hf-id="hf-05scrim" class="fr05-bg-scrim"></div>
+    </div>
+
+    <div data-hf-id="hf-05kicker" class="clip fr05-kicker" data-start="0" data-duration="8.608" data-track-index="1">
+      Chiến lược tái cấu trúc AkzoNobel
+    </div>
+
+    <div data-hf-id="hf-05list" class="fr05-list">
+      <div data-hf-id="hf-05connector" class="fr05-connector" id="fr05Connector"></div>
+      <div data-hf-id="hf-05row1" class="fr05-row fr05-row1" id="fr05Row1">
+        <div data-hf-id="hf-05row1top" class="fr05-row-top">
+          <span data-hf-id="hf-05row1badge" class="fr05-badge">Trước đó</span>
+          <span data-hf-id="hf-05row1name" class="fr05-name">Ấn Độ &amp; Pakistan</span>
+        </div>
+        <div data-hf-id="hf-05row1desc" class="fr05-desc">Đã bán mảng sơn trang trí tại 2 thị trường này</div>
+      </div>
+      <div data-hf-id="hf-05row2" class="fr05-row fr05-row2" id="fr05Row2">
+        <div data-hf-id="hf-05row2top" class="fr05-row-top">
+          <span data-hf-id="hf-05row2badge" class="fr05-badge">Song song</span>
+          <span data-hf-id="hf-05row2name" class="fr05-name">Axalta</span>
+        </div>
+        <div data-hf-id="hf-05row2desc" class="fr05-desc">Đang theo đuổi phương án sáp nhập</div>
+      </div>
+    </div>
+
+    <div data-hf-id="hf-05closing" class="clip fr05-closing" data-start="0" data-duration="8.608" data-track-index="2">
+      Tập trung thị trường đang dẫn đầu
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    (function () {
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo(".fr05-kicker", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.15);
+
+      var rowTimes = [1.4, 4.6];
+      var rowIds = ["fr05Row1", "fr05Row2"];
+      rowIds.forEach(function (id, i) {
+        tl.fromTo("#" + id, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, rowTimes[i]);
+      });
+
+      tl.fromTo("#fr05Connector", { scaleY: 0 }, { scaleY: 1, duration: 1.6, ease: "power1.inOut" }, 2.1);
+
+      tl.fromTo(".fr05-closing", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 7.0);
+      tl.to(".fr05-closing", { x: 1.3, duration: 0.15, ease: "none" }, 7.7)
+        .to(".fr05-closing", { x: -1.2, duration: 0.15, ease: "none" }, 7.85)
+        .to(".fr05-closing", { x: 0, duration: 0.2, ease: "power1.out" }, 8.1);
+
+      window.__timelines["05-context"] = tl;
+    })();
+  </script>
+</template>

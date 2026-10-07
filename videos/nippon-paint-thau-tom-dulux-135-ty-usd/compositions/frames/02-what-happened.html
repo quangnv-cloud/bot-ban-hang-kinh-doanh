@@ -1,0 +1,129 @@
+<template>
+  <style>
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600;
+      src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600;
+      src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700;
+      src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700;
+      src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800;
+      src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800;
+      src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900;
+      src: url('assets/fonts/Montserrat-900-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900;
+      src: url('assets/fonts/Montserrat-900-vietnamese.woff2') format('woff2');
+      unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+
+    #root {
+      position: relative;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+
+    #root .f02-ground { position: absolute; inset: 0; background: #111111; }
+
+    #root .f02-photo-wrap {
+      position: absolute; left: 0; right: 0; top: 0; height: 1000px; overflow: hidden;
+      box-shadow: 0 0 44px rgba(232,68,30,0.16);
+    }
+    #root .f02-photo {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: 50% 42%;
+    }
+    #root .f02-photo-handoff {
+      position: absolute; left: 0; right: 0; top: 800px; height: 200px;
+      background: linear-gradient(180deg, rgba(17,17,17,0) 0%, rgba(17,17,17,0.6) 55%, rgba(17,17,17,1) 100%);
+    }
+    #root .f02-tag {
+      position: absolute; left: 56px; top: 900px; display: inline-flex; padding: 8px 18px;
+      border-radius: 8px; background: rgba(17,17,17,0.55); backdrop-filter: blur(2px);
+      font-family: 'Montserrat', monospace; font-weight: 700; font-size: 20px;
+      letter-spacing: 0.08em; color: #ffffff; opacity: 0;
+    }
+
+    #root .f02-panel {
+      position: absolute; left: 0; right: 0; top: 1000px; bottom: 0;
+      padding: 68px 56px 0;
+      box-sizing: border-box;
+    }
+    #root .f02-kicker {
+      font-family: 'Montserrat', monospace; font-weight: 600; font-size: 24px;
+      letter-spacing: 0.14em; text-transform: uppercase; color: #e8441e; opacity: 0;
+    }
+    #root .f02-headline {
+      margin-top: 18px; font-weight: 800; font-size: 58px; line-height: 1.16;
+      letter-spacing: -0.01em; color: #ffffff; max-width: 960px; opacity: 0;
+    }
+    #root .f02-chip-row { margin-top: 48px; display: flex; gap: 20px; }
+    #root .f02-chip {
+      display: inline-flex; align-items: baseline; gap: 12px; padding: 18px 26px;
+      border-radius: 10px; border: 1.5px solid rgba(232, 68, 30, 0.55);
+      background: rgba(255, 255, 255, 0.04); opacity: 0; transform: translateY(16px);
+      box-shadow: 0 10px 28px rgba(232,68,30,0.18);
+    }
+    #root .f02-chip-num { font-weight: 900; font-size: 52px; letter-spacing: -0.02em; color: #e8441e; }
+    #root .f02-chip-label {
+      font-family: 'Montserrat', monospace; font-weight: 600; font-size: 17px;
+      letter-spacing: 0.07em; text-transform: uppercase; color: rgba(255, 255, 255, 0.72);
+    }
+  </style>
+
+  <div data-hf-id="hf-02root" id="root" data-composition-id="02-what-happened" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-02ground" class="clip f02-ground" data-start="0" data-duration="8.44" data-track-index="0"></div>
+
+    <div data-hf-id="hf-02photowrap" class="clip f02-photo-wrap" data-start="0" data-duration="8.44" data-track-index="1">
+      <img data-hf-id="hf-02photo" class="f02-photo" src="assets/images/hook-photo.jpg" alt="">
+    </div>
+
+    <div data-hf-id="hf-02handoff" class="clip f02-photo-handoff" data-start="0" data-duration="8.44" data-track-index="2"></div>
+
+    <div data-hf-id="hf-02tag" class="clip f02-tag" id="f02Tag" data-start="0" data-duration="8.44" data-track-index="3">ẢNH: SẢN PHẨM DULUX</div>
+
+    <div data-hf-id="hf-02panel" class="f02-panel">
+      <div data-hf-id="hf-02kicker" class="clip f02-kicker" id="f02Kicker" data-start="0" data-duration="8.44" data-track-index="4">Tuổi Trẻ công bố</div>
+      <div data-hf-id="hf-02headline" class="clip f02-headline" id="f02Headline" data-start="0" data-duration="8.44" data-track-index="5">Thâu tóm toàn bộ mảng sơn trang trí AkzoNobel</div>
+      <div data-hf-id="hf-02chiprow" class="f02-chip-row">
+        <div data-hf-id="hf-02chip1" class="clip f02-chip" id="f02Chip1" data-start="0" data-duration="8.44" data-track-index="6">
+          <span data-hf-id="hf-02chip1n" class="f02-chip-num">7</span><span data-hf-id="hf-02chip1l" class="f02-chip-label">Quốc gia</span>
+        </div>
+        <div data-hf-id="hf-02chip2" class="clip f02-chip" id="f02Chip2" data-start="0" data-duration="8.44" data-track-index="7">
+          <span data-hf-id="hf-02chip2n" class="f02-chip-num">2027</span><span data-hf-id="hf-02chip2l" class="f02-chip-label">Dự kiến hoàn tất</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    var tl = gsap.timeline({ paused: true });
+
+    tl.fromTo("#root .f02-photo", { scale: 1.06, opacity: 0 }, { scale: 1.0, opacity: 1, duration: 0.5, ease: "power2.out" }, 0);
+    tl.fromTo("#f02Tag", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 0.3);
+
+    tl.fromTo("#f02Kicker", { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.2);
+    tl.fromTo("#f02Headline", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 0.5);
+
+    tl.fromTo("#f02Chip1", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.42, ease: "back.out(1.6)" }, 2.6);
+    tl.fromTo("#f02Chip2", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.42, ease: "back.out(1.6)" }, 3.1);
+
+    tl.to("#root .f02-panel", { y: -3, duration: 0.4, ease: "sine.inOut" }, 5.6)
+      .to("#root .f02-panel", { y: 0, duration: 0.4, ease: "sine.inOut" }, 6.0)
+      .to("#root .f02-panel", { y: -2, duration: 0.4, ease: "sine.inOut" }, 7.2)
+      .to("#root .f02-panel", { y: 0, duration: 0.4, ease: "sine.inOut" }, 7.6);
+
+    window.__timelines["02-what-happened"] = tl;
+  </script>
+</template>
