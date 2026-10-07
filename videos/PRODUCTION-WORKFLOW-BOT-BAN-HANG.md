@@ -1240,6 +1240,13 @@ Instagram/Threads đều thành công. **Việc cần làm** (người vận hà
 `publish_youtube`/`publish_instagram` đang làm (có vẻ ổn định hơn với video lớn), cân nhắc đổi sang
 cùng kỹ thuật (stream/chunked thay vì load nguyên blob) nếu Facebook Reels API cho phép.
 
+**[2026-10-07 — tái diễn, video `nhnn-ngan-chan-gian-lan-6300-ty` (30,3 MB, 46,5s)]**: cùng lỗi
+"Out of memory error." y hệt (2 lần gọi liên tiếp, cách nhau ~30s, vẫn lỗi cả 2 lần). 4 kênh còn lại
+(Story/YouTube/Instagram/Threads) vẫn thành công bình thường với đúng video này. Xác nhận đây là lỗi
+hạ tầng ổn định (không phụ thuộc video cụ thể) ở hàm `publish_facebook`, chưa được sửa — vẫn áp dụng
+đúng quyết định cũ: không coi routine thất bại, bỏ qua FB Reel, đăng đủ 4 kênh còn lại, ghi rõ lỗi
+vào tóm tắt.
+
 **[LƯU Ý — 2026-10-06] Threads giới hạn caption tối đa 500 ký tự** — `action: "publish_threads"` với
 `caption` đầy đủ (giống hệt bước 12, ~1.350 ký tự) trả lỗi `THApiException` code 100: `"Param text
 must be at most 500 characters long."`. Đã test: soạn riêng 1 bản caption rút gọn (~480 ký tự, giữ
