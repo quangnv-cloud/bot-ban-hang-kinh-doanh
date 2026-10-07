@@ -426,6 +426,13 @@
             "project": "nha-dau-tu-ngoai-rut-400-trieu-usd",
             "date": "2026-10-06",
             "bgm_source": "Lyria RealTime (lyria-realtime-exp)"
+        },
+        {
+            "index": 0,
+            "style": "1-card-and-bar",
+            "project": "nvidia-von-hoa-gan-6000-ty-usd",
+            "date": "2026-10-07",
+            "bgm_source": "Lyria RealTime (lyria-realtime-exp)"
         }
     ]
 }

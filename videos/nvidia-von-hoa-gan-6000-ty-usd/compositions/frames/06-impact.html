@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal;
+          src: url("assets/fonts/Montserrat-800-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal;
+          src: url("assets/fonts/Montserrat-800-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal;
+          src: url("assets/fonts/Montserrat-900-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal;
+          src: url("assets/fonts/Montserrat-900-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+
+        #root { position: absolute; inset: 0; background: #111111; overflow: hidden; }
+
+        #im-card { position: absolute; left: 64px; right: 64px; top: 833px; bottom: 392px;
+          border-radius: 32px; border: 2px solid rgba(232,68,30,0.55); background: rgba(255,255,255,0.03);
+          box-shadow: 0 0 44px rgba(232,68,30,0.16); opacity: 0; padding: 64px 56px 48px 56px; }
+
+        #im-badge-num { position: absolute; top: -34px; left: 48px; width: 76px; height: 76px; border-radius: 20px;
+          background: #E8441E; display: flex; align-items: center; justify-content: center;
+          box-shadow: 0 10px 28px rgba(232,68,30,0.4); transform: scale(0); }
+        #im-badge-num span { font-family: "Montserrat", sans-serif; font-weight: 800; font-size: 32px; color: #fff; }
+
+        #im-kicker { font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 16px; letter-spacing: 0.18em;
+          color: rgb(232, 70, 33); text-transform: uppercase; opacity: 0; }
+
+        #im-headline { margin-top: 18px; font-family: "Montserrat", sans-serif; font-weight: 800; font-size: 40px;
+          line-height: 1.24; color: #ffffff; letter-spacing: -0.005em; opacity: 0; max-width: 900px; }
+        #im-headline .accent { color: #E8441E; }
+
+        #im-bars { margin-top: 52px; display: flex; align-items: flex-end; justify-content: center; gap: 96px;
+          height: 300px; opacity: 0; }
+        .im-bar-col { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; }
+        .im-bar-val { font-family: "Montserrat", sans-serif; font-weight: 800; font-size: 32px; color: #ffffff; margin-bottom: 12px; }
+        .im-bar { width: 150px; border-radius: 12px 12px 6px 6px; transform: scaleY(0); transform-origin: bottom center; }
+        #im-bar-sector { height: 256px; background: linear-gradient(180deg, #ff7a52, #E8441E); box-shadow: 0 0 26px rgba(232,68,30,0.3); }
+        #im-bar-nvda { height: 84px; background: linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0.22)); }
+        .im-bar-label { margin-top: 14px; font-family: "Montserrat", sans-serif; font-weight: 600; font-size: 18px;
+          color: rgba(255,255,255,0.62); text-align: center; max-width: 170px; }
+
+        #im-chip { margin-top: 40px; display: flex; justify-content: center; opacity: 0; }
+        #im-chip-inner { padding: 14px 28px; border: 1.5px solid rgba(232,68,30,0.6); border-radius: 999px;
+          background: rgba(232,68,30,0.08); }
+        #im-chip-inner span { font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 20px; color: #ffffff;
+          letter-spacing: 0.01em; white-space: nowrap; }
+        #im-chip-inner b { color: #E8441E; }
+      </style>
+
+      <div data-hf-id="im-root" id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+        <div data-hf-id="im-card" id="im-card">
+          <div data-hf-id="im-badge-num" id="im-badge-num"><span data-hf-id="im-badge-num-text">04</span></div>
+          <div data-hf-id="im-kicker" id="im-kicker">Tác động</div>
+          <h2 data-hf-id="im-headline" id="im-headline">Toàn ngành bán dẫn Mỹ đã tăng <span data-hf-id="hf-82l8" class="accent">86%</span> trong năm 2026</h2>
+
+          <div data-hf-id="im-bars" id="im-bars">
+            <div data-hf-id="im-bar-col-1" class="im-bar-col">
+              <div data-hf-id="im-bar-val-1" class="im-bar-val">+86%</div>
+              <div data-hf-id="im-bar-sector" id="im-bar-sector" class="im-bar"></div>
+              <div data-hf-id="im-bar-label-1" class="im-bar-label">Ngành bán dẫn Mỹ</div>
+            </div>
+            <div data-hf-id="im-bar-col-2" class="im-bar-col">
+              <div data-hf-id="im-bar-val-2" class="im-bar-val">+28%</div>
+              <div data-hf-id="im-bar-nvda" id="im-bar-nvda" class="im-bar"></div>
+              <div data-hf-id="im-bar-label-2" class="im-bar-label">Nvidia từ đầu năm</div>
+            </div>
+          </div>
+
+          <div data-hf-id="im-chip" id="im-chip">
+            <div data-hf-id="im-chip-inner" id="im-chip-inner">
+              <span data-hf-id="im-chip-text">Nvidia đã công bố mua lại cổ phiếu <b data-hf-id="hf-ho3m">150 tỷ USD</b></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo("#im-card", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0);
+          tl.fromTo("#im-badge-num", { scale: 0 }, { scale: 1, duration: 0.4, ease: "back.out(2.2)" }, 0.18);
+          tl.to("#im-kicker", { opacity: 1, duration: 0.3 }, 0.3);
+          tl.fromTo("#im-headline", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.42);
+          tl.to("#im-bars", { opacity: 1, duration: 0.3 }, 0.9);
+          tl.fromTo("#im-bar-sector", { scaleY: 0 }, { scaleY: 1, duration: 0.55, ease: "power3.out" }, 1.0);
+          tl.fromTo("#im-bar-nvda", { scaleY: 0 }, { scaleY: 1, duration: 0.55, ease: "power3.out" }, 1.28);
+          tl.fromTo("#im-chip", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.95);
+
+          tl.to({}, { duration: 9.76 }, 0);
+          window.__timelines["06-impact"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

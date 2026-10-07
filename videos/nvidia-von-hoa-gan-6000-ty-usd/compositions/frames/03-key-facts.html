@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal;
+          src: url("assets/fonts/Montserrat-800-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal;
+          src: url("assets/fonts/Montserrat-800-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal;
+          src: url("assets/fonts/Montserrat-900-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal;
+          src: url("assets/fonts/Montserrat-900-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+
+        #root { position: absolute; inset: 0; background: #111111; overflow: hidden; }
+
+        #kf-card { position: absolute; left: 64px; right: 64px; top: 1008px; bottom: 384px;
+          border-radius: 32px; border: 2px solid rgba(232,68,30,0.55); background: rgba(255,255,255,0.03);
+          box-shadow: 0 0 44px rgba(232,68,30,0.16); opacity: 0; padding: 64px 56px 56px 56px; }
+
+        #kf-badge-num { position: absolute; top: -34px; left: 48px; width: 76px; height: 76px; border-radius: 20px;
+          background: #E8441E; display: flex; align-items: center; justify-content: center;
+          box-shadow: 0 10px 28px rgba(232,68,30,0.4); transform: scale(0); }
+        #kf-badge-num span { font-family: "Montserrat", sans-serif; font-weight: 800; font-size: 32px; color: #fff; }
+
+        #kf-kicker { font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 16px; letter-spacing: 0.18em;
+          color: #E8441E; text-transform: uppercase; opacity: 0; }
+
+        #kf-stat-wrap { margin-top: 26px; display: flex; align-items: baseline; opacity: 0; }
+        #kf-stat-num { font-family: "Montserrat", sans-serif; font-weight: 900; font-size: 168px; line-height: 1;
+          color: #ffffff; letter-spacing: -0.02em; white-space: nowrap; }
+        #kf-stat-pct { font-family: "Montserrat", sans-serif; font-weight: 800; font-size: 72px; color: #E8441E; margin-left: 6px; }
+
+        #kf-sub { margin-top: 20px; font-family: "Montserrat", sans-serif; font-weight: 600; font-size: 30px;
+          line-height: 1.35; color: rgba(255,255,255,0.85); opacity: 0; max-width: 880px; }
+        #kf-source { margin-top: 10px; font-family: "Montserrat", sans-serif; font-weight: 500; font-size: 20px;
+          color: rgba(255,255,255,0.5); opacity: 0; }
+
+        #kf-bar-wrap { margin-top: 48px; opacity: 0; }
+        #kf-bar-ticks { display: flex; justify-content: space-between; font-family: "Montserrat", sans-serif;
+          font-weight: 600; font-size: 16px; color: rgba(255,255,255,0.4); margin-bottom: 10px; }
+        #kf-bar-track { position: relative; width: 100%; height: 22px; border-radius: 11px; background: rgba(255,255,255,0.08);
+          overflow: hidden; }
+        #kf-bar-fill { height: 100%; width: 41%; border-radius: 11px; background: linear-gradient(90deg, #E8441E, #ff7a52);
+          transform: scaleX(0); transform-origin: left center; }
+        #kf-bar-marker { position: absolute; top: -8px; width: 2px; height: 38px; background: rgba(255,255,255,0.5); }
+      </style>
+
+      <div data-hf-id="kf-root" id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+        <div data-hf-id="kf-card" id="kf-card">
+          <div data-hf-id="kf-badge-num" id="kf-badge-num"><span data-hf-id="kf-badge-num-text">02</span></div>
+          <div data-hf-id="kf-kicker" id="kf-kicker">Khảo sát thị trường</div>
+
+          <div data-hf-id="kf-stat-wrap" id="kf-stat-wrap">
+            <span data-hf-id="kf-stat-num" id="kf-stat-num">41</span><span data-hf-id="kf-stat-pct" id="kf-stat-pct">%</span>
+          </div>
+          <div data-hf-id="kf-sub" id="kf-sub">Xác suất Nvidia vượt mốc vốn hóa 6.000 tỷ USD</div>
+          <div data-hf-id="kf-source" id="kf-source">Nguồn dữ liệu: nền tảng dự đoán Polymarket</div>
+
+          <div data-hf-id="kf-bar-wrap" id="kf-bar-wrap">
+            <div data-hf-id="kf-bar-ticks" id="kf-bar-ticks"><span data-hf-id="hf-tzpu">0%</span><span data-hf-id="hf-ardf">50%</span><span data-hf-id="hf-k7an">100%</span></div>
+            <div data-hf-id="kf-bar-track" id="kf-bar-track">
+              <div data-hf-id="kf-bar-fill" id="kf-bar-fill"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo("#kf-card", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0);
+          tl.fromTo("#kf-badge-num", { scale: 0 }, { scale: 1, duration: 0.4, ease: "back.out(2.2)" }, 0.18);
+          tl.to("#kf-kicker", { opacity: 1, duration: 0.3 }, 0.3);
+          tl.fromTo("#kf-stat-wrap", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0.5);
+          tl.to("#kf-sub", { opacity: 1, duration: 0.35 }, 0.85);
+          tl.to("#kf-source", { opacity: 1, duration: 0.3 }, 1.05);
+          tl.to("#kf-bar-wrap", { opacity: 1, duration: 0.3 }, 1.2);
+          tl.fromTo("#kf-bar-fill", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power3.out" }, 1.3);
+
+          tl.to({}, { duration: 5.56 }, 0);
+          window.__timelines["03-key-facts"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

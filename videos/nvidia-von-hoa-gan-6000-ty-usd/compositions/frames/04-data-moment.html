@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal;
+          src: url("assets/fonts/Montserrat-800-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal;
+          src: url("assets/fonts/Montserrat-800-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal;
+          src: url("assets/fonts/Montserrat-900-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal;
+          src: url("assets/fonts/Montserrat-900-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+
+        #root { position: absolute; inset: 0; background: #111111; overflow: hidden; }
+
+        #dm-kicker { position: absolute; top: 340px; left: 0; right: 0; text-align: center;
+          font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 18px; letter-spacing: 0.2em;
+          color: #E8441E; text-transform: uppercase; opacity: 0; }
+
+        #dm-hero { position: absolute; top: 392px; left: 0; right: 0; text-align: center; opacity: 0; }
+        #dm-hero-num { display: inline-block; font-family: "Montserrat", sans-serif; font-weight: 900; font-size: 224px;
+          line-height: 1; color: #ffffff; letter-spacing: -0.02em; }
+        #dm-hero-unit { display: block; margin-top: 32px; font-family: "Montserrat", sans-serif; font-weight: 800;
+          font-size: 46px; color: #E8441E; letter-spacing: 0.02em; }
+
+        #dm-sub { position: absolute; top: 718px; left: 90px; right: 90px; text-align: center;
+          font-family: "Montserrat", sans-serif; font-weight: 600; font-size: 28px; line-height: 1.4;
+          color: rgba(255,255,255,0.82); opacity: 0; }
+
+        #dm-bars { position: absolute; top: 860px; left: 0; right: 0; height: 420px;
+          display: flex; align-items: flex-end; justify-content: center; gap: 120px; opacity: 0; }
+        .dm-bar-col { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; }
+        .dm-bar-val { font-family: "Montserrat", sans-serif; font-weight: 800; font-size: 25px; color: #ffffff; margin-bottom: 14px; }
+        .dm-bar { width: 130px; border-radius: 14px 14px 6px 6px; transform: scaleY(0); transform-origin: bottom center; }
+        #dm-bar-now { height: 345px; background: linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0.22)); }
+        #dm-bar-target { height: 360px; background: linear-gradient(180deg, #ff7a52, #E8441E); box-shadow: 0 0 30px rgba(232,68,30,0.35); }
+        .dm-bar-label { margin-top: 16px; font-family: "Montserrat", sans-serif; font-weight: 600; font-size: 20px;
+          color: rgba(255,255,255,0.6); text-align: center; }
+
+        #dm-chip { position: absolute; top: 1392px; left: 0; right: 0; display: flex; justify-content: center; opacity: 0; }
+        #dm-chip-inner { padding: 14px 30px; border: 1.5px solid rgba(232,68,30,0.6); border-radius: 999px;
+          background: rgba(232,68,30,0.08); }
+        #dm-chip-inner span { font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 21px; color: #ffffff;
+          letter-spacing: 0.01em; white-space: nowrap; }
+        #dm-chip-inner b { color: #E8441E; }
+      </style>
+
+      <div data-hf-id="dm-root" id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+        <div data-hf-id="dm-kicker" id="dm-kicker">Khoảng cách còn lại</div>
+
+        <div data-hf-id="dm-hero" id="dm-hero">
+          <span data-hf-id="dm-hero-num" id="dm-hero-num">240</span>
+          <span data-hf-id="dm-hero-unit" id="dm-hero-unit">TỶ USD</span>
+        </div>
+
+        <div data-hf-id="dm-sub" id="dm-sub">để Nvidia chạm mốc vốn hóa kỷ lục 6.000 tỷ USD</div>
+
+        <div data-hf-id="dm-bars" id="dm-bars">
+          <div data-hf-id="dm-bar-col-1" class="dm-bar-col">
+            <div data-hf-id="dm-bar-val-1" class="dm-bar-val">5.760</div>
+            <div data-hf-id="dm-bar-now" id="dm-bar-now" class="dm-bar"></div>
+            <div data-hf-id="dm-bar-label-1" class="dm-bar-label">Hiện tại</div>
+          </div>
+          <div data-hf-id="dm-bar-col-2" class="dm-bar-col">
+            <div data-hf-id="dm-bar-val-2" class="dm-bar-val">6.000</div>
+            <div data-hf-id="dm-bar-target" id="dm-bar-target" class="dm-bar"></div>
+            <div data-hf-id="dm-bar-label-2" class="dm-bar-label">Mốc kỷ lục</div>
+          </div>
+        </div>
+
+        <div data-hf-id="dm-chip" id="dm-chip">
+          <div data-hf-id="dm-chip-inner" id="dm-chip-inner">
+            <span data-hf-id="dm-chip-text">Đã tăng thêm <b data-hf-id="hf-b4g9">1.200 tỷ USD</b> (+28%) từ đầu năm 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          tl.to("#dm-kicker", { opacity: 1, duration: 0.3 }, 0.1);
+          tl.fromTo("#dm-hero", { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.55, ease: "back.out(1.5)" }, 0.3);
+          tl.to("#dm-sub", { opacity: 1, duration: 0.35 }, 0.85);
+          tl.to("#dm-bars", { opacity: 1, duration: 0.3 }, 1.15);
+          tl.fromTo("#dm-bar-now", { scaleY: 0 }, { scaleY: 1, duration: 0.65, ease: "power3.out" }, 1.25);
+          tl.fromTo("#dm-bar-target", { scaleY: 0 }, { scaleY: 1, duration: 0.65, ease: "power3.out" }, 1.55);
+          tl.fromTo("#dm-chip", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 2.3);
+
+          tl.to({}, { duration: 9.472 }, 0);
+          window.__timelines["04-data-moment"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
