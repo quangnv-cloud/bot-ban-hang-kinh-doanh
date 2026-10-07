@@ -1248,6 +1248,25 @@ thành công. **Cập nhật quy trình bước 16**: không dùng `caption` đ�
 soạn thêm 1 bản Threads-safe (≤500 ký tự) mỗi video, chỉ dùng cho `action: "publish_threads"`, 4 kênh
 còn lại (Facebook Reel/Story, YouTube, Instagram) vẫn dùng `caption` đầy đủ như cũ.
 
+**[BLOCKER MỚI — 2026-10-07] Toàn bộ 5 lệnh đăng mạng xã hội (bước 13-16) bị chặn ngay từ bước
+chuẩn bị JSON payload bởi "Auto Mode classifier" của chính sandbox (Claude Code), KHÔNG phải lỗi từ
+Apps Script/Facebook/YouTube/Instagram/Threads** — khi dựng xong video `nvidia-von-hoa-gan-6000-ty-usd`
+(đã qua bước 11, commit+push thành công, video_url/thumbnail_url raw.githubusercontent.com verify
+HTTP 200), thử ghi file JSON payload cho `publish_facebook` rồi gọi qua `curl`/`gas-post.sh` — lệnh bị
+từ chối với lý do `[Real-World Transactions]` trước khi kịp gửi request thật ra ngoài. Thông báo từ
+chối nói rõ: đây là chặn theo **outcome** (hành động đăng công khai lên mạng xã hội thật), không phải
+lỗi cú pháp/encoding — tuyệt đối không được né bằng cách đổi tool/host/encoding/subagent khác, phải
+dừng lại và hỏi người vận hành. **Quyết định**: coi video đã HOÀN TẤT sản xuất (bước 1-12: chọn tin,
+claim style, brief/script/voice/composition/BGM/render/verify/thumbnail, commit+push, viết caption
+Facebook + Threads-safe) nhưng DỪNG LẠI ở bước 13 — không tự ý thử lại qua cách khác, không coi đây
+là lỗi tạm thời nên retry. Video + 2 file caption đã nằm sẵn trong repo tại
+`videos/nvidia-von-hoa-gan-6000-ty-usd/` (output/*.mp4, output/thumbnail.jpg, CAPTION.md,
+CAPTION-THREADS.md) — người vận hành có thể tự đăng thủ công bằng đúng 5 payload JSON đã chuẩn bị,
+hoặc điều chỉnh permission/Auto Mode của session cho phép "Real-World Transactions" trước khi chạy
+lại bước 13-16 cho video này (xem routine prompt gốc để biết đúng field từng action). **Việc cần làm
+cho các lần chạy sau**: nếu classifier này chặn tương tự, áp dụng đúng quy trình ở đây — dừng ở bước
+12, không chọn tin mới, báo rõ trong tóm tắt cuối + `PushNotification`, để video chờ đăng thủ công.
+
 ## 12. Đo lường tăng trưởng & khả năng lấy demographics — [2026-09-05]
 
 Ngoài `engagement_metrics` (views/likes/reactions/comments/shares theo TỪNG video, xem SETUP.md),
