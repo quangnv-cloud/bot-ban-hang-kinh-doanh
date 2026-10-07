@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Montserrat"; font-weight: 500; font-style: normal; src: url("assets/fonts/Montserrat-500-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 500; font-style: normal; src: url("assets/fonts/Montserrat-500-vietnamese.woff2") format("woff2"); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal; src: url("assets/fonts/Montserrat-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal; src: url("assets/fonts/Montserrat-600-vietnamese.woff2") format("woff2"); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal; src: url("assets/fonts/Montserrat-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal; src: url("assets/fonts/Montserrat-700-vietnamese.woff2") format("woff2"); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal; src: url("assets/fonts/Montserrat-800-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal; src: url("assets/fonts/Montserrat-800-vietnamese.woff2") format("woff2"); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal; src: url("assets/fonts/Montserrat-900-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal; src: url("assets/fonts/Montserrat-900-vietnamese.woff2") format("woff2"); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        #root { position: absolute; inset: 0; background: #111111; overflow: hidden; font-family: "Montserrat", sans-serif; }
+
+        #hk-photo { position: absolute; top: 0; left: 0; width: 1080px; height: 1000px; overflow: hidden; }
+        #hk-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 62% 50%; transform: scale(1.06); }
+        #hk-photo-fade { position: absolute; left: 0; right: 0; bottom: 0; height: 280px;
+          background: linear-gradient(180deg, rgba(17,17,17,0) 0%, #111111 100%); }
+
+        #hk-panel { position: absolute; left: 0; right: 0; top: 940px; bottom: 0; padding: 48px 64px 0 64px; }
+
+        #hk-masthead { display: flex; align-items: center; gap: 14px; opacity: 0; }
+        #hk-masthead img { width: 40px; height: 43px; object-fit: contain; }
+        #hk-masthead span { font-weight: 700; font-size: 27px; color: #ffffff; }
+
+        #hk-badge { display: inline-flex; margin-top: 26px; padding: 10px 22px; border: 2px solid #E8441E;
+          border-radius: 12px; opacity: 0; }
+        #hk-badge span { font-weight: 600; font-size: 24px; color: #ffffff; white-space: nowrap; }
+
+        #hk-head { margin-top: 30px; }
+        .hk-line { display: block; overflow: hidden; }
+        .hk-inner { display: block; }
+        #hk-num-row { display: flex; align-items: baseline; gap: 22px; }
+        #hk-num { font-weight: 900; font-size: 150px; line-height: 1.02; color: #E8441E; letter-spacing: -0.02em; white-space: nowrap; }
+        #hk-unit { font-weight: 800; font-size: 54px; color: #ffffff; white-space: nowrap; }
+        .hk-text { font-weight: 800; font-size: 60px; line-height: 1.16; color: #ffffff; }
+        .hk-text .accent { color: #E8441E; }
+      </style>
+
+      <div id="root" data-composition-id="01-hook" data-width="1080" data-height="1920">
+        <div id="hk-photo">
+          <img src="assets/images/hook-photo.jpg" alt="">
+          <div id="hk-photo-fade"></div>
+        </div>
+
+        <div id="hk-panel">
+          <div id="hk-masthead">
+            <img src="public/logo-bbh-mark.png" alt="">
+            <span>Bot Bán Hàng</span>
+          </div>
+          <div id="hk-badge"><span>Nguồn: Znews · 7/10/2026</span></div>
+
+          <div id="hk-head">
+            <span class="hk-line"><span class="hk-inner" id="hk-num-row"><span id="hk-num">6.300 tỷ</span><span id="hk-unit">đồng</span></span></span>
+            <span class="hk-line"><span class="hk-inner hk-text">Giao dịch nghi lừa đảo</span></span>
+            <span class="hk-line"><span class="hk-inner hk-text">đã được <span class="accent">tạm dừng</span></span></span>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          tl.fromTo("#hk-photo img", { scale: 1.16, opacity: 0 }, { scale: 1.06, opacity: 1, duration: 0.8, ease: "power2.out" }, 0);
+          tl.fromTo("#hk-panel", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 0.2);
+          tl.to("#hk-masthead", { opacity: 1, duration: 0.3, ease: "power1.out" }, 0.5);
+          tl.fromTo("#hk-badge", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.32, ease: "back.out(1.8)" }, 0.75);
+          tl.fromTo("#hk-head .hk-inner", { yPercent: 110 }, { yPercent: 0, duration: 0.55, ease: "power3.out", stagger: 0.14 }, 1.0);
+          tl.to("#hk-photo img", { scale: 1.0, duration: 5.2, ease: "none" }, 0.8);
+          tl.to({}, { duration: 6.2 }, 0);
+          window.__timelines["01-hook"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

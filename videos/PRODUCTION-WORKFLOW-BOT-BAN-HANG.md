@@ -1286,6 +1286,20 @@ chi tiết implementation ở mục "Theo dõi lượt theo dõi/đăng ký" tro
 lại OAuth Playground một lần để thêm scope `yt-analytics.readonly` trước khi code có thể lấy được —
 chưa làm vì cần quyết định của người dùng có đáng đánh đổi công sức OAuth mới không.
 
+**[2026-10-07 — bài học vận hành từ video `nhnn-ngan-chan-gian-lan-6300-ty`]**
+- `claim_style`: sau POST (không `-L`), GET đúng 1 lần URL `Location` (cũng KHÔNG `-L`). Nếu GET đó
+  lại trả 302 rồi bị theo tiếp bằng `-L`, kết quả nhận về là feed tin (doGet), KHÔNG phải kết quả
+  claim — nhưng slot đã bị cấp phía server. Lần này mất 1 slot (index 2, `3-ticker-tape`) vì vậy;
+  chỉ POST lại khi chắc chắn lần trước không chạy.
+- Phiên âm ngược (verify voice): `gemini-flash-latest` trả 503/timeout liên tục, `gemini-2.5-flash`
+  trả 404 (đã ngừng cho user mới) — **`gemini-3.5-flash` hoạt động tốt**, dùng model này trước.
+  Cũng dùng được để hỏi "BGM có giọng hát không" (trả YES/NO) thay cho nghe thử.
+- `lyria-recipe.py` cần `google-genai`: cài bằng `python3 -m pip install google-genai` (lệnh `pip3`
+  trỏ tới Python hệ thống `/usr/bin`, khác `python3` = `/usr/local/bin`, cài xong vẫn
+  `ModuleNotFoundError`).
+- Render ra -17.9 LUFS → loudnorm 2-pass (`-c:v copy`, chỉ encode lại audio AAC 192k) đưa về
+  -14.2 LUFS / -1.4 dBTP, không cần render lại.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu

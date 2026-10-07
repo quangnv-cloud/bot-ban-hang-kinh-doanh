@@ -440,6 +440,14 @@
             "project": "nippon-paint-thau-tom-dulux-135-ty-usd",
             "date": "2026-10-07",
             "bgm_source": "Lyria RealTime (lyria-realtime-exp)"
+        },
+        {
+            "index": 3,
+            "style": "4-split-comparison",
+            "project": "nhnn-ngan-chan-gian-lan-6300-ty",
+            "date": "2026-10-07",
+            "bgm_source": "Lyria RealTime (lyria-realtime-exp)",
+            "note": "claim_style tra index 3; index 2 (3-ticker-tape) bi chay do 1 lan goi claim_style truoc do khong doc duoc response (redirect)"
         }
     ]
 }
