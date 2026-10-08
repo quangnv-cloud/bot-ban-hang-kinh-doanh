@@ -1,55 +1,95 @@
-<!doctype html>
-<html lang="en" data-resolution="portrait">
+<!DOCTYPE html>
+<html lang="vi" data-resolution="portrait">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=1080, height=1920" />
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <script src="assets/vendor/gsap.min.js"></script>
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      html,
-      body {
-        margin: 0;
-        width: 1080px;
-        height: 1920px;
-        overflow: hidden;
-        background: #0a0a0a;
-      }
-      #root {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
-      }
-      #title {
-        color: #f4f4f5;
-        font-size: 72px;
-        font-weight: 600;
-        letter-spacing: -0.03em;
-      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+        @font-face { font-family: "Montserrat"; font-weight: 400; font-style: normal; src: url("assets/fonts/Montserrat-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 400; font-style: normal; src: url("assets/fonts/Montserrat-400-vietnamese.woff2") format("woff2"); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 500; font-style: normal; src: url("assets/fonts/Montserrat-500-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 500; font-style: normal; src: url("assets/fonts/Montserrat-500-vietnamese.woff2") format("woff2"); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal; src: url("assets/fonts/Montserrat-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal; src: url("assets/fonts/Montserrat-600-vietnamese.woff2") format("woff2"); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal; src: url("assets/fonts/Montserrat-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal; src: url("assets/fonts/Montserrat-700-vietnamese.woff2") format("woff2"); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal; src: url("assets/fonts/Montserrat-800-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal; src: url("assets/fonts/Montserrat-800-vietnamese.woff2") format("woff2"); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal; src: url("assets/fonts/Montserrat-900-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal; src: url("assets/fonts/Montserrat-900-vietnamese.woff2") format("woff2"); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #111111; }
+      #root { width: 100%; height: 100%; position: relative; overflow: hidden; background: #111111; font-family: "Montserrat", sans-serif; }
+      .scene { position: absolute; inset: 0; width: 1080px; height: 1920px; }
     </style>
   </head>
   <body>
-    <div
-      id="root"
-      data-composition-id="main"
-      data-start="0"
-      data-duration="10"
-      data-width="1080"
-      data-height="1920"
-    >
-      <h1 id="title" class="clip" data-start="0" data-duration="10" data-track-index="0">Title</h1>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="44.736" data-width="1080" data-height="1920">
+      <!-- Depth background: slow brand-orange blobs + seeded static starfield -->
+      <div id="bg-depth" style="position:absolute;inset:0;overflow:hidden;z-index:0;">
+        <div class="blob" style="position:absolute;width:640px;height:640px;border-radius:50%;background:radial-gradient(circle, rgba(232,68,30,0.20), transparent 70%);filter:blur(60px);top:-120px;left:-160px;"></div>
+        <div class="blob" style="position:absolute;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle, rgba(232,68,30,0.14), transparent 70%);filter:blur(60px);top:900px;right:-200px;"></div>
+        <div class="blob" style="position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle, rgba(232,68,30,0.12), transparent 70%);filter:blur(60px);bottom:-180px;left:200px;"></div>
+        <svg id="bg-stars" viewBox="0 0 1080 1920" style="position:absolute;inset:0;width:100%;height:100%;"></svg>
+      </div>
+
+      <div id="el-01-hook" class="scene clip" data-composition-id="01-hook" data-composition-src="compositions/frames/01-hook.html" data-start="0" data-duration="4.648" data-track-index="1"></div>
+      <div id="el-02-what-happened" class="scene clip" data-composition-id="02-what-happened" data-composition-src="compositions/frames/02-what-happened.html" data-start="4.648" data-duration="8.632" data-track-index="1"></div>
+      <div id="el-03-key-facts" class="scene clip" data-composition-id="03-key-facts" data-composition-src="compositions/frames/03-key-facts.html" data-start="13.280" data-duration="9.232" data-track-index="1"></div>
+      <div id="el-04-data-moment" class="scene clip" data-composition-id="04-data-moment" data-composition-src="compositions/frames/04-data-moment.html" data-start="22.512" data-duration="5.896" data-track-index="1"></div>
+      <div id="el-05-context" class="scene clip" data-composition-id="05-context" data-composition-src="compositions/frames/05-context.html" data-start="28.408" data-duration="9.640" data-track-index="1"></div>
+      <div id="el-06-impact" class="scene clip" data-composition-id="06-impact" data-composition-src="compositions/frames/06-impact.html" data-start="38.048" data-duration="6.688" data-track-index="1"></div>
+
+      <div id="el-captions" class="scene clip" data-track-kind="captions" data-composition-id="captions" data-composition-src="compositions/captions.html" data-start="0" data-duration="44.736" data-track-index="15"></div>
+      <div id="el-brand-anchor" class="scene clip" data-composition-id="brand-anchor" data-composition-src="compositions/brand-anchor.html" data-start="4.648" data-duration="40.088" data-track-index="90"></div>
+
+      <audio id="el-voice-1" src="assets/voice/line1.mp3" data-start="0" data-duration="4.248" data-track-index="10" data-audio-group="voiceover"></audio>
+      <audio id="el-voice-2" src="assets/voice/line2.mp3" data-start="4.648" data-duration="8.232" data-track-index="10" data-audio-group="voiceover"></audio>
+      <audio id="el-voice-3" src="assets/voice/line3.mp3" data-start="13.280" data-duration="8.832" data-track-index="10" data-audio-group="voiceover"></audio>
+      <audio id="el-voice-4" src="assets/voice/line4.mp3" data-start="22.512" data-duration="5.496" data-track-index="10" data-audio-group="voiceover"></audio>
+      <audio id="el-voice-5" src="assets/voice/line5.mp3" data-start="28.408" data-duration="9.240" data-track-index="10" data-audio-group="voiceover"></audio>
+      <audio id="el-voice-6" src="assets/voice/line6.mp3" data-start="38.048" data-duration="6.288" data-track-index="10" data-audio-group="voiceover"></audio>
+
+      <audio id="el-bgm" src="assets/bgm/track.mp3" data-start="0" data-duration="44.736" data-track-index="20" data-audio-group="bgm" data-volume="0.5"></audio>
+
+      <audio id="el-sfx-1" src="assets/sfx/impact-bass-1-soft.mp3" data-start="0.9" data-duration="2.142" data-track-index="30" data-volume="0.65"></audio>
+      <audio id="el-sfx-2" src="assets/sfx/whoosh-short.mp3" data-start="4.58" data-duration="0.574" data-track-index="30" data-volume="0.6"></audio>
+      <audio id="el-sfx-3" src="assets/sfx/click.mp3" data-start="13.43" data-duration="0.365" data-track-index="30" data-volume="0.6"></audio>
+      <audio id="el-sfx-4" src="assets/sfx/pop.mp3" data-start="23.1" data-duration="0.72" data-track-index="30" data-volume="0.6"></audio>
+      <audio id="el-sfx-5" src="assets/sfx/impact-bass-1.mp3" data-start="23.45" data-duration="2.2" data-track-index="31" data-volume="0.55"></audio>
+      <audio id="el-sfx-6" src="assets/sfx/click-soft.mp3" data-start="30.4" data-duration="0.365" data-track-index="30" data-volume="0.55"></audio>
+      <audio id="el-sfx-7" src="assets/sfx/chime.mp3" data-start="38.35" data-duration="2.544" data-track-index="30" data-volume="0.5"></audio>
     </div>
+
     <script>
-      const tl = gsap.timeline({ paused: true });
-      // Example: tl.fromTo("#title", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6 }, 0);
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      function mulberry32(seed) {
+        return function () {
+          seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+          var t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+          t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+      var rand = mulberry32(20261008701);
+      var starsSvg = document.getElementById("bg-stars");
+      for (var i = 0; i < 42; i++) {
+        var c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        c.setAttribute("cx", (rand() * 1080).toFixed(1));
+        c.setAttribute("cy", (rand() * 1920).toFixed(1));
+        c.setAttribute("r", (1.5 + rand() * 1.5).toFixed(2));
+        c.setAttribute("fill", "#fff");
+        c.setAttribute("opacity", (0.15 + rand() * 0.25).toFixed(2));
+        starsSvg.appendChild(c);
+      }
+
+      tl.to(".blob", { x: "+=40", y: "-=30", duration: 18, ease: "sine.inOut", repeat: -1, yoyo: true, stagger: 3 }, 0);
+      tl.to("#bg-stars circle", { opacity: "+=0.25", duration: 4, ease: "sine.inOut", repeat: -1, yoyo: true, stagger: { each: 0.15, from: "edges" } }, 0);
+      tl.to({}, { duration: 44.736 }, 0);
+
       window.__timelines["main"] = tl;
-      tl.seek(0);
     </script>
   </body>
 </html>
