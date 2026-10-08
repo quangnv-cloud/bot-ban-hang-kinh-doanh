@@ -1322,6 +1322,8 @@ phiên trước nhưng thiếu hẳn Facebook Reel (không có record nào, kể
 2 lần trước. Không retry thêm (lỗi hạ tầng ổn định, đã xác nhận 3 lần không phụ thuộc video cụ thể).
 Áp dụng đúng quyết định cũ: không coi routine thất bại, giữ 4/5 kênh đã đăng, ghi rõ trong tóm tắt.
 
+**[2026-10-08 — dữ liệu điểm ủng hộ giả thuyết kích thước, video `gia-vang-giam-nguoi-mua-lo-7-trieu-mot-thang`, 18,7 MB]**: cùng ngày, video này (nhỏ hơn hẳn 3 lần lỗi gần nhất — 30,3/30,7/33,6 MB) gọi `publish_facebook` (Reel) **THÀNH CÔNG ngay lần đầu** (`post_id 122122020651467175`, HTTP 200 qua `Location` redirect bình thường, không phải trang lỗi Apps Script) — cả 5/5 kênh đăng thành công trong 1 lần chạy (Facebook Reel + Story, YouTube, Instagram, Threads). Củng cố thêm giả thuyết ở mục 2026-10-06: lỗi "Out of memory" khả năng cao liên quan kích thước blob video hơn là lỗi cố định không phụ thuộc video — mẫu quan sát hiện tại: 18,7 MB OK, 30,3-33,6 MB lỗi cả 3 lần. Chưa đủ dữ liệu để xác định ngưỡng chính xác (có thể nằm đâu đó giữa ~19-30 MB) — ghi lại để các lần sau theo dõi, chưa đổi quy trình (vẫn thử gọi bình thường, chấp nhận lỗi nếu xảy ra, không cố nén/giảm chất lượng video chỉ để né lỗi này).
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
