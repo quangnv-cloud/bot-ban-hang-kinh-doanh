@@ -1307,6 +1307,14 @@ chưa làm vì cần quyết định của người dùng có đáng đánh đ�
 - Render ra -17.9 LUFS → loudnorm 2-pass (`-c:v copy`, chỉ encode lại audio AAC 192k) đưa về
   -14.2 LUFS / -1.4 dBTP, không cần render lại.
 
+**[2026-10-08] Trạng thái đăng mạng xã hội của 3 video gần nhất, kiểm bằng `action: "list_posts"`
+(đọc `posts_log`, read-only)**: `nippon-paint-thau-tom-dulux-135-ty-usd` 5/5 kênh `published`.
+`nhnn-ngan-chan-gian-lan-6300-ty` 4/5 (thiếu Facebook Reel — đúng lỗi Out of memory đã ghi ở trên).
+`nvidia-von-hoa-gan-6000-ty-usd` nay đã 5/5: Facebook Reel post_id `122121924627467175`, Facebook
+Story post_id `1418180747089302`, YouTube `Uz7yMjOyCVU`, Instagram
+`https://www.instagram.com/reel/DeNpQkpAA6N/`, Threads
+`https://www.threads.com/@bbhkinhteso/post/DeNpWzcCkaU`.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
