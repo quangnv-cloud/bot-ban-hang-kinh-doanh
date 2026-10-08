@@ -1315,6 +1315,13 @@ Story post_id `1418180747089302`, YouTube `Uz7yMjOyCVU`, Instagram
 `https://www.instagram.com/reel/DeNpQkpAA6N/`, Threads
 `https://www.threads.com/@bbhkinhteso/post/DeNpWzcCkaU`.
 
+**[2026-10-08 — tái diễn lần 3, video `pnj-von-hoa-xuong-duoi-10000-ty-dong`, 30,7 MB]**: routine
+mới kiểm `list_posts` thấy project này đã đăng Facebook Story/YouTube/Instagram/Threads (4/5) từ một
+phiên trước nhưng thiếu hẳn Facebook Reel (không có record nào, kể cả `failed`). Gọi lại đúng payload
+`publish_facebook` — vẫn `HTTP 200` + body `<title>Error</title>` / `"Out of memory error."`, y hệt
+2 lần trước. Không retry thêm (lỗi hạ tầng ổn định, đã xác nhận 3 lần không phụ thuộc video cụ thể).
+Áp dụng đúng quyết định cũ: không coi routine thất bại, giữ 4/5 kênh đã đăng, ghi rõ trong tóm tắt.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
