@@ -448,6 +448,14 @@
             "date": "2026-10-07",
             "bgm_source": "Lyria RealTime (lyria-realtime-exp)",
             "note": "claim_style tra index 3; index 2 (3-ticker-tape) bi chay do 1 lan goi claim_style truoc do khong doc duoc response (redirect)"
+        },
+        {
+            "index": 4,
+            "style": "5-map-and-geo",
+            "project": "pnj-von-hoa-xuong-duoi-10000-ty-dong",
+            "date": "2026-10-08",
+            "bgm_source": "Lyria RealTime (lyria-realtime-exp)",
+            "note": "Lan dau dung style 5-map-and-geo. Phien bi container restart giua chung, resume tu transcript subagent (xem commit log), khong mat du lieu."
         }
     ]
 }
