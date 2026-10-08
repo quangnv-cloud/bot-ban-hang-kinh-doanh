@@ -456,6 +456,13 @@
             "date": "2026-10-08",
             "bgm_source": "Lyria RealTime (lyria-realtime-exp)",
             "note": "Lan dau dung style 5-map-and-geo. Phien bi container restart giua chung, resume tu transcript subagent (xem commit log), khong mat du lieu."
+        },
+        {
+            "index": 5,
+            "style": "6-ring-progress",
+            "project": "gia-vang-giam-nguoi-mua-lo-7-trieu-mot-thang",
+            "date": "2026-10-08",
+            "bgm_source": "Lyria RealTime (lyria-realtime-exp)"
         }
     ]
 }

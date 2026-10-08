@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal;
+          src: url("assets/fonts/Montserrat-900-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal;
+          src: url("assets/fonts/Montserrat-900-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+        #root { position: absolute; inset: 0; font-family: "Montserrat", sans-serif; overflow: hidden; }
+
+        /* Static centering wrappers (never targeted by GSAP transforms). */
+        #dm-kicker-wrap { position: absolute; top: 254px; left: 0; width: 1080px; display: flex; justify-content: center; }
+        #dm-ring-outer { position: absolute; top: 420px; left: 0; width: 1080px; display: flex; justify-content: center; }
+        #dm-compare-wrap { position: absolute; top: 1190px; left: 0; width: 1080px; display: flex; justify-content: center; }
+        #dm-footer-wrap { position: absolute; top: 1470px; left: 0; width: 1080px; display: flex; justify-content: center; }
+
+        #dm-kicker { display: inline-flex; align-items: center;
+          padding: 10px 24px; border: 1.5px solid #E8441E; border-radius: 999px; background: rgba(232,68,30,0.08); white-space: nowrap; }
+        #dm-kicker span { font-weight: 700; font-size: 20px; color: #E8441E; letter-spacing: 0.06em; text-transform: uppercase; }
+
+        #dm-ring-wrap { position: relative; width: 720px; height: 720px; }
+        #dm-ring-wrap svg { width: 720px; height: 720px; transform: rotate(-90deg); }
+        #dm-ring-track { fill: none; stroke: rgba(255,255,255,0.08); stroke-width: 26; }
+        #dm-ring-fill { fill: none; stroke: #E8441E; stroke-width: 26; stroke-linecap: round; filter: drop-shadow(0 0 30px rgba(232,68,30,0.6)); }
+
+        #dm-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        #dm-pct-chip { display: inline-flex; align-items: center; padding: 6px 18px; border-radius: 999px;
+          background: rgba(232,68,30,0.14); margin-bottom: 14px; }
+        #dm-pct-chip span { font-weight: 800; font-size: 26px; color: #E8441E; letter-spacing: 0.02em; }
+        #dm-number { display: flex; align-items: baseline; gap: 12px; font-weight: 900; font-size: 128px; line-height: 1; color: #ffffff; letter-spacing: -0.02em; }
+        #dm-number .mark { font-size: 42px; font-weight: 800; color: #E8441E; }
+        #dm-unit { margin-top: 10px; font-weight: 700; font-size: 32px; color: #ffffff; text-align: center; }
+        #dm-label { margin-top: 14px; font-weight: 600; font-size: 24px; color: rgba(255,255,255,0.55); text-align: center; max-width: 480px; }
+
+        #dm-compare { width: 860px; text-align: center; font-weight: 700; font-size: 29px; color: rgba(255,255,255,0.78); line-height: 1.4; }
+        #dm-compare b { color: #E8441E; font-weight: 800; }
+
+        #dm-footer { font-weight: 600; font-size: 22px; color: rgba(255,255,255,0.45); letter-spacing: 0.01em; }
+      </style>
+
+      <div data-hf-id="dm-root" id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+        <div data-hf-id="dm-kicker-wrap-el" id="dm-kicker-wrap">
+          <div data-hf-id="dm-kicker-el" id="dm-kicker"><span data-hf-id="dm-kicker-span">So với đỉnh 1 tháng</span></div>
+        </div>
+
+        <div data-hf-id="dm-ring-outer-el" id="dm-ring-outer">
+          <div data-hf-id="dm-ring" id="dm-ring-wrap">
+            <svg data-hf-id="dm-svg" viewBox="0 0 720 720">
+              <circle data-hf-id="dm-track" id="dm-ring-track" cx="360" cy="360" r="320"></circle>
+              <circle data-hf-id="dm-fill" id="dm-ring-fill" cx="360" cy="360" r="320" stroke-dasharray="2010.62" stroke-dashoffset="2010.62"></circle>
+            </svg>
+            <div data-hf-id="dm-center-el" id="dm-center">
+              <div data-hf-id="dm-pct-chip-el" id="dm-pct-chip"><span data-hf-id="dm-pct-chip-span">~4,8%</span></div>
+              <div data-hf-id="dm-number-el" id="dm-number"><span data-hf-id="dm-number-mark" class="mark">Hơn</span><span data-hf-id="dm-number-val">7</span></div>
+              <div data-hf-id="dm-unit-el" id="dm-unit">triệu đồng/lượng</div>
+              <div data-hf-id="dm-label-el" id="dm-label">Mức lỗ của người mua vàng SJC</div>
+            </div>
+          </div>
+        </div>
+
+        <div data-hf-id="dm-compare-wrap-el" id="dm-compare-wrap">
+          <div data-hf-id="dm-compare-el" id="dm-compare">Từ đỉnh <b data-hf-id="dm-compare-b1">147,1 triệu đồng/lượng</b> xuống còn quanh <b data-hf-id="dm-compare-b2">140 triệu đồng/lượng</b> chỉ sau 1 tháng</div>
+        </div>
+
+        <div data-hf-id="dm-footer-wrap-el" id="dm-footer-wrap">
+          <div data-hf-id="dm-footer-el" id="dm-footer">Theo Dân Trí, 8/10/2026</div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo("#dm-kicker", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 0);
+          tl.fromTo("#dm-ring-wrap", { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "power2.out" }, 0.2);
+          tl.fromTo("#dm-pct-chip", { opacity: 0, y: -8 }, { opacity: 1, y: 0, duration: 0.3, ease: "power1.out" }, 0.5);
+          tl.fromTo("#dm-label", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 0.6);
+
+          tl.fromTo("#dm-ring-fill", { strokeDashoffset: 2010.62 }, { strokeDashoffset: 1914.11, duration: 1.5, ease: "power2.out" }, 0.8);
+
+          // Number lands as the ring finishes drawing — pop reveal, not a literal digit
+          // count-up (a plain-object GSAP tween broke this runtime's render-ready probe).
+          tl.fromTo("#dm-number", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.6)" }, 2.1);
+          tl.fromTo("#dm-unit", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 2.5);
+
+          tl.fromTo("#dm-compare", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.42, ease: "power2.out" }, 3.0);
+          tl.fromTo("#dm-footer", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 3.5);
+
+          window.__timelines["04-data-moment"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
