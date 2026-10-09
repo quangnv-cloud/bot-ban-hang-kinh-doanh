@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <!-- Self-hosted (not jsdelivr): vendored locally per brand/network convention. -->
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+        @font-face { font-family: "Montserrat"; font-weight: 400; font-style: normal;
+          src: url("assets/fonts/Montserrat-400-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 400; font-style: normal;
+          src: url("assets/fonts/Montserrat-400-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 500; font-style: normal;
+          src: url("assets/fonts/Montserrat-500-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 500; font-style: normal;
+          src: url("assets/fonts/Montserrat-500-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal;
+          src: url("assets/fonts/Montserrat-800-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal;
+          src: url("assets/fonts/Montserrat-800-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal;
+          src: url("assets/fonts/Montserrat-900-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal;
+          src: url("assets/fonts/Montserrat-900-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #0a0a0a; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #111111; font-family: "Montserrat", sans-serif; }
+      .scene { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+      /* ---- Depth background: mounted once, behind every scene ---- */
+      #bg-depth { position: absolute; inset: 0; overflow: hidden; z-index: 0; }
+      #bg-depth .blob { position: absolute; border-radius: 50%; filter: blur(60px); }
+    </style>
+  </head>
+  <body>
+    <!-- Timing: mỗi frame's data-duration = độ dài voice thật (ffprobe) + ~0.4s đệm.
+         Tổng 51.39s. Style dựng: 8 - Icon Grid (claim_style index 7) — Hook + Brand Anchor cố
+         định, không thuộc style; 5 act What happened..Impact dùng ẩn dụ lưới ô icon (chip vuông,
+         1x3 danh sách dọc, hero+2 ô phụ, lane 2x3, 2 ô lớn cạnh nhau). Thiết kế riêng cho video
+         này (không copy từ các video icon-grid trước — xem ghi chú cuối báo cáo). -->
+    <div data-hf-id="root-el" id="root" data-composition-id="main" data-start="0" data-duration="51.39" data-width="1080" data-height="1920">
+
+      <!-- Depth background — seeded PRNG blobs + stars, mounted once at root -->
+      <div data-hf-id="bgd-el" id="bg-depth" data-track-index="0">
+        <div data-hf-id="blob1" class="blob" data-layout-allow-overflow="" style="width:640px;height:640px;background:radial-gradient(circle, rgba(232,68,30,0.20), transparent 70%); top:-130px; left:-170px;"></div>
+        <div data-hf-id="blob2" class="blob" data-layout-allow-overflow="" style="width:560px;height:560px;background:radial-gradient(circle, rgba(232,68,30,0.13), transparent 70%); top:900px; right:-210px;"></div>
+        <div data-hf-id="blob3" class="blob" data-layout-allow-overflow="" style="width:520px;height:520px;background:radial-gradient(circle, rgba(232,68,30,0.12), transparent 70%); bottom:-190px; left:190px;"></div>
+        <svg data-hf-id="stars-el" id="bg-stars" viewBox="0 0 1080 1920" style="position:absolute;inset:0;width:100%;height:100%;" />
+      </div>
+
+      <div data-hf-id="s01" id="el-01-hook" class="scene" data-composition-id="01-hook" data-composition-src="compositions/frames/01-hook.html" data-start="0" data-duration="5.46" data-track-index="1"></div>
+
+      <div data-hf-id="s02" id="el-02-what-happened" class="scene" data-composition-id="02-what-happened" data-composition-src="compositions/frames/02-what-happened.html" data-start="5.46" data-duration="6.86" data-track-index="1"></div>
+
+      <div data-hf-id="s03" id="el-03-key-facts" class="scene" data-composition-id="03-key-facts" data-composition-src="compositions/frames/03-key-facts.html" data-start="12.32" data-duration="9.59" data-track-index="1"></div>
+
+      <div data-hf-id="s04" id="el-04-data-moment" class="scene" data-composition-id="04-data-moment" data-composition-src="compositions/frames/04-data-moment.html" data-start="21.91" data-duration="4.82" data-track-index="1"></div>
+
+      <div data-hf-id="s05" id="el-05-context" class="scene" data-composition-id="05-context" data-composition-src="compositions/frames/05-context.html" data-start="26.73" data-duration="12.35" data-track-index="1"></div>
+
+      <div data-hf-id="s06" id="el-06-impact" class="scene" data-composition-id="06-impact" data-composition-src="compositions/frames/06-impact.html" data-start="39.08" data-duration="12.31" data-track-index="1"></div>
+
+      <!-- Karaoke captions — full-span sub-composition, absolute word timestamps, skips Hook -->
+      <div data-hf-id="s-cap" id="el-captions" class="scene" data-composition-id="captions" data-composition-src="compositions/captions.html" data-start="0" data-duration="51.39" data-track-index="15" data-track-kind="captions"></div>
+
+      <!-- Voiceover — Vbee TTS "Ngọc Huyền nâng cao". data-start khớp data-start frame tương ứng,
+           1 dòng SCRIPT.md = 1 act (không đảo dòng như video trước). -->
+      <audio data-hf-id="va1" id="el-voice-1" src="assets/audio/line1.mp3" data-start="0" data-duration="5.064" data-track-index="10" data-audio-group="voiceover"></audio>
+      <audio data-hf-id="va2" id="el-voice-2" src="assets/audio/line2.mp3" data-start="5.46" data-duration="6.456" data-track-index="10" data-audio-group="voiceover"></audio>
+      <audio data-hf-id="va3" id="el-voice-3" src="assets/audio/line3.mp3" data-start="12.32" data-duration="9.192" data-track-index="10" data-audio-group="voiceover"></audio>
+      <audio data-hf-id="va4" id="el-voice-4" src="assets/audio/line4.mp3" data-start="21.91" data-duration="4.368" data-track-index="10" data-audio-group="voiceover"></audio>
+      <audio data-hf-id="va5" id="el-voice-5" src="assets/audio/line5.mp3" data-start="26.73" data-duration="11.952" data-track-index="10" data-audio-group="voiceover"></audio>
+      <audio data-hf-id="va6" id="el-voice-6" src="assets/audio/line6.mp3" data-start="39.08" data-duration="11.856" data-track-index="10" data-audio-group="voiceover"></audio>
+
+      <!-- BGM — Google Lyria RealTime, instrumental-only (verified no vocals). Ducked under
+           voiceover via media-use audio-duck.mjs (data-automation added below). -->
+      <audio data-hf-id="bgm-el" id="el-bgm" src="assets/bgm/track.mp3" data-start="0" data-duration="51.39" data-track-index="20" data-audio-group="bgm" data-automation='{"version":1,"lanes":[{"target":"volume","points":[{"t":0,"v":1},{"t":0.15,"v":0.22},{"t":50.936,"v":0.22},{"t":51.336,"v":1}]}]}'></audio>
+
+      <!-- Brand Anchor — logo top-right, source top-left. Mounted after Hook ends. -->
+      <div data-hf-id="s-ba" id="el-brand-anchor" class="scene" data-composition-id="brand-anchor" data-composition-src="compositions/brand-anchor.html" data-start="5.46" data-duration="45.93" data-track-index="90"></div>
+
+      <!-- SFX cues — palette dùng chung của kênh (assets/sfx), gắn tại các mốc pop-in/landing
+           số liệu chính và các điểm chuyển cảnh chính (không phải mọi lần cắt). BGM/carve do
+           người dùng gắn sau — không đụng ở đây. -->
+      <audio data-hf-id="sfx1" id="el-sfx-1" src="assets/sfx/impact-bass-1-soft.mp3" data-start="1.55" data-duration="2.142" data-track-index="30"></audio>
+      <audio data-hf-id="sfx2" id="el-sfx-2" src="assets/sfx/whoosh-short.mp3" data-start="5.46" data-duration="0.575" data-track-index="30"></audio>
+      <audio data-hf-id="sfx3" id="el-sfx-3" src="assets/sfx/click-soft.mp3" data-start="8.21" data-duration="0.366" data-track-index="30"></audio>
+      <audio data-hf-id="sfx4" id="el-sfx-4" src="assets/sfx/click-soft.mp3" data-start="9.26" data-duration="0.366" data-track-index="30"></audio>
+      <audio data-hf-id="sfx5" id="el-sfx-5" src="assets/sfx/whoosh-short.mp3" data-start="12.32" data-duration="0.575" data-track-index="30"></audio>
+      <audio data-hf-id="sfx6" id="el-sfx-6" src="assets/sfx/click.mp3" data-start="14.0" data-duration="0.366" data-track-index="30"></audio>
+      <audio data-hf-id="sfx7" id="el-sfx-7" src="assets/sfx/click.mp3" data-start="16.6" data-duration="0.366" data-track-index="30"></audio>
+      <audio data-hf-id="sfx8" id="el-sfx-8" src="assets/sfx/click.mp3" data-start="19.2" data-duration="0.366" data-track-index="30"></audio>
+      <audio data-hf-id="sfx9" id="el-sfx-9" src="assets/sfx/whoosh-short.mp3" data-start="21.91" data-duration="0.575" data-track-index="30"></audio>
+      <audio data-hf-id="sfx10" id="el-sfx-10" src="assets/sfx/impact-bass-1.mp3" data-start="23.46" data-duration="2.116" data-track-index="30"></audio>
+      <audio data-hf-id="sfx11" id="el-sfx-11" src="assets/sfx/whoosh-short.mp3" data-start="26.73" data-duration="0.575" data-track-index="30"></audio>
+      <audio data-hf-id="sfx12" id="el-sfx-12" src="assets/sfx/click-soft.mp3" data-start="28.08" data-duration="0.366" data-track-index="30"></audio>
+      <audio data-hf-id="sfx13" id="el-sfx-13" src="assets/sfx/click-soft.mp3" data-start="33.18" data-duration="0.366" data-track-index="30"></audio>
+      <audio data-hf-id="sfx14" id="el-sfx-14" src="assets/sfx/whoosh-short.mp3" data-start="39.08" data-duration="0.575" data-track-index="30"></audio>
+      <audio data-hf-id="sfx15" id="el-sfx-15" src="assets/sfx/click.mp3" data-start="41.0" data-duration="0.366" data-track-index="30"></audio>
+      <audio data-hf-id="sfx16" id="el-sfx-16" src="assets/sfx/click.mp3" data-start="43.8" data-duration="0.366" data-track-index="30"></audio>
+      <audio data-hf-id="sfx17" id="el-sfx-17" src="assets/sfx/chime.mp3" data-start="48.6" data-duration="2.544" data-track-index="30"></audio>
+
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      // seeded PRNG (mulberry32) — deterministic star field, seed unique to this video
+      function mulberry32(seed) {
+        return function () {
+          seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+          var t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+          t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+      var rand = mulberry32(20261008181);
+      var starsSvg = document.getElementById("bg-stars");
+      for (var i = 0; i < 40; i++) {
+        var cx = rand() * 1080;
+        var cy = rand() * 1920;
+        var r = 1.5 + rand() * 1.5;
+        var op = 0.15 + rand() * 0.25;
+        var c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        c.setAttribute("cx", cx.toFixed(1));
+        c.setAttribute("cy", cy.toFixed(1));
+        c.setAttribute("r", r.toFixed(2));
+        c.setAttribute("fill", "#fff");
+        c.setAttribute("opacity", op.toFixed(2));
+        starsSvg.appendChild(c);
+      }
+
+      tl.to("#bg-depth .blob", { x: "+=40", y: "-=30", duration: 18, ease: "sine.inOut", repeat: -1, yoyo: true, stagger: 3 }, 0);
+      tl.to("#bg-stars circle", { opacity: "+=0.25", duration: 4, ease: "sine.inOut", repeat: -1, yoyo: true, stagger: { each: 0.15, from: "random" } }, 0);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

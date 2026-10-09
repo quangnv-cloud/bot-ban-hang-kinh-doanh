@@ -471,6 +471,14 @@
             "date": "2026-10-08",
             "bgm_source": "Lyria RealTime (lyria-realtime-exp)",
             "note": "Lan dau dung style 7-timeline-chronology. Tin: Viet Nam lan dau duoc R&I nang hang tin nhiem len BBB- (dau tu), tu BB+."
+        },
+        {
+            "index": 7,
+            "style": "8-icon-grid",
+            "project": "usd-manh-nhat-18-thang-ty-gia-viet-nam-on-dinh",
+            "date": "2026-10-09",
+            "bgm_source": "Lyria RealTime (lyria-realtime-exp)",
+            "note": "Tin: chi so DXY len cao nhat 18 thang (98.8 -> 102.3 diem), ty gia trung tam VN di nguoc dong (giam 4 dong). Layout rieng cho style 8 (khong tai su dung markup tu cac video icon-grid truoc)."
         }
     ]
 }

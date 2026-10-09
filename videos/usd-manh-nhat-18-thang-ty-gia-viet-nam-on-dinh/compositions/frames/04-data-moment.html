@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Montserrat"; font-weight: 500; font-style: normal;
+          src: url("assets/fonts/Montserrat-500-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 500; font-style: normal;
+          src: url("assets/fonts/Montserrat-500-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal;
+          src: url("assets/fonts/Montserrat-800-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal;
+          src: url("assets/fonts/Montserrat-800-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal;
+          src: url("assets/fonts/Montserrat-900-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal;
+          src: url("assets/fonts/Montserrat-900-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+        #root { position: absolute; inset: 0; font-family: "Montserrat", sans-serif; overflow: hidden; }
+
+        .tagrow { position: absolute; top: 150px; left: 64px; width: 952px; display: flex; align-items: center; }
+        .tagrow .idx { width: 38px; height: 38px; border-radius: 9px; background: #E8441E; display: flex; align-items: center;
+          justify-content: center; font-size: 19px; font-weight: 800; color: #ffffff; flex: none; }
+        .tagrow .kick { margin-left: 14px; font-size: 23px; font-weight: 800; letter-spacing: 0.1em; color: #ffffff; text-transform: uppercase; }
+
+        #dm-headline { position: absolute; top: 212px; left: 64px; width: 952px; font-size: 42px; font-weight: 800; color: #ffffff; line-height: 1.3; }
+        #dm-headline .hl { color: #E8441E; }
+
+        #dm-hero { position: absolute; top: 450px; left: 260px; width: 560px; height: 600px; border-radius: 26px;
+          background: rgba(22,22,22,0.85); border: 2.5px solid rgba(232,68,30,0.6); box-shadow: 0 0 44px rgba(232,68,30,0.22);
+          display: flex; flex-direction: column; align-items: center; text-align: center; padding: 42px 30px 0; }
+        #dm-hero-label { font-size: 21px; font-weight: 800; letter-spacing: 0.1em; color: #E8441E; text-transform: uppercase; }
+        #dm-hero-numrow { margin-top: 20px; display: flex; align-items: baseline; gap: 14px; }
+        #dm-hero-num { font-size: 148px; font-weight: 900; color: #E8441E; line-height: 0.92; letter-spacing: -0.03em;
+          text-shadow: 0 0 40px rgba(232,68,30,0.4); white-space: nowrap; }
+        #dm-hero-unit { font-size: 36px; font-weight: 800; color: #ffffff; }
+        #dm-hero-sub { margin-top: 14px; font-size: 25px; font-weight: 600; color: rgba(255,255,255,0.78); }
+
+        .dm-flank { position: absolute; top: 560px; width: 190px; height: 400px; border-radius: 20px;
+          background: rgba(255,255,255,0.035); border: 1px solid rgba(255,255,255,0.16); padding: 30px 20px 0;
+          display: flex; flex-direction: column; align-items: center; text-align: center; }
+        #dm-flank-l { left: 40px; }
+        #dm-flank-r { left: 850px; }
+        .dm-flank-ring { width: 56px; height: 56px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.3);
+          background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; }
+        .dm-flank-ring svg { width: 28px; height: 28px; fill: none; stroke: rgba(255,255,255,0.85); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        .dm-flank-val { margin-top: 18px; font-size: 38px; font-weight: 800; color: #ffffff; line-height: 1; white-space: nowrap; }
+        .dm-flank-unit { margin-top: 4px; font-size: 19px; font-weight: 700; color: rgba(255,255,255,0.6); }
+        .dm-flank-label { margin-top: 14px; font-size: 20px; font-weight: 600; color: rgba(255,255,255,0.68); line-height: 1.3; }
+
+        #dm-footer { position: absolute; top: 1460px; left: 64px; width: 952px; text-align: center; font-size: 25px;
+          font-weight: 500; color: rgba(255,255,255,0.62); opacity: 0; }
+        #dm-footer b { color: #ffffff; font-weight: 700; }
+      </style>
+
+      <div data-hf-id="dm-root" id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+        <div data-hf-id="dm-tagrow" id="dm-tagrow" class="tagrow">
+          <div data-hf-id="dm-idx" class="idx">04</div>
+          <span data-hf-id="dm-kick" class="kick">Tâm điểm</span>
+        </div>
+
+        <div data-hf-id="dm-headline" id="dm-headline">Mức đô la Mỹ cao nhất 18 tháng: <span data-hf-id="dm-hl" class="hl">102,3 điểm</span></div>
+
+        <div data-hf-id="dm-flank-l" id="dm-flank-l" class="dm-flank">
+          <div data-hf-id="dm-flank-ring-l" class="dm-flank-ring"><svg data-hf-id="dm-fsvg-l" viewBox="0 0 24 24"><circle data-hf-id="hf-fl1" cx="12" cy="9" r="3.2" /><path data-hf-id="hf-fl2" d="M12 20.5c3.6-4.4 6-7.8 6-11.2A6 6 0 0 0 6 9.3c0 3.4 2.4 6.8 6 11.2z" /></svg></div>
+          <div data-hf-id="dm-flank-val-l" class="dm-flank-val">98,8</div>
+          <div data-hf-id="dm-flank-unit-l" class="dm-flank-unit">điểm</div>
+          <div data-hf-id="dm-flank-label-l" class="dm-flank-label">Đầu tháng 9</div>
+        </div>
+
+        <div data-hf-id="dm-hero" id="dm-hero">
+          <div data-hf-id="dm-hero-label" id="dm-hero-label">Chỉ số đô la Mỹ (DXY)</div>
+          <div data-hf-id="dm-hero-numrow" id="dm-hero-numrow"><span data-hf-id="dm-hero-num" id="dm-hero-num">102,3</span><span data-hf-id="dm-hero-unit" id="dm-hero-unit">điểm</span></div>
+          <div data-hf-id="dm-hero-sub" id="dm-hero-sub">Cao nhất trong 18 tháng qua</div>
+        </div>
+
+        <div data-hf-id="dm-flank-r" id="dm-flank-r" class="dm-flank">
+          <div data-hf-id="dm-flank-ring-r" class="dm-flank-ring"><svg data-hf-id="dm-fsvg-r" viewBox="0 0 24 24"><rect data-hf-id="hf-fr1" x="4" y="9" width="16" height="10" rx="1.5" /><path data-hf-id="hf-fr2" d="M4 9l8-5 8 5" /><path data-hf-id="hf-fr3" d="M9 19v-6h6v6" /></svg></div>
+          <div data-hf-id="dm-flank-val-r" class="dm-flank-val">25.634</div>
+          <div data-hf-id="dm-flank-unit-r" class="dm-flank-unit">đồng</div>
+          <div data-hf-id="dm-flank-label-r" class="dm-flank-label">Tỷ giá trung tâm VN</div>
+        </div>
+
+        <div data-hf-id="dm-footer" id="dm-footer">Cùng thời điểm, tỷ giá tại Việt Nam lại <b data-hf-id="dm-footer-b">giảm nhẹ</b></div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          var num = document.getElementById("dm-hero-num");
+
+          gsap.set("#dm-tagrow", { x: -20, opacity: 0 });
+          gsap.set("#dm-headline", { y: 20, opacity: 0 });
+          gsap.set("#dm-hero", { scale: 0.92, opacity: 0 });
+          gsap.set(["#dm-hero-label", "#dm-hero-sub"], { opacity: 0 });
+          gsap.set("#dm-hero-num", { opacity: 0, scale: 0.85 });
+          gsap.set("#dm-hero-unit", { opacity: 0 });
+          gsap.set(".dm-flank", { y: 30, opacity: 0, scale: 0.95 });
+          gsap.set("#dm-footer", { opacity: 0 });
+
+          tl.fromTo("#dm-tagrow", { x: -20, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 0.06);
+          tl.fromTo("#dm-headline", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 0.18);
+
+          tl.fromTo("#dm-hero", { scale: 0.92, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "power3.out" }, 0.55);
+          tl.fromTo("#dm-hero-label", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 0.7);
+          var c = { v: 0 };
+          tl.fromTo("#dm-hero-num", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, 0.85);
+          tl.fromTo(c, { v: 0 }, { v: 102.3, duration: 0.9, ease: "power2.out", onUpdate: function () { num.textContent = c.v.toFixed(1).replace(".", ","); } }, 0.85);
+          tl.fromTo("#dm-hero-unit", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 1.4);
+          tl.fromTo("#dm-hero-sub", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 1.6);
+
+          // flank-left — "từ 98,8 điểm"
+          tl.fromTo("#dm-flank-l", { y: 30, opacity: 0, scale: 0.95 }, { y: 0, opacity: 1, scale: 1, duration: 0.4, ease: "power3.out" }, 1.95);
+
+          // flank-right — "tỷ giá trung tâm giảm 4 đồng, xuống 25.634"
+          tl.fromTo("#dm-flank-r", { y: 30, opacity: 0, scale: 0.95 }, { y: 0, opacity: 1, scale: 1, duration: 0.4, ease: "power3.out" }, 2.35);
+
+          tl.fromTo("#dm-footer", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 2.95);
+
+          window.__timelines["04-data-moment"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
