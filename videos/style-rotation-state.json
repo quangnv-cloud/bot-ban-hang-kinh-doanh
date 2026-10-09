@@ -479,6 +479,14 @@
             "date": "2026-10-09",
             "bgm_source": "Lyria RealTime (lyria-realtime-exp)",
             "note": "Tin: chi so DXY len cao nhat 18 thang (98.8 -> 102.3 diem), ty gia trung tam VN di nguoc dong (giam 4 dong). Layout rieng cho style 8 (khong tai su dung markup tu cac video icon-grid truoc)."
+        },
+        {
+            "index": 8,
+            "style": "9-editorial-clipping",
+            "project": "masan-nang-so-huu-mch-len-749-phan-tram",
+            "date": "2026-10-09",
+            "bgm_source": "Lyria RealTime (lyria-realtime-exp)",
+            "note": "Tin: Masan Group dang ky mua toi da 73 trieu co phieu Masan Consumer (MCH), nang so huu tu 69,4% len 74,9%, khong vay no moi (don bay giam 2,4x -> 2,3x). Layout rieng cho style 9 (anh bai bao le, 3 'manh giay' xep chong, dau ngoac kep lon + gach chan tay ve cho Data moment, pull-quote cho Context, 2 'manh bao' chong lop cho Impact)."
         }
     ]
 }

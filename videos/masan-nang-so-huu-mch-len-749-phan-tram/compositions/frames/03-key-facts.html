@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal;
+          src: url("assets/fonts/Montserrat-600-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal;
+          src: url("assets/fonts/Montserrat-700-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal;
+          src: url("assets/fonts/Montserrat-800-latin.woff2") format("woff2");
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+        @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal;
+          src: url("assets/fonts/Montserrat-800-vietnamese.woff2") format("woff2");
+          unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+        #root { position: absolute; inset: 0; font-family: "Montserrat", sans-serif; overflow: hidden; }
+
+        #kf-kicker { position: absolute; top: 170px; left: 82px; display: flex; align-items: center; gap: 10px; }
+        #kf-kicker .dot { width: 8px; height: 8px; border-radius: 50%; background: #E8441E; }
+        #kf-kicker span { font-weight: 700; font-size: 21px; color: #E8441E; letter-spacing: 0.08em; text-transform: uppercase; }
+
+        .kf-card { position: absolute; width: 860px; background: #ffffff; border-radius: 3px; padding: 28px 40px 32px;
+          box-shadow: 0 0 40px rgba(232,68,30,0.14), 0 20px 44px rgba(0,0,0,0.5); }
+        .kf-card .kf-label { font-weight: 700; font-size: 20px; color: #E8441E; letter-spacing: 0.06em; text-transform: uppercase; }
+        .kf-card .kf-value { margin-top: 10px; font-weight: 800; font-size: 42px; line-height: 1.22; color: #111111; letter-spacing: -0.005em; }
+
+        #kf-card1 { top: 270px; left: 110px; transform: rotate(-2.4deg); }
+        #kf-card2 { top: 620px; left: 150px; transform: rotate(1.8deg); }
+        #kf-card3 { top: 960px; left: 110px; transform: rotate(-1.3deg); }
+
+        #kf-stub { position: absolute; top: 1320px; left: 100px; width: 360px; padding: 20px 26px 26px;
+          background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1); border-bottom: 2px dashed rgba(255,255,255,0.22);
+          transform: rotate(1.6deg); box-shadow: 0 16px 34px rgba(0,0,0,0.45); }
+        #kf-stub .s1 { font-weight: 700; font-size: 18px; color: rgba(255,255,255,0.5); letter-spacing: 0.04em; text-transform: uppercase; }
+        #kf-stub .s2 { margin-top: 8px; font-weight: 700; font-size: 24px; color: #ffffff; }
+      </style>
+
+      <div data-hf-id="kf-root" id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+        <div data-hf-id="kf-kicker-el" id="kf-kicker"><span data-hf-id="kf-kicker-dot" class="dot"></span><span data-hf-id="kf-kicker-span">3 điều cần biết</span></div>
+
+        <div data-hf-id="kf-card1-el" id="kf-card1" class="kf-card" data-layout-allow-overlap="">
+          <div data-hf-id="kf-c1-label" class="kf-label" data-layout-allow-overlap="">Quy mô đăng ký mua</div>
+          <div data-hf-id="kf-c1-value" class="kf-value" data-layout-allow-overlap="">Tối đa 73 triệu cổ phiếu Masan Consumer</div>
+        </div>
+
+        <div data-hf-id="kf-card2-el" id="kf-card2" class="kf-card" data-layout-allow-overlap="">
+          <div data-hf-id="kf-c2-label" class="kf-label" data-layout-allow-overlap="">Tỷ lệ trên cổ phiếu lưu hành</div>
+          <div data-hf-id="kf-c2-value" class="kf-value" data-layout-allow-overlap="">Tương đương 5,6% số cổ phiếu lưu hành</div>
+        </div>
+
+        <div data-hf-id="kf-card3-el" id="kf-card3" class="kf-card" data-layout-allow-overlap="">
+          <div data-hf-id="kf-c3-label" class="kf-label" data-layout-allow-overlap="">Thời hạn thực hiện</div>
+          <div data-hf-id="kf-c3-value" class="kf-value" data-layout-allow-overlap="">15 ngày, bắt đầu từ 9/10/2026</div>
+        </div>
+
+        <div data-hf-id="kf-stub-el" id="kf-stub">
+          <div data-hf-id="kf-s1" class="s1">Phương thức</div>
+          <div data-hf-id="kf-s2" class="s2">Thỏa thuận &amp; khớp lệnh</div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo("#kf-kicker", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 0);
+          tl.fromTo("#kf-card1", { y: -24, rotate: -10, opacity: 0 }, { y: 0, rotate: -2.4, opacity: 1, duration: 0.42, ease: "power2.out" }, 0.25);
+          tl.fromTo("#kf-card2", { y: -24, rotate: 9, opacity: 0 }, { y: 0, rotate: 1.8, opacity: 1, duration: 0.42, ease: "power2.out" }, 0.85);
+          tl.fromTo("#kf-card3", { y: -24, rotate: -8, opacity: 0 }, { y: 0, rotate: -1.3, opacity: 1, duration: 0.42, ease: "power2.out" }, 1.45);
+          tl.fromTo("#kf-stub", { x: -20, opacity: 0 }, { x: 0, opacity: 1, duration: 0.36, ease: "power2.out" }, 2.0);
+
+          window.__timelines["03-key-facts"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
