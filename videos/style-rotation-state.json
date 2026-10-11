@@ -487,6 +487,14 @@
             "date": "2026-10-09",
             "bgm_source": "Lyria RealTime (lyria-realtime-exp)",
             "note": "Tin: Masan Group dang ky mua toi da 73 trieu co phieu Masan Consumer (MCH), nang so huu tu 69,4% len 74,9%, khong vay no moi (don bay giam 2,4x -> 2,3x). Layout rieng cho style 9 (anh bai bao le, 3 'manh giay' xep chong, dau ngoac kep lon + gach chan tay ve cho Data moment, pull-quote cho Context, 2 'manh bao' chong lop cho Impact)."
+        },
+        {
+            "index": 0,
+            "style": "1-card-and-bar",
+            "project": "khoi-ngoai-ban-rong-112-nghin-ty-chung-khoan",
+            "date": "2026-10-11",
+            "bgm_source": "Lyria RealTime (lyria-3.5)",
+            "note": "Tin: Khoi ngoai ban rong 112.297 ty dong chung khoan Viet Nam luy ke tu dau nam 2026 (Znews). Layout rieng cho style 1 (the bo goc danh so 01/02/03 cho Key facts/Context/Impact, bieu do cot doc scaleY that theo ty le so lieu that cho Data moment va Context). Vong xoay quay ve index 0 sau khi het 10 style (lan truoc dung toi index 8)."
         }
     ]
 }
