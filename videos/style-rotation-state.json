@@ -503,6 +503,14 @@
             "date": "2026-10-12",
             "bgm_source": "Lyria RealTime (lyria-3.5)",
             "note": "Tin: Kho bac Nha nuoc huy dong gan 300.000 ty dong trai phieu Chinh phu luy ke den het thang 9/2026, hoan thanh 60% ke hoach nam, lai suat ky han 10 nam 4,43%/nam cao nhat tu 2023 (Znews). Layout rieng cho style 2 (chip so lieu viec cam cho What happened/Key facts, watermark dem so + thanh progress cho Data moment, bang xep hang ngang scaleX that theo ty le ky han 10 nam/5 nam cho Context, 2 panel watermark cho Impact)."
+        },
+        {
+            "index": 2,
+            "style": "3-ticker-tape",
+            "project": "gia-vang-the-gioi-vuot-4200-usd-ounce",
+            "date": "2026-10-12",
+            "bgm_source": "Lyria RealTime (lyria-3.5)",
+            "note": "Tin: Gia vang the gioi vuot 4.200 USD/ounce, gia giao ngay 4.210,9 USD (+15,8 USD), neo tren vung gia ky luc 2 phien lien tiep sau khi dao chieu nho luc mua bat day va gia dau ha nhiet (Znews). Layout rieng cho style 3 (ticker bar LIVE pulse cho What happened, terminal typewriter 3 dong cho Key facts, hero count-up + 2-row price comparison scaleX that cho Data moment, sparkline + 2 hang nguyen nhan gia dau cho Context thay vi quote, 3 price-row cho Impact)."
         }
     ]
 }
