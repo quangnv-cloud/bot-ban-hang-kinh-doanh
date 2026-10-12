@@ -495,6 +495,14 @@
             "date": "2026-10-11",
             "bgm_source": "Lyria RealTime (lyria-3.5)",
             "note": "Tin: Khoi ngoai ban rong 112.297 ty dong chung khoan Viet Nam luy ke tu dau nam 2026 (Znews). Layout rieng cho style 1 (the bo goc danh so 01/02/03 cho Key facts/Context/Impact, bieu do cot doc scaleY that theo ty le so lieu that cho Data moment va Context). Vong xoay quay ve index 0 sau khi het 10 style (lan truoc dung toi index 8)."
+        },
+        {
+            "index": 1,
+            "style": "2-chip-and-leaderboard",
+            "project": "trai-phieu-chinh-phu-hut-gan-300-nghin-ty",
+            "date": "2026-10-12",
+            "bgm_source": "Lyria RealTime (lyria-3.5)",
+            "note": "Tin: Kho bac Nha nuoc huy dong gan 300.000 ty dong trai phieu Chinh phu luy ke den het thang 9/2026, hoan thanh 60% ke hoach nam, lai suat ky han 10 nam 4,43%/nam cao nhat tu 2023 (Znews). Layout rieng cho style 2 (chip so lieu viec cam cho What happened/Key facts, watermark dem so + thanh progress cho Data moment, bang xep hang ngang scaleX that theo ty le ky han 10 nam/5 nam cho Context, 2 panel watermark cho Impact)."
         }
     ]
 }

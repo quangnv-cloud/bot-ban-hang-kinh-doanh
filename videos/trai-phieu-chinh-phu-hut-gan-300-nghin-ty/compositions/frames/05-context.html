@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600;
+          src: url('assets/fonts/Montserrat-600-latin.woff2') format('woff2');
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 600;
+          src: url('assets/fonts/Montserrat-600-vietnamese.woff2') format('woff2');
+          unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700;
+          src: url('assets/fonts/Montserrat-700-latin.woff2') format('woff2');
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 700;
+          src: url('assets/fonts/Montserrat-700-vietnamese.woff2') format('woff2');
+          unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800;
+          src: url('assets/fonts/Montserrat-800-latin.woff2') format('woff2');
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 800;
+          src: url('assets/fonts/Montserrat-800-vietnamese.woff2') format('woff2');
+          unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900;
+          src: url('assets/fonts/Montserrat-900-latin.woff2') format('woff2');
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+20AC, U+2122, U+FEFF, U+FFFD; }
+        @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 900;
+          src: url('assets/fonts/Montserrat-900-vietnamese.woff2') format('woff2');
+          unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB; }
+
+        #root {
+          position: relative; width: 1080px; height: 1920px; overflow: hidden; box-sizing: border-box;
+          font-family: 'Montserrat', Arial, sans-serif;
+        }
+        #root * { box-sizing: border-box; }
+
+        .fr05-bg { position: absolute; inset: 0; background: #111111; overflow: hidden; }
+        .fr05-bg-photo {
+          position: absolute; inset: -30px; width: calc(100% + 60px); height: calc(100% + 60px);
+          object-fit: cover; object-position: 50% 36%;
+          filter: blur(24px) brightness(0.55); opacity: 0.4;
+        }
+        .fr05-bg-scrim {
+          position: absolute; inset: 0;
+          background: radial-gradient(ellipse 140% 90% at 50% 40%, rgba(17,17,17,0.62) 0%, rgba(17,17,17,0.82) 55%, rgba(17,17,17,0.96) 100%);
+        }
+
+        .fr05-kicker {
+          position: absolute; top: 230px; left: 64px; right: 64px; text-align: center;
+          font-family: 'Montserrat', monospace; font-weight: 600; font-size: 23px;
+          letter-spacing: 0.1em; text-transform: uppercase; color: #e8441e; opacity: 0;
+        }
+
+        .fr05-board { position: absolute; left: 64px; right: 64px; top: 360px; }
+        .fr05-row { margin-bottom: 44px; opacity: 0; transform: translateX(-20px); }
+        .fr05-row-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
+        .fr05-row-name { font-weight: 800; font-size: 36px; color: #ffffff; }
+        .fr05-row-name .fr05-rank { color: #e8441e; margin-right: 10px; }
+        .fr05-row-pct { font-weight: 900; font-size: 42px; color: #e8441e; }
+        .fr05-bar-track { position: relative; width: 100%; height: 40px; border-radius: 10px; background: rgba(255,255,255,0.08); overflow: hidden; }
+        .fr05-bar-fill { position: absolute; inset: 0; width: 100%; border-radius: 10px; background: linear-gradient(90deg, #e8441e, #ff7a4d); transform: scaleX(0); transform-origin: left center; }
+
+        .fr05-rates { position: absolute; left: 64px; right: 64px; top: 1190px; display: flex; gap: 16px; }
+        .fr05-rate-chip {
+          flex: 1 1 0; padding: 22px 16px; border-radius: 12px; border: 1.5px solid rgba(232,68,30,0.5);
+          background: rgba(255,255,255,0.04); text-align: center; opacity: 0; transform: scale(0.85);
+        }
+        .fr05-rate-term { font-family: 'Montserrat', monospace; font-weight: 600; font-size: 18px; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.62); }
+        .fr05-rate-value { margin-top: 8px; font-weight: 900; font-size: 36px; color: #ffffff; }
+        .fr05-rate-value .fr05-arrow { color: #e8441e; font-size: 24px; margin-right: 2px; }
+
+        .fr05-closing {
+          position: absolute; left: 64px; right: 64px; top: 1380px; text-align: center;
+          font-family: 'Montserrat', monospace; font-weight: 600; font-size: 21px;
+          letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.7); opacity: 0;
+          line-height: 1.5;
+        }
+      </style>
+
+      <div data-hf-id="hf-05root" id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-05bg" class="clip fr05-bg" data-start="0" data-duration="8.99" data-track-index="0">
+          <img data-hf-id="hf-05bgphoto" class="fr05-bg-photo" src="assets/images/hook-photo.jpg" alt="">
+          <div data-hf-id="hf-05scrim" class="fr05-bg-scrim"></div>
+        </div>
+
+        <div data-hf-id="hf-05kicker" class="clip fr05-kicker" data-start="0" data-duration="8.99" data-track-index="1">
+          Cơ cấu trái phiếu phát hành tháng 9
+        </div>
+
+        <div data-hf-id="hf-05board" class="fr05-board">
+          <div data-hf-id="hf-05row1" class="fr05-row" id="fr05Row1">
+            <div data-hf-id="hf-05row1top" class="fr05-row-top">
+              <span data-hf-id="hf-05row1name" class="fr05-row-name"><span data-hf-id="hf-05row1rank" class="fr05-rank">①</span>Kỳ hạn 10 năm</span>
+              <span data-hf-id="hf-05row1pct" class="fr05-row-pct">63,3%</span>
+            </div>
+            <div data-hf-id="hf-05row1track" class="fr05-bar-track">
+              <div data-hf-id="hf-05row1fill" class="fr05-bar-fill" id="fr05Bar1"></div>
+            </div>
+          </div>
+          <div data-hf-id="hf-05row2" class="fr05-row" id="fr05Row2">
+            <div data-hf-id="hf-05row2top" class="fr05-row-top">
+              <span data-hf-id="hf-05row2name" class="fr05-row-name"><span data-hf-id="hf-05row2rank" class="fr05-rank">②</span>Kỳ hạn 5 năm</span>
+              <span data-hf-id="hf-05row2pct" class="fr05-row-pct">36,6%</span>
+            </div>
+            <div data-hf-id="hf-05row2track" class="fr05-bar-track">
+              <div data-hf-id="hf-05row2fill" class="fr05-bar-fill" id="fr05Bar2"></div>
+            </div>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-05rates" class="fr05-rates">
+          <div data-hf-id="hf-05rate1" class="fr05-rate-chip" id="fr05Rate1">
+            <div data-hf-id="hf-05rate1t" class="fr05-rate-term">5 năm</div>
+            <div data-hf-id="hf-05rate1v" class="fr05-rate-value"><span data-hf-id="hf-05rate1a" class="fr05-arrow">▲</span>4,27%</div>
+          </div>
+          <div data-hf-id="hf-05rate2" class="fr05-rate-chip" id="fr05Rate2">
+            <div data-hf-id="hf-05rate2t" class="fr05-rate-term">10 năm</div>
+            <div data-hf-id="hf-05rate2v" class="fr05-rate-value"><span data-hf-id="hf-05rate2a" class="fr05-arrow">▲</span>4,43%</div>
+          </div>
+          <div data-hf-id="hf-05rate3" class="fr05-rate-chip" id="fr05Rate3">
+            <div data-hf-id="hf-05rate3t" class="fr05-rate-term">30 năm</div>
+            <div data-hf-id="hf-05rate3v" class="fr05-rate-value"><span data-hf-id="hf-05rate3a" class="fr05-arrow">▲</span>4,62%</div>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-05closing" class="clip fr05-closing" data-start="0" data-duration="8.99" data-track-index="2">
+          Cả 3 kỳ hạn đều tăng lãi suất so với cuối tháng 8
+        </div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(".fr05-kicker", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.15);
+
+          tl.fromTo("#fr05Row1", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }, 0.7);
+          tl.fromTo("#fr05Bar1", { scaleX: 0 }, { scaleX: 0.633, duration: 0.9, ease: "power2.out" }, 0.9);
+
+          tl.fromTo("#fr05Row2", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }, 2.0);
+          tl.fromTo("#fr05Bar2", { scaleX: 0 }, { scaleX: 0.366, duration: 0.9, ease: "power2.out" }, 2.2);
+
+          var rateIds = ["fr05Rate1", "fr05Rate2", "fr05Rate3"];
+          var rateStart = 3.6;
+          var rateStagger = 0.4;
+          rateIds.forEach(function (id, i) {
+            tl.fromTo("#" + id, { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.38, ease: "back.out(1.7)" }, rateStart + i * rateStagger);
+          });
+
+          tl.fromTo(".fr05-closing", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, rateStart + rateIds.length * rateStagger + 0.5);
+
+          tl.to(".fr05-board", { y: -3, duration: 0.4, ease: "sine.inOut" }, 7.6)
+            .to(".fr05-board", { y: 0, duration: 0.4, ease: "sine.inOut" }, 8.0);
+
+          window.__timelines["05-context"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

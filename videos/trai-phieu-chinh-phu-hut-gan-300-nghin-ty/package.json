@@ -1,0 +1,15 @@
+{
+  "name": "trai-phieu-chinh-phu-hut-gan-300-nghin-ty",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.8.149 preview",
+    "check": "npx --yes hyperframes@0.8.149 check",
+    "render": "npx --yes hyperframes@0.8.149 render --quality high --video-bitrate 10M --browser-timeout 60",
+    "publish": "npx --yes hyperframes@0.8.149 publish"
+  },
+  "dependencies": {
+    "@hyperframes/core": "^0.8.149",
+    "hyperframes": "^0.8.149"
+  }
+}
