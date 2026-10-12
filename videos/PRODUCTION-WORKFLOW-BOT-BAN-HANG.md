@@ -335,6 +335,32 @@ kế tiếp cùng ngày — verify lại thành công (HTTP 200, `status:1`) nga
 checkpoint `adb-nang-gdp-viet-nam-78-phan-tram` (voice 6 dòng, composition, BGM, render, verify,
 publish 5 kênh) — xem log đầy đủ ở mục 11.
 
+**[BLOCKER MỚI — 2026-10-12] Vbee TTS trả `error_code:1051` `"You have exceeded the API TTS
+quota"` (`status:0`) ngay từ dòng voice thứ 2 trong cùng 1 phiên — khác hẳn lỗi `401 Unauthorized`
+đã gặp và sửa ngày 2026-09-30 (token bị từ chối ngay dòng 1)**: khi dựng video
+`lai-suat-tha-noi-len-16-17-phan-tram` (chọn tin "Lý do khiến lãi suất thả nổi lên 16-17%/năm",
+Znews, đã đánh dấu `used`, `claim_style` thành công — index 3, style `4-split-comparison` — viết
+xong `BRIEF.md`/`SCRIPT.md`, tải xong ảnh Hook), dòng 1 gọi `POST https://vbee.vn/api/v1/tts` trả
+`status:1` bình thường (`line1.mp3`, 4,34s, tải thành công) — nhưng dòng 2 (gọi ngay sau, cùng
+payload structure, chỉ khác `input_text`) trả `{"error_code":1051,"error_message":"You have
+exceeded the API TTS quota","status":0}`. Đã thử lại đúng 1 lần sau 15 giây (nghi ngờ rate-limit
+tạm thời theo phút/giây hơn là hết quota tháng, vì dòng 1 vừa mới thành công) — kết quả **y hệt**,
+xác nhận không phải lỗi tạm thời đơn thuần. **Quyết định (đúng quy trình §2 bước 4 — "status:0 →
+đọc error_message, DỪNG và báo rõ, KHÔNG thử đổi voice_code khác để né lỗi")**: DỪNG LẠI NGAY ở
+bước sinh giọng đọc, không gọi thêm Vbee, không thử voice_code/endpoint khác, không render video
+thiếu voice, không thực hiện bước 5 trở đi (composition/BGM/render/verify/publish). Checkpoint giữ
+lại: `videos/lai-suat-tha-noi-len-16-17-phan-tram/` (BRIEF.md, SCRIPT.md, ảnh Hook
+`assets/images/hook-photo.jpg`, `assets/audio/line1.mp3` đã sinh, scaffold hyperframes init, style
+`4-split-comparison` đã claim) — lần chạy sau RESUME ngay project này (sinh lại dòng 2-6, không
+chọn tin mới, không `claim_style` mới) khi quota Vbee hồi phục. **Chưa rõ nguyên nhân/chu kỳ reset
+quota Vbee** (khác ElevenLabs — Vbee không trả field reset time trong response lỗi này) — người vận
+hành cần kiểm tra lại gói/quota tài khoản Vbee (có thể là quota request/phút hoặc quota ký tự/ngày,
+chưa đủ dữ liệu để phân biệt vì mới xảy ra lần đầu). **Việc cần làm**: (1) người vận hành kiểm tra
+dashboard/gói Vbee để biết chu kỳ reset + nâng gói nếu cần, (2) lần chạy routine tiếp theo thử gọi
+lại dòng 2 cho đúng project checkpoint này trước khi chọn tin mới — nếu vẫn lỗi, ghi thêm 1 mục log
+thu gọn (không cần lặp lại toàn bộ chi tiết) theo đúng tiền lệ đã áp dụng cho các sự cố quota
+ElevenLabs/Lyria trước đây.
+
 **[PHÁT HIỆN HẠ TẦNG MỚI — 2026-09-30] Quota ElevenLabs Speech-to-Text (STT) dùng cho caption
 karaoke KHÔNG tách biệt với quota Text-to-Speech như `BRAND-SYSTEM-BOT-BAN-HANG.md` mục "Caption
 karaoke" mô tả** — gọi `POST /v1/speech-to-text` (`model_id=scribe_v1`) khi dựng video
