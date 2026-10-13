@@ -361,6 +361,24 @@ lại dòng 2 cho đúng project checkpoint này trước khi chọn tin mới �
 thu gọn (không cần lặp lại toàn bộ chi tiết) theo đúng tiền lệ đã áp dụng cho các sự cố quota
 ElevenLabs/Lyria trước đây.
 
+**[2026-10-13 — lần kiểm tra thứ 2 liên tiếp, VẪN `error_code:1051`, chưa đổi]**: đầu phiên gặp lại
+`HEAD detached` tại commit `66f70e7` (checkpoint ngày 10-12, đã có sẵn trên `origin/master`), sửa
+bằng `git checkout master && git merge --ff-only origin/master` (fast-forward sạch). Gọi lại đúng
+dòng 2 cho project checkpoint `lai-suat-tha-noi-len-16-17-phan-tram` (ghi `input_text` ra file JSON
+UTF-8 bằng Write tool, chèn `app_id` thật qua `jq`, không gõ thẳng text vào `curl -d`) — kết quả
+**y hệt hôm qua**: HTTP 200, body `{"error_code":1051,"error_message":"You have exceeded the API TTS
+quota","status":0}`. Xác nhận không phải lỗi tạm thời theo request/phút (đã cách >24h so với lần
+gọi lỗi trước, vẫn lỗi y hệt) — nhiều khả năng là quota theo tháng/kỳ dài hơn dự đoán ban đầu. Dừng
+lại ngay ở bước sinh giọng đọc như quy trình: KHÔNG chọn tin mới, KHÔNG `claim_style` mới, KHÔNG gọi
+thêm Vbee, không thử voice_code/endpoint khác. Checkpoint `videos/lai-suat-tha-noi-len-16-17-phan-tram/`
+(BRIEF/SCRIPT/ảnh Hook/`line1.mp3`/style `4-split-comparison` đã claim) vẫn là project cần resume
+trước tiên khi quota Vbee hồi phục — không tạo project mới. Đã gửi `PushNotification` cho lần kiểm
+tra này (ngày mới, lần thứ 2 liên tiếp xác nhận blocker, đúng tiền lệ "ngày mới → thông báo lại" áp
+dụng cho sự cố Lyria 2026-09-22). **Việc cần làm không đổi** so với mục [BLOCKER MỚI — 2026-10-12]
+phía trên — (1) người vận hành kiểm tra dashboard/gói Vbee để biết chu kỳ reset + nâng gói nếu cần,
+(2) lần chạy routine tiếp theo thử gọi lại dòng 2 cho đúng project checkpoint này trước khi chọn tin
+mới.
+
 **[PHÁT HIỆN HẠ TẦNG MỚI — 2026-09-30] Quota ElevenLabs Speech-to-Text (STT) dùng cho caption
 karaoke KHÔNG tách biệt với quota Text-to-Speech như `BRAND-SYSTEM-BOT-BAN-HANG.md` mục "Caption
 karaoke" mô tả** — gọi `POST /v1/speech-to-text` (`model_id=scribe_v1`) khi dựng video
