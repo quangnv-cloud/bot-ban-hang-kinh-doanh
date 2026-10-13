@@ -379,6 +379,25 @@ phía trên — (1) người vận hành kiểm tra dashboard/gói Vbee để bi
 (2) lần chạy routine tiếp theo thử gọi lại dòng 2 cho đúng project checkpoint này trước khi chọn tin
 mới.
 
+**[2026-10-13 — lần kiểm tra thứ 3 liên tiếp, cùng ngày với lần 2, VẪN `error_code:1051`, chưa
+đổi]**: đầu phiên gặp lại `HEAD detached` tại commit `05663d6` (checkpoint reconfirm lần 2, đã có
+sẵn trên `origin/master`, kèm 39 commit mới khác chưa fetch), sửa bằng
+`git checkout master && git merge --ff-only origin/master` (fast-forward sạch, không mất commit
+nào — xác nhận các video dựng từ `f17ea93` đến `2c97ae3` đều có timestamp TRƯỚC checkpoint này bắt
+đầu (10-12 13:24), nên KHÔNG phải vi phạm quy tắc "không chọn tin mới tới khi checkpoint xong").
+Gọi lại đúng dòng 2 cho project checkpoint `lai-suat-tha-noi-len-16-17-phan-tram` (ghi `input_text`
+ra file JSON UTF-8 bằng Write tool, chèn `app_id` thật qua `jq`, không gõ thẳng text vào
+`curl -d`) — kết quả **y hệt 2 lần trước**: HTTP 200, body `{"error_code":1051,"error_message":
+"You have exceeded the API TTS quota","status":0}`. Dừng lại ngay ở bước sinh giọng đọc như quy
+trình: KHÔNG chọn tin mới, KHÔNG `claim_style` mới, KHÔNG gọi thêm Vbee, không thử voice_code/
+endpoint khác. Checkpoint `videos/lai-suat-tha-noi-len-16-17-phan-tram/` (BRIEF/SCRIPT/ảnh Hook/
+`line1.mp3`/style `4-split-comparison` đã claim) vẫn là project cần resume trước tiên khi quota
+Vbee hồi phục — không tạo project mới. **KHÔNG gửi thêm `PushNotification` lần này** — cùng ngày
+với lần kiểm tra thứ 2 (đã thông báo), tình trạng chưa đổi, đúng tiền lệ chỉ thông báo lại khi sang
+ngày mới. Việc-cần-làm không đổi so với mục [BLOCKER MỚI — 2026-10-12] phía trên — (1) người vận
+hành kiểm tra dashboard/gói Vbee để biết chu kỳ reset + nâng gói nếu cần, (2) lần chạy routine tiếp
+theo thử gọi lại dòng 2 cho đúng project checkpoint này trước khi chọn tin mới.
+
 **[PHÁT HIỆN HẠ TẦNG MỚI — 2026-09-30] Quota ElevenLabs Speech-to-Text (STT) dùng cho caption
 karaoke KHÔNG tách biệt với quota Text-to-Speech như `BRAND-SYSTEM-BOT-BAN-HANG.md` mục "Caption
 karaoke" mô tả** — gọi `POST /v1/speech-to-text` (`model_id=scribe_v1`) khi dựng video
