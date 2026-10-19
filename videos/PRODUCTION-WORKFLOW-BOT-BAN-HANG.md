@@ -1671,6 +1671,28 @@ phiên trước nhưng thiếu hẳn Facebook Reel (không có record nào, kể
 
 **[2026-10-08 — dữ liệu điểm ủng hộ giả thuyết kích thước, video `gia-vang-giam-nguoi-mua-lo-7-trieu-mot-thang`, 18,7 MB]**: cùng ngày, video này (nhỏ hơn hẳn 3 lần lỗi gần nhất — 30,3/30,7/33,6 MB) gọi `publish_facebook` (Reel) **THÀNH CÔNG ngay lần đầu** (`post_id 122122020651467175`, HTTP 200 qua `Location` redirect bình thường, không phải trang lỗi Apps Script) — cả 5/5 kênh đăng thành công trong 1 lần chạy (Facebook Reel + Story, YouTube, Instagram, Threads). Củng cố thêm giả thuyết ở mục 2026-10-06: lỗi "Out of memory" khả năng cao liên quan kích thước blob video hơn là lỗi cố định không phụ thuộc video — mẫu quan sát hiện tại: 18,7 MB OK, 30,3-33,6 MB lỗi cả 3 lần. Chưa đủ dữ liệu để xác định ngưỡng chính xác (có thể nằm đâu đó giữa ~19-30 MB) — ghi lại để các lần sau theo dõi, chưa đổi quy trình (vẫn thử gọi bình thường, chấp nhận lỗi nếu xảy ra, không cố nén/giảm chất lượng video chỉ để né lỗi này).
 
+**[2026-10-19 — lần kiểm tra thứ 20 liên tiếp, NGÀY MỚI (2026-10-18 → 2026-10-19), VẪN
+`error_code:1051`, chưa đổi]**: đầu phiên gặp lại `HEAD detached` tại commit `9de5eab` (checkpoint
+reconfirm lần 19, đã có sẵn trên `origin/master`), sửa bằng
+`git checkout master && git fetch origin master && git merge --ff-only origin/master`
+(fast-forward sạch, không mất commit nào — chỉ fast-forward thêm 16 commit reconfirm trước đó).
+Gọi lại đúng dòng 2 cho project checkpoint `lai-suat-tha-noi-len-16-17-phan-tram` (ghi `input_text`
+ra file JSON UTF-8 trong scratchpad, chèn `app_id` thật qua `jq`, không gõ thẳng text vào
+`curl -d`) — kết quả **y hệt 19 lần trước**: HTTP 200, body `{"error_code":1051,"error_message":
+"You have exceeded the API TTS quota","status":0}`. Dừng lại ngay ở bước sinh giọng đọc như quy
+trình: KHÔNG chọn tin mới, KHÔNG `claim_style` mới, KHÔNG gọi thêm Vbee, không thử voice_code/
+endpoint khác. Checkpoint `videos/lai-suat-tha-noi-len-16-17-phan-tram/` (BRIEF/SCRIPT/ảnh Hook/
+`line1.mp3`/style `4-split-comparison` đã claim) vẫn là project cần resume trước tiên khi quota
+Vbee hồi phục — không tạo project mới. **Đã gửi `PushNotification` cho lần kiểm tra này** — ngày
+mới (2026-10-19, khác 2026-10-18 của lần kiểm tra 17-19), đúng tiền lệ "ngày mới → thông báo lại".
+Quota đã bị chặn liên tục từ 2026-10-12 (~7 ngày, 20 lần kiểm tra), vẫn chưa rõ chu kỳ reset của
+Vbee — đáng chú ý là đã vượt xa chu kỳ reset ~1 tháng của ElevenLabs trước đây mà vẫn chưa hồi
+phục, gợi ý đây có thể là vấn đề gói/tài khoản cần người vận hành chủ động liên hệ Vbee thay vì
+chỉ chờ reset tự nhiên. Việc-cần-làm không đổi so với mục [BLOCKER MỚI — 2026-10-12] phía trên —
+(1) người vận hành kiểm tra dashboard/gói Vbee để biết chu kỳ reset + nâng gói nếu cần, hoặc liên
+hệ hỗ trợ Vbee trực tiếp vì 7 ngày là đã dài bất thường, (2) lần chạy routine tiếp theo thử gọi lại
+dòng 2 cho đúng project checkpoint này trước khi chọn tin mới.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
