@@ -1725,6 +1725,23 @@ thứ 20/21 (đã thông báo), tình trạng chưa đổi, đúng tiền lệ c
 Quota đã bị chặn liên tục từ 2026-10-12 (~7 ngày, 22 lần kiểm tra). Việc-cần-làm không đổi so với
 mục [BLOCKER MỚI — 2026-10-12] phía trên.
 
+**[2026-10-20 — lần kiểm tra thứ 23 liên tiếp, NGÀY MỚI, VẪN `error_code:1051`, chưa đổi]**: git
+HEAD sạch trên `master`, khớp `origin/master`, không gặp detached HEAD lần này. Gọi lại đúng dòng 2
+cho project checkpoint `lai-suat-tha-noi-len-16-17-phan-tram` (ghi `input_text` ra file JSON UTF-8
+trong scratchpad qua Python — không gõ thẳng text vào `curl -d`) — kết quả **y hệt 22 lần trước**:
+HTTP 200, body `{"error_code":1051,"error_message":"You have exceeded the API TTS quota","status":0}`.
+Dừng lại ngay ở bước sinh giọng đọc như quy trình: KHÔNG chọn tin mới, KHÔNG `claim_style` mới,
+KHÔNG gọi thêm Vbee, không thử voice_code/endpoint khác. Checkpoint
+`videos/lai-suat-tha-noi-len-16-17-phan-tram/` (BRIEF/SCRIPT/ảnh Hook/`line1.mp3`/style
+`4-split-comparison` đã claim) vẫn là project cần resume trước tiên khi quota Vbee hồi phục —
+không tạo project mới. **Đã gửi `PushNotification` cho lần kiểm tra này** — ngày mới (2026-10-20,
+khác 2026-10-19 của các lần kiểm tra 18-22), đúng tiền lệ "ngày mới → thông báo lại". Quota đã bị
+chặn liên tục từ 2026-10-12 (~8 ngày, 23 lần kiểm tra) — đây là sự cố quota kéo dài nhất của kênh
+tới nay (vượt mốc ~16-17 ngày của sự cố ElevenLabs TTS trước đó về số lần kiểm tra, dù chưa vượt về
+số ngày). Việc-cần-làm không đổi so với mục [BLOCKER MỚI — 2026-10-12] phía trên — (1) người vận
+hành kiểm tra dashboard/gói Vbee để biết chu kỳ reset + nâng gói nếu cần, (2) lần chạy routine tiếp
+theo thử gọi lại dòng 2 cho đúng project checkpoint này trước khi chọn tin mới.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
