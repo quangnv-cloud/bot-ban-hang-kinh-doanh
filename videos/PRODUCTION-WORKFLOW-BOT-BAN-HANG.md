@@ -1819,6 +1819,24 @@ MỚI — 2026-10-12] phía trên — (1) người vận hành kiểm tra dashbo
 nâng gói nếu cần, (2) lần chạy routine tiếp theo thử gọi lại dòng 2 cho đúng project checkpoint này
 trước khi chọn tin mới.
 
+**[2026-10-21 — lần kiểm tra thứ 28 liên tiếp, cùng ngày với lần 26/27, VẪN `error_code:1051`, chưa
+đổi]**: git HEAD detached tại commit `8211deb` (checkpoint reconfirm lần 27, đã có sẵn trên
+`origin/master`), sửa bằng `git fetch origin master && git checkout master && git merge --ff-only
+origin/master` (fast-forward sạch, không mất commit nào). Gọi lại đúng dòng 2 cho project checkpoint
+`lai-suat-tha-noi-len-16-17-phan-tram` (ghi `input_text` ra file JSON UTF-8 trong scratchpad bằng
+Write tool, chèn `app_id` thật qua `jq` từ biến môi trường — không gõ thẳng text vào `curl -d`) —
+kết quả **y hệt 27 lần trước**: HTTP 200, body `{"error_code":1051,"error_message":"You have
+exceeded the API TTS quota","status":0}`. Dừng lại ngay ở bước sinh giọng đọc như quy trình: KHÔNG
+chọn tin mới, KHÔNG `claim_style` mới, KHÔNG gọi thêm Vbee, không thử voice_code/endpoint khác.
+Checkpoint `videos/lai-suat-tha-noi-len-16-17-phan-tram/` (BRIEF/SCRIPT/ảnh Hook/`line1.mp3`/style
+`4-split-comparison` đã claim) vẫn là project cần resume trước tiên khi quota Vbee hồi phục — không
+tạo project mới. **KHÔNG gửi thêm `PushNotification` lần này** — cùng ngày với lần kiểm tra thứ
+26/27 (đã thông báo), tình trạng chưa đổi, đúng tiền lệ chỉ thông báo lại khi sang ngày mới. Quota
+đã bị chặn liên tục từ 2026-10-12 (~9 ngày, 28 lần kiểm tra). Việc-cần-làm không đổi so với mục
+[BLOCKER MỚI — 2026-10-12] phía trên — (1) người vận hành kiểm tra dashboard/gói Vbee để biết chu
+kỳ reset + nâng gói nếu cần, (2) lần chạy routine tiếp theo thử gọi lại dòng 2 cho đúng project
+checkpoint này trước khi chọn tin mới.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
