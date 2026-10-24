@@ -55,13 +55,17 @@ giới hạn range sẽ lấy kèm hết:
 | report            | Nguồn                                                                             | range         |
 |-------------------|------------------------------------------------------------------------------------------------------|---------------|
 | `sale`            | Sheet 1 (`1Sd97m...`, gid `462434893`) — bảng Lịch meet/Chi phí Ads theo Sale    | `B9:H22`      |
-| `compare`         | Sheet 2 (`1Zxjj2...`, gid `1616235685`) — bảng So sánh chi tiết theo tuần       | `A20:P45`     |
+| `compare`         | Sheet 2 (`1Zxjj2...`, gid `1616235685`) — bảng So sánh chi tiết theo tuần       | `A20:P46`     |
 | `compare_month`   | Sheet 2 (`1Zxjj2...`, gid `661100457`) — bảng So sánh chi tiết theo tháng       | `A20:P46`     |
 
 (Range này dò ra bằng cách gọi thử `&range=...` trên deployment thật rồi so
 khớp từng dòng trả về — nếu bạn chỉnh sửa lại layout của 2 tab này sau này,
 range có thể lệch và cần dò lại theo cách tương tự, hoặc dùng tham số
-`&range=` ghi đè tạm thời như mục 3 bên dưới trong lúc chưa sửa `REPORTS`.)
+`&range=` ghi đè tạm thời như mục 3 bên dưới trong lúc chưa sửa `REPORTS`.
+Đã xảy ra thật: `compare` từng là `A20:P45`, sau khi Sheet được thêm dòng
+"Doanh thu sau Ads" vào giữa bảng thì bảng dài thêm 1 dòng, cập nhật lại
+thành `A20:P46` — nếu iframe trên merchant.vn tự nhiên thiếu mất dòng cuối,
+đây là nguyên nhân thường gặp nhất, dò lại range là xong.)
 
 Dán trên trình duyệt để test trước khi nhúng:
 

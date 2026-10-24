@@ -34,7 +34,7 @@ var REPORTS = {
   'compare': {
     spreadsheetId: '1Zxjj231qAO79hlnbDdiH5GG0cgP3a2masS55leLcsJI',
     gid: '1616235685',
-    range: 'A20:P45',
+    range: 'A20:P46',
     title: 'So sánh chi tiết theo tuần'
   },
   'compare_month': {
