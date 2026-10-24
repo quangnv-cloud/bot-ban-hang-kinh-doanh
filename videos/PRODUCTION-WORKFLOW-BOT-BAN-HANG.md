@@ -1968,6 +1968,32 @@ lần này** — cùng ngày với lần kiểm tra thứ 34 (đã thông báo),
 thông báo lại khi sang ngày mới. Quota đã bị chặn liên tục từ 2026-10-12 (~12 ngày, 35 lần kiểm
 tra). Việc-cần-làm không đổi so với mục [BLOCKER MỚI — 2026-10-12] phía trên.
 
+**[2026-10-24 — lần kiểm tra thứ 36 liên tiếp, cùng ngày với lần 34/35, VẪN `error_code:1051`, PHÁT
+HIỆN MỚI: tài khoản Vbee TẠM chưa thực sự có trong environment]**: git HEAD detached tại commit
+`2a135e5` (commit đó đã thêm hướng dẫn mới trong `ROUTINE-PROMPT-KTS.md`/mục này — dùng tài khoản
+Vbee TẠM qua `VBEE_APP_ID_TAM`/`VBEE_TOKEN_TAM` tới hết 30/10/2026), sửa bằng
+`git fetch origin master && git checkout master && git merge --ff-only origin/master` (fast-forward
+sạch, không mất commit nào). Thực hiện đúng đoạn kiểm tra biến môi trường bắt buộc ở đầu lệnh Bash
+gọi Vbee — kết quả: `VBEE_APP_ID_TAM`/`VBEE_TOKEN_TAM` **KHÔNG tồn tại** trong environment của
+session này (rỗng), nên logic fallback tự rơi về nhánh `else` ("tài khoản GỐC") dù ngày hiện tại
+(24/10/2026) đã nằm trong khoảng được phép dùng tài khoản TẠM. Gọi lại đúng dòng 2 cho project
+checkpoint `lai-suat-tha-noi-len-16-17-phan-tram` bằng tài khoản GỐC (vì TẠM không có) — kết quả
+**y hệt 35 lần trước**: HTTP 200, body `{"error_code":1051,"error_message":"You have exceeded the
+API TTS quota","status":0}`. Dừng lại ngay ở bước sinh giọng đọc như quy trình: KHÔNG chọn tin mới,
+KHÔNG `claim_style` mới, KHÔNG gọi thêm Vbee, không thử voice_code/endpoint khác, KHÔNG tự thử tài
+khoản còn lại (đúng quy tắc — ở đây tài khoản TẠM chưa có nên không có gì để "thử thêm", chỉ tài
+khoản GỐC đã bị gọi, đúng như mọi lần trước). Checkpoint `videos/lai-suat-tha-noi-len-16-17-phan-tram/`
+(BRIEF/SCRIPT/ảnh Hook/`line1.mp3`/style `4-split-comparison` đã claim) vẫn là project cần resume
+trước tiên — không tạo project mới. **Đã gửi `PushNotification` cho lần kiểm tra này** — khác hẳn
+tiền lệ "cùng ngày → không báo lại", vì đây là một PHÁT HIỆN MỚI (tài khoản TẠM được hướng dẫn dùng
+từ hôm nay nhưng chưa được cấu hình trong environment), không phải lặp lại nguyên trạng cũ. **Việc
+cần làm (MỚI, khác việc-cần-làm cũ)**: người vận hành cần thêm 2 biến môi trường
+`VBEE_APP_ID_TAM`/`VBEE_TOKEN_TAM` (giá trị của tài khoản Vbee tạm) vào cấu hình environment của
+session này (menu environment ở title bar session cloud → Edit → mục biến môi trường/API
+credentials) — một session MỚI sau khi thêm sẽ đọc được biến này. Việc-cần-làm cũ (kiểm tra
+dashboard/gói Vbee tài khoản GỐC, liên hệ hỗ trợ Vbee) vẫn còn giá trị song song, vì tài khoản GỐC
+đã bị chặn liên tục từ 2026-10-12 (~12 ngày, không tự reset).
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
