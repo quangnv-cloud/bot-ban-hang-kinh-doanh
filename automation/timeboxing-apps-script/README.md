@@ -59,3 +59,17 @@ Apps Script không chụp được màn hình, nên phần này chạy bằng **
   → chèn ảnh dưới mục "1. Các công việc trong ngày" của task `[Plan] Kế hoạch công việc hàng ngày dd.MM`.
 - Cần: Mac bật, app Claude mở, Chrome mở và đã đăng nhập merchant.vn. Nếu lúc đó máy tắt, task chạy khi mở app lại
   (hoặc bấm **Run now** trong mục Scheduled).
+
+## Tạm dừng / chạy lại (công tắc)
+Script đọc **tên** file Google Drive
+[TimeBoxing - CONTROL - PAUSED](https://docs.google.com/document/d/1LLGTj_3MRuKGahZwsECuxvUAc4zjnXldUTpt35Yx_xI/edit)
+(`CONFIG.CONTROL_FILE_ID`) mỗi lần trigger chạy:
+
+| Tên file chứa | Kết quả |
+|---|---|
+| `PAUSED` | Bỏ qua, không tạo task |
+| `RUNNING` | Tạo task tuần sau như bình thường |
+| Khác / không đọc được file | Không tạo task, gửi email báo lỗi |
+
+Đổi trạng thái = đổi tên file (tự làm trên Drive hoặc nhờ Claude qua Google Drive connector).
+Sau khi dán code mới, chạy 1 hàm bất kỳ (vd `preview`) để cấp thêm quyền Google Drive.

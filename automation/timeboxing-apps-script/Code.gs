@@ -20,6 +20,10 @@ const CONFIG = {
   NOTIFY_EMAIL: '',             // để trống = gửi về email chủ script
   TOKEN_WARN_DAYS: 7,           // nhắc cập nhật token khi còn ít hơn số ngày này
 
+  // Công tắc tạm dừng: file Google Drive "TimeBoxing - CONTROL - PAUSED/RUNNING".
+  // Tên chứa PAUSED → không tạo task. Đổi tên thành ...RUNNING để chạy lại.
+  CONTROL_FILE_ID: '1LLGTj_3MRuKGahZwsECuxvUAc4zjnXldUTpt35Yx_xI',
+
   // Mỗi phần tử = 1 task/ngày. {dd}, {MM}, {yyyy} được thay theo ngày tương ứng.
   // templateId lấy từ danh sách template (chạy listTemplates để xem).
   TASKS: [
@@ -38,6 +42,12 @@ const CONFIG = {
 
 /** Hàm trigger gọi mỗi Thứ 7 ~16:00. */
 function createNextWeekTasks() {
+  const paused = pausedReason_();
+  if (paused) {
+    Logger.log('BỎ QUA lần chạy: ' + paused);
+    return paused;
+  }
+
   const results = [];
   const warn = checkTokenExpiry_();
   if (warn) results.push('CẢNH BÁO: ' + warn);
@@ -285,6 +295,26 @@ function checkTokenExpiry_() {
 }
 
 /* ====================== Helpers ====================== */
+
+/**
+ * Trả về lý do bỏ qua nếu đang tạm dừng, '' nếu được chạy.
+ * Không đọc được file điều khiển → coi như tạm dừng (an toàn hơn tạo task ngoài ý muốn) và gửi email.
+ */
+function pausedReason_() {
+  let name;
+  try {
+    name = DriveApp.getFileById(CONFIG.CONTROL_FILE_ID).getName();
+  } catch (e) {
+    const msg = 'Không đọc được file điều khiển ' + CONFIG.CONTROL_FILE_ID + ': ' + e.message;
+    notify_('[TimeBoxing] Không tạo task tuần sau — lỗi công tắc', msg);
+    return msg;
+  }
+  if (/PAUSED/i.test(name)) return 'Đang tạm dừng (file điều khiển: "' + name + '")';
+  if (/RUNNING/i.test(name)) return '';
+  const msg = 'Tên file điều khiển không hợp lệ: "' + name + '" (cần chứa PAUSED hoặc RUNNING)';
+  notify_('[TimeBoxing] Không tạo task tuần sau — lỗi công tắc', msg);
+  return msg;
+}
 
 function loadDone_() {
   const raw = PropertiesService.getScriptProperties().getProperty('DONE');
