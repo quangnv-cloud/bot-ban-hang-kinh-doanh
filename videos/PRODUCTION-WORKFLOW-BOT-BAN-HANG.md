@@ -2175,6 +2175,26 @@ thêm sẽ đọc được) — **rất gấp, chỉ còn 3 ngày trước khi p
 kiểm tra dashboard/gói Vbee tài khoản GỐC / liên hệ hỗ trợ Vbee trực tiếp (15 ngày liên tục không
 tự reset).
 
+**[2026-10-27 — lần kiểm tra thứ 44 liên tiếp, cùng ngày với lần 43, VẪN `error_code:1051`, `VBEE_TOKEN_TAM`
+vẫn chưa được cấu hình]**: git HEAD sạch trên `master`, khớp `origin/master`. Thực hiện đúng đoạn
+kiểm tra biến môi trường bắt buộc ở đầu lệnh Bash gọi Vbee — kết quả: `VBEE_APP_ID_TAM`/
+`VBEE_TOKEN_TAM` **VẪN KHÔNG tồn tại** trong environment của session này (giống lần 43), logic
+fallback vẫn rơi về nhánh `else` ("tài khoản GỐC") dù ngày hiện tại (27/10/2026) vẫn nằm trong
+khoảng được phép dùng tài khoản TẠM (còn đúng **3 ngày** tới hết 30/10/2026). Gọi lại đúng dòng 2
+cho project checkpoint `lai-suat-tha-noi-len-16-17-phan-tram` bằng tài khoản GỐC (ghi `input_text`
+ra file JSON UTF-8 qua Python, không gõ thẳng text vào `curl -d`) — kết quả **y hệt 43 lần trước**:
+HTTP 200, body `{"error_code":1051,"error_message":"You have exceeded the API TTS quota","status":0}`.
+Dừng lại ngay ở bước sinh giọng đọc như quy trình: KHÔNG chọn tin mới, KHÔNG `claim_style` mới,
+KHÔNG gọi thêm Vbee, không thử voice_code/endpoint khác, KHÔNG tự thử tài khoản còn lại, KHÔNG thực
+hiện bước 12-16. Checkpoint `videos/lai-suat-tha-noi-len-16-17-phan-tram/` vẫn là project cần resume
+trước tiên — không tạo project mới. **KHÔNG gửi thêm `PushNotification` lần này** — cùng ngày với
+lần kiểm tra thứ 43 (đã thông báo sáng nay), tình trạng chưa đổi, đúng tiền lệ chỉ thông báo lại khi
+sang ngày mới hoặc có thay đổi thực chất. Quota tài khoản GỐC đã bị chặn liên tục từ 2026-10-12
+(~15 ngày, 44 lần kiểm tra). **Việc-cần-làm không đổi** so với lần kiểm tra thứ 43 — (1) người vận
+hành cần thêm 2 biến môi trường `VBEE_APP_ID_TAM`/`VBEE_TOKEN_TAM` vào cấu hình environment của
+session — **rất gấp, chỉ còn 3 ngày trước khi phương án TẠM hết hạn (30/10/2026)**, (2) kiểm tra
+dashboard/gói Vbee tài khoản GỐC / liên hệ hỗ trợ Vbee trực tiếp.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
