@@ -2222,6 +2222,32 @@ lần kiểm tra thứ 43/44 — (1) người vận hành cần thêm 2 biến m
 **rất gấp, chỉ còn 3 ngày trước khi phương án TẠM hết hạn (30/10/2026)**, (2) kiểm tra dashboard/
 gói Vbee tài khoản GỐC / liên hệ hỗ trợ Vbee trực tiếp.
 
+**[2026-10-28 — lần kiểm tra thứ 46 liên tiếp, NGÀY MỚI, VẪN `error_code:1051`, `VBEE_APP_ID_TAM`/
+`VBEE_TOKEN_TAM` vẫn chưa được cấu hình]**: đầu phiên git ở trạng thái detached HEAD (tại commit
+`40a7aaf`, bản reconfirm lần 45, đã có sẵn trên `origin/master`), sửa bằng
+`git checkout master && git fetch origin master && git merge --ff-only origin/master` (fast-forward
+sạch, không mất commit nào). Thực hiện đúng đoạn kiểm tra biến môi trường bắt buộc ở đầu lệnh Bash
+gọi Vbee — kết quả: `VBEE_APP_ID_TAM`/`VBEE_TOKEN_TAM` **VẪN KHÔNG tồn tại** trong environment của
+session này (giống lần 36-45), logic fallback vẫn rơi về nhánh `else` ("tài khoản GỐC") dù ngày
+hiện tại (28/10/2026) vẫn nằm trong khoảng được phép dùng tài khoản TẠM (tới hết 30/10/2026 — chỉ
+còn đúng **2 ngày**). Gọi lại đúng dòng 2 cho project checkpoint
+`lai-suat-tha-noi-len-16-17-phan-tram` bằng tài khoản GỐC (ghi `input_text` ra file JSON UTF-8 qua
+`jq`, không gõ thẳng text vào `curl -d`) — kết quả **y hệt 45 lần trước**: HTTP 200, body
+`{"error_code":1051,"error_message":"You have exceeded the API TTS quota","status":0}`. Dừng lại
+ngay ở bước sinh giọng đọc như quy trình: KHÔNG chọn tin mới, KHÔNG `claim_style` mới, KHÔNG gọi
+thêm Vbee, không thử voice_code/endpoint khác, KHÔNG tự thử tài khoản còn lại, KHÔNG thực hiện bước
+12-16 (caption/đăng mạng xã hội). Checkpoint `videos/lai-suat-tha-noi-len-16-17-phan-tram/`
+(BRIEF/SCRIPT/ảnh Hook/`line1.mp3`/style `4-split-comparison` đã claim) vẫn là project cần resume
+trước tiên — không tạo project mới. **Đã gửi `PushNotification` cho lần kiểm tra này** — ngày mới
+(28/10/2026, khác 27/10/2026 của 3 lần kiểm tra trước) VÀ còn đúng 2 ngày trước khi phương án tài
+khoản TẠM hết hạn mà vẫn chưa được cấu hình lần nào — đúng tiền lệ "ngày mới → thông báo lại", cộng
+thêm mức độ cấp bách tăng lên khi deadline TẠM đang tới gần mà chưa hề được dùng thử. Quota tài
+khoản GỐC đã bị chặn liên tục từ 2026-10-12 (~16 ngày, 46 lần kiểm tra). **Việc-cần-làm không đổi**
+so với lần kiểm tra thứ 43-45 — (1) người vận hành cần thêm 2 biến môi trường `VBEE_APP_ID_TAM`/
+`VBEE_TOKEN_TAM` vào cấu hình environment của session (một session MỚI sau khi thêm sẽ đọc được) —
+**CỰC KỲ GẤP, chỉ còn 2 ngày trước khi phương án TẠM hết hạn (30/10/2026)**, (2) kiểm tra dashboard/
+gói Vbee tài khoản GỐC / liên hệ hỗ trợ Vbee trực tiếp.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
