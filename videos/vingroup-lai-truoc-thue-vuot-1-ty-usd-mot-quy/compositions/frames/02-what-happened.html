@@ -1,0 +1,106 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+    }
+    #wh-clip {
+      position: absolute;
+      top: 170px; left: 110px;
+      width: 860px; height: 600px;
+      background: #ffffff;
+      padding: 14px 14px 46px 14px;
+      border-radius: 4px;
+      box-shadow: 0 0 46px rgba(232, 68, 30, 0.16), 0 28px 60px rgba(0,0,0,0.5);
+      transform: rotate(-2deg);
+      opacity: 0;
+    }
+    #wh-clip-img-wrap {
+      width: 100%; height: 100%;
+      overflow: hidden;
+    }
+    #wh-clip-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: 50% 22%;
+    }
+    #wh-clip-cap {
+      position: absolute;
+      bottom: 10px; left: 14px;
+      font-size: 18px; font-weight: 700; color: #111111;
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    #wh-clip-badge {
+      position: absolute;
+      top: -16px; right: -18px;
+      background: #E8441E;
+      color: #ffffff;
+      font-size: 17px; font-weight: 700;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      padding: 7px 14px;
+      border-radius: 6px;
+      transform: rotate(3deg);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.35);
+      opacity: 0;
+    }
+    #wh-kicker {
+      position: absolute; top: 838px; left: 110px;
+      font-size: 25px; font-weight: 700; color: #E8441E;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      opacity: 0;
+    }
+    #wh-quote-mark {
+      position: absolute; top: 870px; left: 70px;
+      font-size: 360px; font-weight: 900;
+      color: rgba(232, 68, 30, 0.14);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1;
+      z-index: 0;
+    }
+    #wh-headline {
+      position: absolute; top: 990px; left: 110px;
+      width: 900px;
+      font-size: 60px;
+      font-weight: 800;
+      line-height: 1.22;
+      color: #ffffff;
+      letter-spacing: -0.01em;
+      opacity: 0;
+      z-index: 1;
+    }
+    #wh-headline .hl { color: #E8441E; }
+    #wh-sub {
+      position: absolute; top: 1420px; left: 110px;
+      width: 860px;
+      font-size: 29px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.4;
+      opacity: 0;
+    }
+  </style>
+  <div id="root" data-composition-id="02-what-happened" data-width="1080" data-height="1920">
+    <div id="wh-clip">
+      <div id="wh-clip-img-wrap">
+        <img src="assets/images/hook-photo.jpg" alt="Vingroup">
+      </div>
+      <div id="wh-clip-cap">Vingroup &middot; Báo cáo tài chính</div>
+      <div id="wh-clip-badge">Quý 3 / 2026</div>
+    </div>
+    <div id="wh-quote-mark">&ldquo;</div>
+    <div id="wh-kicker">Vingroup &middot; những gì đã xảy ra</div>
+    <div id="wh-headline">
+      Lãi trước thuế quý 3/2026 đạt gần <span class="hl">29.940 tỷ đồng</span>
+    </div>
+    <div id="wh-sub">Tương đương hơn 1,1 tỷ USD &mdash; theo báo cáo tài chính vừa công bố</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#wh-clip", { opacity: 0, rotate: -6, y: 30 }, { opacity: 1, rotate: -2, y: 0, duration: 0.65, ease: "power3.out" }, 0);
+    tl.fromTo("#wh-clip-badge", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, 0.55);
+    tl.fromTo("#wh-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.95);
+    tl.fromTo("#wh-headline", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 1.15);
+    tl.fromTo("#wh-sub", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 1.75);
+    window.__timelines["02-what-happened"] = tl;
+  </script>
+</template>
