@@ -2,35 +2,50 @@
   <style>
     #root { position: absolute; inset: 0; font-family: "Montserrat", sans-serif; overflow: hidden; }
 
-    #im-kicker { position: absolute; top: 540px; left: 82px; display: flex; align-items: center; gap: 10px; }
+    #im-kicker { position: absolute; top: 420px; left: 82px; display: flex; align-items: center; gap: 10px; }
     #im-kicker .dot { width: 8px; height: 8px; border-radius: 50%; background: #E8441E; }
     #im-kicker span { font-weight: 700; font-size: 21px; color: #E8441E; letter-spacing: 0.08em; text-transform: uppercase; }
 
     .im-clip { position: absolute; width: 780px; background: #ffffff; border-radius: 2px; padding: 32px 48px 36px; }
     .im-clip .k { font-weight: 700; font-size: 20px; color: #E8441E; letter-spacing: 0.06em; text-transform: uppercase; }
-    .im-clip .big { margin-top: 10px; font-weight: 900; font-size: 86px; line-height: 1; color: #111111; letter-spacing: -0.01em; }
-    .im-clip .big .hl { color: #D8401C; }
-    .im-clip .desc { margin-top: 10px; font-weight: 600; font-size: 25px; line-height: 1.35; color: #3a3a3a; }
+    .im-clip .big { margin-top: 10px; font-weight: 900; font-size: 86px; line-height: 1.2; color: #111111; letter-spacing: -0.01em; }
+    .im-clip .big .hl { color: #B8330F; }
+    .im-clip .desc { margin-top: 26px; font-weight: 600; font-size: 25px; line-height: 1.35; color: #3a3a3a; }
 
-    #im-back { top: 1110px; left: 280px; padding-top: 100px; transform: rotate(3deg); z-index: 1;
+    #im-back { top: 620px; left: 290px; padding-top: 200px; transform: rotate(3deg); z-index: 1;
       box-shadow: 0 0 40px rgba(232,68,30,0.12), 0 20px 44px rgba(0,0,0,0.5); }
-    #im-front { top: 900px; left: 110px; transform: rotate(-2deg); z-index: 2;
+    #im-front { top: 480px; left: 110px; transform: rotate(-2deg); z-index: 2;
       box-shadow: 0 0 40px rgba(232,68,30,0.14), 0 26px 54px rgba(0,0,0,0.55); }
+
+    #im-stub {
+      position: absolute; top: 1310px; left: 190px; width: 700px; padding: 26px 40px 30px;
+      background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1); border-bottom: 2px dashed rgba(255,255,255,0.22);
+      transform: rotate(-1.2deg); box-shadow: 0 0 40px rgba(232,68,30,0.14), 0 18px 40px rgba(0,0,0,0.5);
+      opacity: 0;
+    }
+    #im-stub .s1 { font-weight: 700; font-size: 19px; color: rgba(255,255,255,0.5); letter-spacing: 0.05em; text-transform: uppercase; }
+    #im-stub .s2 { margin-top: 10px; font-weight: 800; font-size: 34px; color: #ffffff; }
+    #im-stub .s2 b { color: #E8441E; }
   </style>
 
-  <div id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
-    <div id="im-kicker"><span class="dot"></span><span>Kết quả 9 tháng của Vingroup</span></div>
+  <div data-hf-id="hf-repe" id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-faur" id="im-kicker"><span data-hf-id="hf-9gry" class="dot"></span><span data-hf-id="hf-ucgc">Kết quả 9 tháng của Vingroup</span></div>
 
-    <div id="im-back" class="im-clip">
-      <div class="k">Tại ngày 30/9/2026</div>
-      <div class="big">1,6<span class="hl"> triệu tỷ</span></div>
-      <div class="desc">Tổng tài sản của Vingroup</div>
+    <div data-hf-id="hf-zf8n" id="im-back" class="im-clip">
+      <div data-hf-id="hf-m52r" class="k">Tại ngày 30/9/2026</div>
+      <div data-hf-id="hf-nq0r" class="big">1,6<span data-hf-id="hf-0imv" class="hl"> triệu tỷ</span></div>
+      <div data-hf-id="hf-kt47" class="desc">Tổng tài sản của Vingroup</div>
     </div>
 
-    <div id="im-front" class="im-clip">
-      <div class="k">Lũy kế 9 tháng, năm 2026</div>
-      <div class="big">43.700<span class="hl"> tỷ</span></div>
-      <div class="desc">Lợi nhuận sau thuế, tăng hơn 500%, vượt 25% kế hoạch năm</div>
+    <div data-hf-id="hf-k1kr" id="im-front" class="im-clip">
+      <div data-hf-id="hf-djm0" class="k">Lũy kế 9 tháng, năm 2026</div>
+      <div data-hf-id="hf-imi8" class="big">43.700<span data-hf-id="hf-4jio" class="hl"> tỷ</span></div>
+      <div data-hf-id="hf-kjff" class="desc">Lợi nhuận sau thuế, tăng hơn 500%, vượt 25% kế hoạch năm</div>
+    </div>
+
+    <div data-hf-id="hf-4wy4" id="im-stub">
+      <div data-hf-id="hf-8qwh" class="s1">Kế hoạch lợi nhuận năm 2026</div>
+      <div data-hf-id="hf-gm59" class="s2">Đã vượt <b data-hf-id="hf-p667">25%</b> sau 9 tháng</div>
     </div>
   </div>
 
@@ -39,6 +54,7 @@
     tl.fromTo("#im-kicker", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 0);
     tl.fromTo("#im-back", { y: -26, rotate: 9, opacity: 0 }, { y: 0, rotate: 3, opacity: 1, duration: 0.46, ease: "power2.out" }, 0.3);
     tl.fromTo("#im-front", { y: -26, rotate: -9, opacity: 0 }, { y: 0, rotate: -2, opacity: 1, duration: 0.46, ease: "power2.out" }, 0.85);
+    tl.fromTo("#im-stub", { y: -18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }, 1.4);
     window.__timelines["06-impact"] = tl;
   </script>
 </template>
