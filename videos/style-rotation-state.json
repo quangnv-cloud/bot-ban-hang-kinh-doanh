@@ -511,6 +511,14 @@
             "date": "2026-10-12",
             "bgm_source": "Lyria RealTime (lyria-3.5)",
             "note": "Tin: Gia vang the gioi vuot 4.200 USD/ounce, gia giao ngay 4.210,9 USD (+15,8 USD), neo tren vung gia ky luc 2 phien lien tiep sau khi dao chieu nho luc mua bat day va gia dau ha nhiet (Znews). Layout rieng cho style 3 (ticker bar LIVE pulse cho What happened, terminal typewriter 3 dong cho Key facts, hero count-up + 2-row price comparison scaleX that cho Data moment, sparkline + 2 hang nguyen nhan gia dau cho Context thay vi quote, 3 price-row cho Impact)."
+        },
+        {
+            "index": 3,
+            "style": "4-split-comparison",
+            "project": "lai-suat-tha-noi-len-16-17-phan-tram",
+            "date": "2026-10-30",
+            "bgm_source": "Lyria RealTime (models/lyria-realtime-exp)",
+            "note": "Checkpoint resumed after 18-day Vbee TTS quota block (2026-10-12 -> 2026-10-30, error_code 1051, account GOC). Tin: Lai suat co so tai mot so ngan hang len toi 13,5%/nam, cong bien do 3-3,5% khien lai suat tha noi thuc te cham 16-17%/nam; ACB nang co so len 9,5%/nam tu 1/10; nguyen nhan tin dung tang 10,89% trong khi huy dong chi tang 9,78% (den 28/9/2026) (Znews, 12/10/2026). Layout rieng cho style 4 (vach cam doc cho What happened + formula chip 'co so + bien do = tha noi' cuoi khung, 3 hang chia doi trai/phai danh so 01/02/03 cho Key facts, 2 cot bar chart scaleY that + vach VS pulse cho Data moment, 2 the doi xung + chip chenh lech + smash-cut sang dong nhan qua cho Context, chia doi NGANG tren/duoi cho Impact thay vi doc). Caption karaoke tu dong 2 tro di (ElevenLabs STT scribe_v1, word-level), nen chieu sau + glow brand-color, khong lap lai bo cuc tu cac video style 4 truoc (vingroup-von-hoa-ky-luc-1-8-trieu-ty va cac video khac)."
         }
     ]
 }

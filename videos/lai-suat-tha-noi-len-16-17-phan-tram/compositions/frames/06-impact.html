@@ -1,0 +1,66 @@
+<template>
+  <style>
+    @font-face { font-family: "Montserrat"; font-weight: 400; font-style: normal; src: url("assets/fonts/Montserrat-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Montserrat"; font-weight: 400; font-style: normal; src: url("assets/fonts/Montserrat-400-vietnamese.woff2") format("woff2"); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: "Montserrat"; font-weight: 500; font-style: normal; src: url("assets/fonts/Montserrat-500-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Montserrat"; font-weight: 500; font-style: normal; src: url("assets/fonts/Montserrat-500-vietnamese.woff2") format("woff2"); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal; src: url("assets/fonts/Montserrat-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal; src: url("assets/fonts/Montserrat-600-vietnamese.woff2") format("woff2"); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal; src: url("assets/fonts/Montserrat-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal; src: url("assets/fonts/Montserrat-700-vietnamese.woff2") format("woff2"); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal; src: url("assets/fonts/Montserrat-800-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal; src: url("assets/fonts/Montserrat-800-vietnamese.woff2") format("woff2"); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal; src: url("assets/fonts/Montserrat-900-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal; src: url("assets/fonts/Montserrat-900-vietnamese.woff2") format("woff2"); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+    #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #111111; font-family: "Montserrat", Arial, sans-serif; }
+
+    .f6-kicker { position: absolute; left: 0; right: 0; top: 206px; text-align: center; font-weight: 700; font-size: 24px; letter-spacing: 0.16em; text-transform: uppercase; color: #e8441e; }
+
+    .f6-divider { position: absolute; left: 64px; right: 64px; top: 958px; height: 3px; background: #e8441e; transform-origin: left; box-shadow: 0 0 20px rgba(232,68,30,0.5); }
+
+    .f6-panel { position: absolute; left: 64px; right: 64px; }
+    .f6-panel.top { top: 600px; }
+    .f6-panel.bottom { top: 1230px; }
+
+    .f6-panel-label { font-weight: 700; font-size: 23px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 16px; }
+    .f6-panel.bottom .f6-panel-label { color: rgba(232,68,30,0.85); }
+    .f6-panel-headline { font-weight: 800; font-size: 46px; line-height: 1.2; letter-spacing: -0.01em; color: #ffffff; margin-bottom: 16px; }
+    .f6-panel-headline .hl { color: #e8441e; }
+    .f6-panel-sub { font-weight: 500; font-size: 23px; color: rgba(255,255,255,0.55); }
+  </style>
+
+  <div data-hf-id="hf-repe" id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-9ogx" id="f6-kicker" class="clip f6-kicker" data-start="0" data-duration="10.1" data-track-index="0">Tác động</div>
+    <div data-hf-id="hf-62e3" id="f6-div" class="clip f6-divider" data-start="0" data-duration="10.1" data-track-index="1"></div>
+
+    <div data-hf-id="hf-ufk8" id="f6-top" class="clip f6-panel top" data-start="0" data-duration="10.1" data-track-index="2">
+      <div data-hf-id="hf-es4d" class="f6-panel-label">Vay vốn</div>
+      <div data-hf-id="hf-crk8" class="f6-panel-headline">Hết ưu đãi, chịu <span data-hf-id="hf-gvb6" class="hl">lãi suất cao hơn</span></div>
+      <div data-hf-id="hf-34su" class="f6-panel-sub">Bất động sản · Tiêu dùng · Kinh doanh</div>
+    </div>
+
+    <div data-hf-id="hf-vly3" id="f6-bottom" class="clip f6-panel bottom" data-start="0" data-duration="10.1" data-track-index="3">
+      <div data-hf-id="hf-kqn2" class="f6-panel-label">Tiết kiệm kỳ hạn dài</div>
+      <div data-hf-id="hf-c55x" class="f6-panel-headline">Vượt <span data-hf-id="hf-pb0y" class="hl">9%/năm</span>, cá biệt trên <span data-hf-id="hf-judm" class="hl">10%/năm</span></div>
+      <div data-hf-id="hf-h5b8" class="f6-panel-sub">Tại nhiều ngân hàng thương mại</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#f6-kicker", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 0);
+      tl.fromTo("#f6-div", { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 0.45, ease: "power2.out" }, 0.2);
+
+      tl.fromTo("#f6-top", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 0.4);
+      tl.fromTo("#f6-bottom", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 0.75);
+
+      tl.fromTo("#f6-bottom .hl", { opacity: 0.4 }, { opacity: 1, duration: 0.3, ease: "power2.out", stagger: 0.15 }, 1.3);
+
+      window.__timelines["06-impact"] = tl;
+    })();
+  </script>
+</template>

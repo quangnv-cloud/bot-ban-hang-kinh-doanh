@@ -1,0 +1,86 @@
+<template>
+  <style>
+    @font-face { font-family: "Montserrat"; font-weight: 400; font-style: normal; src: url("assets/fonts/Montserrat-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Montserrat"; font-weight: 400; font-style: normal; src: url("assets/fonts/Montserrat-400-vietnamese.woff2") format("woff2"); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: "Montserrat"; font-weight: 500; font-style: normal; src: url("assets/fonts/Montserrat-500-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Montserrat"; font-weight: 500; font-style: normal; src: url("assets/fonts/Montserrat-500-vietnamese.woff2") format("woff2"); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal; src: url("assets/fonts/Montserrat-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Montserrat"; font-weight: 600; font-style: normal; src: url("assets/fonts/Montserrat-600-vietnamese.woff2") format("woff2"); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal; src: url("assets/fonts/Montserrat-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Montserrat"; font-weight: 700; font-style: normal; src: url("assets/fonts/Montserrat-700-vietnamese.woff2") format("woff2"); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal; src: url("assets/fonts/Montserrat-800-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Montserrat"; font-weight: 800; font-style: normal; src: url("assets/fonts/Montserrat-800-vietnamese.woff2") format("woff2"); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal; src: url("assets/fonts/Montserrat-900-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Montserrat"; font-weight: 900; font-style: normal; src: url("assets/fonts/Montserrat-900-vietnamese.woff2") format("woff2"); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+
+    #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #111111; font-family: "Montserrat", Arial, sans-serif; }
+
+    .f3-kicker { position: absolute; left: 64px; top: 210px; font-weight: 700; font-size: 24px; letter-spacing: 0.16em; text-transform: uppercase; color: #e8441e; }
+
+    .f3-row { position: absolute; left: 64px; right: 64px; height: 300px; display: flex; align-items: center; }
+    .f3-row-1 { top: 350px; }
+    .f3-row-2 { top: 760px; }
+    .f3-row-3 { top: 1170px; }
+
+    .f3-num { position: absolute; left: 0; top: 0; font-weight: 700; font-size: 22px; color: rgba(255,255,255,0.28); letter-spacing: 0.06em; }
+
+    .f3-label-col { width: 480px; padding-right: 24px; }
+    .f3-label { font-weight: 600; font-size: 29px; line-height: 1.35; color: rgba(255,255,255,0.74); }
+
+    .f3-row-divider { width: 2px; align-self: stretch; margin: 0 28px; background: rgba(232,68,30,0.55); transform-origin: center; }
+
+    .f3-value-col { flex: 1; text-align: right; }
+    .f3-value { display: inline-block; font-weight: 900; letter-spacing: -0.02em; line-height: 1; color: #ffffff; font-size: 72px; white-space: nowrap; }
+    .f3-value.accent { color: #e8441e; }
+    .f3-value-note { display: block; margin-top: 10px; font-weight: 500; font-size: 20px; color: rgba(255,255,255,0.45); }
+  </style>
+
+  <div data-hf-id="hf-chzy" id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-n4q9" id="f3-kicker" class="clip f3-kicker" data-start="0" data-duration="12.1" data-track-index="0">Số liệu chính</div>
+
+    <div data-hf-id="hf-fqos" id="f3-row1" class="clip f3-row f3-row-1" data-start="0" data-duration="12.1" data-track-index="1">
+      <span data-hf-id="hf-9lho" class="f3-num">01</span>
+      <div data-hf-id="hf-i1hh" class="f3-label-col"><span data-hf-id="hf-qj46" class="f3-label">ACB nâng lãi suất cơ sở, áp dụng từ ngày 1/10</span></div>
+      <div data-hf-id="hf-i5z4" id="f3-div1" class="f3-row-divider"></div>
+      <div data-hf-id="hf-xndk" class="f3-value-col"><span data-hf-id="hf-wm17" class="f3-value">9,5%</span><span data-hf-id="hf-0j4b" class="f3-value-note">một năm</span></div>
+    </div>
+
+    <div data-hf-id="hf-9io9" id="f3-row2" class="clip f3-row f3-row-2" data-start="0" data-duration="12.1" data-track-index="2">
+      <span data-hf-id="hf-8ekl" class="f3-num">02</span>
+      <div data-hf-id="hf-7iop" class="f3-label-col"><span data-hf-id="hf-62wd" class="f3-label">Biên độ cộng thêm theo hợp đồng tín dụng</span></div>
+      <div data-hf-id="hf-qtuz" id="f3-div2" class="f3-row-divider"></div>
+      <div data-hf-id="hf-rwfk" class="f3-value-col"><span data-hf-id="hf-o07t" class="f3-value">3-3,5%</span><span data-hf-id="hf-wegb" class="f3-value-note">một năm</span></div>
+    </div>
+
+    <div data-hf-id="hf-bfii" id="f3-row3" class="clip f3-row f3-row-3" data-start="0" data-duration="12.1" data-track-index="3">
+      <span data-hf-id="hf-8svm" class="f3-num">03</span>
+      <div data-hf-id="hf-8pls" class="f3-label-col"><span data-hf-id="hf-7hyj" class="f3-label">Lãi suất thả nổi thực tế, tối đa có thể lên tới</span></div>
+      <div data-hf-id="hf-mvqy" id="f3-div3" class="f3-row-divider"></div>
+      <div data-hf-id="hf-qpih" class="f3-value-col"><span data-hf-id="hf-0u8x" class="f3-value accent">16,5%</span><span data-hf-id="hf-w05a" class="f3-value-note">một năm</span></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#f3-kicker", { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 0);
+
+      function revealRow(row, div, start) {
+        tl.fromTo(row + " .f3-num", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "none" }, start);
+        tl.fromTo(row + " .f3-label-col", { x: -40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.42, ease: "power3.out" }, start + 0.08);
+        tl.fromTo(div, { scaleY: 0, opacity: 0 }, { scaleY: 1, opacity: 1, duration: 0.3, ease: "power2.out" }, start + 0.3);
+        tl.fromTo(row + " .f3-value-col", { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.42, ease: "power3.out" }, start + 0.38);
+      }
+
+      revealRow("#f3-row1", "#f3-div1", 0.35);
+      revealRow("#f3-row2", "#f3-div2", 2.3);
+      revealRow("#f3-row3", "#f3-div3", 4.6);
+
+      tl.fromTo("#f3-row3 .f3-value.accent", { textShadow: "0 0 0 rgba(232,68,30,0)" }, { textShadow: "0 0 26px rgba(232,68,30,0.55)", duration: 0.35, ease: "power2.out" }, 5.1);
+
+      window.__timelines["03-key-facts"] = tl;
+    })();
+  </script>
+</template>
