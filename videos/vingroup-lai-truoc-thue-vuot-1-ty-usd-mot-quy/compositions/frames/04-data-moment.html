@@ -1,0 +1,76 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: "Montserrat", sans-serif; overflow: hidden; }
+
+    #dm-quote {
+      position: absolute; top: 520px; left: 60px;
+      font-weight: 900; font-size: 420px; line-height: 1;
+      color: #E8441E; font-family: Georgia, "Times New Roman", serif;
+      opacity: 0.14;
+    }
+
+    #dm-kicker {
+      position: absolute; top: 680px; left: 0; width: 1080px; text-align: center;
+      font-weight: 700; font-size: 24px; color: #E8441E;
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+
+    #dm-main-row {
+      position: absolute; top: 756px; left: 0; width: 1080px; text-align: center;
+    }
+    #dm-main {
+      font-weight: 900; font-size: 196px; line-height: 1; color: #E8441E;
+      letter-spacing: -0.01em;
+      text-shadow: 0 0 46px rgba(232,68,30,0.45);
+    }
+    #dm-unit {
+      display: block; margin-top: 6px;
+      font-weight: 700; font-size: 38px; color: #ffffff;
+    }
+
+    #dm-underline { position: absolute; top: 1070px; left: 290px; width: 500px; height: 44px; }
+
+    #dm-sub {
+      position: absolute; top: 1140px; left: 0; width: 1080px; text-align: center;
+      font-weight: 500; font-size: 29px; color: rgba(255,255,255,0.7);
+    }
+
+    #dm-stat {
+      position: absolute; top: 1340px; left: 310px; width: 460px; padding: 22px 28px 26px;
+      background: #1a1a1a; border: 1px solid rgba(255,255,255,0.1); border-bottom: 2px dashed rgba(255,255,255,0.22);
+      text-align: center; transform: rotate(-1.4deg); box-shadow: 0 16px 34px rgba(0,0,0,0.45);
+    }
+    #dm-stat .s1 { font-weight: 700; font-size: 18px; color: rgba(255,255,255,0.5); letter-spacing: 0.04em; text-transform: uppercase; }
+    #dm-stat .s2 { margin-top: 8px; font-weight: 800; font-size: 29px; color: #ffffff; }
+    #dm-stat .s2 b { color: #E8441E; }
+  </style>
+
+  <div id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+    <div id="dm-quote">&rdquo;</div>
+    <div id="dm-kicker">Lợi nhuận trước thuế quý 3/2026</div>
+    <div id="dm-main-row">
+      <span id="dm-main">29.940</span>
+      <span id="dm-unit">tỷ đồng &middot; hơn 1,1 tỷ USD</span>
+    </div>
+    <svg id="dm-underline" viewBox="0 0 500 44">
+      <path id="dm-underline-path" d="M8,24 C90,8 170,36 250,18 C330,2 410,34 492,14" fill="none" stroke="#E8441E" stroke-width="9" stroke-linecap="round" style="stroke-dasharray:620; stroke-dashoffset:620;" />
+    </svg>
+    <div id="dm-sub">Gấp 7,4 lần cùng kỳ năm ngoái</div>
+    <div id="dm-stat">
+      <div class="s1">Lần đầu tiên</div>
+      <div class="s2">Vượt mốc <b>1 tỷ USD</b> &#47; quý</div>
+    </div>
+  </div>
+
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#dm-quote", { opacity: 0, scale: 0.8 }, { opacity: 0.14, scale: 1, duration: 0.45, ease: "power2.out" }, 0);
+    tl.fromTo("#dm-kicker", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 0.18);
+    tl.fromTo("#dm-main", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.4)" }, 0.45);
+    tl.fromTo("#dm-unit", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.85);
+    tl.fromTo("#dm-underline-path", { strokeDashoffset: 620 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.inOut" }, 1.1);
+    tl.fromTo("#dm-sub", { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 1.4);
+    tl.fromTo("#dm-stat", { y: -18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.36, ease: "power2.out" }, 1.75);
+    window.__timelines["04-data-moment"] = tl;
+  </script>
+</template>

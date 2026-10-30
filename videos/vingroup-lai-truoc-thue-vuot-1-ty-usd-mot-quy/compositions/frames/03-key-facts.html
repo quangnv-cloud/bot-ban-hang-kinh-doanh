@@ -13,10 +13,10 @@
     }
     .kf-card {
       position: absolute;
-      width: 900px;
+      width: 880px;
       background: #ffffff;
       border-radius: 6px;
-      padding: 34px 40px;
+      padding: 30px 38px;
       box-shadow: 0 0 40px rgba(232, 68, 30, 0.12), 0 20px 44px rgba(0,0,0,0.42);
       opacity: 0;
     }
@@ -25,23 +25,37 @@
       top: -16px; left: 56px;
       width: 120px; height: 34px;
       background: rgba(232, 68, 30, 0.85);
-      transform: rotate(-3deg);
       opacity: 0.9;
     }
     .kf-card .kf-label {
       font-size: 21px; font-weight: 700; color: #E8441E;
       letter-spacing: 0.05em; text-transform: uppercase;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
     .kf-card .kf-value {
-      font-size: 46px; font-weight: 800; color: #111111;
-      line-height: 1.2;
+      font-size: 44px; font-weight: 800; color: #111111;
+      line-height: 1.22;
       letter-spacing: -0.01em;
     }
     .kf-card .kf-value .hl { color: #E8441E; }
-    #kf-card-1 { top: 254px; left: 70px; transform: rotate(-2.2deg); }
-    #kf-card-2 { top: 548px; left: 130px; transform: rotate(1.6deg); }
-    #kf-card-3 { top: 842px; left: 90px; transform: rotate(-1.1deg); }
+    #kf-card-1 { top: 270px; left: 110px; transform: rotate(-2.4deg); }
+    #kf-card-2 { top: 620px; left: 150px; transform: rotate(1.8deg); }
+    #kf-card-3 { top: 960px; left: 110px; transform: rotate(-1.3deg); }
+    #kf-stub {
+      position: absolute; top: 1330px; left: 100px;
+      width: 400px;
+      padding: 20px 26px 24px;
+      border-left: 3px solid #E8441E;
+      background: rgba(255,255,255,0.05);
+      opacity: 0;
+    }
+    #kf-stub .s1 {
+      font-size: 18px; font-weight: 700; color: rgba(255,255,255,0.55);
+      letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    #kf-stub .s2 {
+      margin-top: 8px; font-size: 25px; font-weight: 700; color: #ffffff;
+    }
   </style>
   <div id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
     <div id="kf-kicker">Vingroup &middot; số liệu chính</div>
@@ -58,15 +72,20 @@
     <div class="kf-card" id="kf-card-3">
       <div class="kf-tape"></div>
       <div class="kf-label">Báo cáo tài chính</div>
-      <div class="kf-value">Hợp nhất quý 3/2026, <span class="hl">vừa công bố</span></div>
+      <div class="kf-value">Hợp nhất, <span class="hl">vừa công bố</span></div>
+    </div>
+    <div id="kf-stub">
+      <div class="s1">Kỳ báo cáo</div>
+      <div class="s2">Quý 3, năm 2026</div>
     </div>
   </div>
   <script>
     const tl = gsap.timeline({ paused: true });
     tl.fromTo("#kf-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0);
-    tl.fromTo("#kf-card-1", { opacity: 0, y: 36, rotate: -8 }, { opacity: 1, y: 0, rotate: -2.2, duration: 0.55, ease: "power3.out" }, 0.4);
-    tl.fromTo("#kf-card-2", { opacity: 0, y: 36, rotate: 7 }, { opacity: 1, y: 0, rotate: 1.6, duration: 0.55, ease: "power3.out" }, 3.6);
-    tl.fromTo("#kf-card-3", { opacity: 0, y: 36, rotate: -6 }, { opacity: 1, y: 0, rotate: -1.1, duration: 0.55, ease: "power3.out" }, 7.0);
+    tl.fromTo("#kf-card-1", { opacity: 0, y: -24, rotate: -10 }, { opacity: 1, y: 0, rotate: -2.4, duration: 0.5, ease: "power2.out" }, 0.4);
+    tl.fromTo("#kf-card-2", { opacity: 0, y: -24, rotate: 9 }, { opacity: 1, y: 0, rotate: 1.8, duration: 0.5, ease: "power2.out" }, 3.6);
+    tl.fromTo("#kf-card-3", { opacity: 0, y: -24, rotate: -8 }, { opacity: 1, y: 0, rotate: -1.3, duration: 0.5, ease: "power2.out" }, 7.0);
+    tl.fromTo("#kf-stub", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, 8.6);
     window.__timelines["03-key-facts"] = tl;
   </script>
 </template>

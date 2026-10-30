@@ -1,0 +1,44 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: "Montserrat", sans-serif; overflow: hidden; }
+
+    #im-kicker { position: absolute; top: 540px; left: 82px; display: flex; align-items: center; gap: 10px; }
+    #im-kicker .dot { width: 8px; height: 8px; border-radius: 50%; background: #E8441E; }
+    #im-kicker span { font-weight: 700; font-size: 21px; color: #E8441E; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    .im-clip { position: absolute; width: 780px; background: #ffffff; border-radius: 2px; padding: 32px 48px 36px; }
+    .im-clip .k { font-weight: 700; font-size: 20px; color: #E8441E; letter-spacing: 0.06em; text-transform: uppercase; }
+    .im-clip .big { margin-top: 10px; font-weight: 900; font-size: 86px; line-height: 1; color: #111111; letter-spacing: -0.01em; }
+    .im-clip .big .hl { color: #D8401C; }
+    .im-clip .desc { margin-top: 10px; font-weight: 600; font-size: 25px; line-height: 1.35; color: #3a3a3a; }
+
+    #im-back { top: 1110px; left: 280px; padding-top: 100px; transform: rotate(3deg); z-index: 1;
+      box-shadow: 0 0 40px rgba(232,68,30,0.12), 0 20px 44px rgba(0,0,0,0.5); }
+    #im-front { top: 900px; left: 110px; transform: rotate(-2deg); z-index: 2;
+      box-shadow: 0 0 40px rgba(232,68,30,0.14), 0 26px 54px rgba(0,0,0,0.55); }
+  </style>
+
+  <div id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <div id="im-kicker"><span class="dot"></span><span>Kết quả 9 tháng của Vingroup</span></div>
+
+    <div id="im-back" class="im-clip">
+      <div class="k">Tại ngày 30/9/2026</div>
+      <div class="big">1,6<span class="hl"> triệu tỷ</span></div>
+      <div class="desc">Tổng tài sản của Vingroup</div>
+    </div>
+
+    <div id="im-front" class="im-clip">
+      <div class="k">Lũy kế 9 tháng, năm 2026</div>
+      <div class="big">43.700<span class="hl"> tỷ</span></div>
+      <div class="desc">Lợi nhuận sau thuế, tăng hơn 500%, vượt 25% kế hoạch năm</div>
+    </div>
+  </div>
+
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#im-kicker", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 0);
+    tl.fromTo("#im-back", { y: -26, rotate: 9, opacity: 0 }, { y: 0, rotate: 3, opacity: 1, duration: 0.46, ease: "power2.out" }, 0.3);
+    tl.fromTo("#im-front", { y: -26, rotate: -9, opacity: 0 }, { y: 0, rotate: -2, opacity: 1, duration: 0.46, ease: "power2.out" }, 0.85);
+    window.__timelines["06-impact"] = tl;
+  </script>
+</template>
