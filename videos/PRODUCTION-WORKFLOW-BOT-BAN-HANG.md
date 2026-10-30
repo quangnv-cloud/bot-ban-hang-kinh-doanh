@@ -1671,6 +1671,19 @@ phiên trước nhưng thiếu hẳn Facebook Reel (không có record nào, kể
 
 **[2026-10-08 — dữ liệu điểm ủng hộ giả thuyết kích thước, video `gia-vang-giam-nguoi-mua-lo-7-trieu-mot-thang`, 18,7 MB]**: cùng ngày, video này (nhỏ hơn hẳn 3 lần lỗi gần nhất — 30,3/30,7/33,6 MB) gọi `publish_facebook` (Reel) **THÀNH CÔNG ngay lần đầu** (`post_id 122122020651467175`, HTTP 200 qua `Location` redirect bình thường, không phải trang lỗi Apps Script) — cả 5/5 kênh đăng thành công trong 1 lần chạy (Facebook Reel + Story, YouTube, Instagram, Threads). Củng cố thêm giả thuyết ở mục 2026-10-06: lỗi "Out of memory" khả năng cao liên quan kích thước blob video hơn là lỗi cố định không phụ thuộc video — mẫu quan sát hiện tại: 18,7 MB OK, 30,3-33,6 MB lỗi cả 3 lần. Chưa đủ dữ liệu để xác định ngưỡng chính xác (có thể nằm đâu đó giữa ~19-30 MB) — ghi lại để các lần sau theo dõi, chưa đổi quy trình (vẫn thử gọi bình thường, chấp nhận lỗi nếu xảy ra, không cố nén/giảm chất lượng video chỉ để né lỗi này).
 
+**[2026-10-30 — tái diễn, video `vingroup-lai-truoc-thue-vuot-1-ty-usd-mot-quy`, 30,2 MB]**: `publish_facebook`
+(Reel) lỗi `HTTP 200` + `"Out of memory error."` 2 lần liên tiếp y hệt nhau (không retry thêm lần 3
+— lỗi hạ tầng ổn định theo tiền lệ). `publish_facebook_photo` (Story) THÀNH CÔNG bình thường cùng
+lần chạy (post id `40175155955401412`). Điểm dữ liệu mới này (30,2 MB lỗi) khớp đúng dải quan sát cũ
+(30,3-33,6 MB lỗi, 18,7 MB OK) — không thu hẹp thêm ngưỡng chính xác nhưng củng cố thêm giả thuyết
+kích thước. Đáng chú ý: `publish_youtube` đăng THÀNH CÔNG cùng chính file 30,2 MB này trong cùng lần
+chạy (video id `jADiVHX-D4o`, kèm thumbnail) — gợi ý hàm `publish_youtube` dùng cơ chế tải/stream
+file khác (có thể resumable upload, không nạp nguyên blob vào bộ nhớ) so với `publish_facebook`,
+ủng hộ giả thuyết kỹ thuật đã nêu ở mục 2026-10-06 rằng gốc vấn đề nằm ở cách `publish_facebook` xử
+lý blob trong Apps Script chứ không phải giới hạn chung của nền tảng Facebook. Người vận hành có thể
+cân nhắc sửa hàm `publish_facebook` dùng cùng kỹ thuật tải file với `publish_youtube` để hết hẳn lỗi
+này thay vì chỉ chấp nhận mất Reel mỗi khi video vượt ngưỡng.
+
 **[2026-10-19 — lần kiểm tra thứ 20 liên tiếp, NGÀY MỚI (2026-10-18 → 2026-10-19), VẪN
 `error_code:1051`, chưa đổi]**: đầu phiên gặp lại `HEAD detached` tại commit `9de5eab` (checkpoint
 reconfirm lần 19, đã có sẵn trên `origin/master`), sửa bằng
