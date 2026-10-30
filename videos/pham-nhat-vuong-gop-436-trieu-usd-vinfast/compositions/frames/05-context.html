@@ -1,0 +1,124 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+    }
+    #ctx-kicker {
+      position: absolute; top: 260px; left: 0; width: 1080px;
+      text-align: center;
+      font-size: 27px; font-weight: 700; color: #E8441E;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      opacity: 0;
+    }
+    #ctx-ring-wrap {
+      position: absolute; top: 380px; left: 440px;
+      width: 200px; height: 200px;
+      opacity: 0;
+    }
+    #ctx-ring-svg { width: 200px; height: 200px; filter: drop-shadow(0 0 22px rgba(232,68,30,0.3)); }
+    #ctx-ring-bg { fill: none; stroke: rgba(255,255,255,0.12); stroke-width: 10; }
+    #ctx-ring-fg { fill: none; stroke: #E8441E; stroke-width: 10; stroke-linecap: round; transform: rotate(-90deg); transform-origin: center; }
+    #ctx-ring-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    #ctx-ring-num { font-size: 44px; font-weight: 900; color: #ffffff; line-height: 1; }
+    #ctx-ring-unit { margin-top: 4px; font-size: 17px; font-weight: 700; color: #E8441E; text-transform: uppercase; letter-spacing: 0.03em; }
+    #ctx-ring-label {
+      position: absolute; top: 592px; left: 0; width: 1080px; text-align: center;
+      font-size: 22px; font-weight: 600; color: rgba(255,255,255,0.62);
+      letter-spacing: 0.04em; text-transform: uppercase;
+      opacity: 0;
+    }
+
+    #ctx-connector {
+      position: absolute; top: 636px; left: 540px;
+      width: 2px; height: 100px;
+      opacity: 0;
+    }
+
+    #ctx-card {
+      position: absolute; top: 760px; left: 100px;
+      width: 880px; height: 540px;
+      border-radius: 28px;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(232,68,30,0.35);
+      box-shadow: 0 0 44px rgba(232,68,30,0.12);
+      padding: 56px 60px;
+      opacity: 0;
+    }
+    #ctx-card-icon-wrap {
+      width: 86px; height: 86px; border-radius: 20px;
+      background: rgba(232,68,30,0.14);
+      display: flex; align-items: center; justify-content: center;
+    }
+    #ctx-card-tag {
+      margin-top: 36px;
+      font-size: 20px; font-weight: 700; color: #E8441E;
+      letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    #ctx-card-title {
+      margin-top: 16px;
+      font-size: 46px; font-weight: 800; color: #ffffff; line-height: 1.22;
+    }
+    #ctx-card-sub {
+      margin-top: 20px;
+      font-size: 29px; font-weight: 500; color: rgba(255,255,255,0.72); line-height: 1.4;
+    }
+
+    #ctx-footer {
+      position: absolute; top: 1330px; left: 0; width: 1080px;
+      text-align: center;
+      font-size: 24px; font-weight: 500; color: rgba(255,255,255,0.55);
+      opacity: 0;
+    }
+  </style>
+  <div data-hf-id="hf-3o8a" id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-npbp" id="ctx-kicker">Tại sao</div>
+
+    <div data-hf-id="hf-rb8w" id="ctx-ring-wrap">
+      <svg data-hf-id="hf-kjkk" id="ctx-ring-svg" viewBox="0 0 200 200">
+        <circle data-hf-id="hf-l6dz" id="ctx-ring-bg" cx="100" cy="100" r="90"></circle>
+        <circle data-hf-id="hf-j9yv" id="ctx-ring-fg" cx="100" cy="100" r="90" stroke-dasharray="565.49" stroke-dashoffset="565.49"></circle>
+      </svg>
+      <div data-hf-id="hf-mofb" id="ctx-ring-center">
+        <div data-hf-id="hf-yx9h" id="ctx-ring-num">436</div>
+        <div data-hf-id="hf-qj73" id="ctx-ring-unit">Triệu USD</div>
+      </div>
+    </div>
+    <div data-hf-id="hf-nc6f" id="ctx-ring-label">Nguồn vốn mới</div>
+
+    <svg data-hf-id="hf-4wm7" id="ctx-connector" viewBox="0 0 2 100" preserveAspectRatio="none">
+      <line data-hf-id="hf-zp7b" id="ctx-connector-line" x1="1" y1="0" x2="1" y2="100" stroke="#E8441E" stroke-width="2" stroke-dasharray="6 8" stroke-linecap="round"></line>
+    </svg>
+
+    <div data-hf-id="hf-afwb" id="ctx-card">
+      <div data-hf-id="hf-ljak" id="ctx-card-icon-wrap">
+        <svg data-hf-id="hf-dnsy" width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path data-hf-id="hf-40yk" d="M4 21V9l8-5 8 5v12" stroke="#E8441E" stroke-width="1.7"></path>
+          <path data-hf-id="hf-ftyj" d="M9 21v-6h6v6" stroke="#E8441E" stroke-width="1.7"></path>
+        </svg>
+      </div>
+      <div data-hf-id="hf-gzu9" id="ctx-card-tag">Dùng vốn cho</div>
+      <div data-hf-id="hf-0dc2" id="ctx-card-title">Công ty Bất động sản Ngọc Hồi</div>
+      <div data-hf-id="hf-y5wd" id="ctx-card-sub">Thành viên liên doanh chủ đầu tư dự án Olympic Ngọc Hồi &mdash; theo cập nhật của Chứng khoán Vietcap.</div>
+    </div>
+
+    <div data-hf-id="hf-42xk" id="ctx-footer">Vietcap: cập nhật từ buổi gặp nhà đầu tư của VinFast</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#ctx-kicker", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.05);
+
+    tl.fromTo("#ctx-ring-wrap", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" }, 0.3);
+    tl.fromTo("#ctx-ring-fg", { strokeDashoffset: 565.49 }, { strokeDashoffset: 0, duration: 0.7, ease: "power2.out" }, 0.34);
+    tl.fromTo("#ctx-ring-label", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.85);
+
+    tl.fromTo("#ctx-connector", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 1.1);
+
+    tl.fromTo("#ctx-card", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 1.5);
+
+    tl.fromTo("#ctx-footer", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 2.3);
+
+    window.__timelines["05-context"] = tl;
+  </script>
+</template>

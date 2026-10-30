@@ -519,6 +519,14 @@
             "date": "2026-10-30",
             "bgm_source": "Lyria RealTime (models/lyria-realtime-exp)",
             "note": "Checkpoint resumed after 18-day Vbee TTS quota block (2026-10-12 -> 2026-10-30, error_code 1051, account GOC). Tin: Lai suat co so tai mot so ngan hang len toi 13,5%/nam, cong bien do 3-3,5% khien lai suat tha noi thuc te cham 16-17%/nam; ACB nang co so len 9,5%/nam tu 1/10; nguyen nhan tin dung tang 10,89% trong khi huy dong chi tang 9,78% (den 28/9/2026) (Znews, 12/10/2026). Layout rieng cho style 4 (vach cam doc cho What happened + formula chip 'co so + bien do = tha noi' cuoi khung, 3 hang chia doi trai/phai danh so 01/02/03 cho Key facts, 2 cot bar chart scaleY that + vach VS pulse cho Data moment, 2 the doi xung + chip chenh lech + smash-cut sang dong nhan qua cho Context, chia doi NGANG tren/duoi cho Impact thay vi doc). Caption karaoke tu dong 2 tro di (ElevenLabs STT scribe_v1, word-level), nen chieu sau + glow brand-color, khong lap lai bo cuc tu cac video style 4 truoc (vingroup-von-hoa-ky-luc-1-8-trieu-ty va cac video khac)."
+        },
+        {
+            "index": 5,
+            "style": "6-ring-progress",
+            "project": "pham-nhat-vuong-gop-436-trieu-usd-vinfast",
+            "date": "2026-10-30",
+            "bgm_source": "Lyria RealTime (models/lyria-realtime-exp)",
+            "note": "Lan dau dung style 6-ring-progress. Tin: VinFast Viet Nam phat hanh 436 trieu USD (~11 nghin ty dong) co phieu uu dai co tuc cho ong Pham Nhat Vuong, theo bao cao gui SEC; Vietcap cho biet von co the dung nhan chuyen nhuong Cong ty BDS Ngoc Hoi (du an Olympic Ngoc Hoi) (VnExpress, 30/10/2026). Layout rieng cho style 6 (badge nguon dang vong tron o What happened thay cho pill, mini-ring danh so 01/02/03 cho Key facts, 1 vong tien trinh khong lo bao quanh so chinh + count-up cho Data moment, 1 vong trung binh + connector + the dich den cho Context thay vi 3-4 vong vi tin chi co 1 fact boi canh, 2 vong lon canh nhau + count-up cho Impact). Cat bot 1 cau (khoan gop 40.500 ty vao cong ty me, con lai trong BRIEF.md) khoi SCRIPT.md de giu tong thoi luong duoi 60s (ban goc 64.9s -> 51.0s voice). Caption karaoke tu dong 2 tro di (ElevenLabs STT scribe_v1, word-level), nen chieu sau + glow brand-color. Audio render ban dau lech loudness (-19.6 LUFS do render tu dong ha 2.9dB de tranh clip); da chay lai loudnorm 2-pass (measured_I=-19.60 TP=-1.55 LRA=4.80) voi target TP=-1.5 (de du bien cho AAC re-encode) -> ket qua cuoi -14.3 LUFS / -1.4 dBTP, dat chuan. Threads dang that bai do access token da het han (OAuthException code 190, het han 27/10/2026) - can tao lai token thu cong qua Meta for Developers."
         }
     ]
 }

@@ -1,0 +1,112 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+    }
+    #kf-kicker {
+      position: absolute; top: 200px; left: 56px;
+      font-size: 26px; font-weight: 700; color: #E8441E;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      opacity: 0;
+    }
+    .kf-row {
+      position: absolute; left: 56px; width: 968px;
+      display: flex; align-items: center; gap: 32px;
+      opacity: 0;
+    }
+    #kf-row-1 { top: 300px; }
+    #kf-row-2 { top: 624px; }
+    #kf-row-3 { top: 948px; }
+
+    .kf-ring-wrap { position: relative; width: 120px; height: 120px; flex: none; }
+    .kf-ring-svg { width: 120px; height: 120px; }
+    .kf-ring-bg { fill: none; stroke: rgba(255,255,255,0.12); stroke-width: 6; }
+    .kf-ring-fg { fill: none; stroke: #E8441E; stroke-width: 6; stroke-linecap: round; transform: rotate(-90deg); transform-origin: center; }
+    .kf-ring-num { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 34px; font-weight: 800; color: #ffffff; }
+
+    .kf-text { flex: 1; min-width: 0; }
+    .kf-label { font-size: 21px; font-weight: 700; color: rgba(255,255,255,0.56); letter-spacing: 0.06em; text-transform: uppercase; }
+    .kf-value { margin-top: 8px; font-size: 36px; font-weight: 700; color: #ffffff; line-height: 1.28; }
+    .kf-value .hl { color: #E8441E; }
+
+    #kf-footer {
+      position: absolute; top: 1288px; left: 56px; width: 968px;
+      display: flex; align-items: center; gap: 16px;
+      border-top: 1px solid rgba(255,255,255,0.14);
+      padding-top: 28px;
+      opacity: 0;
+    }
+    #kf-footer-ring { width: 40px; height: 40px; flex: none; }
+    #kf-footer-ring circle { fill: none; stroke: #E8441E; stroke-width: 3; }
+    #kf-footer-text { font-size: 24px; font-weight: 600; color: rgba(255,255,255,0.7); }
+  </style>
+  <div data-hf-id="hf-chzy" id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-6b8h" id="kf-kicker">Ba điểm chính</div>
+
+    <div data-hf-id="hf-992g" class="kf-row" id="kf-row-1">
+      <div data-hf-id="hf-mkb3" class="kf-ring-wrap">
+        <svg data-hf-id="hf-5a01" class="kf-ring-svg" viewBox="0 0 120 120">
+          <circle data-hf-id="hf-1v40" class="kf-ring-bg" cx="60" cy="60" r="50"></circle>
+          <circle data-hf-id="hf-mhs4" class="kf-ring-fg" id="kf-ring-fg-1" cx="60" cy="60" r="50" stroke-dasharray="314.16" stroke-dashoffset="314.16"></circle>
+        </svg>
+        <div data-hf-id="hf-k9jy" class="kf-ring-num">01</div>
+      </div>
+      <div data-hf-id="hf-738l" class="kf-text">
+        <div data-hf-id="hf-006q" class="kf-label">Người góp vốn</div>
+        <div data-hf-id="hf-n51m" class="kf-value"><span data-hf-id="hf-7ovi" class="hl">Phạm Nhật Vượng</span> &middot; Chủ tịch Vingroup</div>
+      </div>
+    </div>
+
+    <div data-hf-id="hf-hwyb" class="kf-row" id="kf-row-2">
+      <div data-hf-id="hf-pqb3" class="kf-ring-wrap">
+        <svg data-hf-id="hf-231x" class="kf-ring-svg" viewBox="0 0 120 120">
+          <circle data-hf-id="hf-h22g" class="kf-ring-bg" cx="60" cy="60" r="50"></circle>
+          <circle data-hf-id="hf-0i6f" class="kf-ring-fg" id="kf-ring-fg-2" cx="60" cy="60" r="50" stroke-dasharray="314.16" stroke-dashoffset="314.16"></circle>
+        </svg>
+        <div data-hf-id="hf-knuz" class="kf-ring-num">02</div>
+      </div>
+      <div data-hf-id="hf-fwc9" class="kf-text">
+        <div data-hf-id="hf-m5qc" class="kf-label">Hình thức</div>
+        <div data-hf-id="hf-zv2j" class="kf-value">Cổ phiếu <span data-hf-id="hf-yz93" class="hl">ưu đãi cổ tức</span>, không chuyển đổi</div>
+      </div>
+    </div>
+
+    <div data-hf-id="hf-dyua" class="kf-row" id="kf-row-3">
+      <div data-hf-id="hf-pc02" class="kf-ring-wrap">
+        <svg data-hf-id="hf-39z0" class="kf-ring-svg" viewBox="0 0 120 120">
+          <circle data-hf-id="hf-fv5d" class="kf-ring-bg" cx="60" cy="60" r="50"></circle>
+          <circle data-hf-id="hf-f81y" class="kf-ring-fg" id="kf-ring-fg-3" cx="60" cy="60" r="50" stroke-dasharray="314.16" stroke-dashoffset="314.16"></circle>
+        </svg>
+        <div data-hf-id="hf-l260" class="kf-ring-num">03</div>
+      </div>
+      <div data-hf-id="hf-h39c" class="kf-text">
+        <div data-hf-id="hf-f94a" class="kf-label">Mục đích</div>
+        <div data-hf-id="hf-gvw5" class="kf-value">Hỗ trợ <span data-hf-id="hf-jbat" class="hl">sáng kiến tăng trưởng</span> của VinFast Việt Nam</div>
+      </div>
+    </div>
+
+    <div data-hf-id="hf-wce2" id="kf-footer">
+      <svg data-hf-id="hf-c5w3" id="kf-footer-ring" viewBox="0 0 40 40"><circle data-hf-id="hf-xiar" cx="20" cy="20" r="16"></circle></svg>
+      <div data-hf-id="hf-tc96" id="kf-footer-text">Công bố qua hồ sơ gửi Ủy ban Chứng khoán Mỹ (SEC)</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#kf-kicker", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.05);
+
+    tl.fromTo("#kf-row-1", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.42, ease: "power2.out" }, 0.3);
+    tl.fromTo("#kf-ring-fg-1", { strokeDashoffset: 314.16 }, { strokeDashoffset: 0, duration: 0.55, ease: "power2.out" }, 0.38);
+
+    tl.fromTo("#kf-row-2", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.42, ease: "power2.out" }, 1.2);
+    tl.fromTo("#kf-ring-fg-2", { strokeDashoffset: 314.16 }, { strokeDashoffset: 0, duration: 0.55, ease: "power2.out" }, 1.28);
+
+    tl.fromTo("#kf-row-3", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.42, ease: "power2.out" }, 2.1);
+    tl.fromTo("#kf-ring-fg-3", { strokeDashoffset: 314.16 }, { strokeDashoffset: 0, duration: 0.55, ease: "power2.out" }, 2.18);
+
+    tl.fromTo("#kf-footer", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 2.9);
+
+    window.__timelines["03-key-facts"] = tl;
+  </script>
+</template>

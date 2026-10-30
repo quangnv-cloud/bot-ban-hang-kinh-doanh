@@ -1,0 +1,103 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+    }
+    #im-kicker {
+      position: absolute; top: 300px; left: 0; width: 1080px;
+      text-align: center;
+      font-size: 27px; font-weight: 700; color: #E8441E;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      opacity: 0;
+    }
+
+    .im-col { position: absolute; top: 460px; width: 500px; opacity: 0; }
+    #im-col-left { left: 40px; }
+    #im-col-right { left: 540px; }
+
+    .im-ring-wrap { position: relative; width: 420px; height: 420px; margin: 0 auto; }
+    .im-ring-svg { width: 420px; height: 420px; filter: drop-shadow(0 0 26px rgba(232,68,30,0.3)); }
+    .im-ring-bg { fill: none; stroke: rgba(255,255,255,0.1); stroke-width: 14; }
+    .im-ring-fg { fill: none; stroke: #E8441E; stroke-width: 14; stroke-linecap: round; transform: rotate(-90deg); transform-origin: center; }
+    .im-ring-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .im-ring-num { font-size: 96px; font-weight: 900; color: #ffffff; line-height: 1; }
+    .im-ring-unit { margin-top: 8px; font-size: 22px; font-weight: 700; color: #E8441E; text-transform: uppercase; letter-spacing: 0.03em; }
+
+    .im-label { margin-top: 32px; text-align: center; font-size: 25px; font-weight: 600; color: rgba(255,255,255,0.72); line-height: 1.38; }
+
+    #im-divider {
+      position: absolute; top: 1140px; left: 90px; width: 900px; height: 1px;
+      background: rgba(255,255,255,0.14);
+      opacity: 0;
+    }
+    #im-closing {
+      position: absolute; top: 1190px; left: 90px; width: 900px;
+      text-align: center;
+      font-size: 30px; font-weight: 600; color: #ffffff;
+      line-height: 1.45;
+      opacity: 0;
+    }
+  </style>
+  <div data-hf-id="hf-repe" id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-veb5" id="im-kicker">Ý nghĩa</div>
+
+    <div data-hf-id="hf-sf60" class="im-col" id="im-col-left">
+      <div data-hf-id="hf-wqle" class="im-ring-wrap">
+        <svg data-hf-id="hf-wr22" class="im-ring-svg" viewBox="0 0 420 420">
+          <circle data-hf-id="hf-4tim" class="im-ring-bg" cx="210" cy="210" r="190"></circle>
+          <circle data-hf-id="hf-ehwd" class="im-ring-fg" id="im-ring-fg-left" cx="210" cy="210" r="190" stroke-dasharray="1193.81" stroke-dashoffset="1193.81"></circle>
+        </svg>
+        <div data-hf-id="hf-sc19" class="im-ring-center">
+          <div data-hf-id="hf-yiob" class="im-ring-num" id="im-num-left">0</div>
+          <div data-hf-id="hf-dxet" class="im-ring-unit">Tỷ đô la Mỹ</div>
+        </div>
+      </div>
+      <div data-hf-id="hf-shv1" class="im-label">Tài sản ông Phạm Nhật Vượng &mdash; người giàu nhất Việt Nam &amp; Đông Nam Á</div>
+    </div>
+
+    <div data-hf-id="hf-fp07" class="im-col" id="im-col-right">
+      <div data-hf-id="hf-qbgm" class="im-ring-wrap">
+        <svg data-hf-id="hf-6x0e" class="im-ring-svg" viewBox="0 0 420 420">
+          <circle data-hf-id="hf-hh82" class="im-ring-bg" cx="210" cy="210" r="190"></circle>
+          <circle data-hf-id="hf-s1bo" class="im-ring-fg" id="im-ring-fg-right" cx="210" cy="210" r="190" stroke-dasharray="1193.81" stroke-dashoffset="1193.81"></circle>
+        </svg>
+        <div data-hf-id="hf-c78h" class="im-ring-center">
+          <div data-hf-id="hf-kbto" class="im-ring-num" id="im-num-right">0</div>
+          <div data-hf-id="hf-zl7z" class="im-ring-unit">Nghìn tỷ đồng</div>
+        </div>
+      </div>
+      <div data-hf-id="hf-3k9n" class="im-label">Vốn điều lệ VinFast Việt Nam, thành lập tháng 6 năm nay</div>
+    </div>
+
+    <div data-hf-id="hf-l0mj" id="im-divider"></div>
+    <div data-hf-id="hf-r2hy" id="im-closing">Ông Phạm Nhật Vượng từng khẳng định sẽ đầu tư vào VinFast &ldquo;đến khi nào hết tiền mới thôi&rdquo;.</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const leftProxy = { v: 0 };
+    const rightProxy = { v: 0 };
+
+    tl.fromTo("#im-kicker", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.05);
+
+    tl.fromTo("#im-col-left", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0.3);
+    tl.fromTo("#im-ring-fg-left", { strokeDashoffset: 1193.81 }, { strokeDashoffset: 0, duration: 0.9, ease: "power2.out" }, 0.38);
+    tl.to(leftProxy, {
+      v: 37, duration: 0.9, ease: "power2.out",
+      onUpdate: function () { document.getElementById("im-num-left").textContent = Math.round(leftProxy.v); }
+    }, 0.38);
+
+    tl.fromTo("#im-col-right", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0.75);
+    tl.fromTo("#im-ring-fg-right", { strokeDashoffset: 1193.81 }, { strokeDashoffset: 0, duration: 0.9, ease: "power2.out" }, 0.83);
+    tl.to(rightProxy, {
+      v: 35, duration: 0.9, ease: "power2.out",
+      onUpdate: function () { document.getElementById("im-num-right").textContent = Math.round(rightProxy.v); }
+    }, 0.83);
+
+    tl.fromTo("#im-divider", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 1.5);
+    tl.fromTo("#im-closing", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 1.65);
+
+    window.__timelines["06-impact"] = tl;
+  </script>
+</template>

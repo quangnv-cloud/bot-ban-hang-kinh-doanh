@@ -1,0 +1,88 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+    }
+    #dm-kicker {
+      position: absolute; top: 420px; left: 0; width: 1080px;
+      text-align: center;
+      font-size: 27px; font-weight: 700; color: #E8441E;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      opacity: 0;
+    }
+    #dm-ring-wrap {
+      position: absolute; top: 540px; left: 280px;
+      width: 520px; height: 520px;
+    }
+    #dm-ring-svg { width: 520px; height: 520px; filter: drop-shadow(0 0 32px rgba(232,68,30,0.35)); }
+    #dm-ring-bg { fill: none; stroke: rgba(255,255,255,0.1); stroke-width: 18; }
+    #dm-ring-fg { fill: none; stroke: #E8441E; stroke-width: 18; stroke-linecap: round; transform: rotate(-90deg); transform-origin: center; }
+    #dm-ring-center {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      opacity: 0;
+    }
+    #dm-number { font-size: 128px; font-weight: 900; color: #ffffff; line-height: 1; letter-spacing: -0.02em; }
+    #dm-number-unit { margin-top: 10px; font-size: 30px; font-weight: 700; color: #E8441E; letter-spacing: 0.04em; text-transform: uppercase; }
+
+    #dm-chip {
+      position: absolute; top: 1112px; left: 50%; transform: translateX(-50%);
+      display: inline-flex; align-items: center; gap: 12px;
+      background: rgba(232,68,30,0.12);
+      border: 1px solid rgba(232,68,30,0.5);
+      border-radius: 14px;
+      padding: 16px 32px;
+      white-space: nowrap;
+      opacity: 0;
+    }
+    #dm-chip span { font-size: 34px; font-weight: 800; color: #ffffff; }
+    #dm-chip .unit { font-size: 24px; font-weight: 600; color: rgba(255,255,255,0.72); }
+
+    #dm-caption {
+      position: absolute; top: 1260px; left: 0; width: 1080px;
+      text-align: center;
+      font-size: 26px; font-weight: 500; color: rgba(255,255,255,0.6);
+      opacity: 0;
+    }
+  </style>
+  <div data-hf-id="hf-o51p" id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-iesv" id="dm-kicker">Con số đáng chú ý</div>
+    <div data-hf-id="hf-xsgk" id="dm-ring-wrap">
+      <svg data-hf-id="hf-7mu6" id="dm-ring-svg" viewBox="0 0 520 520">
+        <circle data-hf-id="hf-kqwd" id="dm-ring-bg" cx="260" cy="260" r="230"></circle>
+        <circle data-hf-id="hf-tk6l" id="dm-ring-fg" cx="260" cy="260" r="230" stroke-dasharray="1445.13" stroke-dashoffset="1445.13"></circle>
+      </svg>
+      <div data-hf-id="hf-t01f" id="dm-ring-center">
+        <div data-hf-id="hf-5976" id="dm-number">0</div>
+        <div data-hf-id="hf-7hr4" id="dm-number-unit">Triệu đô la Mỹ</div>
+      </div>
+    </div>
+    <div data-hf-id="hf-pdtn" id="dm-chip"><span data-hf-id="hf-nku3" id="dm-chip-num">0</span><span data-hf-id="hf-6rla" class="unit">nghìn tỷ đồng</span></div>
+    <div data-hf-id="hf-nbka" id="dm-caption">Khoản góp vốn cổ phiếu ưu đãi cổ tức mới nhất</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const numProxy = { v: 0 };
+    const chipProxy = { v: 0 };
+
+    tl.fromTo("#dm-kicker", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.05);
+    tl.fromTo("#dm-ring-center", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 0.3);
+    tl.fromTo("#dm-ring-fg", { strokeDashoffset: 1445.13 }, { strokeDashoffset: 0, duration: 1.1, ease: "power2.out" }, 0.3);
+    tl.to(numProxy, {
+      v: 436, duration: 1.1, ease: "power2.out",
+      onUpdate: function () { document.getElementById("dm-number").textContent = Math.round(numProxy.v); }
+    }, 0.3);
+
+    tl.fromTo("#dm-chip", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 1.5);
+    tl.to(chipProxy, {
+      v: 11, duration: 0.7, ease: "power2.out",
+      onUpdate: function () { document.getElementById("dm-chip-num").textContent = Math.round(chipProxy.v); }
+    }, 1.55);
+
+    tl.fromTo("#dm-caption", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 2.1);
+
+    window.__timelines["04-data-moment"] = tl;
+  </script>
+</template>

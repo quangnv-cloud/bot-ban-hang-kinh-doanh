@@ -1,0 +1,1395 @@
+[
+  {
+    "act": 2,
+    "text": "VinFast Việt Nam vừa phát hành",
+    "start": 4.512,
+    "end": 5.872,
+    "words": [
+      {
+        "text": "VinFast",
+        "start": 4.512,
+        "end": 4.912
+      },
+      {
+        "text": "Việt",
+        "start": 4.992,
+        "end": 5.112
+      },
+      {
+        "text": "Nam",
+        "start": 5.152,
+        "end": 5.332
+      },
+      {
+        "text": "vừa",
+        "start": 5.392,
+        "end": 5.552
+      },
+      {
+        "text": "phát",
+        "start": 5.572,
+        "end": 5.692
+      },
+      {
+        "text": "hành",
+        "start": 5.732,
+        "end": 5.872
+      }
+    ]
+  },
+  {
+    "act": 2,
+    "text": "bốn trăm ba mươi sáu triệu",
+    "start": 5.932,
+    "end": 6.912,
+    "words": [
+      {
+        "text": "bốn",
+        "start": 5.932,
+        "end": 6.052
+      },
+      {
+        "text": "trăm",
+        "start": 6.092,
+        "end": 6.212
+      },
+      {
+        "text": "ba",
+        "start": 6.272,
+        "end": 6.352
+      },
+      {
+        "text": "mươi",
+        "start": 6.412,
+        "end": 6.532
+      },
+      {
+        "text": "sáu",
+        "start": 6.572,
+        "end": 6.692
+      },
+      {
+        "text": "triệu",
+        "start": 6.752,
+        "end": 6.912
+      }
+    ]
+  },
+  {
+    "act": 2,
+    "text": "đô la Mỹ,",
+    "start": 6.952,
+    "end": 7.312,
+    "words": [
+      {
+        "text": "đô",
+        "start": 6.952,
+        "end": 7.032
+      },
+      {
+        "text": "la",
+        "start": 7.072,
+        "end": 7.132
+      },
+      {
+        "text": "Mỹ,",
+        "start": 7.192,
+        "end": 7.312
+      }
+    ]
+  },
+  {
+    "act": 2,
+    "text": "tương đương mười một nghìn tỷ",
+    "start": 7.932,
+    "end": 8.792,
+    "words": [
+      {
+        "text": "tương",
+        "start": 7.932,
+        "end": 8.052
+      },
+      {
+        "text": "đương",
+        "start": 8.092,
+        "end": 8.211
+      },
+      {
+        "text": "mười",
+        "start": 8.232,
+        "end": 8.372
+      },
+      {
+        "text": "một",
+        "start": 8.412,
+        "end": 8.512
+      },
+      {
+        "text": "nghìn",
+        "start": 8.532,
+        "end": 8.692
+      },
+      {
+        "text": "tỷ",
+        "start": 8.712,
+        "end": 8.792
+      }
+    ]
+  },
+  {
+    "act": 2,
+    "text": "đồng cổ phiếu ưu đãi cổ",
+    "start": 8.832,
+    "end": 10.092,
+    "words": [
+      {
+        "text": "đồng",
+        "start": 8.832,
+        "end": 8.992
+      },
+      {
+        "text": "cổ",
+        "start": 9.312,
+        "end": 9.432
+      },
+      {
+        "text": "phiếu",
+        "start": 9.452,
+        "end": 9.592
+      },
+      {
+        "text": "ưu",
+        "start": 9.632,
+        "end": 9.712
+      },
+      {
+        "text": "đãi",
+        "start": 9.752,
+        "end": 9.892
+      },
+      {
+        "text": "cổ",
+        "start": 9.932,
+        "end": 10.092
+      }
+    ]
+  },
+  {
+    "act": 2,
+    "text": "tức không kèm quyền chuyển đổi,",
+    "start": 10.112,
+    "end": 11.092,
+    "words": [
+      {
+        "text": "tức",
+        "start": 10.112,
+        "end": 10.212
+      },
+      {
+        "text": "không",
+        "start": 10.232,
+        "end": 10.372
+      },
+      {
+        "text": "kèm",
+        "start": 10.412,
+        "end": 10.552
+      },
+      {
+        "text": "quyền",
+        "start": 10.572,
+        "end": 10.732
+      },
+      {
+        "text": "chuyển",
+        "start": 10.752,
+        "end": 10.892
+      },
+      {
+        "text": "đổi,",
+        "start": 10.932,
+        "end": 11.092
+      }
+    ]
+  },
+  {
+    "act": 2,
+    "text": "hoán đổi cho ông Phạm Nhật",
+    "start": 11.432,
+    "end": 12.311,
+    "words": [
+      {
+        "text": "hoán",
+        "start": 11.432,
+        "end": 11.572
+      },
+      {
+        "text": "đổi",
+        "start": 11.612,
+        "end": 11.752
+      },
+      {
+        "text": "cho",
+        "start": 11.772,
+        "end": 11.852
+      },
+      {
+        "text": "ông",
+        "start": 11.892,
+        "end": 11.952
+      },
+      {
+        "text": "Phạm",
+        "start": 12.032,
+        "end": 12.152
+      },
+      {
+        "text": "Nhật",
+        "start": 12.192,
+        "end": 12.311
+      }
+    ]
+  },
+  {
+    "act": 2,
+    "text": "Vượng. Theo báo cáo gửi Ủy",
+    "start": 12.392,
+    "end": 13.632,
+    "words": [
+      {
+        "text": "Vượng.",
+        "start": 12.392,
+        "end": 12.552
+      },
+      {
+        "text": "Theo",
+        "start": 12.892,
+        "end": 12.992
+      },
+      {
+        "text": "báo",
+        "start": 13.032,
+        "end": 13.172
+      },
+      {
+        "text": "cáo",
+        "start": 13.212,
+        "end": 13.332
+      },
+      {
+        "text": "gửi",
+        "start": 13.372,
+        "end": 13.472
+      },
+      {
+        "text": "Ủy",
+        "start": 13.512,
+        "end": 13.632
+      }
+    ]
+  },
+  {
+    "act": 2,
+    "text": "ban Chứng khoán Mỹ",
+    "start": 13.672,
+    "end": 14.312,
+    "words": [
+      {
+        "text": "ban",
+        "start": 13.672,
+        "end": 13.772
+      },
+      {
+        "text": "Chứng",
+        "start": 13.832,
+        "end": 13.952
+      },
+      {
+        "text": "khoán",
+        "start": 13.992,
+        "end": 14.132
+      },
+      {
+        "text": "Mỹ",
+        "start": 14.192,
+        "end": 14.312
+      }
+    ]
+  },
+  {
+    "act": 3,
+    "text": "Người góp vốn là ông Phạm",
+    "start": 15.596,
+    "end": 16.496,
+    "words": [
+      {
+        "text": "Người",
+        "start": 15.596,
+        "end": 15.736
+      },
+      {
+        "text": "góp",
+        "start": 15.756,
+        "end": 15.896
+      },
+      {
+        "text": "vốn",
+        "start": 15.936,
+        "end": 16.036
+      },
+      {
+        "text": "là",
+        "start": 16.096,
+        "end": 16.176
+      },
+      {
+        "text": "ông",
+        "start": 16.216,
+        "end": 16.276
+      },
+      {
+        "text": "Phạm",
+        "start": 16.356,
+        "end": 16.496
+      }
+    ]
+  },
+  {
+    "act": 3,
+    "text": "Nhật Vượng, Chủ tịch Vingroup.",
+    "start": 16.536,
+    "end": 17.836,
+    "words": [
+      {
+        "text": "Nhật",
+        "start": 16.536,
+        "end": 16.656
+      },
+      {
+        "text": "Vượng,",
+        "start": 16.716,
+        "end": 16.896
+      },
+      {
+        "text": "Chủ",
+        "start": 17.176,
+        "end": 17.276
+      },
+      {
+        "text": "tịch",
+        "start": 17.356,
+        "end": 17.456
+      },
+      {
+        "text": "Vingroup.",
+        "start": 17.516,
+        "end": 17.836
+      }
+    ]
+  },
+  {
+    "act": 3,
+    "text": "Hình thức là cổ phiếu ưu",
+    "start": 18.376,
+    "end": 19.236,
+    "words": [
+      {
+        "text": "Hình",
+        "start": 18.376,
+        "end": 18.456
+      },
+      {
+        "text": "thức",
+        "start": 18.516,
+        "end": 18.636
+      },
+      {
+        "text": "là",
+        "start": 18.676,
+        "end": 18.756
+      },
+      {
+        "text": "cổ",
+        "start": 18.836,
+        "end": 18.956
+      },
+      {
+        "text": "phiếu",
+        "start": 18.976,
+        "end": 19.116
+      },
+      {
+        "text": "ưu",
+        "start": 19.156,
+        "end": 19.236
+      }
+    ]
+  },
+  {
+    "act": 3,
+    "text": "đãi cổ tức",
+    "start": 19.276,
+    "end": 19.776,
+    "words": [
+      {
+        "text": "đãi",
+        "start": 19.276,
+        "end": 19.416
+      },
+      {
+        "text": "cổ",
+        "start": 19.456,
+        "end": 19.616
+      },
+      {
+        "text": "tức",
+        "start": 19.636,
+        "end": 19.776
+      }
+    ]
+  },
+  {
+    "act": 3,
+    "text": "không kèm quyền chuyển đổi.",
+    "start": 20.036,
+    "end": 20.896,
+    "words": [
+      {
+        "text": "không",
+        "start": 20.036,
+        "end": 20.156
+      },
+      {
+        "text": "kèm",
+        "start": 20.216,
+        "end": 20.356
+      },
+      {
+        "text": "quyền",
+        "start": 20.376,
+        "end": 20.516
+      },
+      {
+        "text": "chuyển",
+        "start": 20.576,
+        "end": 20.696
+      },
+      {
+        "text": "đổi.",
+        "start": 20.736,
+        "end": 20.896
+      }
+    ]
+  },
+  {
+    "act": 3,
+    "text": "Mục đích là hỗ trợ các",
+    "start": 21.756,
+    "end": 22.676,
+    "words": [
+      {
+        "text": "Mục",
+        "start": 21.756,
+        "end": 21.876
+      },
+      {
+        "text": "đích",
+        "start": 21.916,
+        "end": 22.056
+      },
+      {
+        "text": "là",
+        "start": 22.096,
+        "end": 22.176
+      },
+      {
+        "text": "hỗ",
+        "start": 22.216,
+        "end": 22.316
+      },
+      {
+        "text": "trợ",
+        "start": 22.376,
+        "end": 22.556
+      },
+      {
+        "text": "các",
+        "start": 22.576,
+        "end": 22.676
+      }
+    ]
+  },
+  {
+    "act": 3,
+    "text": "sáng kiến tăng trưởng của VinFast",
+    "start": 22.776,
+    "end": 24.076,
+    "words": [
+      {
+        "text": "sáng",
+        "start": 22.776,
+        "end": 22.896
+      },
+      {
+        "text": "kiến",
+        "start": 22.976,
+        "end": 23.136
+      },
+      {
+        "text": "tăng",
+        "start": 23.156,
+        "end": 23.256
+      },
+      {
+        "text": "trưởng",
+        "start": 23.316,
+        "end": 23.516
+      },
+      {
+        "text": "của",
+        "start": 23.556,
+        "end": 23.676
+      },
+      {
+        "text": "VinFast",
+        "start": 23.716,
+        "end": 24.076
+      }
+    ]
+  },
+  {
+    "act": 3,
+    "text": "Việt Nam",
+    "start": 24.156,
+    "end": 24.476,
+    "words": [
+      {
+        "text": "Việt",
+        "start": 24.156,
+        "end": 24.256
+      },
+      {
+        "text": "Nam",
+        "start": 24.296,
+        "end": 24.476
+      }
+    ]
+  },
+  {
+    "act": 4,
+    "text": "Con số đáng chú ý nhất",
+    "start": 25.676,
+    "end": 26.556,
+    "words": [
+      {
+        "text": "Con",
+        "start": 25.676,
+        "end": 25.776
+      },
+      {
+        "text": "số",
+        "start": 25.836,
+        "end": 25.956
+      },
+      {
+        "text": "đáng",
+        "start": 25.996,
+        "end": 26.116
+      },
+      {
+        "text": "chú",
+        "start": 26.176,
+        "end": 26.296
+      },
+      {
+        "text": "ý",
+        "start": 26.316,
+        "end": 26.376
+      },
+      {
+        "text": "nhất",
+        "start": 26.396,
+        "end": 26.556
+      }
+    ]
+  },
+  {
+    "act": 4,
+    "text": "là bốn trăm ba mươi sáu",
+    "start": 26.616,
+    "end": 27.516,
+    "words": [
+      {
+        "text": "là",
+        "start": 26.616,
+        "end": 26.696
+      },
+      {
+        "text": "bốn",
+        "start": 26.756,
+        "end": 26.876
+      },
+      {
+        "text": "trăm",
+        "start": 26.916,
+        "end": 27.056
+      },
+      {
+        "text": "ba",
+        "start": 27.096,
+        "end": 27.176
+      },
+      {
+        "text": "mươi",
+        "start": 27.216,
+        "end": 27.356
+      },
+      {
+        "text": "sáu",
+        "start": 27.396,
+        "end": 27.516
+      }
+    ]
+  },
+  {
+    "act": 4,
+    "text": "triệu đô la Mỹ,",
+    "start": 27.576,
+    "end": 28.156,
+    "words": [
+      {
+        "text": "triệu",
+        "start": 27.576,
+        "end": 27.716
+      },
+      {
+        "text": "đô",
+        "start": 27.756,
+        "end": 27.836
+      },
+      {
+        "text": "la",
+        "start": 27.876,
+        "end": 27.936
+      },
+      {
+        "text": "Mỹ,",
+        "start": 28.016,
+        "end": 28.156
+      }
+    ]
+  },
+  {
+    "act": 4,
+    "text": "tương đương mười một nghìn tỷ",
+    "start": 28.516,
+    "end": 29.396,
+    "words": [
+      {
+        "text": "tương",
+        "start": 28.516,
+        "end": 28.636
+      },
+      {
+        "text": "đương",
+        "start": 28.676,
+        "end": 28.776
+      },
+      {
+        "text": "mười",
+        "start": 28.816,
+        "end": 28.956
+      },
+      {
+        "text": "một",
+        "start": 28.996,
+        "end": 29.116
+      },
+      {
+        "text": "nghìn",
+        "start": 29.136,
+        "end": 29.256
+      },
+      {
+        "text": "tỷ",
+        "start": 29.316,
+        "end": 29.396
+      }
+    ]
+  },
+  {
+    "act": 4,
+    "text": "đồng",
+    "start": 29.435,
+    "end": 29.576,
+    "words": [
+      {
+        "text": "đồng",
+        "start": 29.435,
+        "end": 29.576
+      }
+    ]
+  },
+  {
+    "act": 5,
+    "text": "Theo cập nhật của Chứng khoán",
+    "start": 30.78,
+    "end": 31.76,
+    "words": [
+      {
+        "text": "Theo",
+        "start": 30.78,
+        "end": 30.88
+      },
+      {
+        "text": "cập",
+        "start": 30.94,
+        "end": 31.04
+      },
+      {
+        "text": "nhật",
+        "start": 31.08,
+        "end": 31.26
+      },
+      {
+        "text": "của",
+        "start": 31.28,
+        "end": 31.36
+      },
+      {
+        "text": "Chứng",
+        "start": 31.42,
+        "end": 31.54
+      },
+      {
+        "text": "khoán",
+        "start": 31.58,
+        "end": 31.76
+      }
+    ]
+  },
+  {
+    "act": 5,
+    "text": "Vetcap, số tiền góp thêm có",
+    "start": 31.82,
+    "end": 33.32,
+    "words": [
+      {
+        "text": "Vetcap,",
+        "start": 31.82,
+        "end": 32.28
+      },
+      {
+        "text": "số",
+        "start": 32.66,
+        "end": 32.74
+      },
+      {
+        "text": "tiền",
+        "start": 32.78,
+        "end": 32.92
+      },
+      {
+        "text": "góp",
+        "start": 32.94,
+        "end": 33.06
+      },
+      {
+        "text": "thêm",
+        "start": 33.1,
+        "end": 33.2
+      },
+      {
+        "text": "có",
+        "start": 33.24,
+        "end": 33.32
+      }
+    ]
+  },
+  {
+    "act": 5,
+    "text": "thể được Vinfast Việt Nam dùng",
+    "start": 33.34,
+    "end": 34.52,
+    "words": [
+      {
+        "text": "thể",
+        "start": 33.34,
+        "end": 33.46
+      },
+      {
+        "text": "được",
+        "start": 33.5,
+        "end": 33.62
+      },
+      {
+        "text": "Vinfast",
+        "start": 33.66,
+        "end": 34.0
+      },
+      {
+        "text": "Việt",
+        "start": 34.06,
+        "end": 34.18
+      },
+      {
+        "text": "Nam",
+        "start": 34.2,
+        "end": 34.34
+      },
+      {
+        "text": "dùng",
+        "start": 34.4,
+        "end": 34.52
+      }
+    ]
+  },
+  {
+    "act": 5,
+    "text": "để nhận chuyển nhượng Công ty",
+    "start": 34.7,
+    "end": 35.64,
+    "words": [
+      {
+        "text": "để",
+        "start": 34.7,
+        "end": 34.78
+      },
+      {
+        "text": "nhận",
+        "start": 34.8,
+        "end": 34.92
+      },
+      {
+        "text": "chuyển",
+        "start": 35.0,
+        "end": 35.16
+      },
+      {
+        "text": "nhượng",
+        "start": 35.2,
+        "end": 35.36
+      },
+      {
+        "text": "Công",
+        "start": 35.38,
+        "end": 35.48
+      },
+      {
+        "text": "ty",
+        "start": 35.56,
+        "end": 35.64
+      }
+    ]
+  },
+  {
+    "act": 5,
+    "text": "Bất động sản Ngọc Hồi,",
+    "start": 35.7,
+    "end": 36.52,
+    "words": [
+      {
+        "text": "Bất",
+        "start": 35.7,
+        "end": 35.8
+      },
+      {
+        "text": "động",
+        "start": 35.84,
+        "end": 35.94
+      },
+      {
+        "text": "sản",
+        "start": 36.04,
+        "end": 36.16
+      },
+      {
+        "text": "Ngọc",
+        "start": 36.18,
+        "end": 36.3
+      },
+      {
+        "text": "Hồi,",
+        "start": 36.34,
+        "end": 36.52
+      }
+    ]
+  },
+  {
+    "act": 5,
+    "text": "thành viên liên doanh chủ đầu",
+    "start": 36.9,
+    "end": 37.84,
+    "words": [
+      {
+        "text": "thành",
+        "start": 36.9,
+        "end": 37.02
+      },
+      {
+        "text": "viên",
+        "start": 37.08,
+        "end": 37.18
+      },
+      {
+        "text": "liên",
+        "start": 37.22,
+        "end": 37.32
+      },
+      {
+        "text": "doanh",
+        "start": 37.38,
+        "end": 37.54
+      },
+      {
+        "text": "chủ",
+        "start": 37.56,
+        "end": 37.66
+      },
+      {
+        "text": "đầu",
+        "start": 37.7,
+        "end": 37.84
+      }
+    ]
+  },
+  {
+    "act": 5,
+    "text": "tư dự án Olympic Ngọc Hồi",
+    "start": 37.88,
+    "end": 38.98,
+    "words": [
+      {
+        "text": "tư",
+        "start": 37.88,
+        "end": 37.96
+      },
+      {
+        "text": "dự",
+        "start": 38.04,
+        "end": 38.14
+      },
+      {
+        "text": "án",
+        "start": 38.2,
+        "end": 38.34
+      },
+      {
+        "text": "Olympic",
+        "start": 38.38,
+        "end": 38.62
+      },
+      {
+        "text": "Ngọc",
+        "start": 38.66,
+        "end": 38.78
+      },
+      {
+        "text": "Hồi",
+        "start": 38.82,
+        "end": 38.98
+      }
+    ]
+  },
+  {
+    "act": 6,
+    "text": "Ông Phạm Nhật Vượng hiện là",
+    "start": 40.22,
+    "end": 41.2,
+    "words": [
+      {
+        "text": "Ông",
+        "start": 40.22,
+        "end": 40.34
+      },
+      {
+        "text": "Phạm",
+        "start": 40.36,
+        "end": 40.5
+      },
+      {
+        "text": "Nhật",
+        "start": 40.54,
+        "end": 40.66
+      },
+      {
+        "text": "Vượng",
+        "start": 40.74,
+        "end": 40.86
+      },
+      {
+        "text": "hiện",
+        "start": 40.92,
+        "end": 41.08
+      },
+      {
+        "text": "là",
+        "start": 41.14,
+        "end": 41.2
+      }
+    ]
+  },
+  {
+    "act": 6,
+    "text": "người giàu nhất Việt Nam và",
+    "start": 41.26,
+    "end": 42.18,
+    "words": [
+      {
+        "text": "người",
+        "start": 41.26,
+        "end": 41.4
+      },
+      {
+        "text": "giàu",
+        "start": 41.44,
+        "end": 41.56
+      },
+      {
+        "text": "nhất",
+        "start": 41.58,
+        "end": 41.7
+      },
+      {
+        "text": "Việt",
+        "start": 41.76,
+        "end": 41.88
+      },
+      {
+        "text": "Nam",
+        "start": 41.94,
+        "end": 42.08
+      },
+      {
+        "text": "và",
+        "start": 42.12,
+        "end": 42.18
+      }
+    ]
+  },
+  {
+    "act": 6,
+    "text": "Đông Nam Á.",
+    "start": 42.22,
+    "end": 42.58,
+    "words": [
+      {
+        "text": "Đông",
+        "start": 42.22,
+        "end": 42.32
+      },
+      {
+        "text": "Nam",
+        "start": 42.36,
+        "end": 42.5
+      },
+      {
+        "text": "Á.",
+        "start": 42.54,
+        "end": 42.58
+      }
+    ]
+  },
+  {
+    "act": 6,
+    "text": "Tài sản hơn ba mươi bảy",
+    "start": 43.0,
+    "end": 43.88,
+    "words": [
+      {
+        "text": "Tài",
+        "start": 43.0,
+        "end": 43.14
+      },
+      {
+        "text": "sản",
+        "start": 43.18,
+        "end": 43.3
+      },
+      {
+        "text": "hơn",
+        "start": 43.34,
+        "end": 43.48
+      },
+      {
+        "text": "ba",
+        "start": 43.52,
+        "end": 43.58
+      },
+      {
+        "text": "mươi",
+        "start": 43.64,
+        "end": 43.74
+      },
+      {
+        "text": "bảy",
+        "start": 43.78,
+        "end": 43.88
+      }
+    ]
+  },
+  {
+    "act": 6,
+    "text": "tỷ đô la Mỹ,",
+    "start": 43.96,
+    "end": 44.44,
+    "words": [
+      {
+        "text": "tỷ",
+        "start": 43.96,
+        "end": 44.06
+      },
+      {
+        "text": "đô",
+        "start": 44.1,
+        "end": 44.16
+      },
+      {
+        "text": "la",
+        "start": 44.2,
+        "end": 44.3
+      },
+      {
+        "text": "Mỹ,",
+        "start": 44.32,
+        "end": 44.44
+      }
+    ]
+  },
+  {
+    "act": 6,
+    "text": "từng khẳng định sẽ đầu tư",
+    "start": 44.8,
+    "end": 45.72,
+    "words": [
+      {
+        "text": "từng",
+        "start": 44.8,
+        "end": 44.92
+      },
+      {
+        "text": "khẳng",
+        "start": 44.94,
+        "end": 45.08
+      },
+      {
+        "text": "định",
+        "start": 45.12,
+        "end": 45.22
+      },
+      {
+        "text": "sẽ",
+        "start": 45.3,
+        "end": 45.4
+      },
+      {
+        "text": "đầu",
+        "start": 45.42,
+        "end": 45.58
+      },
+      {
+        "text": "tư",
+        "start": 45.6,
+        "end": 45.72
+      }
+    ]
+  },
+  {
+    "act": 6,
+    "text": "vào VinFast đến khi nào hết",
+    "start": 45.76,
+    "end": 46.94,
+    "words": [
+      {
+        "text": "vào",
+        "start": 45.76,
+        "end": 45.88
+      },
+      {
+        "text": "VinFast",
+        "start": 45.92,
+        "end": 46.28
+      },
+      {
+        "text": "đến",
+        "start": 46.38,
+        "end": 46.48
+      },
+      {
+        "text": "khi",
+        "start": 46.52,
+        "end": 46.6
+      },
+      {
+        "text": "nào",
+        "start": 46.64,
+        "end": 46.76
+      },
+      {
+        "text": "hết",
+        "start": 46.8,
+        "end": 46.94
+      }
+    ]
+  },
+  {
+    "act": 6,
+    "text": "tiền mới thôi.",
+    "start": 46.96,
+    "end": 47.46,
+    "words": [
+      {
+        "text": "tiền",
+        "start": 46.96,
+        "end": 47.1
+      },
+      {
+        "text": "mới",
+        "start": 47.12,
+        "end": 47.24
+      },
+      {
+        "text": "thôi.",
+        "start": 47.28,
+        "end": 47.46
+      }
+    ]
+  },
+  {
+    "act": 6,
+    "text": "VinFast Việt Nam",
+    "start": 48.3,
+    "end": 49.02,
+    "words": [
+      {
+        "text": "VinFast",
+        "start": 48.3,
+        "end": 48.64
+      },
+      {
+        "text": "Việt",
+        "start": 48.7,
+        "end": 48.8
+      },
+      {
+        "text": "Nam",
+        "start": 48.86,
+        "end": 49.02
+      }
+    ]
+  },
+  {
+    "act": 6,
+    "text": "thành lập tháng Sáu năm nay",
+    "start": 49.32,
+    "end": 50.28,
+    "words": [
+      {
+        "text": "thành",
+        "start": 49.32,
+        "end": 49.44
+      },
+      {
+        "text": "lập",
+        "start": 49.52,
+        "end": 49.64
+      },
+      {
+        "text": "tháng",
+        "start": 49.66,
+        "end": 49.78
+      },
+      {
+        "text": "Sáu",
+        "start": 49.88,
+        "end": 49.98
+      },
+      {
+        "text": "năm",
+        "start": 50.02,
+        "end": 50.1
+      },
+      {
+        "text": "nay",
+        "start": 50.14,
+        "end": 50.28
+      }
+    ]
+  },
+  {
+    "act": 6,
+    "text": "hiện có vốn điều lệ hơn",
+    "start": 50.66,
+    "end": 51.6,
+    "words": [
+      {
+        "text": "hiện",
+        "start": 50.66,
+        "end": 50.82
+      },
+      {
+        "text": "có",
+        "start": 50.84,
+        "end": 50.96
+      },
+      {
+        "text": "vốn",
+        "start": 51.0,
+        "end": 51.12
+      },
+      {
+        "text": "điều",
+        "start": 51.16,
+        "end": 51.28
+      },
+      {
+        "text": "lệ",
+        "start": 51.32,
+        "end": 51.44
+      },
+      {
+        "text": "hơn",
+        "start": 51.46,
+        "end": 51.6
+      }
+    ]
+  },
+  {
+    "act": 6,
+    "text": "ba mươi lăm nghìn tỷ đồng",
+    "start": 51.64,
+    "end": 52.44,
+    "words": [
+      {
+        "text": "ba",
+        "start": 51.64,
+        "end": 51.72
+      },
+      {
+        "text": "mươi",
+        "start": 51.78,
+        "end": 51.86
+      },
+      {
+        "text": "lăm",
+        "start": 51.9,
+        "end": 52.0
+      },
+      {
+        "text": "nghìn",
+        "start": 52.02,
+        "end": 52.14
+      },
+      {
+        "text": "tỷ",
+        "start": 52.2,
+        "end": 52.28
+      },
+      {
+        "text": "đồng",
+        "start": 52.32,
+        "end": 52.44
+      }
+    ]
+  }
+]

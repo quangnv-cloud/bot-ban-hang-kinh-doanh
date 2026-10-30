@@ -1,0 +1,47 @@
+{
+  "acts": [
+    {
+      "n": 1,
+      "id": "01-hook",
+      "start": 0.0,
+      "duration": 4.192,
+      "voice_dur": 3.792
+    },
+    {
+      "n": 2,
+      "id": "02-what-happened",
+      "start": 4.192,
+      "duration": 11.104,
+      "voice_dur": 10.704
+    },
+    {
+      "n": 3,
+      "id": "03-key-facts",
+      "start": 15.296,
+      "duration": 10.12,
+      "voice_dur": 9.72
+    },
+    {
+      "n": 4,
+      "id": "04-data-moment",
+      "start": 25.416,
+      "duration": 5.104,
+      "voice_dur": 4.704
+    },
+    {
+      "n": 5,
+      "id": "05-context",
+      "start": 30.52,
+      "duration": 9.4,
+      "voice_dur": 9.0
+    },
+    {
+      "n": 6,
+      "id": "06-impact",
+      "start": 39.92,
+      "duration": 14.08,
+      "voice_dur": 13.08
+    }
+  ],
+  "total": 54.0
+}
