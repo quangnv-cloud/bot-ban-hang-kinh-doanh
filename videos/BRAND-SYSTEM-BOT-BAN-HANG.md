@@ -380,6 +380,24 @@ bằng mắt phần tử cuối cùng (card/số liệu/badge) kết thúc trong
 dừng sớm hơn ~1000px, phải thêm phần tử bổ sung (badge, biểu đồ mini, thẻ dẫn chứng thứ 2), không
 để trống.
 
+- **[QUAN TRỌNG — 2026-10-31] Dải caption karaoke chiếm 1 vùng dọc CỐ ĐỊNH (~1080-1300px trên khung
+  1920px, do `.cap-layer{bottom:650px}` trong `captions.html`) — bố cục riêng của từng act (ngoài
+  Hook, vốn không chạy caption) phải chủ động tránh vùng này cho MỌI text/stat chính, không dựa vào
+  `data-layout-allow-overlap` để "sửa" cảnh báo lint khi `npm run check` báo `content_overlap` —
+  thuộc tính đó chỉ che cảnh báo, không sửa việc 2 khối chữ đè lên nhau không đọc được qua mắt
+  thường. Quy tắc dựng khung cho mỗi act (trừ Hook): khối kicker/headline/intro nằm gọn **trên
+  1080px**, khối số liệu/thẻ chính nằm gọn **trong 1300-1680px** (đồng thời thoả luôn GATE "cân bằng
+  dọc" ở mục dưới), khoảng 1080-1300px để trống cho caption chạy qua. Luôn xác nhận bằng snapshot
+  Studio thumbnail thật (`http://localhost:<port>/api/projects/<id>/thumbnail/index.html?t=...`),
+  không chỉ tin `npm run check` xanh — lỗi đè chữ không phải lúc nào cũng bị lint bắt được ở mọi mốc
+  giờ nếu không sample đủ dày.
+- **[QUAN TRỌNG — 2026-10-31] Script tự sinh `captions.json` từ timestamp STT phải KẸP giới hạn
+  `end` của mỗi nhóm caption không được vượt quá `start` của nhóm kế tiếp** — nếu chỉ cộng thêm đệm
+  cố định (vd. `+0.3s`) vào `end` của từ cuối mỗi nhóm mà không so với nhóm sau, 2 nhóm liền kề có
+  thể chồng thời gian hiển thị (nhất là khi STT trả các từ liên tục sát nhau), khiến 2 dòng caption
+  khác nội dung bị vẽ đè lên nhau cùng lúc, không đọc được. Xem cách sửa (kẹp
+  `end = min(end, next.start - 0.05)`) ở `PRODUCTION-WORKFLOW-BOT-BAN-HANG.md` mục Audio/Caption.
+
 ## Final QC Checklist
 
 Brand (đúng #E8441E, logo cố định góc dưới-phải, không quá lớn) · Text (headline dễ đọc, số liệu

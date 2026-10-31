@@ -1,0 +1,120 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+      overflow: hidden;
+    }
+    #ctx-kicker {
+      position: absolute;
+      top: 240px; left: 56px;
+      display: inline-flex; align-items: center; gap: 10px;
+      border: 1.5px solid #E8441E;
+      border-radius: 8px;
+      padding: 9px 18px;
+      font-size: 22px; font-weight: 700; color: #E8441E;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      opacity: 0;
+    }
+    #ctx-headline {
+      position: absolute;
+      top: 340px; left: 56px; width: 968px;
+      font-size: 42px; font-weight: 700;
+      line-height: 1.32;
+      color: #ffffff;
+      opacity: 0;
+    }
+    #ctx-headline .hl { color: #E8441E; }
+    /* Chart deliberately anchored to end at 1680px and start no higher than
+       1300px — below the karaoke caption band (~1080-1300px) so the bars
+       and their labels never collide with captions. */
+    #ctx-chart {
+      position: absolute;
+      top: 1300px; left: 56px; width: 968px; height: 380px;
+    }
+    .ctx-col {
+      position: absolute;
+      bottom: 0;
+      width: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .ctx-bar-track {
+      width: 100%;
+      height: 140px;
+      display: flex;
+      align-items: flex-end;
+      border-bottom: 2px solid rgba(255,255,255,0.18);
+    }
+    .ctx-bar {
+      width: 92px;
+      margin: 0 auto;
+      border-radius: 6px 6px 0 0;
+      transform-origin: bottom;
+      transform: scaleY(0);
+      opacity: 0;
+    }
+    .ctx-label {
+      margin-top: 14px;
+      font-size: 20px; font-weight: 600;
+      color: rgba(255,255,255,0.65);
+      text-align: center;
+      line-height: 1.28;
+      opacity: 0;
+    }
+    .ctx-value {
+      margin-bottom: 10px;
+      font-size: 26px; font-weight: 800;
+      color: #ffffff;
+      text-align: center;
+      opacity: 0;
+    }
+  </style>
+  <div data-hf-id="hf-3o8a" id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-rh0y" id="ctx-kicker"><span data-hf-id="hf-37ck">Vì Sao Quý 3 Đi Ngang</span></div>
+    <div data-hf-id="hf-h1pp" id="ctx-headline">
+      Doanh thu tăng mạnh, nhưng <span data-hf-id="hf-wdd1" class="hl">dự phòng rủi ro tín dụng</span> tăng còn mạnh hơn
+    </div>
+    <div data-hf-id="hf-biwj" id="ctx-chart">
+      <div data-hf-id="hf-5mzg" class="ctx-col" id="ctx-col-1" style="left:0;">
+        <div data-hf-id="hf-4mt9" class="ctx-bar-track"><div data-hf-id="hf-gss9" class="ctx-bar" id="ctx-bar-1" style="height:38%; background:#E8441E;"></div></div>
+        <div data-hf-id="hf-qjgs" class="ctx-value" id="ctx-val-1">+35%</div>
+        <div data-hf-id="hf-irya" class="ctx-label">Thu nhập<br data-hf-id="hf-x5px">lãi thuần</div>
+      </div>
+      <div data-hf-id="hf-tu9i" class="ctx-col" id="ctx-col-2" style="left:263px;">
+        <div data-hf-id="hf-8e4x" class="ctx-bar-track"><div data-hf-id="hf-etsj" class="ctx-bar" id="ctx-bar-2" style="height:44%; background:#E8441E;"></div></div>
+        <div data-hf-id="hf-eb4l" class="ctx-value" id="ctx-val-2">+37%</div>
+        <div data-hf-id="hf-4u55" class="ctx-label">Tổng thu nhập<br data-hf-id="hf-rsrt">hoạt động</div>
+      </div>
+      <div data-hf-id="hf-mo05" class="ctx-col" id="ctx-col-3" style="left:526px;">
+        <div data-hf-id="hf-9l20" class="ctx-bar-track"><div data-hf-id="hf-trxy" class="ctx-bar" id="ctx-bar-3" style="height:68%; background:rgba(255,255,255,0.38);"></div></div>
+        <div data-hf-id="hf-ouvy" class="ctx-value" id="ctx-val-3">x4</div>
+        <div data-hf-id="hf-d3s3" class="ctx-label">Dự phòng<br data-hf-id="hf-szow">rủi ro (9 tháng)</div>
+      </div>
+      <div data-hf-id="hf-nzs3" class="ctx-col" id="ctx-col-4" style="left:789px;">
+        <div data-hf-id="hf-96qz" class="ctx-bar-track"><div data-hf-id="hf-pp9p" class="ctx-bar" id="ctx-bar-4" style="height:96%; background:rgba(255,255,255,0.55);"></div></div>
+        <div data-hf-id="hf-3b59" class="ctx-value" id="ctx-val-4">x8</div>
+        <div data-hf-id="hf-9soq" class="ctx-label">Dự phòng<br data-hf-id="hf-sldv">rủi ro (quý 3)</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#ctx-kicker", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.05);
+    tl.fromTo("#ctx-headline", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.4);
+
+    const cols = [1, 2, 3, 4];
+    cols.forEach(function (n, i) {
+      const t = 1.1 + i * 0.3;
+      tl.to("#ctx-bar-" + n, { scaleY: 1, opacity: 1, duration: 0.5, ease: "power2.out" }, t);
+      tl.fromTo("#ctx-val-" + n, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, t + 0.35);
+      tl.fromTo("#ctx-col-" + n + " .ctx-label", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, t + 0.15);
+    });
+
+    window.__timelines["05-context"] = tl;
+  </script>
+</template>

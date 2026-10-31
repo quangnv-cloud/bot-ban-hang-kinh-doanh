@@ -2367,6 +2367,28 @@ thêm sẽ đọc được) trước khi hết ngày 30/10/2026, nếu không ph
 từng dùng thử lần nào, (2) kiểm tra dashboard/gói Vbee tài khoản GỐC / liên hệ hỗ trợ Vbee trực
 tiếp để biết chu kỳ reset quota thật.
 
+**[2026-10-31 — bài học mới, video `vietcombank-lai-40400-ty-9-thang`, style 10-stock-terminal]**
+Vbee TTS tài khoản GỐC xác nhận đã hoạt động bình thường trở lại (quota resolved từ 2026-10-30 theo
+log trong git — xem commit `fde113b`), đúng lúc cửa sổ tài khoản TẠM hết hạn (31/10/2026) nên routine
+tự quay lại GỐC như thiết kế — không còn block.
+
+Hai bài học kỹ thuật caption (chi tiết đầy đủ ở `BRAND-SYSTEM-BOT-BAN-HANG.md` mục "Bài học kỹ thuật
+từ các lần dựng trước"):
+1. Dải caption karaoke chiếm cố định ~1080-1300px theo chiều dọc khung 1920px — bố cục mỗi act (trừ
+   Hook) phải tự tránh vùng này cho nội dung chính, không dùng `data-layout-allow-overlap` để che
+   cảnh báo lint thay vì sửa chồng chữ thật. Luôn xác nhận bằng snapshot Studio thumbnail thật, không
+   chỉ tin `npm run check` xanh.
+2. Script tự sinh `captions.json` từ timestamp STT (chunk N-từ liên tiếp) phải kẹp
+   `group[i].end = min(group[i].end, group[i+1].start - 0.05)` sau khi cộng đệm cố định vào cuối mỗi
+   nhóm — nếu không, 2 nhóm caption liền kề có thể chồng thời gian hiển thị khi STT trả các từ sát
+   nhau, khiến 2 dòng nội dung khác nhau bị vẽ đè lên nhau cùng lúc.
+
+Verify đầy đủ: duration 57.70-57.80s, loudness -14.2 LUFS / -1.4 dBTP sau loudnorm 2-pass, không
+khoảng lặng bất thường, cân bằng dọc đạt chuẩn (nội dung chính của 3/5 act giữa nằm trong
+1300-1680px sau khi sửa lại bố cục), transcript Gemini multimodal khớp sát script (2 sai lệch nhỏ về
+chữ số là lỗi ASR khi nghe qua nhạc nền, đã đối chiếu lại với STT từng dòng gốc lúc sinh voice —
+xác nhận giọng đọc đúng).
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu

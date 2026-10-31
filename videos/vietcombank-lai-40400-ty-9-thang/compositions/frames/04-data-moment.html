@@ -1,0 +1,115 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+      overflow: hidden;
+    }
+    #dm-ticker-code {
+      position: absolute;
+      top: 300px; left: 0; right: 0;
+      text-align: center;
+      font-size: 30px; font-weight: 700; letter-spacing: 0.12em;
+      color: #E8441E;
+      opacity: 0;
+    }
+    #dm-chart-wrap {
+      position: absolute;
+      top: 420px; left: 56px; width: 968px; height: 340px;
+      opacity: 0;
+    }
+    #dm-chart-wrap svg { width: 100%; height: 100%; display: block; }
+    #dm-chart-path {
+      fill: none;
+      stroke: #E8441E;
+      stroke-width: 5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    #dm-number-wrap {
+      position: absolute;
+      top: 700px; left: 0; right: 0;
+      text-align: center;
+    }
+    #dm-number {
+      font-size: 168px;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    #dm-unit {
+      margin-top: 14px;
+      font-size: 36px; font-weight: 700;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.7);
+      text-transform: uppercase;
+    }
+    #dm-compare {
+      position: absolute;
+      top: 1300px; left: 56px; width: 968px;
+      border-top: 1px solid rgba(255,255,255,0.14);
+      padding-top: 40px;
+      opacity: 0;
+    }
+    #dm-compare-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 16px;
+      font-size: 30px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.8);
+      text-align: center;
+    }
+    #dm-compare-row .emph { color: #E8441E; font-weight: 800; }
+    #dm-compare-sub {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+    }
+  </style>
+  <div data-hf-id="hf-o51p" id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-hh7r" id="dm-ticker-code">VCB &middot; LỢI NHUẬN TRƯỚC THUẾ 9 THÁNG</div>
+    <div data-hf-id="hf-fapo" id="dm-chart-wrap">
+      <svg data-hf-id="hf-kfvx" viewBox="0 0 968 340" preserveAspectRatio="none">
+        <path data-hf-id="hf-cjvi" id="dm-chart-path" d="M 10 300 L 170 270 L 330 250 L 490 190 L 650 150 L 810 80 L 958 40" />
+      </svg>
+    </div>
+    <div data-hf-id="hf-81xj" id="dm-number-wrap">
+      <div data-hf-id="hf-5976" id="dm-number">0</div>
+      <div data-hf-id="hf-0930" id="dm-unit">Tỷ Đồng</div>
+    </div>
+    <div data-hf-id="hf-sxg6" id="dm-compare">
+      <div data-hf-id="hf-ziwm" id="dm-compare-row">Vượt nhóm <span data-hf-id="hf-py6b" class="emph">VPBank &middot; BIDV &middot; Techcombank</span></div>
+      <div data-hf-id="hf-r6wg" id="dm-compare-sub">Cao hơn khoảng 10.000 tỷ đồng mỗi ngân hàng trong cùng kỳ</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const path = document.getElementById("dm-chart-path");
+    const len = path.getTotalLength();
+    path.style.strokeDasharray = len;
+    path.style.strokeDashoffset = len;
+
+    const numEl = document.getElementById("dm-number");
+    const counter = { v: 0 };
+
+    tl.fromTo("#dm-ticker-code", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.05);
+    tl.fromTo("#dm-chart-wrap", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 0.3);
+    tl.to(path, { strokeDashoffset: 0, duration: 1.1, ease: "power2.inOut" }, 0.35);
+    tl.to(counter, {
+      v: 40400,
+      duration: 1.1,
+      ease: "power2.out",
+      onUpdate: function () { numEl.textContent = Math.round(counter.v).toLocaleString("vi-VN"); }
+    }, 0.35);
+    tl.fromTo("#dm-compare", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 1.6);
+
+    window.__timelines["04-data-moment"] = tl;
+  </script>
+</template>
