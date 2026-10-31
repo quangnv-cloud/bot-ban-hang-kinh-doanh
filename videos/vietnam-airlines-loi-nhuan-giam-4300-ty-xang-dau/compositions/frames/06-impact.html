@@ -1,0 +1,78 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .im-kicker {
+      position: absolute; top: 300px; left: 0; width: 100%; text-align: center;
+      font-weight: 700; font-size: 26px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #E8441E; opacity: 0;
+    }
+    .im-headline {
+      position: absolute; top: 374px; left: 90px; right: 90px; text-align: center;
+      font-weight: 800; font-size: 46px; line-height: 1.3; color: #ffffff; opacity: 0;
+    }
+    .im-headline .hl { color: #E8441E; }
+    #im-rows {
+      position: absolute; top: 1330px; left: 70px; width: 940px;
+    }
+    .im-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+      padding: 24px 0;
+      border-bottom: 1.5px solid rgba(232,68,30,0.35);
+      opacity: 0;
+    }
+    .im-row:last-child { border-bottom: none; }
+    .im-row-label {
+      font-size: 28px; font-weight: 700; color: rgba(255,255,255,0.75);
+    }
+    .im-row-value {
+      text-align: right; font-size: 36px; font-weight: 800; color: #ffffff;
+      white-space: nowrap;
+    }
+    .im-row-value .arrow.down { color: #E8441E; }
+    #im-badge-row {
+      display: flex; align-items: center; justify-content: center;
+      padding: 26px 0 6px 0;
+      opacity: 0;
+    }
+    #im-badge {
+      display: inline-flex; align-items: center; gap: 12px;
+      background: rgba(232,68,30,0.14);
+      border: 1.5px solid #E8441E;
+      border-radius: 12px;
+      padding: 16px 28px;
+    }
+    #im-badge span { font-size: 28px; font-weight: 800; color: #ffffff; letter-spacing: 0.02em; }
+  </style>
+  <div id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <div class="im-kicker" id="imKicker">Lũy kế 9 tháng 2026</div>
+    <div class="im-headline" id="imHeadline">Lợi nhuận 9 tháng vẫn <span class="hl">vượt xa kế hoạch cả năm</span></div>
+    <div id="im-rows">
+      <div class="im-row" id="imRow1">
+        <div class="im-row-label">Lợi nhuận sau thuế 9 tháng</div>
+        <div class="im-row-value"><span class="arrow down">&#9660;</span> 4.171 tỷ (-42%)</div>
+      </div>
+      <div class="im-row" id="imRow2">
+        <div class="im-row-label">Kế hoạch lợi nhuận cả năm 2026</div>
+        <div class="im-row-value">22 tỷ đồng</div>
+      </div>
+      <div id="im-badge-row">
+        <div id="im-badge">
+          <span>&#10003; ĐÃ VƯỢT KẾ HOẠCH CẢ NĂM</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#imKicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.1);
+    tl.fromTo("#imHeadline", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.35);
+    tl.fromTo("#imRow1", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, 1.1);
+    tl.fromTo("#imRow2", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, 2.6);
+    tl.fromTo("#im-badge-row", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 4.1);
+    window.__timelines["06-impact"] = tl;
+  </script>
+</template>

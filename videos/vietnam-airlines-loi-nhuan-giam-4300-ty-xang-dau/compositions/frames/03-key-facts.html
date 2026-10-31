@@ -1,0 +1,84 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .kf-kicker {
+      position: absolute; top: 300px; left: 0; width: 100%; text-align: center;
+      font-weight: 700; font-size: 26px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #E8441E; opacity: 0;
+    }
+    .kf-headline {
+      position: absolute; top: 374px; left: 90px; right: 90px; text-align: center;
+      font-weight: 800; font-size: 46px; line-height: 1.3; color: #ffffff; opacity: 0;
+    }
+    #kf-terminal {
+      position: absolute; top: 1310px; left: 70px; width: 940px;
+      border: 1.5px solid rgba(232,68,30,0.5);
+      border-radius: 16px;
+      background: rgba(17,17,17,0.72);
+      box-shadow: 0 0 40px rgba(232,68,30,0.14);
+      padding: 28px 40px 32px 40px;
+    }
+    #kf-terminal-head {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 22px;
+    }
+    #kf-terminal-head .dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.22); }
+    #kf-terminal-head .dot.active { background: #E8441E; }
+    #kf-terminal-head span {
+      margin-left: 10px;
+      font-size: 22px; font-weight: 600; color: rgba(255,255,255,0.5); letter-spacing: 0.04em;
+    }
+    .kf-row {
+      position: relative;
+      display: flex; align-items: baseline; gap: 16px;
+      margin-top: 22px;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .kf-row:first-of-type { margin-top: 0; }
+    .kf-arrow { font-size: 34px; font-weight: 800; flex-shrink: 0; }
+    .kf-arrow.down { color: #ffffff; }
+    .kf-arrow.up { color: #E8441E; }
+    .kf-label { font-size: 30px; font-weight: 700; color: #ffffff; }
+    .kf-value { font-size: 30px; font-weight: 800; color: #E8441E; }
+    .kf-pct { font-size: 26px; font-weight: 700; color: rgba(255,255,255,0.6); }
+    .kf-reveal { clip-path: inset(0 100% 0 0); }
+  </style>
+  <div id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <div class="kf-kicker" id="kfKicker">Số liệu chính</div>
+    <div class="kf-headline" id="kfHeadline">Lợi nhuận giảm dù doanh thu vẫn tăng</div>
+    <div id="kf-terminal">
+      <div id="kf-terminal-head">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <span>HVN &middot; QUÝ 3/2026</span>
+      </div>
+      <div class="kf-row" id="kfRow1">
+        <span class="kf-reveal" id="kfRow1Text"><span class="kf-arrow down">&#9660;</span> <span class="kf-label">Lợi nhuận sau thuế:</span> <span class="kf-value">320 tỷ</span> <span class="kf-pct">(-56%)</span></span>
+      </div>
+      <div class="kf-row" id="kfRow2">
+        <span class="kf-reveal" id="kfRow2Text"><span class="kf-arrow up">&#9650;</span> <span class="kf-label">Chi phí nhiên liệu:</span> <span class="kf-value">+4.360 tỷ</span> <span class="kf-pct">(+61,1%)</span></span>
+      </div>
+      <div class="kf-row" id="kfRow3">
+        <span class="kf-reveal" id="kfRow3Text"><span class="kf-arrow up">&#9650;</span> <span class="kf-label">Doanh thu hợp nhất:</span> <span class="kf-value">39.168 tỷ</span> <span class="kf-pct">(+29%)</span></span>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#kfKicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.1);
+    tl.fromTo("#kfHeadline", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.35);
+    tl.fromTo("#kf-terminal", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.9);
+
+    tl.fromTo("#kfRow1Text", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.9, ease: "none" }, 1.5);
+    tl.fromTo("#kfRow2Text", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.9, ease: "none" }, 3.4);
+    tl.fromTo("#kfRow3Text", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.9, ease: "none" }, 5.3);
+
+    window.__timelines["03-key-facts"] = tl;
+  </script>
+</template>

@@ -1,0 +1,72 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .dm-kicker {
+      position: absolute; top: 300px; left: 0; width: 100%; text-align: center;
+      font-weight: 700; font-size: 26px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #E8441E; opacity: 0;
+    }
+    #dm-code {
+      position: absolute; top: 374px; left: 0; width: 100%; text-align: center;
+      font-weight: 800; font-size: 32px; letter-spacing: 0.1em; color: rgba(255,255,255,0.55);
+      opacity: 0;
+    }
+    #dm-code span { color: #E8441E; }
+    #dm-rule-top, #dm-rule-bottom {
+      position: absolute; left: 140px; width: 800px; height: 2px;
+      background: rgba(232,68,30,0.5);
+      transform: scaleX(0);
+    }
+    #dm-rule-top { top: 1320px; }
+    #dm-rule-bottom { top: 1552px; }
+    #dm-number-wrap {
+      position: absolute; top: 1340px; left: 0; width: 100%; text-align: center;
+    }
+    #dm-number {
+      display: inline-block;
+      font-weight: 900; font-size: 172px; line-height: 1; color: #ffffff;
+      letter-spacing: -0.02em;
+      opacity: 0;
+    }
+    #dm-number .sign { color: #E8441E; }
+    #dmSub {
+      position: absolute; top: 1592px; left: 90px; right: 90px; text-align: center;
+      font-weight: 600; font-size: 32px; line-height: 1.4; color: rgba(255,255,255,0.78);
+      opacity: 0;
+    }
+  </style>
+  <div id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+    <div class="dm-kicker" id="dmKicker">Số liệu quan trọng nhất</div>
+    <div id="dm-code"><span>HVN</span> &middot; VIETNAM AIRLINES &middot; QUÝ 3/2026</div>
+    <div id="dm-rule-top"></div>
+    <div id="dm-number-wrap">
+      <div id="dm-number"><span class="sign">&#8722;</span><span id="dmCountup">0</span>%</div>
+    </div>
+    <div id="dm-rule-bottom"></div>
+    <div id="dmSub">Lợi nhuận sau thuế quý 3 so với cùng kỳ năm 2025</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#dmKicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.1);
+    tl.fromTo("#dm-code", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 0.5);
+    tl.fromTo("#dm-rule-top", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.out" }, 0.85);
+    tl.fromTo("#dm-rule-bottom", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.out" }, 0.85);
+    tl.fromTo("#dm-number", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" }, 1.15);
+
+    var countEl = document.getElementById("dmCountup");
+    var counter = { val: 0 };
+    tl.to(counter, {
+      val: 56,
+      duration: 1.1,
+      ease: "power1.out",
+      onUpdate: function () { countEl.textContent = Math.round(counter.val); },
+    }, 1.2);
+
+    tl.fromTo("#dmSub", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 2.5);
+    window.__timelines["04-data-moment"] = tl;
+  </script>
+</template>

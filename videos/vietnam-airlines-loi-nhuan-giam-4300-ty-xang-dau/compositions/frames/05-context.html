@@ -1,0 +1,90 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .ctx-kicker {
+      position: absolute; top: 300px; left: 0; width: 100%; text-align: center;
+      font-weight: 700; font-size: 26px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #E8441E; opacity: 0;
+    }
+    .ctx-headline {
+      position: absolute; top: 374px; left: 90px; right: 90px; text-align: center;
+      font-weight: 800; font-size: 44px; line-height: 1.3; color: #ffffff; opacity: 0;
+    }
+    #ctx-rows {
+      position: absolute; top: 1320px; left: 70px; width: 940px;
+    }
+    .ctx-row {
+      display: flex; align-items: center; gap: 20px;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      opacity: 0;
+    }
+    .ctx-row:last-child { border-bottom: none; }
+    .ctx-row-label {
+      width: 220px; flex-shrink: 0;
+      font-size: 25px; font-weight: 700; color: rgba(255,255,255,0.65);
+    }
+    .ctx-row-spark { width: 190px; height: 44px; flex-shrink: 0; }
+    .ctx-row-spark path {
+      fill: none; stroke: #E8441E; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .ctx-row-value {
+      flex: 1; text-align: right;
+      font-size: 30px; font-weight: 800; color: #ffffff;
+      white-space: nowrap;
+    }
+    .ctx-row-value .arrow.up { color: #ffffff; }
+    .ctx-row-value .arrow.down { color: #E8441E; }
+  </style>
+  <div id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div class="ctx-kicker" id="ctxKicker">Diễn biến theo quý</div>
+    <div class="ctx-headline" id="ctxHeadline">Lợi nhuận hồi phục nhưng vẫn thấp hơn cùng kỳ</div>
+    <div id="ctx-rows">
+      <div class="ctx-row" id="ctxRow1">
+        <div class="ctx-row-label">Quý 3/2025</div>
+        <svg class="ctx-row-spark" viewBox="0 0 190 44"><path id="spark1" d="M4,30 L50,22 L96,28 L142,14 L186,10"/></svg>
+        <div class="ctx-row-value"><span class="arrow up">&#9650;</span> Lãi 732 tỷ</div>
+      </div>
+      <div class="ctx-row" id="ctxRow2">
+        <div class="ctx-row-label">Quý 2/2026</div>
+        <svg class="ctx-row-spark" viewBox="0 0 190 44"><path id="spark2" d="M4,10 L50,20 L96,16 L142,32 L186,40"/></svg>
+        <div class="ctx-row-value"><span class="arrow down">&#9660;</span> Lỗ 606 tỷ</div>
+      </div>
+      <div class="ctx-row" id="ctxRow3">
+        <div class="ctx-row-label">Quý 3/2026</div>
+        <svg class="ctx-row-spark" viewBox="0 0 190 44"><path id="spark3" d="M4,38 L50,30 L96,34 L142,20 L186,16"/></svg>
+        <div class="ctx-row-value"><span class="arrow up">&#9650;</span> Lãi 320 tỷ</div>
+      </div>
+      <div class="ctx-row" id="ctxRow4">
+        <div class="ctx-row-label">Công ty mẹ, Q3/2026</div>
+        <svg class="ctx-row-spark" viewBox="0 0 190 44"><path id="spark4" d="M4,12 L50,16 L96,22 L142,30 L186,38"/></svg>
+        <div class="ctx-row-value"><span class="arrow down">&#9660;</span> Lỗ 284 tỷ</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#ctxKicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.1);
+    tl.fromTo("#ctxHeadline", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.35);
+
+    var rowStarts = [1.1, 3.0, 5.0, 7.3];
+    var sparkIds = ["spark1", "spark2", "spark3", "spark4"];
+    var rowIds = ["#ctxRow1", "#ctxRow2", "#ctxRow3", "#ctxRow4"];
+
+    rowIds.forEach(function (sel, i) {
+      var t = rowStarts[i];
+      tl.fromTo(sel, { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, t);
+      var path = document.getElementById(sparkIds[i]);
+      var len = path.getTotalLength();
+      path.style.strokeDasharray = len;
+      path.style.strokeDashoffset = len;
+      tl.to(path, { strokeDashoffset: 0, duration: 0.8, ease: "power1.inOut" }, t + 0.15);
+    });
+
+    window.__timelines["05-context"] = tl;
+  </script>
+</template>
