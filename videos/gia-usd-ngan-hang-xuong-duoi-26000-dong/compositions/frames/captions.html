@@ -1,0 +1,430 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+    }
+    .cap-layer {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 650px;
+      width: 880px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: visible;
+    }
+    .cap-group {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 0;
+      width: 880px;
+      text-align: center;
+      font-weight: 800;
+      font-size: 52px;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      opacity: 0;
+      visibility: visible;
+      text-shadow: 0 2px 18px rgba(0,0,0,0.55), 0 1px 3px rgba(0,0,0,0.6);
+    }
+    .cap-group .w {
+      color: rgba(255,255,255,0.72);
+    }
+  </style>
+  <div id="root" data-composition-id="captions" data-width="1080" data-height="1920">
+    <div class="cap-layer">
+      <div class="cap-group" id="cap0" data-act="what-happened"><span class="w" id="cap0_w0">Sáng</span> <span class="w" id="cap0_w1">31/10,</span> <span class="w" id="cap0_w2">các</span> <span class="w" id="cap0_w3">ngân</span> <span class="w" id="cap0_w4">hàng</span> <span class="w" id="cap0_w5">quốc</span></div>
+    <div class="cap-group" id="cap1" data-act="what-happened"><span class="w" id="cap1_w0">doanh</span> <span class="w" id="cap1_w1">lớn</span> <span class="w" id="cap1_w2">đồng</span> <span class="w" id="cap1_w3">loạt</span> <span class="w" id="cap1_w4">giảm</span> <span class="w" id="cap1_w5">giá</span></div>
+    <div class="cap-group" id="cap2" data-act="what-happened"><span class="w" id="cap2_w0">đô</span> <span class="w" id="cap2_w1">la</span> <span class="w" id="cap2_w2">Mỹ,</span> <span class="w" id="cap2_w3">đưa</span> <span class="w" id="cap2_w4">tỷ</span> <span class="w" id="cap2_w5">giá</span></div>
+    <div class="cap-group" id="cap3" data-act="what-happened"><span class="w" id="cap3_w0">bán</span> <span class="w" id="cap3_w1">ra</span> <span class="w" id="cap3_w2">xuống</span> <span class="w" id="cap3_w3">dưới</span> <span class="w" id="cap3_w4">hai</span> <span class="w" id="cap3_w5">mươi</span></div>
+    <div class="cap-group" id="cap4" data-act="what-happened"><span class="w" id="cap4_w0">sáu</span> <span class="w" id="cap4_w1">nghìn</span> <span class="w" id="cap4_w2">đồng</span> <span class="w" id="cap4_w3">mỗi</span> <span class="w" id="cap4_w4">đô</span> <span class="w" id="cap4_w5">la</span></div>
+    <div class="cap-group" id="cap5" data-act="what-happened"><span class="w" id="cap5_w0">ở</span> <span class="w" id="cap5_w1">cả</span> <span class="w" id="cap5_w2">chiều</span> <span class="w" id="cap5_w3">mua</span> <span class="w" id="cap5_w4">và</span> <span class="w" id="cap5_w5">chiều</span></div>
+    <div class="cap-group" id="cap6" data-act="what-happened"><span class="w" id="cap6_w0">bán,</span> <span class="w" id="cap6_w1">lần</span> <span class="w" id="cap6_w2">đầu</span> <span class="w" id="cap6_w3">tiên</span> <span class="w" id="cap6_w4">kể</span> <span class="w" id="cap6_w5">từ</span></div>
+    <div class="cap-group" id="cap7" data-act="what-happened"><span class="w" id="cap7_w0">giữa</span> <span class="w" id="cap7_w1">tháng</span> <span class="w" id="cap7_w2">Tư</span> <span class="w" id="cap7_w3">năm</span> <span class="w" id="cap7_w4">2025.</span></div>
+    <div class="cap-group" id="cap8" data-act="key-facts"><span class="w" id="cap8_w0">Vietcombank</span> <span class="w" id="cap8_w1">mua</span> <span class="w" id="cap8_w2">vào</span> <span class="w" id="cap8_w3">hai</span> <span class="w" id="cap8_w4">mươi</span> <span class="w" id="cap8_w5">lăm</span></div>
+    <div class="cap-group" id="cap9" data-act="key-facts"><span class="w" id="cap9_w0">nghìn</span> <span class="w" id="cap9_w1">sáu</span> <span class="w" id="cap9_w2">trăm</span> <span class="w" id="cap9_w3">mười</span> <span class="w" id="cap9_w4">đồng,</span> <span class="w" id="cap9_w5">bán</span></div>
+    <div class="cap-group" id="cap10" data-act="key-facts"><span class="w" id="cap10_w0">ra</span> <span class="w" id="cap10_w1">hai</span> <span class="w" id="cap10_w2">mươi</span> <span class="w" id="cap10_w3">lăm</span> <span class="w" id="cap10_w4">nghìn</span> <span class="w" id="cap10_w5">chín</span></div>
+    <div class="cap-group" id="cap11" data-act="key-facts"><span class="w" id="cap11_w0">trăm</span> <span class="w" id="cap11_w1">chín</span> <span class="w" id="cap11_w2">mươi</span> <span class="w" id="cap11_w3">đồng</span> <span class="w" id="cap11_w4">mỗi</span> <span class="w" id="cap11_w5">đô</span></div>
+    <div class="cap-group" id="cap12" data-act="key-facts"><span class="w" id="cap12_w0">la.</span> <span class="w" id="cap12_w1">Vietinbank</span> <span class="w" id="cap12_w2">và</span> <span class="w" id="cap12_w3">BIDV</span> <span class="w" id="cap12_w4">cũng</span> <span class="w" id="cap12_w5">bán</span></div>
+    <div class="cap-group" id="cap13" data-act="key-facts"><span class="w" id="cap13_w0">ra</span> <span class="w" id="cap13_w1">quanh</span> <span class="w" id="cap13_w2">hai</span> <span class="w" id="cap13_w3">mươi</span> <span class="w" id="cap13_w4">lăm</span> <span class="w" id="cap13_w5">nghìn</span></div>
+    <div class="cap-group" id="cap14" data-act="key-facts"><span class="w" id="cap14_w0">chín</span> <span class="w" id="cap14_w1">trăm</span> <span class="w" id="cap14_w2">tám</span> <span class="w" id="cap14_w3">mươi</span> <span class="w" id="cap14_w4">đồng</span></div>
+    <div class="cap-group" id="cap15" data-act="data-moment"><span class="w" id="cap15_w0">Tính</span> <span class="w" id="cap15_w1">từ</span> <span class="w" id="cap15_w2">cuối</span> <span class="w" id="cap15_w3">năm</span> <span class="w" id="cap15_w4">2025,</span> <span class="w" id="cap15_w5">tỷ</span></div>
+    <div class="cap-group" id="cap16" data-act="data-moment"><span class="w" id="cap16_w0">giá</span> <span class="w" id="cap16_w1">ngân</span> <span class="w" id="cap16_w2">hàng</span> <span class="w" id="cap16_w3">đã</span> <span class="w" id="cap16_w4">giảm</span> <span class="w" id="cap16_w5">khoảng</span></div>
+    <div class="cap-group" id="cap17" data-act="data-moment"><span class="w" id="cap17_w0">ba</span> <span class="w" id="cap17_w1">trăm</span> <span class="w" id="cap17_w2">sáu</span> <span class="w" id="cap17_w3">mươi</span> <span class="w" id="cap17_w4">đồng</span> <span class="w" id="cap17_w5">mỗi</span></div>
+    <div class="cap-group" id="cap18" data-act="data-moment"><span class="w" id="cap18_w0">đô</span> <span class="w" id="cap18_w1">la,</span> <span class="w" id="cap18_w2">tương</span> <span class="w" id="cap18_w3">đương</span> <span class="w" id="cap18_w4">một</span> <span class="w" id="cap18_w5">phần</span></div>
+    <div class="cap-group" id="cap19" data-act="data-moment"><span class="w" id="cap19_w0">ba</span> <span class="w" id="cap19_w1">mươi</span> <span class="w" id="cap19_w2">lăm</span> <span class="w" id="cap19_w3">phần</span> <span class="w" id="cap19_w4">trăm,</span> <span class="w" id="cap19_w5">xuống</span></div>
+    <div class="cap-group" id="cap20" data-act="data-moment"><span class="w" id="cap20_w0">mức</span> <span class="w" id="cap20_w1">thấp</span> <span class="w" id="cap20_w2">nhất</span> <span class="w" id="cap20_w3">kể</span> <span class="w" id="cap20_w4">từ</span> <span class="w" id="cap20_w5">tháng</span></div>
+    <div class="cap-group" id="cap21" data-act="data-moment"><span class="w" id="cap21_w0">Tư</span> <span class="w" id="cap21_w1">năm</span> <span class="w" id="cap21_w2">2025</span></div>
+    <div class="cap-group" id="cap22" data-act="context"><span class="w" id="cap22_w0">Nguyên</span> <span class="w" id="cap22_w1">nhân</span> <span class="w" id="cap22_w2">đến</span> <span class="w" id="cap22_w3">từ</span> <span class="w" id="cap22_w4">bên</span> <span class="w" id="cap22_w5">ngoài,</span></div>
+    <div class="cap-group" id="cap23" data-act="context"><span class="w" id="cap23_w0">lợi</span> <span class="w" id="cap23_w1">suất</span> <span class="w" id="cap23_w2">trái</span> <span class="w" id="cap23_w3">phiếu</span> <span class="w" id="cap23_w4">kho</span> <span class="w" id="cap23_w5">bạc</span></div>
+    <div class="cap-group" id="cap24" data-act="context"><span class="w" id="cap24_w0">Mỹ</span> <span class="w" id="cap24_w1">giảm</span> <span class="w" id="cap24_w2">cùng</span> <span class="w" id="cap24_w3">lo</span> <span class="w" id="cap24_w4">ngại</span> <span class="w" id="cap24_w5">về</span></div>
+    <div class="cap-group" id="cap25" data-act="context"><span class="w" id="cap25_w0">chi</span> <span class="w" id="cap25_w1">tiêu</span> <span class="w" id="cap25_w2">cho</span> <span class="w" id="cap25_w3">trí</span> <span class="w" id="cap25_w4">tuệ</span> <span class="w" id="cap25_w5">nhân</span></div>
+    <div class="cap-group" id="cap26" data-act="context"><span class="w" id="cap26_w0">tạo</span> <span class="w" id="cap26_w1">sau</span> <span class="w" id="cap26_w2">kết</span> <span class="w" id="cap26_w3">quả</span> <span class="w" id="cap26_w4">kinh</span> <span class="w" id="cap26_w5">doanh</span></div>
+    <div class="cap-group" id="cap27" data-act="context"><span class="w" id="cap27_w0">của</span> <span class="w" id="cap27_w1">Alphabet,</span> <span class="w" id="cap27_w2">Amazon</span> <span class="w" id="cap27_w3">và</span> <span class="w" id="cap27_w4">Intel</span> <span class="w" id="cap27_w5">khiến</span></div>
+    <div class="cap-group" id="cap28" data-act="context"><span class="w" id="cap28_w0">cổ</span> <span class="w" id="cap28_w1">phiếu</span> <span class="w" id="cap28_w2">công</span> <span class="w" id="cap28_w3">nghệ</span> <span class="w" id="cap28_w4">Mỹ</span> <span class="w" id="cap28_w5">bị</span></div>
+    <div class="cap-group" id="cap29" data-act="context"><span class="w" id="cap29_w0">bán</span> <span class="w" id="cap29_w1">tháo</span> <span class="w" id="cap29_w2">ngày</span> <span class="w" id="cap29_w3">30</span> <span class="w" id="cap29_w4">tháng</span> <span class="w" id="cap29_w5">Mười</span></div>
+    <div class="cap-group" id="cap30" data-act="impact"><span class="w" id="cap30_w0">Trong</span> <span class="w" id="cap30_w1">khi</span> <span class="w" id="cap30_w2">đó,</span> <span class="w" id="cap30_w3">nhiều</span> <span class="w" id="cap30_w4">ngân</span> <span class="w" id="cap30_w5">hàng</span></div>
+    <div class="cap-group" id="cap31" data-act="impact"><span class="w" id="cap31_w0">tư</span> <span class="w" id="cap31_w1">nhân</span> <span class="w" id="cap31_w2">như</span> <span class="w" id="cap31_w3">Sacombank</span> <span class="w" id="cap31_w4">và</span> <span class="w" id="cap31_w5">TPBank</span></div>
+    <div class="cap-group" id="cap32" data-act="impact"><span class="w" id="cap32_w0">vẫn</span> <span class="w" id="cap32_w1">neo</span> <span class="w" id="cap32_w2">giá</span> <span class="w" id="cap32_w3">bán</span> <span class="w" id="cap32_w4">quanh</span> <span class="w" id="cap32_w5">mốc</span></div>
+    <div class="cap-group" id="cap33" data-act="impact"><span class="w" id="cap33_w0">hai</span> <span class="w" id="cap33_w1">mươi</span> <span class="w" id="cap33_w2">sáu</span> <span class="w" id="cap33_w3">nghìn</span> <span class="w" id="cap33_w4">đồng.</span> <span class="w" id="cap33_w5">Còn</span></div>
+    <div class="cap-group" id="cap34" data-act="impact"><span class="w" id="cap34_w0">tỷ</span> <span class="w" id="cap34_w1">giá</span> <span class="w" id="cap34_w2">đô</span> <span class="w" id="cap34_w3">la</span> <span class="w" id="cap34_w4">tự</span> <span class="w" id="cap34_w5">do</span></div>
+    <div class="cap-group" id="cap35" data-act="impact"><span class="w" id="cap35_w0">tại</span> <span class="w" id="cap35_w1">các</span> <span class="w" id="cap35_w2">điểm</span> <span class="w" id="cap35_w3">thu</span> <span class="w" id="cap35_w4">đổi</span> <span class="w" id="cap35_w5">vẫn</span></div>
+    <div class="cap-group" id="cap36" data-act="impact"><span class="w" id="cap36_w0">cao</span> <span class="w" id="cap36_w1">hơn</span> <span class="w" id="cap36_w2">giá</span> <span class="w" id="cap36_w3">bán</span> <span class="w" id="cap36_w4">ngân</span> <span class="w" id="cap36_w5">hàng</span></div>
+    <div class="cap-group" id="cap37" data-act="impact"><span class="w" id="cap37_w0">khoảng</span> <span class="w" id="cap37_w1">hai</span> <span class="w" id="cap37_w2">trăm</span> <span class="w" id="cap37_w3">đến</span> <span class="w" id="cap37_w4">ba</span> <span class="w" id="cap37_w5">trăm</span></div>
+    <div class="cap-group" id="cap38" data-act="impact"><span class="w" id="cap38_w0">đồng</span> <span class="w" id="cap38_w1">mỗi</span> <span class="w" id="cap38_w2">đô</span> <span class="w" id="cap38_w3">la.</span></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+  tl.fromTo("#cap0", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 4.7);
+  tl.fromTo("#cap0_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 4.78);
+  tl.fromTo("#cap0_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 5.08);
+  tl.fromTo("#cap0_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 6.1);
+  tl.fromTo("#cap0_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 6.2);
+  tl.fromTo("#cap0_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 6.36);
+  tl.fromTo("#cap0_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 6.52);
+  tl.to("#cap0", { opacity: 0, duration: 0.12, ease: "power2.in" }, 6.53);
+  tl.set("#cap0", { opacity: 0, visibility: "hidden" }, 6.65);
+  tl.fromTo("#cap1", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 6.62);
+  tl.fromTo("#cap1_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 6.7);
+  tl.fromTo("#cap1_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 6.88);
+  tl.fromTo("#cap1_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 7.04);
+  tl.fromTo("#cap1_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 7.22);
+  tl.fromTo("#cap1_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 7.42);
+  tl.fromTo("#cap1_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 7.64);
+  tl.to("#cap1", { opacity: 0, duration: 0.12, ease: "power2.in" }, 7.63);
+  tl.set("#cap1", { opacity: 0, visibility: "hidden" }, 7.75);
+  tl.fromTo("#cap2", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 7.72);
+  tl.fromTo("#cap2_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 7.8);
+  tl.fromTo("#cap2_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 7.9);
+  tl.fromTo("#cap2_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 8.04);
+  tl.fromTo("#cap2_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 8.56);
+  tl.fromTo("#cap2_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 8.72);
+  tl.fromTo("#cap2_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 8.86);
+  tl.to("#cap2", { opacity: 0, duration: 0.12, ease: "power2.in" }, 8.85);
+  tl.set("#cap2", { opacity: 0, visibility: "hidden" }, 8.97);
+  tl.fromTo("#cap3", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 8.94);
+  tl.fromTo("#cap3_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 9.02);
+  tl.fromTo("#cap3_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 9.2);
+  tl.fromTo("#cap3_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 9.34);
+  tl.fromTo("#cap3_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 9.54);
+  tl.fromTo("#cap3_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 9.74);
+  tl.fromTo("#cap3_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 9.88);
+  tl.to("#cap3", { opacity: 0, duration: 0.12, ease: "power2.in" }, 9.87);
+  tl.set("#cap3", { opacity: 0, visibility: "hidden" }, 9.99);
+  tl.fromTo("#cap4", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 9.96);
+  tl.fromTo("#cap4_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 10.04);
+  tl.fromTo("#cap4_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 10.18);
+  tl.fromTo("#cap4_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 10.34);
+  tl.fromTo("#cap4_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 10.56);
+  tl.fromTo("#cap4_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 10.7);
+  tl.fromTo("#cap4_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 10.82);
+  tl.to("#cap4", { opacity: 0, duration: 0.12, ease: "power2.in" }, 10.85);
+  tl.set("#cap4", { opacity: 0, visibility: "hidden" }, 10.97);
+  tl.fromTo("#cap5", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 10.94);
+  tl.fromTo("#cap5_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 11.02);
+  tl.fromTo("#cap5_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 11.14);
+  tl.fromTo("#cap5_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 11.3);
+  tl.fromTo("#cap5_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 11.5);
+  tl.fromTo("#cap5_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 11.7);
+  tl.fromTo("#cap5_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 11.84);
+  tl.to("#cap5", { opacity: 0, duration: 0.12, ease: "power2.in" }, 11.83);
+  tl.set("#cap5", { opacity: 0, visibility: "hidden" }, 11.95);
+  tl.fromTo("#cap6", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 11.92);
+  tl.fromTo("#cap6_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 12.0);
+  tl.fromTo("#cap6_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 12.56);
+  tl.fromTo("#cap6_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 12.7);
+  tl.fromTo("#cap6_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 12.86);
+  tl.fromTo("#cap6_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 13.04);
+  tl.fromTo("#cap6_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 13.2);
+  tl.to("#cap6", { opacity: 0, duration: 0.12, ease: "power2.in" }, 13.17);
+  tl.set("#cap6", { opacity: 0, visibility: "hidden" }, 13.29);
+  tl.fromTo("#cap7", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 13.26);
+  tl.fromTo("#cap7_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 13.34);
+  tl.fromTo("#cap7_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 13.5);
+  tl.fromTo("#cap7_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 13.7);
+  tl.fromTo("#cap7_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 13.86);
+  tl.fromTo("#cap7_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 14.08);
+  tl.to("#cap7", { opacity: 0, duration: 0.12, ease: "power2.in" }, 14.86);
+  tl.set("#cap7", { opacity: 0, visibility: "hidden" }, 14.98);
+  tl.fromTo("#cap8", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 15.73);
+  tl.fromTo("#cap8_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 15.81);
+  tl.fromTo("#cap8_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 16.25);
+  tl.fromTo("#cap8_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 16.45);
+  tl.fromTo("#cap8_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 16.59);
+  tl.fromTo("#cap8_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 16.75);
+  tl.fromTo("#cap8_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 16.87);
+  tl.to("#cap8", { opacity: 0, duration: 0.12, ease: "power2.in" }, 16.82);
+  tl.set("#cap8", { opacity: 0, visibility: "hidden" }, 16.94);
+  tl.fromTo("#cap9", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 16.91);
+  tl.fromTo("#cap9_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 16.99);
+  tl.fromTo("#cap9_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 17.19);
+  tl.fromTo("#cap9_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 17.33);
+  tl.fromTo("#cap9_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 17.49);
+  tl.fromTo("#cap9_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 17.63);
+  tl.fromTo("#cap9_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 18.17);
+  tl.to("#cap9", { opacity: 0, duration: 0.12, ease: "power2.in" }, 18.14);
+  tl.set("#cap9", { opacity: 0, visibility: "hidden" }, 18.26);
+  tl.fromTo("#cap10", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 18.23);
+  tl.fromTo("#cap10_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 18.31);
+  tl.fromTo("#cap10_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 18.45);
+  tl.fromTo("#cap10_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 18.59);
+  tl.fromTo("#cap10_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 18.71);
+  tl.fromTo("#cap10_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 18.83);
+  tl.fromTo("#cap10_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 19.01);
+  tl.to("#cap10", { opacity: 0, duration: 0.12, ease: "power2.in" }, 19.0);
+  tl.set("#cap10", { opacity: 0, visibility: "hidden" }, 19.12);
+  tl.fromTo("#cap11", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 19.09);
+  tl.fromTo("#cap11_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 19.17);
+  tl.fromTo("#cap11_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 19.35);
+  tl.fromTo("#cap11_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 19.49);
+  tl.fromTo("#cap11_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 19.63);
+  tl.fromTo("#cap11_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 19.81);
+  tl.fromTo("#cap11_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 19.95);
+  tl.to("#cap11", { opacity: 0, duration: 0.12, ease: "power2.in" }, 19.9);
+  tl.set("#cap11", { opacity: 0, visibility: "hidden" }, 20.02);
+  tl.fromTo("#cap12", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 19.99);
+  tl.fromTo("#cap12_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 20.07);
+  tl.fromTo("#cap12_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 20.59);
+  tl.fromTo("#cap12_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 21.27);
+  tl.fromTo("#cap12_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 21.41);
+  tl.fromTo("#cap12_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 21.97);
+  tl.fromTo("#cap12_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 22.13);
+  tl.to("#cap12", { opacity: 0, duration: 0.12, ease: "power2.in" }, 22.14);
+  tl.set("#cap12", { opacity: 0, visibility: "hidden" }, 22.26);
+  tl.fromTo("#cap13", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 22.23);
+  tl.fromTo("#cap13_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 22.31);
+  tl.fromTo("#cap13_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 22.45);
+  tl.fromTo("#cap13_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 22.65);
+  tl.fromTo("#cap13_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 22.79);
+  tl.fromTo("#cap13_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 22.91);
+  tl.fromTo("#cap13_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 23.03);
+  tl.to("#cap13", { opacity: 0, duration: 0.12, ease: "power2.in" }, 23.04);
+  tl.set("#cap13", { opacity: 0, visibility: "hidden" }, 23.16);
+  tl.fromTo("#cap14", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 23.13);
+  tl.fromTo("#cap14_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 23.21);
+  tl.fromTo("#cap14_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 23.37);
+  tl.fromTo("#cap14_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 23.57);
+  tl.fromTo("#cap14_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 23.69);
+  tl.fromTo("#cap14_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 23.81);
+  tl.to("#cap14", { opacity: 0, duration: 0.12, ease: "power2.in" }, 24.13);
+  tl.set("#cap14", { opacity: 0, visibility: "hidden" }, 24.25);
+  tl.fromTo("#cap15", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 25.01);
+  tl.fromTo("#cap15_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 25.09);
+  tl.fromTo("#cap15_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 25.25);
+  tl.fromTo("#cap15_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 25.39);
+  tl.fromTo("#cap15_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 25.55);
+  tl.fromTo("#cap15_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 25.79);
+  tl.fromTo("#cap15_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 26.73);
+  tl.to("#cap15", { opacity: 0, duration: 0.12, ease: "power2.in" }, 26.7);
+  tl.set("#cap15", { opacity: 0, visibility: "hidden" }, 26.82);
+  tl.fromTo("#cap16", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 26.79);
+  tl.fromTo("#cap16_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 26.87);
+  tl.fromTo("#cap16_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 27.01);
+  tl.fromTo("#cap16_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 27.15);
+  tl.fromTo("#cap16_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 27.35);
+  tl.fromTo("#cap16_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 27.49);
+  tl.fromTo("#cap16_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 27.67);
+  tl.to("#cap16", { opacity: 0, duration: 0.12, ease: "power2.in" }, 27.74);
+  tl.set("#cap16", { opacity: 0, visibility: "hidden" }, 27.86);
+  tl.fromTo("#cap17", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 27.83);
+  tl.fromTo("#cap17_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 27.91);
+  tl.fromTo("#cap17_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 28.03);
+  tl.fromTo("#cap17_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 28.21);
+  tl.fromTo("#cap17_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 28.35);
+  tl.fromTo("#cap17_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 28.49);
+  tl.fromTo("#cap17_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 28.67);
+  tl.to("#cap17", { opacity: 0, duration: 0.12, ease: "power2.in" }, 28.62);
+  tl.set("#cap17", { opacity: 0, visibility: "hidden" }, 28.74);
+  tl.fromTo("#cap18", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 28.71);
+  tl.fromTo("#cap18_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 28.79);
+  tl.fromTo("#cap18_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 28.91);
+  tl.fromTo("#cap18_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 29.43);
+  tl.fromTo("#cap18_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 29.59);
+  tl.fromTo("#cap18_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 29.73);
+  tl.fromTo("#cap18_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 29.87);
+  tl.to("#cap18", { opacity: 0, duration: 0.12, ease: "power2.in" }, 29.9);
+  tl.set("#cap18", { opacity: 0, visibility: "hidden" }, 30.02);
+  tl.fromTo("#cap19", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 29.99);
+  tl.fromTo("#cap19_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 30.07);
+  tl.fromTo("#cap19_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 30.21);
+  tl.fromTo("#cap19_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 30.31);
+  tl.fromTo("#cap19_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 30.45);
+  tl.fromTo("#cap19_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 30.61);
+  tl.fromTo("#cap19_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 31.17);
+  tl.to("#cap19", { opacity: 0, duration: 0.12, ease: "power2.in" }, 31.16);
+  tl.set("#cap19", { opacity: 0, visibility: "hidden" }, 31.28);
+  tl.fromTo("#cap20", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 31.25);
+  tl.fromTo("#cap20_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 31.33);
+  tl.fromTo("#cap20_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 31.47);
+  tl.fromTo("#cap20_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 31.61);
+  tl.fromTo("#cap20_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 31.83);
+  tl.fromTo("#cap20_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 31.99);
+  tl.fromTo("#cap20_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 32.11);
+  tl.to("#cap20", { opacity: 0, duration: 0.12, ease: "power2.in" }, 32.14);
+  tl.set("#cap20", { opacity: 0, visibility: "hidden" }, 32.26);
+  tl.fromTo("#cap21", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 32.23);
+  tl.fromTo("#cap21_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 32.31);
+  tl.fromTo("#cap21_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 32.45);
+  tl.fromTo("#cap21_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 32.67);
+  tl.to("#cap21", { opacity: 0, duration: 0.12, ease: "power2.in" }, 33.45);
+  tl.set("#cap21", { opacity: 0, visibility: "hidden" }, 33.57);
+  tl.fromTo("#cap22", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 34.31);
+  tl.fromTo("#cap22_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 34.39);
+  tl.fromTo("#cap22_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 34.55);
+  tl.fromTo("#cap22_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 34.69);
+  tl.fromTo("#cap22_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 34.85);
+  tl.fromTo("#cap22_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 34.99);
+  tl.fromTo("#cap22_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 35.09);
+  tl.to("#cap22", { opacity: 0, duration: 0.12, ease: "power2.in" }, 35.45);
+  tl.set("#cap22", { opacity: 0, visibility: "hidden" }, 35.57);
+  tl.fromTo("#cap23", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 35.61);
+  tl.fromTo("#cap23_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 35.69);
+  tl.fromTo("#cap23_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 35.83);
+  tl.fromTo("#cap23_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 35.99);
+  tl.fromTo("#cap23_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 36.21);
+  tl.fromTo("#cap23_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 36.39);
+  tl.fromTo("#cap23_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 36.53);
+  tl.to("#cap23", { opacity: 0, duration: 0.12, ease: "power2.in" }, 36.52);
+  tl.set("#cap23", { opacity: 0, visibility: "hidden" }, 36.64);
+  tl.fromTo("#cap24", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 36.61);
+  tl.fromTo("#cap24_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 36.69);
+  tl.fromTo("#cap24_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 36.83);
+  tl.fromTo("#cap24_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 37.35);
+  tl.fromTo("#cap24_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 37.47);
+  tl.fromTo("#cap24_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 37.59);
+  tl.fromTo("#cap24_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 37.79);
+  tl.to("#cap24", { opacity: 0, duration: 0.12, ease: "power2.in" }, 37.74);
+  tl.set("#cap24", { opacity: 0, visibility: "hidden" }, 37.86);
+  tl.fromTo("#cap25", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 37.83);
+  tl.fromTo("#cap25_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 37.91);
+  tl.fromTo("#cap25_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 38.05);
+  tl.fromTo("#cap25_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 38.21);
+  tl.fromTo("#cap25_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 38.33);
+  tl.fromTo("#cap25_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 38.49);
+  tl.fromTo("#cap25_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 38.63);
+  tl.to("#cap25", { opacity: 0, duration: 0.12, ease: "power2.in" }, 38.64);
+  tl.set("#cap25", { opacity: 0, visibility: "hidden" }, 38.76);
+  tl.fromTo("#cap26", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 38.73);
+  tl.fromTo("#cap26_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 38.81);
+  tl.fromTo("#cap26_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 39.03);
+  tl.fromTo("#cap26_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 39.15);
+  tl.fromTo("#cap26_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 39.31);
+  tl.fromTo("#cap26_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 39.49);
+  tl.fromTo("#cap26_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 39.63);
+  tl.to("#cap26", { opacity: 0, duration: 0.12, ease: "power2.in" }, 39.66);
+  tl.set("#cap26", { opacity: 0, visibility: "hidden" }, 39.78);
+  tl.fromTo("#cap27", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 39.75);
+  tl.fromTo("#cap27_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 39.83);
+  tl.fromTo("#cap27_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 39.99);
+  tl.fromTo("#cap27_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 40.95);
+  tl.fromTo("#cap27_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 41.37);
+  tl.fromTo("#cap27_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 41.51);
+  tl.fromTo("#cap27_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 41.87);
+  tl.to("#cap27", { opacity: 0, duration: 0.12, ease: "power2.in" }, 41.9);
+  tl.set("#cap27", { opacity: 0, visibility: "hidden" }, 42.02);
+  tl.fromTo("#cap28", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 41.99);
+  tl.fromTo("#cap28_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 42.07);
+  tl.fromTo("#cap28_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 42.21);
+  tl.fromTo("#cap28_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 42.39);
+  tl.fromTo("#cap28_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 42.51);
+  tl.fromTo("#cap28_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 42.69);
+  tl.fromTo("#cap28_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 42.87);
+  tl.to("#cap28", { opacity: 0, duration: 0.12, ease: "power2.in" }, 42.86);
+  tl.set("#cap28", { opacity: 0, visibility: "hidden" }, 42.98);
+  tl.fromTo("#cap29", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 42.95);
+  tl.fromTo("#cap29_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 43.03);
+  tl.fromTo("#cap29_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 43.19);
+  tl.fromTo("#cap29_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 43.35);
+  tl.fromTo("#cap29_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 43.63);
+  tl.fromTo("#cap29_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 43.81);
+  tl.fromTo("#cap29_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 43.97);
+  tl.to("#cap29", { opacity: 0, duration: 0.12, ease: "power2.in" }, 44.31);
+  tl.set("#cap29", { opacity: 0, visibility: "hidden" }, 44.43);
+  tl.fromTo("#cap30", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 45.17);
+  tl.fromTo("#cap30_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 45.25);
+  tl.fromTo("#cap30_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 45.41);
+  tl.fromTo("#cap30_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 45.53);
+  tl.fromTo("#cap30_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 46.03);
+  tl.fromTo("#cap30_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 46.19);
+  tl.fromTo("#cap30_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 46.33);
+  tl.to("#cap30", { opacity: 0, duration: 0.12, ease: "power2.in" }, 46.34);
+  tl.set("#cap30", { opacity: 0, visibility: "hidden" }, 46.46);
+  tl.fromTo("#cap31", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 46.43);
+  tl.fromTo("#cap31_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 46.51);
+  tl.fromTo("#cap31_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 46.63);
+  tl.fromTo("#cap31_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 46.81);
+  tl.fromTo("#cap31_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 46.95);
+  tl.fromTo("#cap31_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 47.47);
+  tl.fromTo("#cap31_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 47.63);
+  tl.to("#cap31", { opacity: 0, duration: 0.12, ease: "power2.in" }, 48.1);
+  tl.set("#cap31", { opacity: 0, visibility: "hidden" }, 48.22);
+  tl.fromTo("#cap32", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 48.19);
+  tl.fromTo("#cap32_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 48.27);
+  tl.fromTo("#cap32_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 48.41);
+  tl.fromTo("#cap32_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 48.57);
+  tl.fromTo("#cap32_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 48.75);
+  tl.fromTo("#cap32_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 48.91);
+  tl.fromTo("#cap32_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 49.09);
+  tl.to("#cap32", { opacity: 0, duration: 0.12, ease: "power2.in" }, 49.08);
+  tl.set("#cap32", { opacity: 0, visibility: "hidden" }, 49.2);
+  tl.fromTo("#cap33", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 49.17);
+  tl.fromTo("#cap33_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 49.25);
+  tl.fromTo("#cap33_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 49.39);
+  tl.fromTo("#cap33_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 49.55);
+  tl.fromTo("#cap33_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 49.69);
+  tl.fromTo("#cap33_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 49.85);
+  tl.fromTo("#cap33_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 50.59);
+  tl.to("#cap33", { opacity: 0, duration: 0.12, ease: "power2.in" }, 50.56);
+  tl.set("#cap33", { opacity: 0, visibility: "hidden" }, 50.68);
+  tl.fromTo("#cap34", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 50.65);
+  tl.fromTo("#cap34_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 50.73);
+  tl.fromTo("#cap34_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 50.87);
+  tl.fromTo("#cap34_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 51.03);
+  tl.fromTo("#cap34_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 51.13);
+  tl.fromTo("#cap34_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 51.29);
+  tl.fromTo("#cap34_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 51.45);
+  tl.to("#cap34", { opacity: 0, duration: 0.12, ease: "power2.in" }, 51.5);
+  tl.set("#cap34", { opacity: 0, visibility: "hidden" }, 51.62);
+  tl.fromTo("#cap35", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 51.59);
+  tl.fromTo("#cap35_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 51.67);
+  tl.fromTo("#cap35_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 51.83);
+  tl.fromTo("#cap35_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 51.97);
+  tl.fromTo("#cap35_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 52.17);
+  tl.fromTo("#cap35_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 52.31);
+  tl.fromTo("#cap35_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 52.51);
+  tl.to("#cap35", { opacity: 0, duration: 0.12, ease: "power2.in" }, 52.52);
+  tl.set("#cap35", { opacity: 0, visibility: "hidden" }, 52.64);
+  tl.fromTo("#cap36", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 52.61);
+  tl.fromTo("#cap36_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 52.69);
+  tl.fromTo("#cap36_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 52.85);
+  tl.fromTo("#cap36_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 53.09);
+  tl.fromTo("#cap36_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 53.27);
+  tl.fromTo("#cap36_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 53.41);
+  tl.fromTo("#cap36_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 53.59);
+  tl.to("#cap36", { opacity: 0, duration: 0.12, ease: "power2.in" }, 53.62);
+  tl.set("#cap36", { opacity: 0, visibility: "hidden" }, 53.74);
+  tl.fromTo("#cap37", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 53.71);
+  tl.fromTo("#cap37_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 53.79);
+  tl.fromTo("#cap37_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 54.01);
+  tl.fromTo("#cap37_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 54.15);
+  tl.fromTo("#cap37_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 54.39);
+  tl.fromTo("#cap37_w4", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 54.55);
+  tl.fromTo("#cap37_w5", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 54.67);
+  tl.to("#cap37", { opacity: 0, duration: 0.12, ease: "power2.in" }, 54.66);
+  tl.set("#cap37", { opacity: 0, visibility: "hidden" }, 54.78);
+  tl.fromTo("#cap38", { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power1.out" }, 54.75);
+  tl.fromTo("#cap38_w0", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 54.83);
+  tl.fromTo("#cap38_w1", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 55.03);
+  tl.fromTo("#cap38_w2", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 55.17);
+  tl.fromTo("#cap38_w3", { color: "rgba(255,255,255,0.72)" }, { color: "#E8441E", duration: 0.1, ease: "power1.out" }, 55.31);
+  tl.to("#cap38", { opacity: 0, duration: 0.12, ease: "power2.in" }, 55.61);
+  tl.set("#cap38", { opacity: 0, visibility: "hidden" }, 55.73);
+    window.__timelines["captions"] = tl;
+  </script>
+</template>

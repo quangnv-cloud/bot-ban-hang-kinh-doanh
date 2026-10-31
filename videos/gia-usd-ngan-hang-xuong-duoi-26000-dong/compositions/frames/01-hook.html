@@ -1,0 +1,110 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+      overflow: hidden;
+    }
+    #hook-image-wrap {
+      position: absolute;
+      top: 0; left: 0;
+      width: 1080px; height: 1120px;
+      overflow: hidden;
+    }
+    #hook-image-wrap img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: 50% 42%;
+      opacity: 0;
+    }
+    #hook-image-scrim {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(17,17,17,0) 55%, rgba(17,17,17,0.58) 84%, #111111 100%);
+    }
+    #hook-panel {
+      position: absolute;
+      top: 1080px; left: 0;
+      width: 1080px; height: 840px;
+      background: #111111;
+      padding: 44px 56px 0 56px;
+    }
+    #hook-masthead {
+      display: flex; align-items: center; gap: 14px;
+      opacity: 0;
+    }
+    #hook-masthead img { width: 40px; height: 40px; }
+    #hook-masthead span {
+      font-size: 30px; font-weight: 600; color: #ffffff;
+    }
+    #hook-badge {
+      margin-top: 28px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1.5px solid #E8441E;
+      border-radius: 10px;
+      padding: 10px 20px;
+      opacity: 0;
+    }
+    #hook-badge-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #E8441E;
+    }
+    #hook-badge span {
+      font-size: 24px; font-weight: 600; color: #ffffff;
+      letter-spacing: 0.01em;
+    }
+    #hook-headline {
+      margin-top: 36px;
+      font-size: 58px;
+      font-weight: 800;
+      line-height: 1.2;
+      color: #ffffff;
+      letter-spacing: -0.01em;
+      opacity: 0;
+    }
+    #hook-headline .hl {
+      color: #E8441E;
+    }
+    #hook-sub {
+      margin-top: 22px;
+      font-size: 30px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.78);
+      opacity: 0;
+    }
+  </style>
+  <div id="root" data-composition-id="01-hook" data-width="1080" data-height="1920">
+    <div id="hook-image-wrap">
+      <img src="assets/images/hook-photo.png" alt="Tỷ giá đô la Mỹ">
+      <div id="hook-image-scrim"></div>
+    </div>
+    <div id="hook-panel">
+      <div id="hook-masthead">
+        <img src="public/logo-bbh-mark.png" alt="">
+        <span>Bot Bán Hàng</span>
+      </div>
+      <div id="hook-badge">
+        <div id="hook-badge-dot"></div>
+        <span>Nguồn: Znews / VnExpress &middot; 31/10/2026</span>
+      </div>
+      <div id="hook-headline">
+        Giá đô la Mỹ ngân hàng lần đầu xuống <span class="hl">dưới 26.000 đồng</span>
+      </div>
+      <div id="hook-sub">Sau một năm rưỡi</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#hook-image-wrap img", { scale: 1.12, opacity: 0 }, { scale: 1.0, opacity: 1, duration: 0.7, ease: "power3.out" }, 0);
+    tl.fromTo("#hook-masthead", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.55);
+    tl.fromTo("#hook-badge", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.82);
+    tl.fromTo("#hook-headline", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 1.12);
+    tl.fromTo("#hook-sub", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.75);
+    window.__timelines["01-hook"] = tl;
+  </script>
+</template>

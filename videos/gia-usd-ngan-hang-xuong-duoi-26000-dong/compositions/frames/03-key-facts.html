@@ -1,0 +1,85 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .kf-bg-photo {
+      position: absolute; inset: -30px; width: calc(100% + 60px); height: calc(100% + 60px);
+      object-fit: cover; object-position: 50% 42%;
+      filter: blur(28px) brightness(0.45); opacity: 0.32;
+    }
+    .kf-bg-scrim {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 900px 1300px at 50% 36%, rgba(17,17,17,0.5) 0%, rgba(17,17,17,0.85) 58%, #111111 100%);
+    }
+    .kf-kicker {
+      position: absolute; top: 300px; left: 0; width: 100%; text-align: center;
+      font-weight: 700; font-size: 28px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #E8441E; opacity: 0;
+    }
+    .kf-headline {
+      position: absolute; top: 378px; left: 90px; right: 90px; text-align: center;
+      font-weight: 800; font-size: 46px; line-height: 1.26; color: #ffffff; opacity: 0;
+    }
+    .kf-list {
+      position: absolute; top: 1310px; left: 70px; right: 70px;
+      display: flex; flex-direction: column; gap: 22px;
+    }
+    .kf-chip {
+      display: flex; align-items: center; gap: 22px;
+      border: 1.5px solid #E8441E; border-radius: 14px;
+      background: rgba(232,68,30,0.08);
+      box-shadow: 0 0 34px rgba(232,68,30,0.14);
+      padding: 20px 28px; opacity: 0;
+    }
+    .kf-code {
+      font-weight: 800; font-size: 28px; color: #E8441E;
+      border: 1.5px solid #E8441E; border-radius: 8px; padding: 6px 12px;
+      flex-shrink: 0;
+    }
+    .kf-vals { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+    .kf-vals .name { font-weight: 700; font-size: 28px; color: rgba(255,255,255,0.68); }
+    .kf-vals .nums { font-weight: 800; font-size: 32px; color: #ffffff; }
+    .kf-vals .nums .lbl { font-weight: 600; font-size: 28px; color: rgba(255,255,255,0.5); margin-right: 6px; }
+  </style>
+  <div id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <img class="kf-bg-photo" src="assets/images/hook-photo.png" alt="" data-layout-allow-overflow>
+    <div class="kf-bg-scrim"></div>
+    <div class="kf-kicker" id="kfKicker">Giá bán ra hôm nay</div>
+    <div class="kf-headline" id="kfHeadline">Ba ngân hàng cùng xuống dưới mốc 26.000 đồng</div>
+    <div class="kf-list">
+      <div class="kf-chip" id="kfChip1">
+        <div class="kf-code">VCB</div>
+        <div class="kf-vals">
+          <div class="name">Vietcombank</div>
+          <div class="nums"><span class="lbl">Mua</span>25.610<span class="lbl" style="margin-left:14px">Bán</span>25.990</div>
+        </div>
+      </div>
+      <div class="kf-chip" id="kfChip2">
+        <div class="kf-code">CTG</div>
+        <div class="kf-vals">
+          <div class="name">VietinBank</div>
+          <div class="nums"><span class="lbl">Mua</span>25.540<span class="lbl" style="margin-left:14px">Bán</span>25.980</div>
+        </div>
+      </div>
+      <div class="kf-chip" id="kfChip3">
+        <div class="kf-code">BID</div>
+        <div class="kf-vals">
+          <div class="name">BIDV</div>
+          <div class="nums"><span class="lbl">Mua</span>25.600<span class="lbl" style="margin-left:14px">Bán</span>25.980</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#kfKicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.1);
+    tl.fromTo("#kfHeadline", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.32);
+    tl.fromTo("#kfChip1", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.95);
+    tl.fromTo("#kfChip2", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.25);
+    tl.fromTo("#kfChip3", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.55);
+    window.__timelines["03-key-facts"] = tl;
+  </script>
+</template>

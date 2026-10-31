@@ -1,0 +1,73 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .im-bg-photo {
+      position: absolute; inset: -30px; width: calc(100% + 60px); height: calc(100% + 60px);
+      object-fit: cover; object-position: 50% 42%;
+      filter: blur(30px) brightness(0.4); opacity: 0.26;
+    }
+    .im-bg-scrim {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 900px 1400px at 50% 36%, rgba(17,17,17,0.5) 0%, rgba(17,17,17,0.88) 58%, #111111 100%);
+    }
+    .im-kicker {
+      position: absolute; top: 280px; left: 0; width: 100%; text-align: center;
+      font-weight: 700; font-size: 28px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #E8441E; opacity: 0;
+    }
+    .im-headline {
+      position: absolute; top: 356px; left: 90px; right: 90px; text-align: center;
+      font-weight: 800; font-size: 48px; line-height: 1.28; color: #ffffff; opacity: 0;
+    }
+    .im-panels {
+      position: absolute; top: 1310px; left: 72px; right: 72px;
+      display: flex; flex-direction: column; gap: 26px;
+    }
+    .im-panel {
+      position: relative; overflow: hidden;
+      border: 1.5px solid #E8441E; border-radius: 16px;
+      background: rgba(232,68,30,0.08);
+      box-shadow: 0 0 36px rgba(232,68,30,0.14);
+      padding: 26px 30px; opacity: 0;
+    }
+    .im-panel-watermark {
+      position: absolute; right: 18px; top: 10px;
+      font-weight: 900; font-size: 60px; color: rgba(232,68,30,0.18);
+      line-height: 1; letter-spacing: -0.02em;
+    }
+    .im-panel-label { font-weight: 700; font-size: 28px; color: rgba(255,255,255,0.7); margin-bottom: 8px; }
+    .im-panel-value { font-weight: 800; font-size: 36px; color: #ffffff; position: relative; z-index: 1; }
+    .im-panel-value .hl { color: #E8441E; }
+  </style>
+  <div id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <img class="im-bg-photo" src="assets/images/hook-photo.png" alt="" data-layout-allow-overflow>
+    <div class="im-bg-scrim"></div>
+    <div class="im-kicker" id="imKicker">Ý nghĩa với thị trường</div>
+    <div class="im-headline" id="imHeadline">Thị trường ngoại tệ chưa đồng pha hoàn toàn</div>
+    <div class="im-panels">
+      <div class="im-panel" id="imPanel1">
+        <div class="im-panel-watermark" data-layout-ignore>26k</div>
+        <div class="im-panel-label">Ngân hàng tư nhân (Sacombank, TPBank)</div>
+        <div class="im-panel-value">Vẫn neo quanh <span class="hl">26.000 đồng</span></div>
+      </div>
+      <div class="im-panel" id="imPanel2">
+        <div class="im-panel-watermark" data-layout-ignore>+2-3</div>
+        <div class="im-panel-label">Tỷ giá đô la tự do</div>
+        <div class="im-panel-value">Cao hơn ngân hàng <span class="hl">200-300 đồng</span></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo(".im-bg-photo", { scale: 1.06 }, { scale: 1.0, duration: 1.0, ease: "power2.out" }, 0);
+    tl.fromTo("#imKicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.1);
+    tl.fromTo("#imHeadline", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.32);
+    tl.fromTo("#imPanel1", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.1);
+    tl.fromTo("#imPanel2", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.45);
+    window.__timelines["06-impact"] = tl;
+  </script>
+</template>

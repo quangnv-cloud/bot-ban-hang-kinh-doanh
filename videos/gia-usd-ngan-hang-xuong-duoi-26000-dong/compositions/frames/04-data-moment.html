@@ -1,0 +1,84 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .dm-bg-scrim {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 900px 1500px at 50% 55%, rgba(232,68,30,0.06) 0%, rgba(17,17,17,0.0) 45%, #111111 100%);
+    }
+    .dm-watermark {
+      position: absolute; top: 560px; left: 0; width: 100%; text-align: center;
+      font-weight: 900; font-size: 236px; line-height: 1;
+      color: rgba(232,68,30,0.13);
+      letter-spacing: -0.02em;
+      opacity: 0;
+    }
+    .dm-watermark-line {
+      position: absolute; top: 700px; left: 50%; width: 760px; height: 6px;
+      background: rgba(232,68,30,0.22); transform: translateX(-50%) scaleX(0);
+      transform-origin: center;
+    }
+    .dm-kicker {
+      position: absolute; top: 300px; left: 0; width: 100%; text-align: center;
+      font-weight: 700; font-size: 28px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #E8441E; opacity: 0;
+    }
+    .dm-hero-wrap {
+      position: absolute; top: 1330px; left: 0; width: 100%;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .dm-counter-row { display: flex; align-items: baseline; gap: 14px; }
+    .dm-counter {
+      font-variant-numeric: tabular-nums;
+      font-weight: 900; font-size: 148px; line-height: 1;
+      color: #ffffff; text-shadow: 0 0 44px rgba(232,68,30,0.35);
+      opacity: 0;
+    }
+    .dm-unit { font-weight: 700; font-size: 34px; color: rgba(255,255,255,0.72); opacity: 0; }
+    .dm-chip {
+      margin-top: 24px;
+      display: inline-flex; align-items: center; gap: 12px;
+      border: 1.5px solid #E8441E; border-radius: 12px;
+      background: rgba(232,68,30,0.1);
+      padding: 14px 28px; opacity: 0;
+    }
+    .dm-chip-pct { font-weight: 800; font-size: 30px; color: #E8441E; }
+    .dm-chip-label { font-weight: 600; font-size: 28px; color: rgba(255,255,255,0.8); }
+  </style>
+  <div id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+    <div class="dm-bg-scrim"></div>
+    <div class="dm-watermark" id="dmWatermark" data-layout-ignore>26.000</div>
+    <div class="dm-watermark-line" id="dmWatermarkLine"></div>
+    <div class="dm-kicker" id="dmKicker">Mức giảm từ cuối năm 2025</div>
+    <div class="dm-hero-wrap">
+      <div class="dm-counter-row">
+        <span class="dm-counter" id="dmCounter">0</span>
+      </div>
+      <div class="dm-unit" id="dmUnit">đồng mỗi đô la Mỹ</div>
+      <div class="dm-chip" id="dmChip">
+        <span class="dm-chip-pct">-1,35%</span>
+        <span class="dm-chip-label">Thấp nhất từ tháng 4/2025</span>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#dmWatermark", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, 0.1);
+    tl.fromTo("#dmWatermarkLine", { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "power3.out" }, 0.4);
+    tl.fromTo("#dmKicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.3);
+    tl.fromTo("#dmUnit", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 1.0);
+    tl.to("#dmCounter", {
+      duration: 1.1, ease: "power2.out",
+      onUpdate: function () {
+        const v = Math.round(this.progress() * 360);
+        document.getElementById("dmCounter").textContent = "-" + v.toLocaleString("vi-VN");
+      }
+    }, 0.95);
+    tl.fromTo("#dmCounter", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 0.95);
+    tl.fromTo("#dmChip", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 2.15);
+    window.__timelines["04-data-moment"] = tl;
+  </script>
+</template>
