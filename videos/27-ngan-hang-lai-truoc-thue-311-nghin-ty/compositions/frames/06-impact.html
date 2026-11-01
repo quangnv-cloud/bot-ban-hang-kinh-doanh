@@ -1,0 +1,55 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+      overflow: hidden;
+    }
+    #im-kicker {
+      position: absolute; top: 150px; left: 64px;
+      font-size: 24px; font-weight: 700; letter-spacing: 0.06em; color: #E8441E;
+      text-transform: uppercase;
+      opacity: 0;
+    }
+    #im-headline {
+      position: absolute; top: 196px; left: 64px; width: 952px;
+      font-size: 52px; font-weight: 800; line-height: 1.24; color: #ffffff;
+      letter-spacing: -0.01em;
+      opacity: 0;
+    }
+    .im-clip {
+      position: absolute; width: 820px; height: 196px;
+      background: #ffffff; border-radius: 4px;
+      padding: 22px 32px;
+      box-shadow: 0 20px 44px rgba(0,0,0,0.42);
+      opacity: 0;
+    }
+    .im-clip .im-tag { font-size: 20px; font-weight: 800; color: #E8441E; letter-spacing: 0.04em; }
+    .im-clip .im-name { margin-top: 5px; font-size: 30px; font-weight: 700; color: #111111; line-height: 1.18; }
+    .im-clip .im-stat { margin-top: 8px; font-size: 36px; font-weight: 900; color: #E8441E; }
+    #im-clip-1 { top: 1300px; left: 68px; transform: rotate(-2.2deg); z-index: 1; }
+    #im-clip-2 { top: 1484px; left: 196px; transform: rotate(2deg); z-index: 2; box-shadow: -10px 20px 44px rgba(0,0,0,0.5); }
+  </style>
+  <div id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <div id="im-kicker">Điểm Sáng Quy Mô Nhỏ</div>
+    <div id="im-headline">Nhóm nhỏ <span style="color:#E8441E">bứt phá</span> mạnh nhất</div>
+    <div class="im-clip" id="im-clip-1">
+      <div class="im-tag">NGÂN HÀNG QUỐC DÂN</div>
+      <div class="im-name">Lợi nhuận trước thuế 9 tháng</div>
+      <div class="im-stat">Gấp 2,4 lần cùng kỳ</div>
+    </div>
+    <div class="im-clip" id="im-clip-2">
+      <div class="im-tag">NGÂN HÀNG BẢN VIỆT</div>
+      <div class="im-name">Tăng 90% lợi nhuận</div>
+      <div class="im-stat">Vượt 118% kế hoạch năm</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#im-kicker", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.1);
+    tl.fromTo("#im-headline", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.32);
+    tl.fromTo("#im-clip-1", { opacity: 0, x: -40, rotate: 6 }, { opacity: 1, x: 0, rotate: -2.2, duration: 0.5, ease: "power3.out" }, 0.95);
+    tl.fromTo("#im-clip-2", { opacity: 0, x: 40, rotate: -6 }, { opacity: 1, x: 0, rotate: 2, duration: 0.5, ease: "power3.out" }, 1.55);
+    window.__timelines["06-impact"] = tl;
+  </script>
+</template>

@@ -1,0 +1,64 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+      overflow: hidden;
+    }
+    #kf-kicker {
+      position: absolute; top: 118px; left: 64px;
+      font-size: 24px; font-weight: 700; letter-spacing: 0.06em; color: #E8441E;
+      text-transform: uppercase;
+      opacity: 0;
+    }
+    #kf-headline {
+      position: absolute; top: 164px; left: 64px; width: 952px;
+      font-size: 54px; font-weight: 800; line-height: 1.22; color: #ffffff;
+      letter-spacing: -0.01em;
+      opacity: 0;
+    }
+    .kf-clip {
+      position: absolute; left: 64px; width: 952px; height: 136px;
+      background: #ffffff; border-radius: 4px;
+      box-shadow: 0 16px 34px rgba(0,0,0,0.4), 0 0 32px rgba(232,68,30,0.12);
+      padding: 18px 28px;
+      opacity: 0;
+    }
+    .kf-clip .kf-no {
+      font-size: 22px; font-weight: 800; color: #E8441E; letter-spacing: 0.04em;
+    }
+    .kf-clip .kf-text {
+      margin-top: 4px;
+      font-size: 32px; font-weight: 700; color: #111111; line-height: 1.22;
+    }
+    .kf-clip .kf-sub { font-size: 22px; font-weight: 600; color: #555; margin-top: 2px; }
+    #kf-clip-1 { top: 1300px; transform: rotate(-1.4deg); z-index: 3; }
+    #kf-clip-2 { top: 1430px; left: 92px; width: 924px; transform: rotate(1.1deg); z-index: 2; }
+    #kf-clip-3 { top: 1560px; left: 70px; width: 940px; transform: rotate(-0.8deg); z-index: 1; }
+  </style>
+  <div id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <div id="kf-kicker">Thứ Hạng Lợi Nhuận</div>
+    <div id="kf-headline">Tốp đầu <span style="color:#E8441E">đổi vị trí</span></div>
+    <div class="kf-clip" id="kf-clip-1">
+      <div class="kf-no">GIỮ VỮNG TỐP 3</div>
+      <div class="kf-text">Vietcombank &middot; VietinBank &middot; MB</div>
+    </div>
+    <div class="kf-clip" id="kf-clip-2">
+      <div class="kf-no">BỨT LÊN VỊ TRÍ 4</div>
+      <div class="kf-text">VPBank vượt BIDV</div>
+    </div>
+    <div class="kf-clip" id="kf-clip-3">
+      <div class="kf-no">LỢI NHUẬN VPBANK</div>
+      <div class="kf-text">29.911 tỷ đồng <span class="kf-sub">(+47%)</span></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#kf-kicker", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.1);
+    tl.fromTo("#kf-headline", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.32);
+    tl.fromTo("#kf-clip-1", { opacity: 0, y: 40, rotate: 5 }, { opacity: 1, y: 0, rotate: -1.4, duration: 0.5, ease: "power3.out" }, 0.9);
+    tl.fromTo("#kf-clip-2", { opacity: 0, y: 40, rotate: -5 }, { opacity: 1, y: 0, rotate: 1.1, duration: 0.5, ease: "power3.out" }, 1.45);
+    tl.fromTo("#kf-clip-3", { opacity: 0, y: 40, rotate: 5 }, { opacity: 1, y: 0, rotate: -0.8, duration: 0.5, ease: "power3.out" }, 2.0);
+    window.__timelines["03-key-facts"] = tl;
+  </script>
+</template>

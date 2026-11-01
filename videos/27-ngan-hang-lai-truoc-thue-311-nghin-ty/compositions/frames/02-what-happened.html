@@ -1,0 +1,84 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+      overflow: hidden;
+    }
+    #wh-kicker {
+      position: absolute; top: 118px; left: 64px;
+      display: inline-flex; align-items: center; gap: 10px;
+      border: 1.5px solid #E8441E; border-radius: 8px;
+      padding: 8px 18px;
+      opacity: 0;
+    }
+    #wh-kicker span { font-size: 24px; font-weight: 700; letter-spacing: 0.06em; color: #E8441E; text-transform: uppercase; }
+    #wh-headline {
+      position: absolute; top: 188px; left: 64px; width: 952px;
+      font-size: 56px; font-weight: 800; line-height: 1.2; color: #ffffff;
+      letter-spacing: -0.01em;
+      opacity: 0;
+    }
+    #wh-clip-wrap {
+      position: absolute; top: 420px; left: 110px;
+      width: 860px; height: 560px;
+      transform: rotate(-1.6deg);
+      opacity: 0;
+    }
+    #wh-clip-paper {
+      position: absolute; inset: 0;
+      background: #ffffff;
+      padding: 14px 14px 46px 14px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.45), 0 0 40px rgba(232,68,30,0.14);
+    }
+    #wh-clip-paper img {
+      display: block; width: 100%; height: 440px; object-fit: cover; object-position: 50% 45%;
+    }
+    #wh-clip-cap {
+      position: absolute; bottom: 10px; left: 14px; right: 14px;
+      font-size: 20px; font-weight: 600; color: #111111;
+    }
+    #wh-badge-mark {
+      position: absolute; top: -16px; right: -16px;
+      background: #E8441E; color: #ffffff;
+      font-size: 18px; font-weight: 700; letter-spacing: 0.02em;
+      padding: 7px 14px; border-radius: 6px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+    }
+    #wh-quote-mark {
+      position: absolute; top: 1300px; left: 52px;
+      font-size: 220px; font-weight: 900; color: rgba(232,68,30,0.16);
+      line-height: 1; font-family: Georgia, serif;
+      opacity: 0;
+    }
+    #wh-body {
+      position: absolute; top: 1340px; left: 96px; width: 888px;
+      font-size: 34px; font-weight: 600; line-height: 1.42; color: rgba(255,255,255,0.92);
+      opacity: 0;
+    }
+    #wh-body .hl { color: #E8441E; font-weight: 800; }
+  </style>
+  <div id="root" data-composition-id="02-what-happened" data-width="1080" data-height="1920">
+    <div id="wh-kicker"><span>Chín Tháng 2026</span></div>
+    <div id="wh-headline">Lợi nhuận ngành ngân hàng <span style="color:#E8441E">phân hóa</span></div>
+    <div id="wh-clip-wrap">
+      <div id="wh-clip-paper">
+        <img src="assets/images/hook-photo.jpg" alt="Giao dịch ngân hàng">
+        <div id="wh-clip-cap">Giao dịch ngân hàng — ảnh: Thành Đông</div>
+        <div id="wh-badge-mark">BOT BÁN HÀNG</div>
+      </div>
+    </div>
+    <div id="wh-quote-mark" data-layout-ignore>&ldquo;</div>
+    <div id="wh-body">27 ngân hàng niêm yết công bố lợi nhuận trước thuế <span class="hl">tăng so với cùng kỳ</span>.</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#wh-kicker", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.1);
+    tl.fromTo("#wh-headline", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.32);
+    tl.fromTo("#wh-clip-wrap", { opacity: 0, rotate: 4, y: 30 }, { opacity: 1, rotate: -1.6, y: 0, duration: 0.6, ease: "power3.out" }, 0.75);
+    tl.fromTo("#wh-quote-mark", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.out" }, 1.5);
+    tl.fromTo("#wh-body", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 1.5);
+    window.__timelines["02-what-happened"] = tl;
+  </script>
+</template>

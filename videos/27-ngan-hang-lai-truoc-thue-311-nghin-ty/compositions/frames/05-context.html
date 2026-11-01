@@ -1,0 +1,58 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+      overflow: hidden;
+    }
+    #ctx-kicker {
+      position: absolute; top: 140px; left: 64px;
+      font-size: 24px; font-weight: 700; letter-spacing: 0.06em; color: #E8441E;
+      text-transform: uppercase;
+      opacity: 0;
+    }
+    #ctx-headline {
+      position: absolute; top: 186px; left: 64px; width: 952px;
+      font-size: 52px; font-weight: 800; line-height: 1.24; color: #ffffff;
+      letter-spacing: -0.01em;
+      opacity: 0;
+    }
+    .ctx-row {
+      position: absolute; left: 64px; width: 952px; height: 108px;
+      display: flex; align-items: center; gap: 22px;
+      border-left: 5px solid #E8441E;
+      padding-left: 24px;
+      opacity: 0;
+    }
+    .ctx-row .ctx-name { font-size: 32px; font-weight: 700; color: #ffffff; flex: 1; line-height: 1.2; }
+    .ctx-row .ctx-pct { font-size: 44px; font-weight: 900; color: #E8441E; white-space: nowrap; }
+    #ctx-row-1 { top: 1310px; }
+    #ctx-row-2 { top: 1428px; }
+    #ctx-row-3 { top: 1546px; }
+  </style>
+  <div id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div id="ctx-kicker">Bức Tranh Phân Hóa</div>
+    <div id="ctx-headline">Không phải ngân hàng nào cũng <span style="color:#E8441E">tăng</span></div>
+    <div class="ctx-row" id="ctx-row-1">
+      <div class="ctx-name">Eximbank</div>
+      <div class="ctx-pct">&minus;58%</div>
+    </div>
+    <div class="ctx-row" id="ctx-row-2">
+      <div class="ctx-name">Sài Gòn Công Thương</div>
+      <div class="ctx-pct">&minus;74%</div>
+    </div>
+    <div class="ctx-row" id="ctx-row-3">
+      <div class="ctx-name">Sacombank</div>
+      <div class="ctx-pct">&minus;46%</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#ctx-kicker", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.1);
+    tl.fromTo("#ctx-headline", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.32);
+    tl.fromTo("#ctx-row-1", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 0.95);
+    tl.fromTo("#ctx-row-2", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 1.55);
+    tl.fromTo("#ctx-row-3", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 2.15);
+    window.__timelines["05-context"] = tl;
+  </script>
+</template>
