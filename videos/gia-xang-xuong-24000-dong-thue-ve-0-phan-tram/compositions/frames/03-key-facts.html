@@ -1,0 +1,88 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      background: #111111;
+      font-family: "Montserrat", Arial, sans-serif;
+    }
+    .kf-kicker {
+      position: absolute; top: 260px; left: 0; width: 100%; text-align: center;
+      font-weight: 700; font-size: 26px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #E8441E; opacity: 0;
+    }
+    .kf-headline {
+      position: absolute; top: 334px; left: 90px; right: 90px; text-align: center;
+      font-weight: 800; font-size: 46px; line-height: 1.3; color: #ffffff; opacity: 0;
+    }
+    #kf-rows {
+      position: absolute; top: 1310px; left: 80px; width: 920px;
+    }
+    .kf-row {
+      display: flex; align-items: center; gap: 30px;
+      margin-bottom: 36px;
+      opacity: 0;
+    }
+    .kf-ring-box { position: relative; width: 96px; height: 96px; flex: none; }
+    .kf-ring-box svg { width: 96px; height: 96px; }
+    .kf-ring-track { fill: none; stroke: rgba(255,255,255,0.14); stroke-width: 9; }
+    .kf-ring-fill { fill: none; stroke: #E8441E; stroke-width: 9; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; }
+    .kf-ring-icon {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      font-size: 34px; font-weight: 800; color: #ffffff;
+    }
+    .kf-text { flex: 1; }
+    .kf-fuel { font-size: 24px; font-weight: 700; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.03em; }
+    .kf-delta { font-size: 34px; font-weight: 800; color: #ffffff; margin-top: 2px; }
+    .kf-delta .hl { color: #E8441E; }
+    #kf-badge {
+      position: absolute; top: 1596px; left: 0; width: 1080px; text-align: center;
+      font-size: 22px; font-weight: 600; color: rgba(255,255,255,0.58);
+      letter-spacing: 0.01em;
+      opacity: 0;
+    }
+  </style>
+  <div data-hf-id="hf-chzy" id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-im9w" class="kf-kicker" id="kfKicker">Số liệu</div>
+    <div data-hf-id="hf-8urp" class="kf-headline" id="kfHeadline">Giá xăng đồng loạt giảm ngay trong kỳ điều hành đầu tháng 11</div>
+    <div data-hf-id="hf-bla4" id="kf-rows">
+      <div data-hf-id="hf-selc" class="kf-row" id="kfRow1">
+        <div data-hf-id="hf-vv3q" class="kf-ring-box">
+          <svg data-hf-id="hf-y7z7" viewBox="0 0 96 96">
+            <circle data-hf-id="hf-zyxn" class="kf-ring-track" cx="48" cy="48" r="40"></circle>
+            <circle data-hf-id="hf-t7av" class="kf-ring-fill" id="kfRing1" cx="48" cy="48" r="40" stroke-dasharray="251.33" stroke-dashoffset="251.33"></circle>
+          </svg>
+          <div data-hf-id="hf-59xg" class="kf-ring-icon">&#9660;</div>
+        </div>
+        <div data-hf-id="hf-738l" class="kf-text">
+          <div data-hf-id="hf-7beu" class="kf-fuel">Xăng E5 RON 92</div>
+          <div data-hf-id="hf-hx0r" class="kf-delta">Giảm <span data-hf-id="hf-advh" class="hl">1.800 đồng</span> &middot; còn 24.220 đồng/lít</div>
+        </div>
+      </div>
+      <div data-hf-id="hf-3a2z" class="kf-row" id="kfRow2">
+        <div data-hf-id="hf-c5ne" class="kf-ring-box">
+          <svg data-hf-id="hf-eacj" viewBox="0 0 96 96">
+            <circle data-hf-id="hf-cogr" class="kf-ring-track" cx="48" cy="48" r="40"></circle>
+            <circle data-hf-id="hf-p6ao" class="kf-ring-fill" id="kfRing2" cx="48" cy="48" r="40" stroke-dasharray="251.33" stroke-dashoffset="251.33"></circle>
+          </svg>
+          <div data-hf-id="hf-23ek" class="kf-ring-icon">&#9660;</div>
+        </div>
+        <div data-hf-id="hf-fwc9" class="kf-text">
+          <div data-hf-id="hf-02c3" class="kf-fuel">Xăng E10 RON 95</div>
+          <div data-hf-id="hf-z1pt" class="kf-delta">Giảm <span data-hf-id="hf-o2qw" class="hl">1.580 đồng</span> &middot; còn 24.150 đồng/lít</div>
+        </div>
+      </div>
+    </div>
+    <div data-hf-id="hf-6ovo" id="kf-badge">Hiệu lực thuế 0%: 1/11/2026 &ndash; 31/3/2027</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#kfKicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.1);
+    tl.fromTo("#kfHeadline", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.32);
+    tl.fromTo("#kfRow1", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, 1.0);
+    tl.fromTo("#kfRing1", { strokeDashoffset: 251.33 }, { strokeDashoffset: 0, duration: 0.7, ease: "power2.out" }, 1.15);
+    tl.fromTo("#kfRow2", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, 1.9);
+    tl.fromTo("#kfRing2", { strokeDashoffset: 251.33 }, { strokeDashoffset: 0, duration: 0.7, ease: "power2.out" }, 2.05);
+    tl.fromTo("#kf-badge", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.out" }, 2.9);
+    window.__timelines["03-key-facts"] = tl;
+  </script>
+</template>

@@ -7,7 +7,7 @@ Thuế tiêu thụ đặc biệt với xăng giảm về không phần trăm, gi
 Liên Bộ Công Thương và Tài chính điều chỉnh giá bán lẻ xăng, áp dụng từ không giờ ngày một tháng mười một, ngay sau khi Chính phủ ban hành nghị quyết đưa thuế tiêu thụ đặc biệt với xăng về không phần trăm.
 
 ## Dòng 3 — Key facts
-Xăng E5 RON 92 giảm một nghìn tám trăm đồng, còn hai mươi bốn nghìn hai trăm hai mươi đồng một lít; xăng E10 RON 95 giảm một nghìn năm trăm tám mươi đồng, còn hai mươi bốn nghìn một trăm năm mươi đồng một lít; chính sách thuế không phần trăm áp dụng từ ngày một tháng mười một năm hai nghìn hai mươi sáu tới hết ngày ba mươi mốt tháng ba năm hai nghìn hai mươi bảy.
+Xăng E5 RON 92 giảm một nghìn tám trăm đồng, còn hai mươi bốn nghìn hai trăm hai mươi đồng một lít; xăng E10 RON 95 giảm một nghìn năm trăm tám mươi đồng, còn hai mươi bốn nghìn một trăm năm mươi đồng một lít.
 
 ## Dòng 4 — Data moment
 Thuế tiêu thụ đặc biệt với xăng giảm thẳng về không phần trăm, so với mức mười phần trăm với xăng khoáng thông thường, tám phần trăm với xăng E5 và bảy phần trăm với xăng E10 trước đó.

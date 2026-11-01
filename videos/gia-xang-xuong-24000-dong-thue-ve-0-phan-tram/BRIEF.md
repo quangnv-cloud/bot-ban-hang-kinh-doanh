@@ -39,7 +39,11 @@ tiêu dùng, đúng định vị "BOT BÁN HÀNG · KINH DOANH" (chính sách th
 2. What happened: Liên Bộ Công Thương - Tài chính điều chỉnh giá bán lẻ xăng từ 0h 1/11, ngay sau
    khi Chính phủ ban hành nghị quyết đưa thuế tiêu thụ đặc biệt với xăng về 0%.
 3. Key facts: Xăng E5 RON 92 giảm 1.800 đồng còn 24.220 đồng/lít; xăng E10 RON 95 giảm 1.580 đồng
-   còn 24.150 đồng/lít; chính sách thuế 0% áp dụng từ 1/11/2026 đến hết 31/3/2027.
+   còn 24.150 đồng/lít. [Lưu ý kỹ thuật: mốc hiệu lực chính sách "1/11/2026 – 31/3/2027" hiển thị
+   dưới dạng badge/text phụ trên khung hình (không đưa vào voice dòng 3) — tổng thời lượng 6 dòng
+   voice ở speed_rate 1,09 đã là ~59,3s, nếu giữ cả câu ngày hiệu lực trong voice sẽ vượt quá giới
+   hạn "dưới 1 phút" của brand sau khi cộng đệm khung hình. Sau khi cắt, dòng 3 còn ~10,3s, tổng
+   voice ước ~52,9s, an toàn dưới 60s.]
 4. Data moment: Thuế tiêu thụ đặc biệt với xăng giảm thẳng về 0%, so với mức 10% (xăng khoáng
    thông thường), 8% (xăng E5), 7% (xăng E10) trước đó — ẩn dụ vòng tiến trình (ring) rút cạn về 0.
 5. Context: Kỳ điều hành trước (chiều 29/10) giá xăng E5 RON 92 từng tăng lên 26.020 đồng/lít,
