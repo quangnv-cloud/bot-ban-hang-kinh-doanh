@@ -1,0 +1,77 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      background: #111111;
+      font-family: "Montserrat", Arial, sans-serif;
+    }
+    .kf-kicker {
+      position: absolute; top: 260px; left: 0; width: 100%; text-align: center;
+      font-weight: 700; font-size: 26px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #E8441E; opacity: 0;
+    }
+    .kf-headline {
+      position: absolute; top: 334px; left: 80px; right: 80px; text-align: center;
+      font-weight: 800; font-size: 44px; line-height: 1.3; color: #ffffff; opacity: 0;
+    }
+    .kf-headline .hl { color: #E8441E; }
+    #kf-grid {
+      position: absolute; top: 1320px; left: 70px; width: 940px;
+      display: flex; gap: 20px;
+    }
+    .kf-card {
+      flex: 1; border: 1.5px solid rgba(255,255,255,0.14); border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      padding: 26px 14px 22px; text-align: center;
+      opacity: 0;
+    }
+    .kf-card svg { width: 38px; height: 38px; display: block; margin: 0 auto 12px; }
+    .kf-card .title { font-size: 17px; font-weight: 700; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.02em; min-height: 42px; }
+    .kf-card .value { font-size: 32px; font-weight: 800; color: #ffffff; margin-top: 10px; letter-spacing: -0.01em; }
+    .kf-card .delta { font-size: 19px; font-weight: 700; color: #E8441E; margin-top: 6px; }
+  </style>
+  <div data-hf-id="hf-vngk01" id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-vngk02" class="kf-kicker" id="kfKicker">Số liệu</div>
+    <div data-hf-id="hf-vngk03" class="kf-headline" id="kfHeadline">Doanh thu kỷ lục theo quý, <span data-hf-id="hf-vngk04" class="hl">Zalopay</span> tăng tốc</div>
+    <div data-hf-id="hf-vngk05" id="kf-grid">
+      <div data-hf-id="hf-vngk06" class="kf-card" id="kfCard1">
+        <svg data-hf-id="hf-vngk07" viewBox="0 0 48 48">
+          <path data-hf-id="hf-vngk08" d="M10 34V24M24 34V14M38 34V20" stroke="#E8441E" stroke-width="4" stroke-linecap="round" fill="none"></path>
+        </svg>
+        <div data-hf-id="hf-vngk09" class="title">Doanh thu quý 3</div>
+        <div data-hf-id="hf-vngk10" class="value">3.360 tỷ</div>
+        <div data-hf-id="hf-vngk11" class="delta">+22%</div>
+      </div>
+      <div data-hf-id="hf-vngk12" class="kf-card" id="kfCard2">
+        <svg data-hf-id="hf-vngk13" viewBox="0 0 48 48">
+          <rect data-hf-id="hf-vngk14" x="6" y="18" width="36" height="16" rx="8" stroke="#E8441E" stroke-width="3" fill="none"></rect>
+          <path data-hf-id="hf-vngk15" d="M15 23v6M12 26h6" stroke="#E8441E" stroke-width="3" stroke-linecap="round"></path>
+          <circle data-hf-id="hf-vngk16" cx="33" cy="23" r="1.8" fill="#E8441E"></circle>
+          <circle data-hf-id="hf-vngk17" cx="37" cy="27" r="1.8" fill="#E8441E"></circle>
+        </svg>
+        <div data-hf-id="hf-vngk18" class="title">Lũy kế 9 tháng</div>
+        <div data-hf-id="hf-vngk19" class="value">9.230 tỷ</div>
+        <div data-hf-id="hf-vngk20" class="delta">Doanh thu</div>
+      </div>
+      <div data-hf-id="hf-vngk21" class="kf-card" id="kfCard3">
+        <svg data-hf-id="hf-vngk22" viewBox="0 0 48 48">
+          <rect data-hf-id="hf-vngk23" x="6" y="14" width="36" height="24" rx="4" stroke="#E8441E" stroke-width="3" fill="none"></rect>
+          <path data-hf-id="hf-vngk24" d="M6 20h36" stroke="#E8441E" stroke-width="3"></path>
+          <circle data-hf-id="hf-vngk25" cx="34" cy="28" r="2.4" fill="#E8441E"></circle>
+        </svg>
+        <div data-hf-id="hf-vngk26" class="title">Zalopay (fintech)</div>
+        <div data-hf-id="hf-vngk27" class="value">750 tỷ</div>
+        <div data-hf-id="hf-vngk28" class="delta">~Gấp đôi</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#kfKicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.1);
+    tl.fromTo("#kfHeadline", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.32);
+    tl.fromTo("#kfCard1", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.0);
+    tl.fromTo("#kfCard2", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.2);
+    tl.fromTo("#kfCard3", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.4);
+    window.__timelines["03-key-facts"] = tl;
+  </script>
+</template>

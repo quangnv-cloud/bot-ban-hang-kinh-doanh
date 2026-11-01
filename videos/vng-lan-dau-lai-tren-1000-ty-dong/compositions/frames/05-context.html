@@ -1,0 +1,89 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      background: #111111;
+      font-family: "Montserrat", Arial, sans-serif;
+    }
+    .ctx-kicker {
+      position: absolute; top: 262px; left: 0; width: 100%; text-align: center;
+      font-weight: 700; font-size: 26px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #E8441E; opacity: 0;
+    }
+    .ctx-headline {
+      position: absolute; top: 336px; left: 80px; right: 80px; text-align: center;
+      font-weight: 800; font-size: 44px; line-height: 1.3; color: #ffffff; opacity: 0;
+    }
+    .ctx-headline .hl { color: #E8441E; }
+    #ctx-grid {
+      position: absolute; top: 1310px; left: 80px; width: 920px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    }
+    .ctx-cell {
+      border: 1.5px solid rgba(255,255,255,0.14); border-radius: 14px;
+      background: rgba(255,255,255,0.03);
+      padding: 22px 18px; text-align: left;
+      display: flex; align-items: center; gap: 16px;
+      opacity: 0;
+    }
+    .ctx-cell svg { width: 34px; height: 34px; flex: none; }
+    .ctx-cell .title { font-size: 16px; font-weight: 700; color: rgba(255,255,255,0.58); text-transform: uppercase; letter-spacing: 0.01em; }
+    .ctx-cell .value { font-size: 29px; font-weight: 800; color: #ffffff; margin-top: 4px; }
+  </style>
+  <div data-hf-id="hf-vngc01" id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-vngc02" class="ctx-kicker" id="ctxKicker">Bức tranh tài chính</div>
+    <div data-hf-id="hf-vngc03" class="ctx-headline" id="ctxHeadline">Biên lợi nhuận cải thiện, <span data-hf-id="hf-vngc04" class="hl">tài sản</span> mở rộng</div>
+    <div data-hf-id="hf-vngc05" id="ctx-grid">
+      <div data-hf-id="hf-vngc06" class="ctx-cell" id="ctxCell1">
+        <svg data-hf-id="hf-vngc07" viewBox="0 0 48 48">
+          <path data-hf-id="hf-vngc08" d="M10 34V24M24 34V14M38 34V20" stroke="#E8441E" stroke-width="4" stroke-linecap="round" fill="none"></path>
+        </svg>
+        <div data-hf-id="hf-vngc09">
+          <div data-hf-id="hf-vngc10" class="title">Lãi gộp 9 tháng</div>
+          <div data-hf-id="hf-vngc11" class="value">~3.900 tỷ</div>
+        </div>
+      </div>
+      <div data-hf-id="hf-vngc12" class="ctx-cell" id="ctxCell2">
+        <svg data-hf-id="hf-vngc13" viewBox="0 0 48 48">
+          <circle data-hf-id="hf-vngc14" cx="15" cy="15" r="5" stroke="#E8441E" stroke-width="3" fill="none"></circle>
+          <circle data-hf-id="hf-vngc15" cx="33" cy="33" r="5" stroke="#E8441E" stroke-width="3" fill="none"></circle>
+          <path data-hf-id="hf-vngc16" d="M12 36L36 12" stroke="#E8441E" stroke-width="3" stroke-linecap="round"></path>
+        </svg>
+        <div data-hf-id="hf-vngc17">
+          <div data-hf-id="hf-vngc18" class="title">Biên lãi gộp</div>
+          <div data-hf-id="hf-vngc19" class="value">&gt;42%</div>
+        </div>
+      </div>
+      <div data-hf-id="hf-vngc20" class="ctx-cell" id="ctxCell3">
+        <svg data-hf-id="hf-vngc21" viewBox="0 0 48 48">
+          <rect data-hf-id="hf-vngc22" x="10" y="12" width="28" height="28" stroke="#E8441E" stroke-width="3" fill="none"></rect>
+          <path data-hf-id="hf-vngc23" d="M18 40V12M30 40V12M10 22H38M10 30H38" stroke="#E8441E" stroke-width="2.4"></path>
+        </svg>
+        <div data-hf-id="hf-vngc24">
+          <div data-hf-id="hf-vngc25" class="title">Tổng tài sản</div>
+          <div data-hf-id="hf-vngc26" class="value">~13.000 tỷ</div>
+        </div>
+      </div>
+      <div data-hf-id="hf-vngc27" class="ctx-cell" id="ctxCell4">
+        <svg data-hf-id="hf-vngc28" viewBox="0 0 48 48">
+          <rect data-hf-id="hf-vngc29" x="11" y="8" width="26" height="32" rx="3" stroke="#E8441E" stroke-width="3" fill="none"></rect>
+          <path data-hf-id="hf-vngc30" d="M17 18H31M17 25H31M17 32H26" stroke="#E8441E" stroke-width="2.6" stroke-linecap="round"></path>
+        </svg>
+        <div data-hf-id="hf-vngc31">
+          <div data-hf-id="hf-vngc32" class="title">Nợ phải trả</div>
+          <div data-hf-id="hf-vngc33" class="value">~11.700 tỷ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#ctxKicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.1);
+    tl.fromTo("#ctxHeadline", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.32);
+    tl.fromTo("#ctxCell1", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.0);
+    tl.fromTo("#ctxCell2", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.2);
+    tl.fromTo("#ctxCell3", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.4);
+    tl.fromTo("#ctxCell4", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.6);
+    window.__timelines["05-context"] = tl;
+  </script>
+</template>
