@@ -1,0 +1,111 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+      color: #ffffff;
+    }
+    .f02-kicker {
+      position: absolute; top: 160px; left: 64px; right: 64px;
+      font-size: 26px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #E8441E;
+      opacity: 0;
+    }
+    .f02-headline {
+      position: absolute; top: 212px; left: 64px; right: 64px;
+      font-size: 50px; font-weight: 800; line-height: 1.22;
+      color: #ffffff;
+      opacity: 0;
+    }
+    .f02-headline .hl { color: #E8441E; }
+
+    .f02-image-wrap {
+      position: absolute; top: 470px; left: 64px; right: 64px;
+      height: 560px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1.5px solid rgba(232,68,30,0.5);
+      box-shadow: 0 0 40px rgba(232, 68, 30, 0.14);
+      opacity: 0;
+    }
+    .f02-image-wrap img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .f02-image-scrim {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(17,17,17,0) 55%, rgba(17,17,17,0.75) 100%);
+    }
+    .f02-image-tag {
+      position: absolute; left: 24px; bottom: 20px;
+      font-size: 28px; font-weight: 700; color: #fff;
+    }
+    .f02-image-badge {
+      position: absolute; right: 20px; bottom: 18px;
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(17,17,17,0.55);
+      border: 1px solid rgba(232,68,30,0.6);
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 28px; font-weight: 700; color: #fff;
+    }
+    .f02-image-badge img { width: 26px; height: 26px; }
+
+    .f02-chip-row {
+      position: absolute; top: 1340px; left: 64px; right: 64px;
+      display: flex; gap: 28px;
+    }
+    .f02-chip {
+      flex: 1 1 0;
+      background: rgba(232, 68, 30, 0.08);
+      border: 1.5px solid #E8441E;
+      border-radius: 18px;
+      padding: 28px 26px;
+      box-shadow: 0 0 40px rgba(232, 68, 30, 0.14);
+      opacity: 0;
+    }
+    .f02-chip-num {
+      display: block;
+      font-size: 56px; font-weight: 800; color: #ffffff;
+      letter-spacing: -0.01em;
+    }
+    .f02-chip-label {
+      display: block;
+      margin-top: 8px;
+      font-size: 24px; font-weight: 600; color: rgba(255,255,255,0.72);
+    }
+  </style>
+  <div id="root" data-composition-id="02-what-happened" data-width="1080" data-height="1920">
+    <div class="f02-kicker">Diễn biến</div>
+    <div class="f02-headline">Petrolimex công bố báo cáo tài chính <span class="hl">quý 3/2026</span></div>
+
+    <div class="f02-image-wrap">
+      <img src="assets/images/hook-photo.jpg" alt="Trạm xăng dầu Petrolimex">
+      <div class="f02-image-scrim"></div>
+      <div class="f02-image-tag">Trạm xăng dầu Petrolimex</div>
+      <div class="f02-image-badge"><img src="public/logo-bbh-mark.png" alt="">Bot Bán Hàng</div>
+    </div>
+
+    <div class="f02-chip-row">
+      <div class="f02-chip" id="f02Chip1">
+        <span class="f02-chip-num">138.482</span>
+        <span class="f02-chip-label">Tỷ đồng doanh thu quý 3</span>
+      </div>
+      <div class="f02-chip" id="f02Chip2">
+        <span class="f02-chip-num">+66%</span>
+        <span class="f02-chip-label">So với cùng kỳ 2025</span>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo(".f02-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.05);
+    tl.fromTo(".f02-headline", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.22);
+    tl.fromTo(".f02-image-wrap", { opacity: 0, scale: 0.97 }, { opacity: 1, scale: 1, duration: 0.5, ease: "power3.out" }, 0.6);
+    tl.fromTo("#f02Chip1", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.42, ease: "back.out(1.6)" }, 1.25);
+    tl.fromTo("#f02Chip2", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.42, ease: "back.out(1.6)" }, 1.45);
+    window.__timelines["02-what-happened"] = tl;
+  </script>
+</template>

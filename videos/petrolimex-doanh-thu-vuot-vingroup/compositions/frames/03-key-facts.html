@@ -1,0 +1,92 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+      color: #ffffff;
+    }
+    .f03-kicker {
+      position: absolute; top: 150px; left: 64px; right: 64px;
+      font-size: 28px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #E8441E;
+      opacity: 0;
+    }
+    .f03-headline {
+      position: absolute; top: 202px; left: 64px; right: 64px;
+      font-size: 48px; font-weight: 800; line-height: 1.24;
+      opacity: 0;
+    }
+    .f03-headline .hl { color: #E8441E; }
+    .f03-sub {
+      position: absolute; top: 540px; left: 64px; right: 64px;
+      font-size: 30px; font-weight: 600; line-height: 1.4;
+      color: rgba(255,255,255,0.78);
+      opacity: 0;
+    }
+    .f03-sub b { color: #ffffff; font-weight: 700; }
+
+    .f03-list {
+      position: absolute; top: 1300px; left: 64px; right: 64px;
+      display: flex; flex-direction: column; gap: 24px;
+    }
+    .f03-row {
+      display: flex; align-items: center; gap: 24px;
+      background: rgba(255,255,255,0.05);
+      border: 1.5px solid rgba(232,68,30,0.55);
+      border-radius: 16px;
+      padding: 22px 28px;
+      box-shadow: 0 0 40px rgba(232, 68, 30, 0.12);
+      opacity: 0;
+    }
+    .f03-row-idx {
+      flex: none;
+      width: 54px; height: 54px;
+      border-radius: 50%;
+      background: #E8441E;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; font-weight: 800; color: #fff;
+    }
+    .f03-row-body { flex: 1 1 auto; }
+    .f03-row-num {
+      font-size: 42px; font-weight: 800; color: #ffffff;
+      letter-spacing: -0.01em;
+    }
+    .f03-row-num span { color: #E8441E; }
+    .f03-row-label {
+      margin-top: 4px;
+      font-size: 28px; font-weight: 600; color: rgba(255,255,255,0.72);
+    }
+  </style>
+  <div id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <div class="f03-kicker">Vì sao lợi nhuận bứt phá</div>
+    <div class="f03-headline">Giá dầu thế giới <span class="hl">tăng mạnh</span>, sản lượng xuất bán tăng cao</div>
+    <div class="f03-sub">Giá dầu thô quý 3 tăng từ khoảng <b>75</b> lên <b>95&ndash;105 USD/thùng</b>; sản lượng xăng dầu xuất bán tăng <b>18%</b> so với cùng kỳ.</div>
+
+    <div class="f03-list">
+      <div class="f03-row" id="f03Row1">
+        <div class="f03-row-idx">01</div>
+        <div class="f03-row-body">
+          <div class="f03-row-num">1.790 tỷ <span>+122%</span></div>
+          <div class="f03-row-label">Lợi nhuận trước thuế quý 3</div>
+        </div>
+      </div>
+      <div class="f03-row" id="f03Row2">
+        <div class="f03-row-idx">02</div>
+        <div class="f03-row-body">
+          <div class="f03-row-num">1.363 tỷ <span>+93%</span></div>
+          <div class="f03-row-label">Lợi nhuận sau thuế quý 3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo(".f03-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.05);
+    tl.fromTo(".f03-headline", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.22);
+    tl.fromTo(".f03-sub", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.65);
+    tl.fromTo("#f03Row1", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.42, ease: "power3.out" }, 1.5);
+    tl.fromTo("#f03Row2", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.42, ease: "power3.out" }, 1.85);
+    window.__timelines["03-key-facts"] = tl;
+  </script>
+</template>

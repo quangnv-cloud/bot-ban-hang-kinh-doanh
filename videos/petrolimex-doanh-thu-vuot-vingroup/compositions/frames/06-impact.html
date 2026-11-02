@@ -1,0 +1,81 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+      color: #ffffff;
+    }
+    .f06-kicker {
+      position: absolute; top: 150px; left: 64px; right: 64px;
+      font-size: 28px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #E8441E;
+      opacity: 0;
+    }
+    .f06-headline {
+      position: absolute; top: 202px; left: 64px; right: 64px;
+      font-size: 48px; font-weight: 800; line-height: 1.24;
+      opacity: 0;
+    }
+    .f06-headline .hl { color: #E8441E; }
+
+    .f06-panels {
+      position: absolute; top: 1270px; left: 64px; right: 64px;
+      display: flex; flex-direction: column; gap: 26px;
+    }
+    .f06-panel {
+      position: relative;
+      overflow: hidden;
+      background: rgba(255,255,255,0.05);
+      border: 1.5px solid rgba(232,68,30,0.55);
+      border-radius: 18px;
+      padding: 24px 28px;
+      box-shadow: 0 0 40px rgba(232, 68, 30, 0.12);
+      opacity: 0;
+    }
+    .f06-panel-wm {
+      position: absolute; right: 18px; top: 14px;
+      font-size: 104px; font-weight: 900;
+      color: rgba(232,68,30,0.14);
+      line-height: 1;
+      z-index: 0;
+    }
+    .f06-panel-num {
+      position: relative; z-index: 1;
+      font-size: 46px; font-weight: 800; color: #ffffff;
+    }
+    .f06-panel-num span { color: #E8441E; }
+    .f06-panel-label {
+      position: relative; z-index: 1;
+      margin-top: 8px;
+      max-width: 620px;
+      font-size: 28px; font-weight: 600; color: rgba(255,255,255,0.78);
+      line-height: 1.3;
+    }
+  </style>
+  <div id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <div class="f06-kicker">Tại ngày 30/9/2026</div>
+    <div class="f06-headline">Quy mô tài sản <span class="hl">và nợ vay</span> đều tăng mạnh</div>
+
+    <div class="f06-panels">
+      <div class="f06-panel" id="f06Panel1">
+        <div class="f06-panel-wm" data-layout-allow-overflow data-layout-ignore>01</div>
+        <div class="f06-panel-num">109.009 tỷ <span>+27%</span></div>
+        <div class="f06-panel-label">Tổng tài sản hợp nhất</div>
+      </div>
+      <div class="f06-panel" id="f06Panel2">
+        <div class="f06-panel-wm" data-layout-allow-overflow data-layout-ignore>02</div>
+        <div class="f06-panel-num">27.206 tỷ <span>+154%</span></div>
+        <div class="f06-panel-label">Dư nợ vay &amp; nợ thuê tài chính &mdash; tương đương hơn 1 tỷ đô la Mỹ, tăng chỉ trong 3 tháng</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo(".f06-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.05);
+    tl.fromTo(".f06-headline", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.22);
+    tl.fromTo("#f06Panel1", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 1.3);
+    tl.fromTo("#f06Panel2", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 1.65);
+    window.__timelines["06-impact"] = tl;
+  </script>
+</template>

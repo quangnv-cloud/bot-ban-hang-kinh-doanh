@@ -1,0 +1,88 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+      color: #ffffff;
+    }
+    .f05-kicker {
+      position: absolute; top: 160px; left: 64px; right: 64px;
+      font-size: 26px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #E8441E;
+      opacity: 0;
+    }
+    .f05-headline {
+      position: absolute; top: 212px; left: 64px; right: 64px;
+      font-size: 48px; font-weight: 800; line-height: 1.24;
+      opacity: 0;
+    }
+    .f05-headline .hl { color: #E8441E; }
+    .f05-sub {
+      position: absolute; top: 540px; left: 64px; right: 64px;
+      font-size: 30px; font-weight: 600; line-height: 1.4;
+      color: rgba(255,255,255,0.78);
+      opacity: 0;
+    }
+    .f05-sub b { color: #ffffff; font-weight: 700; }
+
+    .f05-chip-row {
+      position: absolute; top: 1300px; left: 64px; right: 64px;
+      display: flex; gap: 28px;
+    }
+    .f05-chip {
+      flex: 1 1 0;
+      background: rgba(232, 68, 30, 0.08);
+      border: 1.5px solid #E8441E;
+      border-radius: 18px;
+      padding: 30px 24px;
+      box-shadow: 0 0 40px rgba(232, 68, 30, 0.14);
+      text-align: center;
+      opacity: 0;
+    }
+    .f05-chip-num {
+      display: block;
+      font-size: 68px; font-weight: 800; color: #E8441E;
+      letter-spacing: -0.01em;
+    }
+    .f05-chip-label {
+      display: block;
+      margin-top: 10px;
+      font-size: 28px; font-weight: 600; color: rgba(255,255,255,0.82);
+      line-height: 1.3;
+    }
+    .f05-foot {
+      position: absolute; top: 1600px; left: 64px; right: 64px;
+      text-align: center;
+      font-size: 28px; font-weight: 600; color: rgba(255,255,255,0.68);
+      opacity: 0;
+    }
+  </style>
+  <div id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div class="f05-kicker">Vượt chỉ tiêu cổ đông</div>
+    <div class="f05-headline">Petrolimex vượt <span class="hl">cả hai chỉ tiêu</span> cổ đông giao cho năm 2026</div>
+    <div class="f05-sub">Lợi nhuận trước thuế <b>9 tháng</b> đạt hơn <b>4.688 tỷ đồng</b>, tăng gần <b>67%</b> so với cùng kỳ.</div>
+
+    <div class="f05-chip-row">
+      <div class="f05-chip" id="f05Chip1">
+        <span class="f05-chip-num">+18%</span>
+        <span class="f05-chip-label">Vượt kế hoạch doanh thu cả năm</span>
+      </div>
+      <div class="f05-chip" id="f05Chip2">
+        <span class="f05-chip-num">+39%</span>
+        <span class="f05-chip-label">Vượt mục tiêu lợi nhuận trước thuế</span>
+      </div>
+    </div>
+    <div class="f05-foot">Chỉ sau 3 quý, đã vượt kết quả thực hiện cả năm 2025</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo(".f05-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.05);
+    tl.fromTo(".f05-headline", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.22);
+    tl.fromTo(".f05-sub", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.65);
+    tl.fromTo("#f05Chip1", { opacity: 0, y: 16, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.6)" }, 1.4);
+    tl.fromTo("#f05Chip2", { opacity: 0, y: 16, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.6)" }, 1.65);
+    tl.fromTo(".f05-foot", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 2.3);
+    window.__timelines["05-context"] = tl;
+  </script>
+</template>
