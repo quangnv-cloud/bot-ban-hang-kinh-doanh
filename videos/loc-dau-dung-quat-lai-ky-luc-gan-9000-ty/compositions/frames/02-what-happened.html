@@ -1,0 +1,101 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+      overflow: hidden;
+    }
+    #wh-kicker {
+      position: absolute; top: 118px; left: 64px;
+      display: inline-flex; align-items: center; gap: 10px;
+      border: 1.5px solid #E8441E; border-radius: 8px;
+      padding: 8px 18px;
+      opacity: 0;
+    }
+    #wh-kicker span { font-size: 28px; font-weight: 700; letter-spacing: 0.06em; color: #E8441E; text-transform: uppercase; }
+    #wh-headline {
+      position: absolute; top: 188px; left: 64px; width: 952px;
+      font-size: 54px; font-weight: 800; line-height: 1.2; color: #ffffff;
+      letter-spacing: -0.01em;
+      opacity: 0;
+    }
+    #wh-card-wrap {
+      position: absolute; top: 420px; left: 110px;
+      width: 860px; height: 560px;
+      opacity: 0;
+    }
+    #wh-card {
+      position: absolute; inset: 0;
+      background: #181818;
+      border: 1px solid rgba(232,68,30,0.35);
+      border-radius: 14px;
+      padding: 14px 14px 46px 14px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.45), 0 0 40px rgba(232,68,30,0.14);
+      overflow: hidden;
+    }
+    #wh-card img {
+      display: block; width: 100%; height: 440px; object-fit: cover; object-position: 50% 45%;
+      border-radius: 8px;
+    }
+    #wh-card-cap {
+      position: absolute; bottom: 10px; left: 14px; right: 14px;
+      font-size: 28px; font-weight: 600; color: rgba(255,255,255,0.78);
+    }
+    #wh-badge-mark {
+      position: absolute; top: -8px; right: -8px;
+      background: #E8441E; color: #171717;
+      font-size: 18px; font-weight: 800; letter-spacing: 0.02em;
+      padding: 7px 14px; border-radius: 6px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+    }
+    #wh-ticker {
+      position: absolute; top: 1012px; left: 64px; width: 952px; height: 52px;
+      display: flex; align-items: center; gap: 28px;
+      border-top: 1px solid rgba(232,68,30,0.4);
+      border-bottom: 1px solid rgba(232,68,30,0.4);
+      overflow: hidden;
+      opacity: 0;
+    }
+    #wh-ticker .chip { display: flex; align-items: center; gap: 8px; flex: none; }
+    #wh-ticker .chip .code { font-size: 22px; font-weight: 700; color: rgba(255,255,255,0.55); letter-spacing: 0.04em; }
+    #wh-ticker .chip .arrow { font-size: 20px; font-weight: 800; color: #E8441E; }
+    #wh-ticker .chip .val { font-size: 22px; font-weight: 700; color: #E8441E; }
+    #wh-ticker .dot { width: 8px; height: 8px; border-radius: 50%; background: #E8441E; flex: none; }
+    #wh-body {
+      position: absolute; top: 1340px; left: 96px; width: 888px;
+      font-size: 34px; font-weight: 600; line-height: 1.42; color: rgba(255,255,255,0.92);
+      opacity: 0;
+    }
+    #wh-body .hl { color: #E8441E; font-weight: 800; }
+  </style>
+  <div id="root" data-composition-id="02-what-happened" data-width="1080" data-height="1920">
+    <div id="wh-kicker"><span>Quý 3/2026</span></div>
+    <div id="wh-headline">Lợi nhuận lọc dầu <span style="color:#E8441E">bật tăng kỷ lục</span></div>
+    <div id="wh-card-wrap">
+      <div id="wh-card">
+        <img src="assets/images/hook-photo.jpg" alt="Nhà máy lọc dầu Dung Quất">
+        <div id="wh-card-cap">Nhà máy lọc dầu Dung Quất — ảnh: BSR</div>
+        <div id="wh-badge-mark" data-layout-allow-overflow data-layout-ignore>BOT BÁN HÀNG</div>
+      </div>
+    </div>
+    <div id="wh-ticker" data-layout-allow-overlap data-layout-ignore>
+      <span class="dot"></span>
+      <span class="chip"><span class="code">BSR</span><span class="arrow">&#9650;</span><span class="val">+10,0x</span></span>
+      <span class="chip"><span class="code">BRENT</span><span class="arrow">&#9650;</span><span class="val">97 USD</span></span>
+      <span class="chip"><span class="code">GVHB</span><span class="arrow">&#9650;</span><span class="val">16,2%</span></span>
+      <span class="chip"><span class="code">CS</span><span class="arrow">&#9650;</span><span class="val">123%</span></span>
+    </div>
+    <div id="wh-body">Công ty Cổ phần Lọc hóa dầu Bình Sơn công bố lợi nhuận quý 3 <span class="hl">tăng gần 10 lần</span> so với cùng kỳ.</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#wh-kicker", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.1);
+    tl.fromTo("#wh-headline", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.32);
+    tl.fromTo("#wh-card-wrap", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.75);
+    tl.fromTo("#wh-ticker", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 1.35);
+    tl.fromTo("#wh-ticker .chip", { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out", stagger: 0.12 }, 1.4);
+    tl.fromTo("#wh-body", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 1.9);
+    window.__timelines["02-what-happened"] = tl;
+  </script>
+</template>

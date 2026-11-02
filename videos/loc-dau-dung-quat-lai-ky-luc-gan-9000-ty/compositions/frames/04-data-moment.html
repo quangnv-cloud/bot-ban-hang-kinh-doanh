@@ -1,0 +1,74 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+      overflow: hidden;
+    }
+    #dm-kicker {
+      position: absolute; top: 140px; left: 64px;
+      display: inline-flex; align-items: center; gap: 10px;
+      border: 1.5px solid #E8441E; border-radius: 8px;
+      padding: 8px 18px;
+      opacity: 0;
+    }
+    #dm-kicker span { font-size: 28px; font-weight: 700; letter-spacing: 0.06em; color: #E8441E; text-transform: uppercase; }
+    #dm-ticker-code {
+      position: absolute; top: 210px; left: 64px;
+      font-size: 28px; font-weight: 700; letter-spacing: 0.08em; color: rgba(255,255,255,0.55);
+      opacity: 0;
+    }
+    #dm-chart-wrap {
+      position: absolute; top: 300px; left: 90px; width: 900px; height: 300px;
+      opacity: 0;
+    }
+    #dm-chart-wrap svg { width: 100%; height: 100%; }
+    #dm-chart-path { fill: none; stroke: #E8441E; stroke-width: 5; stroke-linecap: round; }
+    #dm-number-wrap {
+      position: absolute; top: 600px; left: 40px; width: 1000px; text-align: center;
+      opacity: 0;
+    }
+    #dm-number { font-size: 150px; font-weight: 900; color: #ffffff; letter-spacing: -0.02em; }
+    #dm-unit { margin-top: 6px; font-size: 32px; font-weight: 700; color: rgba(255,255,255,0.7); }
+    #dm-compare-badge {
+      position: absolute; top: 1380px; left: 64px; width: 952px; height: 86px;
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      border: 1.5px solid #E8441E; border-radius: 12px;
+      background: rgba(232,68,30,0.08);
+      opacity: 0;
+    }
+    #dm-compare-badge span { font-size: 34px; font-weight: 800; color: #E8441E; }
+    #dm-secondary {
+      position: absolute; top: 1500px; left: 64px; width: 952px; text-align: center;
+      font-size: 30px; font-weight: 600; color: rgba(255,255,255,0.78);
+      opacity: 0;
+    }
+  </style>
+  <div id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+    <div id="dm-kicker"><span>Lũy kế 9 tháng</span></div>
+    <div id="dm-ticker-code">LNST &middot; 9 THÁNG 2026</div>
+    <div id="dm-chart-wrap">
+      <svg viewBox="0 0 900 300" preserveAspectRatio="none">
+        <path id="dm-chart-path" d="M 10 260 L 180 230 L 340 190 L 520 120 L 700 60 L 880 20" pathLength="100"/>
+      </svg>
+    </div>
+    <div id="dm-number-wrap">
+      <div id="dm-number">24.902</div>
+      <div id="dm-unit">tỷ đồng lợi nhuận sau thuế</div>
+    </div>
+    <div id="dm-compare-badge"><span>&#9650; Tăng 11,6 lần so với cùng kỳ</span></div>
+    <div id="dm-secondary">Lợi nhuận trước thuế 9 tháng: gần 28.000 tỷ đồng</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#dm-kicker", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.1);
+    tl.fromTo("#dm-ticker-code", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 0.3);
+    tl.fromTo("#dm-chart-wrap", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "none" }, 0.5);
+    tl.fromTo("#dm-chart-path", { strokeDasharray: 100, strokeDashoffset: 100 }, { strokeDashoffset: 0, duration: 0.9, ease: "power1.inOut" }, 0.5);
+    tl.fromTo("#dm-number-wrap", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 1.25);
+    tl.fromTo("#dm-compare-badge", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.85);
+    tl.fromTo("#dm-secondary", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 2.2);
+    window.__timelines["04-data-moment"] = tl;
+  </script>
+</template>

@@ -1,0 +1,100 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+      overflow: hidden;
+    }
+    #ctx-kicker {
+      position: absolute; top: 150px; left: 64px;
+      display: inline-flex; align-items: center; gap: 10px;
+      border: 1.5px solid #E8441E; border-radius: 8px;
+      padding: 8px 18px;
+      opacity: 0;
+    }
+    #ctx-kicker span { font-size: 28px; font-weight: 700; letter-spacing: 0.06em; color: #E8441E; text-transform: uppercase; }
+    #ctx-headline {
+      position: absolute; top: 220px; left: 64px; width: 952px;
+      font-size: 52px; font-weight: 800; line-height: 1.22; color: #ffffff;
+      letter-spacing: -0.01em;
+      opacity: 0;
+    }
+    .ctx-group { position: absolute; top: 440px; width: 420px; height: 420px; }
+    #ctx-group-a { left: 80px; }
+    #ctx-group-b { left: 580px; }
+    .ctx-group-title {
+      position: absolute; top: 0; left: 0; width: 100%; height: 44px; text-align: center;
+      font-size: 28px; font-weight: 700; letter-spacing: 0.04em; color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      opacity: 0;
+    }
+    .ctx-bars { position: absolute; top: 76px; left: 0; width: 100%; height: 320px; display: flex; align-items: flex-end; justify-content: center; gap: 32px; }
+    .ctx-bar-col { display: flex; flex-direction: column; align-items: center; width: 160px; }
+    .ctx-bar-val { font-size: 28px; font-weight: 800; color: #ffffff; margin-bottom: 8px; opacity: 0; }
+    .ctx-bar { width: 72px; border-radius: 6px 6px 0 0; transform-origin: bottom; transform: scaleY(0); }
+    .ctx-bar-period { margin-top: 10px; font-size: 28px; font-weight: 600; color: rgba(255,255,255,0.55); opacity: 0; }
+    #ctx-body {
+      position: absolute; top: 1340px; left: 96px; width: 888px;
+      font-size: 33px; font-weight: 600; line-height: 1.42; color: rgba(255,255,255,0.92);
+      opacity: 0;
+    }
+    #ctx-body .hl { color: #E8441E; font-weight: 800; }
+  </style>
+  <div id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div id="ctx-kicker"><span>Nguyên nhân</span></div>
+    <div id="ctx-headline">Giá dầu Brent cao hơn, biên lãi mở rộng</div>
+
+    <div class="ctx-group" id="ctx-group-a">
+      <div class="ctx-group-title">Giá Brent (USD/thùng)</div>
+      <div class="ctx-bars">
+        <div class="ctx-bar-col">
+          <div class="ctx-bar-val">~69</div>
+          <div class="ctx-bar" style="height:135px; background: rgba(232,68,30,0.45);"></div>
+          <div class="ctx-bar-period">Quý 3/2025</div>
+        </div>
+        <div class="ctx-bar-col">
+          <div class="ctx-bar-val">97</div>
+          <div class="ctx-bar" style="height:190px; background: #E8441E;"></div>
+          <div class="ctx-bar-period">Quý 3/2026</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ctx-group" id="ctx-group-b">
+      <div class="ctx-group-title">Biên lợi nhuận gộp</div>
+      <div class="ctx-bars">
+        <div class="ctx-bar-col">
+          <div class="ctx-bar-val">2,9%</div>
+          <div class="ctx-bar" style="height:34px; background: rgba(232,68,30,0.45);"></div>
+          <div class="ctx-bar-period">Quý 3/2025</div>
+        </div>
+        <div class="ctx-bar-col">
+          <div class="ctx-bar-val">16,2%</div>
+          <div class="ctx-bar" style="height:190px; background: #E8441E;"></div>
+          <div class="ctx-bar-period">Quý 3/2026</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="ctx-body">Giá dầu Brent bình quân quý 3 khoảng <span class="hl">97 đô la Mỹ một thùng</span>, cao hơn gần <span class="hl">28 đô la Mỹ</span> so với cùng kỳ năm 2025.</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#ctx-kicker", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.1);
+    tl.fromTo("#ctx-headline", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.3);
+
+    tl.fromTo("#ctx-group-a .ctx-group-title", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.85);
+    tl.fromTo("#ctx-group-a .ctx-bar-val", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 1.0, "a-vals");
+    tl.fromTo("#ctx-group-a .ctx-bar", { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: "back.out(1.5)", stagger: 0.12 }, 1.05);
+    tl.fromTo("#ctx-group-a .ctx-bar-period", { opacity: 0 }, { opacity: 1, duration: 0.25, stagger: 0.12 }, 1.35);
+
+    tl.fromTo("#ctx-group-b .ctx-group-title", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 1.45);
+    tl.fromTo("#ctx-group-b .ctx-bar-val", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 1.6);
+    tl.fromTo("#ctx-group-b .ctx-bar", { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: "back.out(1.5)", stagger: 0.12 }, 1.65);
+    tl.fromTo("#ctx-group-b .ctx-bar-period", { opacity: 0 }, { opacity: 1, duration: 0.25, stagger: 0.12 }, 1.95);
+
+    tl.fromTo("#ctx-body", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 2.35);
+    window.__timelines["05-context"] = tl;
+  </script>
+</template>
