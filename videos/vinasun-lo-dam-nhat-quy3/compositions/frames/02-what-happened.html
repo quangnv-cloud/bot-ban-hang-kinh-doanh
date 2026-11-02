@@ -1,0 +1,90 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+      overflow: hidden;
+    }
+    #wh-kicker {
+      position: absolute; top: 140px; left: 64px;
+      display: inline-flex; align-items: center; gap: 10px;
+      border: 1.5px solid #E8441E; border-radius: 8px;
+      padding: 8px 18px;
+      opacity: 0;
+    }
+    #wh-kicker span { font-size: 28px; font-weight: 700; letter-spacing: 0.06em; color: #E8441E; text-transform: uppercase; }
+    #wh-headline {
+      position: absolute; top: 212px; left: 64px; width: 952px;
+      font-size: 50px; font-weight: 800; line-height: 1.22; color: #ffffff;
+      letter-spacing: -0.01em;
+      opacity: 0;
+    }
+    #wh-card-wrap {
+      position: absolute; top: 420px; left: 110px;
+      width: 860px; height: 560px;
+      opacity: 0;
+    }
+    #wh-card {
+      position: absolute; inset: 0;
+      background: #181818;
+      border: 1.5px solid rgba(232,68,30,0.4);
+      border-radius: 24px;
+      padding: 14px 14px 46px 14px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.45), 0 0 40px rgba(232,68,30,0.14);
+      overflow: hidden;
+    }
+    #wh-card img {
+      display: block; width: 100%; height: 440px; object-fit: cover; object-position: 50% 42%;
+      border-radius: 14px;
+    }
+    #wh-card-cap {
+      position: absolute; bottom: 10px; left: 14px; right: 14px;
+      font-size: 28px; font-weight: 600; color: rgba(255,255,255,0.78);
+    }
+    #wh-badge-mark {
+      position: absolute; top: -8px; right: -8px;
+      background: #E8441E; color: #171717;
+      font-size: 18px; font-weight: 800; letter-spacing: 0.02em;
+      padding: 7px 14px; border-radius: 6px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+    }
+    #wh-card-num {
+      position: absolute; top: -24px; left: 26px;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: #E8441E; color: #111111;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; font-weight: 900;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+      z-index: 2;
+    }
+    #wh-body {
+      position: absolute; top: 1340px; left: 96px; width: 888px;
+      font-size: 33px; font-weight: 600; line-height: 1.42; color: rgba(255,255,255,0.92);
+      opacity: 0;
+    }
+    #wh-body .hl { color: #E8441E; font-weight: 800; }
+  </style>
+  <div data-hf-id="hf-5ubw" id="root" data-composition-id="02-what-happened" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-m1du" id="wh-kicker"><span data-hf-id="hf-cr9a">Quý 3/2026</span></div>
+    <div data-hf-id="hf-h8qw" id="wh-headline">Vinasun báo lỗ quý 3 <span data-hf-id="hf-jwh3" style="color:#E8441E">kỷ lục</span></div>
+    <div data-hf-id="hf-h7ls" id="wh-card-wrap">
+      <div data-hf-id="hf-f4ej" id="wh-card">
+        <img data-hf-id="hf-aq8p" src="assets/images/hook-photo.jpg" alt="Xe taxi Vinasun">
+        <div data-hf-id="hf-cedg" id="wh-card-cap">Taxi Vinasun — ảnh: Znews</div>
+        <div data-hf-id="hf-rky3" id="wh-badge-mark" data-layout-allow-overflow data-layout-ignore>BOT BÁN HÀNG</div>
+      </div>
+      <div data-hf-id="hf-75vc" id="wh-card-num" data-layout-allow-overflow>01</div>
+    </div>
+    <div data-hf-id="hf-un4w" id="wh-body">Công ty Cổ phần Ánh Dương Việt Nam (Vinasun) công bố doanh thu thuần quý 3 đạt <span data-hf-id="hf-1f7e" class="hl">177 tỷ đồng</span>, giảm gần <span data-hf-id="hf-g8nm" class="hl">19%</span> so với cùng kỳ.</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#wh-kicker", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.1);
+    tl.fromTo("#wh-headline", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.32);
+    tl.fromTo("#wh-card-wrap", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.75);
+    tl.fromTo("#wh-card-num", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, 1.1);
+    tl.fromTo("#wh-body", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 1.75);
+    window.__timelines["02-what-happened"] = tl;
+  </script>
+</template>

@@ -1,0 +1,101 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+      overflow: hidden;
+    }
+    #im-kicker {
+      position: absolute; top: 150px; left: 64px;
+      display: inline-flex; align-items: center; gap: 10px;
+      border: 1.5px solid #E8441E; border-radius: 8px;
+      padding: 8px 18px;
+      opacity: 0;
+    }
+    #im-kicker span { font-size: 28px; font-weight: 700; letter-spacing: 0.06em; color: #E8441E; text-transform: uppercase; }
+    #im-headline {
+      position: absolute; top: 220px; left: 64px; width: 952px;
+      font-size: 48px; font-weight: 800; line-height: 1.22; color: #ffffff;
+      letter-spacing: -0.01em;
+      opacity: 0;
+    }
+    .im-hrow { position: absolute; left: 64px; width: 952px; height: 110px; opacity: 0; }
+    #im-hrow-1 { top: 460px; }
+    #im-hrow-2 { top: 630px; }
+    .im-hrow-label { font-size: 28px; font-weight: 700; color: rgba(255,255,255,0.78); margin-bottom: 14px; }
+    .im-hrow-label .hl { color: #E8441E; font-weight: 800; }
+    .im-htrack { position: relative; width: 100%; height: 26px; border-radius: 13px; background: rgba(255,255,255,0.1); overflow: hidden; }
+    .im-hfill { position: absolute; left: 0; top: 0; height: 100%; border-radius: 13px; background: #E8441E; transform-origin: left; transform: scaleX(0); }
+
+    .im-card {
+      position: absolute; top: 1300px; width: 460px; height: 360px;
+      background: #181818;
+      border: 1.5px solid rgba(232,68,30,0.35);
+      border-radius: 22px;
+      padding: 30px 24px;
+      opacity: 0;
+    }
+    #im-card-a { left: 54px; }
+    #im-card-b { left: 566px; }
+    .im-card-badge {
+      position: absolute; top: -20px; left: 24px;
+      width: 52px; height: 52px; border-radius: 50%;
+      background: #E8441E; color: #111111;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; font-weight: 900;
+      z-index: 2;
+    }
+    .im-card-label { margin-top: 20px; font-size: 24px; font-weight: 700; letter-spacing: 0.04em; color: rgba(255,255,255,0.55); text-transform: uppercase; }
+    .im-card-number { margin-top: 14px; font-size: 68px; font-weight: 900; color: #ffffff; letter-spacing: -0.01em; }
+    .im-card-unit { margin-top: 2px; font-size: 24px; font-weight: 700; color: rgba(255,255,255,0.6); }
+    .im-card-sub { margin-top: 16px; font-size: 24px; font-weight: 700; color: #E8441E; }
+  </style>
+  <div data-hf-id="hf-repe" id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-faur" id="im-kicker"><span data-hf-id="hf-0vhn">Ý nghĩa</span></div>
+    <div data-hf-id="hf-4ou5" id="im-headline">Bộ máy thu hẹp, tài sản giảm theo</div>
+
+    <div data-hf-id="hf-te6u" class="im-hrow" id="im-hrow-1">
+      <div data-hf-id="hf-yqqz" class="im-hrow-label">Nhân sự còn <span data-hf-id="hf-w1ik" class="hl">1.120 người</span>, giảm 287 người</div>
+      <div data-hf-id="hf-u8rm" class="im-htrack"><div data-hf-id="hf-k5kk" class="im-hfill" id="im-fill-1" style="width:79.6%;"></div></div>
+    </div>
+    <div data-hf-id="hf-pg2t" class="im-hrow" id="im-hrow-2">
+      <div data-hf-id="hf-wd76" class="im-hrow-label">Tổng tài sản còn <span data-hf-id="hf-ykfz" class="hl">hơn 1.622 tỷ đồng</span>, giảm gần 9%</div>
+      <div data-hf-id="hf-rjk6" class="im-htrack"><div data-hf-id="hf-ryzz" class="im-hfill" id="im-fill-2" style="width:91%;"></div></div>
+    </div>
+
+    <div data-hf-id="hf-wgdy" class="im-card" id="im-card-a">
+      <div data-hf-id="hf-3sbb" class="im-card-badge">08</div>
+      <div data-hf-id="hf-nrum" class="im-card-label">Nhân sự tại 30/9/2026</div>
+      <div data-hf-id="hf-pikb" class="im-card-number">1.120</div>
+      <div data-hf-id="hf-5vtv" class="im-card-unit">người</div>
+      <div data-hf-id="hf-x168" class="im-card-sub">&#9660; Giảm 287 người</div>
+    </div>
+    <div data-hf-id="hf-qao5" class="im-card" id="im-card-b">
+      <div data-hf-id="hf-46mc" class="im-card-badge">09</div>
+      <div data-hf-id="hf-wskz" class="im-card-label">Tổng tài sản</div>
+      <div data-hf-id="hf-gh5s" class="im-card-number">1.622</div>
+      <div data-hf-id="hf-m130" class="im-card-unit">tỷ đồng</div>
+      <div data-hf-id="hf-z3ii" class="im-card-sub">&#9660; Giảm gần 9%</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#im-kicker", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.1);
+    tl.fromTo("#im-headline", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.3);
+
+    tl.fromTo("#im-hrow-1", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.85);
+    tl.fromTo("#im-fill-1", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.out" }, 1.0);
+
+    tl.fromTo("#im-hrow-2", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.45);
+    tl.fromTo("#im-fill-2", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.out" }, 1.6);
+
+    tl.fromTo("#im-card-a", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 2.2);
+    tl.fromTo("#im-card-a .im-card-badge", { scale: 0.5 }, { scale: 1, duration: 0.3, ease: "back.out(1.8)" }, 2.3);
+
+    tl.fromTo("#im-card-b", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 2.5);
+    tl.fromTo("#im-card-b .im-card-badge", { scale: 0.5 }, { scale: 1, duration: 0.3, ease: "back.out(1.8)" }, 2.6);
+
+    window.__timelines["06-impact"] = tl;
+  </script>
+</template>

@@ -1,0 +1,1316 @@
+[
+  {
+    "act": "what-happened",
+    "start": 8.83,
+    "end": 9.6,
+    "words": [
+      {
+        "text": "Công",
+        "start": 8.83,
+        "end": 8.91
+      },
+      {
+        "text": "ty",
+        "start": 8.95,
+        "end": 9.01
+      },
+      {
+        "text": "Cổ",
+        "start": 9.07,
+        "end": 9.15
+      },
+      {
+        "text": "phần",
+        "start": 9.19,
+        "end": 9.31
+      },
+      {
+        "text": "Ánh",
+        "start": 9.37,
+        "end": 9.45
+      },
+      {
+        "text": "Dương",
+        "start": 9.49,
+        "end": 9.61
+      }
+    ]
+  },
+  {
+    "act": "what-happened",
+    "start": 9.65,
+    "end": 10.94,
+    "words": [
+      {
+        "text": "Việt",
+        "start": 9.65,
+        "end": 9.75
+      },
+      {
+        "text": "Nam,",
+        "start": 9.79,
+        "end": 9.97
+      },
+      {
+        "text": "đơn",
+        "start": 10.35,
+        "end": 10.45
+      },
+      {
+        "text": "vị",
+        "start": 10.49,
+        "end": 10.57
+      },
+      {
+        "text": "sở",
+        "start": 10.67,
+        "end": 10.77
+      },
+      {
+        "text": "hữu",
+        "start": 10.81,
+        "end": 10.95
+      }
+    ]
+  },
+  {
+    "act": "what-happened",
+    "start": 10.99,
+    "end": 12.6,
+    "words": [
+      {
+        "text": "hãng",
+        "start": 10.99,
+        "end": 11.13
+      },
+      {
+        "text": "taxi",
+        "start": 11.19,
+        "end": 11.43
+      },
+      {
+        "text": "Vinasun,",
+        "start": 11.49,
+        "end": 11.87
+      },
+      {
+        "text": "công",
+        "start": 12.25,
+        "end": 12.33
+      },
+      {
+        "text": "bố",
+        "start": 12.37,
+        "end": 12.45
+      },
+      {
+        "text": "doanh",
+        "start": 12.49,
+        "end": 12.63
+      }
+    ]
+  },
+  {
+    "act": "what-happened",
+    "start": 12.65,
+    "end": 13.62,
+    "words": [
+      {
+        "text": "thu",
+        "start": 12.65,
+        "end": 12.73
+      },
+      {
+        "text": "thuần",
+        "start": 12.79,
+        "end": 12.93
+      },
+      {
+        "text": "quý",
+        "start": 13.01,
+        "end": 13.11
+      },
+      {
+        "text": "ba",
+        "start": 13.17,
+        "end": 13.27
+      },
+      {
+        "text": "đạt",
+        "start": 13.33,
+        "end": 13.49
+      },
+      {
+        "text": "một",
+        "start": 13.53,
+        "end": 13.65
+      }
+    ]
+  },
+  {
+    "act": "what-happened",
+    "start": 13.67,
+    "end": 14.850000000000001,
+    "words": [
+      {
+        "text": "trăm",
+        "start": 13.67,
+        "end": 13.81
+      },
+      {
+        "text": "bảy",
+        "start": 13.85,
+        "end": 13.93
+      },
+      {
+        "text": "mươi",
+        "start": 13.99,
+        "end": 14.09
+      },
+      {
+        "text": "bảy",
+        "start": 14.13,
+        "end": 14.23
+      },
+      {
+        "text": "tỷ",
+        "start": 14.29,
+        "end": 14.37
+      },
+      {
+        "text": "đồng,",
+        "start": 14.41,
+        "end": 14.55
+      }
+    ]
+  },
+  {
+    "act": "what-happened",
+    "start": 14.93,
+    "end": 15.9,
+    "words": [
+      {
+        "text": "giảm",
+        "start": 14.93,
+        "end": 15.07
+      },
+      {
+        "text": "gần",
+        "start": 15.09,
+        "end": 15.21
+      },
+      {
+        "text": "mười",
+        "start": 15.25,
+        "end": 15.37
+      },
+      {
+        "text": "chín",
+        "start": 15.43,
+        "end": 15.57
+      },
+      {
+        "text": "phần",
+        "start": 15.59,
+        "end": 15.69
+      },
+      {
+        "text": "trăm",
+        "start": 15.73,
+        "end": 15.87
+      }
+    ]
+  },
+  {
+    "act": "what-happened",
+    "start": 15.95,
+    "end": 16.810000000000002,
+    "words": [
+      {
+        "text": "so",
+        "start": 15.95,
+        "end": 16.05
+      },
+      {
+        "text": "với",
+        "start": 16.09,
+        "end": 16.19
+      },
+      {
+        "text": "cùng",
+        "start": 16.21,
+        "end": 16.31
+      },
+      {
+        "text": "kỳ",
+        "start": 16.39,
+        "end": 16.51
+      }
+    ]
+  },
+  {
+    "act": "key-facts",
+    "start": 17.89,
+    "end": 18.82,
+    "words": [
+      {
+        "text": "Lãi",
+        "start": 17.89,
+        "end": 17.99
+      },
+      {
+        "text": "gộp",
+        "start": 18.05,
+        "end": 18.19
+      },
+      {
+        "text": "quý",
+        "start": 18.21,
+        "end": 18.33
+      },
+      {
+        "text": "ba",
+        "start": 18.39,
+        "end": 18.49
+      },
+      {
+        "text": "giảm",
+        "start": 18.55,
+        "end": 18.67
+      },
+      {
+        "text": "gần",
+        "start": 18.73,
+        "end": 18.85
+      }
+    ]
+  },
+  {
+    "act": "key-facts",
+    "start": 18.87,
+    "end": 20.12,
+    "words": [
+      {
+        "text": "năm",
+        "start": 18.87,
+        "end": 18.99
+      },
+      {
+        "text": "mươi",
+        "start": 19.01,
+        "end": 19.13
+      },
+      {
+        "text": "chín",
+        "start": 19.15,
+        "end": 19.27
+      },
+      {
+        "text": "phần",
+        "start": 19.31,
+        "end": 19.41
+      },
+      {
+        "text": "trăm,",
+        "start": 19.47,
+        "end": 19.63
+      },
+      {
+        "text": "biên",
+        "start": 20.01,
+        "end": 20.11
+      }
+    ]
+  },
+  {
+    "act": "key-facts",
+    "start": 20.17,
+    "end": 21.18,
+    "words": [
+      {
+        "text": "lãi",
+        "start": 20.17,
+        "end": 20.29
+      },
+      {
+        "text": "gộp",
+        "start": 20.33,
+        "end": 20.51
+      },
+      {
+        "text": "co",
+        "start": 20.55,
+        "end": 20.65
+      },
+      {
+        "text": "lại",
+        "start": 20.73,
+        "end": 20.91
+      },
+      {
+        "text": "từ",
+        "start": 20.95,
+        "end": 21.05
+      },
+      {
+        "text": "hai",
+        "start": 21.09,
+        "end": 21.17
+      }
+    ]
+  },
+  {
+    "act": "key-facts",
+    "start": 21.23,
+    "end": 22.24,
+    "words": [
+      {
+        "text": "mươi",
+        "start": 21.23,
+        "end": 21.33
+      },
+      {
+        "text": "hai",
+        "start": 21.35,
+        "end": 21.47
+      },
+      {
+        "text": "phẩy",
+        "start": 21.55,
+        "end": 21.65
+      },
+      {
+        "text": "năm",
+        "start": 21.69,
+        "end": 21.77
+      },
+      {
+        "text": "xuống",
+        "start": 21.85,
+        "end": 21.99
+      },
+      {
+        "text": "còn",
+        "start": 22.13,
+        "end": 22.25
+      }
+    ]
+  },
+  {
+    "act": "key-facts",
+    "start": 22.29,
+    "end": 23.63,
+    "words": [
+      {
+        "text": "mười",
+        "start": 22.29,
+        "end": 22.41
+      },
+      {
+        "text": "một",
+        "start": 22.45,
+        "end": 22.61
+      },
+      {
+        "text": "phẩy",
+        "start": 22.63,
+        "end": 22.79
+      },
+      {
+        "text": "bốn",
+        "start": 22.81,
+        "end": 22.95
+      },
+      {
+        "text": "phần",
+        "start": 22.97,
+        "end": 23.09
+      },
+      {
+        "text": "trăm.",
+        "start": 23.11,
+        "end": 23.33
+      }
+    ]
+  },
+  {
+    "act": "key-facts",
+    "start": 23.89,
+    "end": 24.84,
+    "words": [
+      {
+        "text": "Công",
+        "start": 23.89,
+        "end": 23.97
+      },
+      {
+        "text": "ty",
+        "start": 24.03,
+        "end": 24.15
+      },
+      {
+        "text": "còn",
+        "start": 24.19,
+        "end": 24.29
+      },
+      {
+        "text": "lỗ",
+        "start": 24.33,
+        "end": 24.45
+      },
+      {
+        "text": "khác",
+        "start": 24.49,
+        "end": 24.65
+      },
+      {
+        "text": "gần",
+        "start": 24.69,
+        "end": 24.85
+      }
+    ]
+  },
+  {
+    "act": "key-facts",
+    "start": 24.89,
+    "end": 25.78,
+    "words": [
+      {
+        "text": "ba",
+        "start": 24.89,
+        "end": 24.97
+      },
+      {
+        "text": "mươi",
+        "start": 25.01,
+        "end": 25.11
+      },
+      {
+        "text": "ba",
+        "start": 25.15,
+        "end": 25.23
+      },
+      {
+        "text": "tỷ",
+        "start": 25.29,
+        "end": 25.39
+      },
+      {
+        "text": "đồng",
+        "start": 25.43,
+        "end": 25.57
+      },
+      {
+        "text": "do",
+        "start": 25.73,
+        "end": 25.81
+      }
+    ]
+  },
+  {
+    "act": "key-facts",
+    "start": 25.83,
+    "end": 26.8,
+    "words": [
+      {
+        "text": "thanh",
+        "start": 25.83,
+        "end": 25.95
+      },
+      {
+        "text": "lý",
+        "start": 25.99,
+        "end": 26.11
+      },
+      {
+        "text": "tài",
+        "start": 26.13,
+        "end": 26.29
+      },
+      {
+        "text": "sản",
+        "start": 26.35,
+        "end": 26.51
+      },
+      {
+        "text": "cố",
+        "start": 26.53,
+        "end": 26.63
+      },
+      {
+        "text": "định",
+        "start": 26.67,
+        "end": 26.83
+      }
+    ]
+  },
+  {
+    "act": "key-facts",
+    "start": 26.85,
+    "end": 27.61,
+    "words": [
+      {
+        "text": "tăng",
+        "start": 26.85,
+        "end": 26.95
+      },
+      {
+        "text": "đột",
+        "start": 26.99,
+        "end": 27.11
+      },
+      {
+        "text": "biến",
+        "start": 27.15,
+        "end": 27.31
+      }
+    ]
+  },
+  {
+    "act": "data-moment",
+    "start": 28.57,
+    "end": 29.46,
+    "words": [
+      {
+        "text": "Lợi",
+        "start": 28.57,
+        "end": 28.67
+      },
+      {
+        "text": "nhuận",
+        "start": 28.71,
+        "end": 28.85
+      },
+      {
+        "text": "sau",
+        "start": 28.91,
+        "end": 29.03
+      },
+      {
+        "text": "thuế",
+        "start": 29.05,
+        "end": 29.15
+      },
+      {
+        "text": "quý",
+        "start": 29.21,
+        "end": 29.29
+      },
+      {
+        "text": "ba",
+        "start": 29.35,
+        "end": 29.43
+      }
+    ]
+  },
+  {
+    "act": "data-moment",
+    "start": 29.51,
+    "end": 30.56,
+    "words": [
+      {
+        "text": "của",
+        "start": 29.51,
+        "end": 29.61
+      },
+      {
+        "text": "Vinasun",
+        "start": 29.65,
+        "end": 30.01
+      },
+      {
+        "text": "lỗ",
+        "start": 30.05,
+        "end": 30.17
+      },
+      {
+        "text": "gần",
+        "start": 30.21,
+        "end": 30.31
+      },
+      {
+        "text": "năm",
+        "start": 30.35,
+        "end": 30.45
+      },
+      {
+        "text": "mươi",
+        "start": 30.49,
+        "end": 30.57
+      }
+    ]
+  },
+  {
+    "act": "data-moment",
+    "start": 30.61,
+    "end": 31.8,
+    "words": [
+      {
+        "text": "lăm",
+        "start": 30.61,
+        "end": 30.71
+      },
+      {
+        "text": "tỷ",
+        "start": 30.77,
+        "end": 30.85
+      },
+      {
+        "text": "đồng,",
+        "start": 30.89,
+        "end": 31.01
+      },
+      {
+        "text": "trong",
+        "start": 31.39,
+        "end": 31.51
+      },
+      {
+        "text": "khi",
+        "start": 31.53,
+        "end": 31.65
+      },
+      {
+        "text": "cùng",
+        "start": 31.67,
+        "end": 31.77
+      }
+    ]
+  },
+  {
+    "act": "data-moment",
+    "start": 31.85,
+    "end": 32.7,
+    "words": [
+      {
+        "text": "kỳ",
+        "start": 31.85,
+        "end": 31.97
+      },
+      {
+        "text": "năm",
+        "start": 31.99,
+        "end": 32.09
+      },
+      {
+        "text": "ngoái",
+        "start": 32.13,
+        "end": 32.29
+      },
+      {
+        "text": "công",
+        "start": 32.309,
+        "end": 32.41
+      },
+      {
+        "text": "ty",
+        "start": 32.47,
+        "end": 32.55
+      },
+      {
+        "text": "này",
+        "start": 32.59,
+        "end": 32.69
+      }
+    ]
+  },
+  {
+    "act": "data-moment",
+    "start": 32.75,
+    "end": 33.76,
+    "words": [
+      {
+        "text": "lãi",
+        "start": 32.75,
+        "end": 32.87
+      },
+      {
+        "text": "hơn",
+        "start": 32.91,
+        "end": 33.07
+      },
+      {
+        "text": "chín",
+        "start": 33.09,
+        "end": 33.23
+      },
+      {
+        "text": "tỷ",
+        "start": 33.27,
+        "end": 33.35
+      },
+      {
+        "text": "đồng.",
+        "start": 33.39,
+        "end": 33.53
+      },
+      {
+        "text": "Đây",
+        "start": 33.65,
+        "end": 33.77
+      }
+    ]
+  },
+  {
+    "act": "data-moment",
+    "start": 33.81,
+    "end": 34.64,
+    "words": [
+      {
+        "text": "là",
+        "start": 33.81,
+        "end": 33.91
+      },
+      {
+        "text": "mức",
+        "start": 33.95,
+        "end": 34.07
+      },
+      {
+        "text": "lỗ",
+        "start": 34.09,
+        "end": 34.21
+      },
+      {
+        "text": "theo",
+        "start": 34.23,
+        "end": 34.35
+      },
+      {
+        "text": "quý",
+        "start": 34.37,
+        "end": 34.47
+      },
+      {
+        "text": "sâu",
+        "start": 34.55,
+        "end": 34.65
+      }
+    ]
+  },
+  {
+    "act": "data-moment",
+    "start": 34.69,
+    "end": 35.62,
+    "words": [
+      {
+        "text": "nhất",
+        "start": 34.69,
+        "end": 34.83
+      },
+      {
+        "text": "của",
+        "start": 34.87,
+        "end": 34.95
+      },
+      {
+        "text": "doanh",
+        "start": 35.01,
+        "end": 35.11
+      },
+      {
+        "text": "nghiệp",
+        "start": 35.15,
+        "end": 35.35
+      },
+      {
+        "text": "từ",
+        "start": 35.39,
+        "end": 35.49
+      },
+      {
+        "text": "quý",
+        "start": 35.51,
+        "end": 35.63
+      }
+    ]
+  },
+  {
+    "act": "data-moment",
+    "start": 35.67,
+    "end": 37.349999999999994,
+    "words": [
+      {
+        "text": "bốn",
+        "start": 35.67,
+        "end": 35.81
+      },
+      {
+        "text": "năm",
+        "start": 35.87,
+        "end": 35.97
+      },
+      {
+        "text": "2021",
+        "start": 36.09,
+        "end": 36.73
+      },
+      {
+        "text": "tới",
+        "start": 36.75,
+        "end": 36.87
+      },
+      {
+        "text": "nay.",
+        "start": 36.89,
+        "end": 37.05
+      }
+    ]
+  },
+  {
+    "act": "context",
+    "start": 38.37,
+    "end": 39.76,
+    "words": [
+      {
+        "text": "Lũy",
+        "start": 38.37,
+        "end": 38.45
+      },
+      {
+        "text": "kế",
+        "start": 38.51,
+        "end": 38.61
+      },
+      {
+        "text": "chín",
+        "start": 38.65,
+        "end": 38.77
+      },
+      {
+        "text": "tháng,",
+        "start": 38.81,
+        "end": 38.99
+      },
+      {
+        "text": "Vinasun",
+        "start": 39.29,
+        "end": 39.61
+      },
+      {
+        "text": "lỗ",
+        "start": 39.65,
+        "end": 39.75
+      }
+    ]
+  },
+  {
+    "act": "context",
+    "start": 39.81,
+    "end": 40.66,
+    "words": [
+      {
+        "text": "sau",
+        "start": 39.81,
+        "end": 39.93
+      },
+      {
+        "text": "thuế",
+        "start": 39.95,
+        "end": 40.07
+      },
+      {
+        "text": "gần",
+        "start": 40.09,
+        "end": 40.19
+      },
+      {
+        "text": "sáu",
+        "start": 40.27,
+        "end": 40.39
+      },
+      {
+        "text": "mươi",
+        "start": 40.41,
+        "end": 40.53
+      },
+      {
+        "text": "chín",
+        "start": 40.57,
+        "end": 40.69
+      }
+    ]
+  },
+  {
+    "act": "context",
+    "start": 40.71,
+    "end": 41.88,
+    "words": [
+      {
+        "text": "tỷ",
+        "start": 40.71,
+        "end": 40.81
+      },
+      {
+        "text": "đồng,",
+        "start": 40.85,
+        "end": 40.97
+      },
+      {
+        "text": "trong",
+        "start": 41.33,
+        "end": 41.45
+      },
+      {
+        "text": "khi",
+        "start": 41.47,
+        "end": 41.55
+      },
+      {
+        "text": "cùng",
+        "start": 41.61,
+        "end": 41.75
+      },
+      {
+        "text": "kỳ",
+        "start": 41.77,
+        "end": 41.89
+      }
+    ]
+  },
+  {
+    "act": "context",
+    "start": 41.93,
+    "end": 42.84,
+    "words": [
+      {
+        "text": "năm",
+        "start": 41.93,
+        "end": 42.03
+      },
+      {
+        "text": "ngoái",
+        "start": 42.05,
+        "end": 42.23
+      },
+      {
+        "text": "công",
+        "start": 42.25,
+        "end": 42.35
+      },
+      {
+        "text": "ty",
+        "start": 42.41,
+        "end": 42.49
+      },
+      {
+        "text": "lãi",
+        "start": 42.53,
+        "end": 42.67
+      },
+      {
+        "text": "hơn",
+        "start": 42.71,
+        "end": 42.85
+      }
+    ]
+  },
+  {
+    "act": "context",
+    "start": 42.89,
+    "end": 44.02,
+    "words": [
+      {
+        "text": "ba",
+        "start": 42.89,
+        "end": 42.97
+      },
+      {
+        "text": "mươi",
+        "start": 43.01,
+        "end": 43.13
+      },
+      {
+        "text": "ba",
+        "start": 43.15,
+        "end": 43.23
+      },
+      {
+        "text": "tỷ",
+        "start": 43.29,
+        "end": 43.37
+      },
+      {
+        "text": "đồng.",
+        "start": 43.41,
+        "end": 43.55
+      },
+      {
+        "text": "Doanh",
+        "start": 43.91,
+        "end": 44.05
+      }
+    ]
+  },
+  {
+    "act": "context",
+    "start": 44.07,
+    "end": 45.06,
+    "words": [
+      {
+        "text": "thu",
+        "start": 44.07,
+        "end": 44.17
+      },
+      {
+        "text": "chín",
+        "start": 44.23,
+        "end": 44.39
+      },
+      {
+        "text": "tháng",
+        "start": 44.41,
+        "end": 44.53
+      },
+      {
+        "text": "giảm",
+        "start": 44.59,
+        "end": 44.73
+      },
+      {
+        "text": "gần",
+        "start": 44.79,
+        "end": 44.91
+      },
+      {
+        "text": "mười",
+        "start": 44.95,
+        "end": 45.07
+      }
+    ]
+  },
+  {
+    "act": "context",
+    "start": 45.11,
+    "end": 46.3,
+    "words": [
+      {
+        "text": "một",
+        "start": 45.11,
+        "end": 45.23
+      },
+      {
+        "text": "phần",
+        "start": 45.25,
+        "end": 45.35
+      },
+      {
+        "text": "trăm,",
+        "start": 45.41,
+        "end": 45.59
+      },
+      {
+        "text": "còn",
+        "start": 45.95,
+        "end": 46.05
+      },
+      {
+        "text": "hơn",
+        "start": 46.089,
+        "end": 46.19
+      },
+      {
+        "text": "năm",
+        "start": 46.23,
+        "end": 46.31
+      }
+    ]
+  },
+  {
+    "act": "context",
+    "start": 46.35,
+    "end": 47.51,
+    "words": [
+      {
+        "text": "trăm",
+        "start": 46.35,
+        "end": 46.47
+      },
+      {
+        "text": "chín",
+        "start": 46.53,
+        "end": 46.63
+      },
+      {
+        "text": "mươi",
+        "start": 46.67,
+        "end": 46.79
+      },
+      {
+        "text": "sáu",
+        "start": 46.83,
+        "end": 46.95
+      },
+      {
+        "text": "tỷ",
+        "start": 46.97,
+        "end": 47.05
+      },
+      {
+        "text": "đồng",
+        "start": 47.09,
+        "end": 47.21
+      }
+    ]
+  },
+  {
+    "act": "impact",
+    "start": 48.47,
+    "end": 50.08,
+    "words": [
+      {
+        "text": "Đến",
+        "start": 48.47,
+        "end": 48.57
+      },
+      {
+        "text": "cuối",
+        "start": 48.61,
+        "end": 48.75
+      },
+      {
+        "text": "tháng",
+        "start": 48.77,
+        "end": 48.89
+      },
+      {
+        "text": "chín,",
+        "start": 48.95,
+        "end": 49.13
+      },
+      {
+        "text": "Vinasun",
+        "start": 49.45,
+        "end": 49.77
+      },
+      {
+        "text": "còn",
+        "start": 49.85,
+        "end": 49.97
+      }
+    ]
+  },
+  {
+    "act": "impact",
+    "start": 50.13,
+    "end": 52.949999999999996,
+    "words": [
+      {
+        "text": "1120",
+        "start": 50.13,
+        "end": 50.85
+      },
+      {
+        "text": "nhân",
+        "start": 50.89,
+        "end": 50.99
+      },
+      {
+        "text": "viên,",
+        "start": 51.05,
+        "end": 51.19
+      },
+      {
+        "text": "giảm",
+        "start": 51.55,
+        "end": 51.67
+      },
+      {
+        "text": "287",
+        "start": 51.85,
+        "end": 52.43
+      },
+      {
+        "text": "người.",
+        "start": 52.49,
+        "end": 52.65
+      }
+    ]
+  },
+  {
+    "act": "impact",
+    "start": 53.01,
+    "end": 53.94,
+    "words": [
+      {
+        "text": "Tổng",
+        "start": 53.01,
+        "end": 53.15
+      },
+      {
+        "text": "tài",
+        "start": 53.17,
+        "end": 53.33
+      },
+      {
+        "text": "sản",
+        "start": 53.37,
+        "end": 53.49
+      },
+      {
+        "text": "công",
+        "start": 53.53,
+        "end": 53.61
+      },
+      {
+        "text": "ty",
+        "start": 53.67,
+        "end": 53.81
+      },
+      {
+        "text": "còn",
+        "start": 53.83,
+        "end": 53.95
+      }
+    ]
+  },
+  {
+    "act": "impact",
+    "start": 53.99,
+    "end": 56.26,
+    "words": [
+      {
+        "text": "hơn",
+        "start": 53.99,
+        "end": 54.11
+      },
+      {
+        "text": "1622",
+        "start": 54.25,
+        "end": 55.23
+      },
+      {
+        "text": "tỷ",
+        "start": 55.25,
+        "end": 55.33
+      },
+      {
+        "text": "đồng,",
+        "start": 55.37,
+        "end": 55.49
+      },
+      {
+        "text": "giảm",
+        "start": 55.87,
+        "end": 56.01
+      },
+      {
+        "text": "gần",
+        "start": 56.05,
+        "end": 56.13
+      }
+    ]
+  },
+  {
+    "act": "impact",
+    "start": 56.31,
+    "end": 56.97,
+    "words": [
+      {
+        "text": "9%.",
+        "start": 56.31,
+        "end": 56.67
+      }
+    ]
+  }
+]

@@ -1,0 +1,104 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+      overflow: hidden;
+    }
+    #dm-kicker {
+      position: absolute; top: 140px; left: 64px;
+      display: inline-flex; align-items: center; gap: 10px;
+      border: 1.5px solid #E8441E; border-radius: 8px;
+      padding: 8px 18px;
+      opacity: 0;
+    }
+    #dm-kicker span { font-size: 28px; font-weight: 700; letter-spacing: 0.06em; color: #E8441E; text-transform: uppercase; }
+    #dm-headline {
+      position: absolute; top: 210px; left: 64px; width: 952px;
+      font-size: 48px; font-weight: 800; line-height: 1.22; color: #ffffff;
+      letter-spacing: -0.01em;
+      opacity: 0;
+    }
+    #dm-number-wrap {
+      position: absolute; top: 330px; left: 40px; width: 1000px; text-align: center;
+      opacity: 0;
+    }
+    #dm-number-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 52px; height: 52px; border-radius: 50%;
+      background: #E8441E; color: #111111; font-size: 24px; font-weight: 900;
+      margin-bottom: 8px;
+    }
+    #dm-number { font-size: 124px; font-weight: 900; color: #ffffff; letter-spacing: -0.02em; line-height: 1; }
+    #dm-number .sign { color: #E8441E; }
+    #dm-unit { margin-top: 4px; font-size: 28px; font-weight: 700; color: rgba(255,255,255,0.7); }
+    #dm-compare-wrap {
+      position: absolute; top: 650px; left: 290px; width: 500px; height: 420px;
+      background: #181818;
+      border: 1.5px solid rgba(232,68,30,0.35);
+      border-radius: 22px;
+      padding: 20px;
+      opacity: 0;
+    }
+    #dm-compare-title {
+      position: absolute; top: 20px; left: 0; width: 100%; text-align: center;
+      font-size: 26px; font-weight: 700; letter-spacing: 0.04em; color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      opacity: 0;
+    }
+    #dm-bars { position: absolute; top: 96px; left: 0; width: 100%; height: 300px; display: flex; align-items: flex-end; justify-content: center; gap: 48px; }
+    .dm-bar-col { display: flex; flex-direction: column; align-items: center; width: 180px; }
+    .dm-bar-val { font-size: 28px; font-weight: 800; margin-bottom: 8px; opacity: 0; }
+    .dm-bar { width: 84px; border-radius: 8px 8px 0 0; transform-origin: bottom; transform: scaleY(0); }
+    .dm-bar-period { margin-top: 10px; font-size: 26px; font-weight: 600; color: rgba(255,255,255,0.55); opacity: 0; }
+    #dm-compare-badge {
+      position: absolute; top: 1340px; left: 64px; width: 952px; height: 86px;
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      border: 1.5px solid #E8441E; border-radius: 16px;
+      background: rgba(232,68,30,0.08);
+      opacity: 0;
+    }
+    #dm-compare-badge span { font-size: 32px; font-weight: 800; color: #E8441E; text-align: center; }
+  </style>
+  <div data-hf-id="hf-o51p" id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-1zly" id="dm-kicker"><span data-hf-id="hf-cr9a">Quý 3/2026</span></div>
+    <div data-hf-id="hf-0sbl" id="dm-headline">Lỗ sau thuế sâu nhất nhiều năm</div>
+    <div data-hf-id="hf-81xj" id="dm-number-wrap">
+      <div data-hf-id="hf-ulbz" id="dm-number-badge">05</div>
+      <div data-hf-id="hf-hbno" id="dm-number"><span data-hf-id="hf-juuc" class="sign">&minus;</span>55</div>
+      <div data-hf-id="hf-m61c" id="dm-unit">tỷ đồng lợi nhuận sau thuế</div>
+    </div>
+    <div data-hf-id="hf-xc3r" id="dm-compare-wrap">
+      <div data-hf-id="hf-ci34" id="dm-compare-title">Lợi nhuận sau thuế quý 3</div>
+      <div data-hf-id="hf-ln1b" id="dm-bars">
+        <div data-hf-id="hf-wao8" class="dm-bar-col">
+          <div data-hf-id="hf-4w12" class="dm-bar-val" style="color: rgba(255,255,255,0.75);">&#9650; Lãi 9 tỷ</div>
+          <div data-hf-id="hf-cbwy" class="dm-bar" id="dm-bar-2025" style="height:31px; background: rgba(232,68,30,0.4);"></div>
+          <div data-hf-id="hf-qoc3" class="dm-bar-period">Quý 3/2025</div>
+        </div>
+        <div data-hf-id="hf-i5j4" class="dm-bar-col">
+          <div data-hf-id="hf-r5ez" class="dm-bar-val" style="color: #E8441E;">&#9660; Lỗ 55 tỷ</div>
+          <div data-hf-id="hf-cyx4" class="dm-bar" id="dm-bar-2026" style="height:190px; background: #E8441E;"></div>
+          <div data-hf-id="hf-qa12" class="dm-bar-period">Quý 3/2026</div>
+        </div>
+      </div>
+    </div>
+    <div data-hf-id="hf-pz7k" id="dm-compare-badge"><span data-hf-id="hf-h0kj">Mức lỗ theo quý sâu nhất kể từ quý 4/2021</span></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#dm-kicker", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.1);
+    tl.fromTo("#dm-headline", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.32);
+    tl.fromTo("#dm-number-wrap", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 0.85);
+
+    tl.fromTo("#dm-compare-wrap", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 1.55);
+    tl.fromTo("#dm-compare-title", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 1.75);
+    tl.fromTo("#dm-bars .dm-bar-val", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 1.9);
+    tl.fromTo("#dm-bars .dm-bar", { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: "back.out(1.5)", stagger: 0.12 }, 1.95);
+    tl.fromTo("#dm-bars .dm-bar-period", { opacity: 0 }, { opacity: 1, duration: 0.25, stagger: 0.12 }, 2.3);
+
+    tl.fromTo("#dm-compare-badge", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 2.75);
+    window.__timelines["04-data-moment"] = tl;
+  </script>
+</template>

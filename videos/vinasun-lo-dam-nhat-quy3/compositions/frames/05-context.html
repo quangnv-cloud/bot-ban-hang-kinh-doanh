@@ -1,0 +1,123 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+      overflow: hidden;
+    }
+    #ctx-kicker {
+      position: absolute; top: 150px; left: 64px;
+      display: inline-flex; align-items: center; gap: 10px;
+      border: 1.5px solid #E8441E; border-radius: 8px;
+      padding: 8px 18px;
+      opacity: 0;
+    }
+    #ctx-kicker span { font-size: 28px; font-weight: 700; letter-spacing: 0.06em; color: #E8441E; text-transform: uppercase; }
+    #ctx-headline {
+      position: absolute; top: 220px; left: 64px; width: 952px;
+      font-size: 48px; font-weight: 800; line-height: 1.22; color: #ffffff;
+      letter-spacing: -0.01em;
+      opacity: 0;
+    }
+    .ctx-card {
+      position: absolute; top: 430px; width: 460px; height: 430px;
+      background: #181818;
+      border: 1.5px solid rgba(232,68,30,0.35);
+      border-radius: 22px;
+      opacity: 0;
+    }
+    #ctx-card-a { left: 54px; }
+    #ctx-card-b { left: 566px; }
+    .ctx-card-badge {
+      position: absolute; top: -20px; left: 24px;
+      width: 52px; height: 52px; border-radius: 50%;
+      background: #E8441E; color: #111111;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; font-weight: 900;
+      z-index: 2;
+    }
+    .ctx-card-title {
+      position: absolute; top: 40px; left: 0; width: 100%; text-align: center;
+      font-size: 22px; font-weight: 700; letter-spacing: 0.03em; color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      opacity: 0;
+    }
+    .ctx-bars { position: absolute; top: 108px; left: 0; width: 100%; height: 300px; display: flex; align-items: flex-end; justify-content: center; gap: 20px; }
+    .ctx-bar-col { display: flex; flex-direction: column; align-items: center; }
+    .ctx-bar-val { font-size: 23px; font-weight: 800; color: #ffffff; margin-bottom: 8px; opacity: 0; white-space: nowrap; }
+    .ctx-bar { border-radius: 6px 6px 0 0; transform-origin: bottom; transform: scaleY(0); }
+    .ctx-bar-period { margin-top: 10px; font-size: 21px; font-weight: 600; color: rgba(255,255,255,0.55); opacity: 0; }
+    #ctx-body {
+      position: absolute; top: 1340px; left: 96px; width: 888px;
+      font-size: 32px; font-weight: 600; line-height: 1.42; color: rgba(255,255,255,0.92);
+      opacity: 0;
+    }
+    #ctx-body .hl { color: #E8441E; font-weight: 800; }
+  </style>
+  <div data-hf-id="hf-3o8a" id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-rh0y" id="ctx-kicker"><span data-hf-id="hf-wl0m">Lũy kế 9 tháng</span></div>
+    <div data-hf-id="hf-p27v" id="ctx-headline">Đà giảm kéo dài nhiều quý</div>
+
+    <div data-hf-id="hf-jhjk" class="ctx-card" id="ctx-card-a">
+      <div data-hf-id="hf-s3xq" class="ctx-card-badge">06</div>
+      <div data-hf-id="hf-kgvv" class="ctx-card-title">Lợi nhuận sau thuế 9 tháng</div>
+      <div data-hf-id="hf-04g6" class="ctx-bars">
+        <div data-hf-id="hf-jwvp" class="ctx-bar-col" style="width:150px;">
+          <div data-hf-id="hf-66cz" class="ctx-bar-val" style="color: rgba(255,255,255,0.75);">&#9650; Lãi 33 tỷ</div>
+          <div data-hf-id="hf-9p3c" class="ctx-bar" style="width:80px; height:91px; background: rgba(232,68,30,0.4);"></div>
+          <div data-hf-id="hf-14zt" class="ctx-bar-period">9T 2025</div>
+        </div>
+        <div data-hf-id="hf-b9t5" class="ctx-bar-col" style="width:150px;">
+          <div data-hf-id="hf-fj68" class="ctx-bar-val" style="color: #E8441E;">&#9660; Lỗ 69 tỷ</div>
+          <div data-hf-id="hf-gjox" class="ctx-bar" style="width:80px; height:190px; background: #E8441E;"></div>
+          <div data-hf-id="hf-2bww" class="ctx-bar-period">9T 2026</div>
+        </div>
+      </div>
+    </div>
+
+    <div data-hf-id="hf-ud17" class="ctx-card" id="ctx-card-b">
+      <div data-hf-id="hf-rpmp" class="ctx-card-badge">07</div>
+      <div data-hf-id="hf-zueu" class="ctx-card-title">Doanh thu theo quý (tỷ đồng)</div>
+      <div data-hf-id="hf-f3wq" class="ctx-bars">
+        <div data-hf-id="hf-u6xd" class="ctx-bar-col" style="width:110px;">
+          <div data-hf-id="hf-v58u" class="ctx-bar-val">&#8776;225</div>
+          <div data-hf-id="hf-livv" class="ctx-bar" style="width:72px; height:170px; background: rgba(232,68,30,0.4);"></div>
+          <div data-hf-id="hf-8xvi" class="ctx-bar-period">Q1/26</div>
+        </div>
+        <div data-hf-id="hf-n2f9" class="ctx-bar-col" style="width:110px;">
+          <div data-hf-id="hf-30qf" class="ctx-bar-val">&#8776;194</div>
+          <div data-hf-id="hf-0scj" class="ctx-bar" style="width:72px; height:147px; background: rgba(232,68,30,0.62);"></div>
+          <div data-hf-id="hf-x8a5" class="ctx-bar-period">Q2/26</div>
+        </div>
+        <div data-hf-id="hf-o9cc" class="ctx-bar-col" style="width:110px;">
+          <div data-hf-id="hf-nsqo" class="ctx-bar-val">&#8776;177</div>
+          <div data-hf-id="hf-ac1c" class="ctx-bar" style="width:72px; height:134px; background: #E8441E;"></div>
+          <div data-hf-id="hf-c15k" class="ctx-bar-period">Q3/26</div>
+        </div>
+      </div>
+    </div>
+
+    <div data-hf-id="hf-2qz9" id="ctx-body">Lũy kế 9 tháng, Vinasun lỗ sau thuế gần <span data-hf-id="hf-s154" class="hl">69 tỷ đồng</span> (cùng kỳ lãi hơn 33 tỷ đồng); doanh thu giảm gần <span data-hf-id="hf-olju" class="hl">11%</span>, còn hơn 596 tỷ đồng.</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#ctx-kicker", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.1);
+    tl.fromTo("#ctx-headline", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.3);
+
+    tl.fromTo("#ctx-card-a", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0.8);
+    tl.fromTo("#ctx-card-a .ctx-card-title", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 1.0);
+    tl.fromTo("#ctx-card-a .ctx-bar-val", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 1.15);
+    tl.fromTo("#ctx-card-a .ctx-bar", { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: "back.out(1.5)", stagger: 0.12 }, 1.2);
+    tl.fromTo("#ctx-card-a .ctx-bar-period", { opacity: 0 }, { opacity: 1, duration: 0.25, stagger: 0.12 }, 1.5);
+
+    tl.fromTo("#ctx-card-b", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 1.75);
+    tl.fromTo("#ctx-card-b .ctx-card-title", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 1.95);
+    tl.fromTo("#ctx-card-b .ctx-bar-val", { opacity: 0 }, { opacity: 1, duration: 0.25, stagger: 0.1 }, 2.1);
+    tl.fromTo("#ctx-card-b .ctx-bar", { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: "back.out(1.5)", stagger: 0.12 }, 2.15);
+    tl.fromTo("#ctx-card-b .ctx-bar-period", { opacity: 0 }, { opacity: 1, duration: 0.25, stagger: 0.12 }, 2.5);
+
+    tl.fromTo("#ctx-body", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 2.95);
+    window.__timelines["05-context"] = tl;
+  </script>
+</template>
