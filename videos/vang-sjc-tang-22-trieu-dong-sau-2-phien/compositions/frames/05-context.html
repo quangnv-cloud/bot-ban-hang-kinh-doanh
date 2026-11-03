@@ -1,0 +1,110 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .ctx-kicker {
+      position: absolute; top: 140px; left: 0; width: 100%; text-align: center;
+      font-weight: 700; font-size: 28px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #E8441E; opacity: 0;
+    }
+    #ctx-headline-a, #ctx-headline-b {
+      position: absolute; top: 206px; left: 90px; right: 90px; text-align: center;
+      font-weight: 800; font-size: 42px; line-height: 1.32; color: #ffffff; opacity: 0;
+    }
+
+    /* Part A — before/after mini bar comparison, above the 1080px caption line */
+    #ctx-bars { position: absolute; top: 420px; left: 160px; width: 760px; height: 420px; opacity: 0; }
+    .ctx-bar-col { position: absolute; bottom: 40px; width: 260px; display: flex; flex-direction: column; align-items: center; }
+    .ctx-bar-col .val { font-size: 34px; font-weight: 800; color: #ffffff; margin-bottom: 12px; }
+    .ctx-bar-col.down .val { color: rgba(255,255,255,0.7); }
+    .ctx-bar-col.up .val { color: #E8441E; }
+    .ctx-bar { width: 120px; border-radius: 8px 8px 0 0; transform-origin: bottom center; }
+    .ctx-bar-col.down .ctx-bar { background: rgba(255,255,255,0.32); }
+    .ctx-bar-col.up .ctx-bar { background: #E8441E; }
+    .ctx-bar-col .lbl { position: absolute; bottom: -44px; font-size: 28px; font-weight: 700; color: rgba(255,255,255,0.68); white-space: nowrap; }
+    #ctx-bar-axis { position: absolute; left: 0; bottom: 40px; width: 100%; height: 2px; background: rgba(255,255,255,0.25); transform: scaleX(0); transform-origin: left center; }
+
+    /* Part B — cause cards, kept inside the 1300-1680px safe band */
+    #ctx-cards { position: absolute; top: 1320px; left: 110px; width: 860px; height: 340px; opacity: 0; }
+    .ctx-card {
+      position: absolute; top: 0; width: 405px; height: 340px; border-radius: 16px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.14);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 0 24px; text-align: center;
+    }
+    #ctx-card-1 { left: 0; }
+    #ctx-card-2 { left: 455px; }
+    .ctx-card-icon { width: 64px; height: 64px; margin-bottom: 16px; }
+    .ctx-card-text { font-size: 28px; font-weight: 700; color: #ffffff; line-height: 1.32; }
+    .ctx-card-text .hl { color: #E8441E; }
+  </style>
+  <div id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div class="ctx-kicker">Trước &amp; sau</div>
+
+    <div id="ctx-content">
+      <div id="ctx-headline-a">Tháng 10 vừa qua là tháng giảm sâu nhất kể từ 2008</div>
+      <div id="ctx-bars">
+        <div id="ctx-bar-axis"></div>
+        <div class="ctx-bar-col down" id="ctxCol1" style="left:150px;">
+          <div class="val">&ndash;5 triệu</div>
+          <div class="ctx-bar" style="height:140px; background:rgba(255,255,255,0.32);"></div>
+          <div class="lbl">Tháng 10</div>
+        </div>
+        <div class="ctx-bar-col up" id="ctxCol2" style="left:450px;">
+          <div class="val">+2,2 triệu</div>
+          <div class="ctx-bar" style="height:62px;"></div>
+          <div class="lbl">2 phiên gần nhất</div>
+        </div>
+      </div>
+
+      <div id="ctx-headline-b">Vì sao vàng tăng trở lại?</div>
+      <div id="ctx-cards">
+        <div class="ctx-card" id="ctx-card-1">
+          <svg class="ctx-card-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#E8441E" stroke-width="1.6"/><path d="M8 13l2.5 2.5L16 10" stroke="#E8441E" stroke-width="1.6" fill="none"/></svg>
+          <div class="ctx-card-text">Giá dầu thô <span class="hl">giảm 8%</span> đầu tuần, hạ nhiệt lo lạm phát</div>
+        </div>
+        <div class="ctx-card" id="ctx-card-2">
+          <svg class="ctx-card-icon" viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="14" rx="2" stroke="#E8441E" stroke-width="1.6"/><path d="M4 9h16M8 3v4M16 3v4" stroke="#E8441E" stroke-width="1.6"/></svg>
+          <div class="ctx-card-text">Nhà đầu tư <span class="hl">chờ bầu cử giữa kỳ</span> tại Mỹ</div>
+        </div>
+      </div>
+    </div>
+    <div id="cutflash"></div>
+  </div>
+  <style>
+    #cutflash { position: absolute; inset: 0; z-index: 6; pointer-events: none; opacity: 0;
+      background: linear-gradient(180deg, rgba(232,68,30,0.4), rgba(232,68,30,0.18)); }
+  </style>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    var T = 7.0; // pivot: cut from "before/after bars" to "causes", right after word "2008."
+
+    tl.fromTo(".ctx-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.1);
+
+    // Part A
+    tl.fromTo("#ctx-headline-a", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.35);
+    tl.fromTo("#ctx-bars", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.out" }, 0.9);
+    tl.fromTo("#ctx-bar-axis", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.out" }, 1.0);
+    tl.fromTo("#ctxCol1 .ctx-bar", { scaleY: 0 }, { scaleY: 1, duration: 0.45, ease: "power2.out" }, 1.2);
+    tl.fromTo("#ctxCol2 .ctx-bar", { scaleY: 0 }, { scaleY: 1, duration: 0.45, ease: "power2.out" }, 1.45);
+    tl.to("#ctx-headline-a", { opacity: 0, duration: 0.15, ease: "power1.in" }, T - 0.1);
+    tl.to("#ctx-bars", { opacity: 0, duration: 0.15, ease: "power1.in" }, T - 0.1);
+
+    // Smash-cut at the pivot
+    tl.fromTo("#cutflash", { opacity: 0 }, { opacity: 0.55, duration: 0.05, ease: "none" }, T);
+    tl.to("#cutflash", { opacity: 0, duration: 0.16, ease: "power1.in" }, T + 0.05);
+    tl.fromTo("#ctx-content", { scale: 1 }, { scale: 0.986, duration: 0.06, ease: "power1.out" }, T);
+    tl.to("#ctx-content", { scale: 1, duration: 0.14, ease: "power2.out" }, T + 0.061);
+
+    // Part B
+    tl.fromTo("#ctx-headline-b", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, T + 0.15);
+    tl.fromTo("#ctx-cards", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.out" }, T + 0.35);
+    tl.fromTo("#ctx-card-1", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, T + 0.45);
+    tl.fromTo("#ctx-card-2", { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, T + 0.65);
+
+    window.__timelines["05-context"] = tl;
+  </script>
+</template>

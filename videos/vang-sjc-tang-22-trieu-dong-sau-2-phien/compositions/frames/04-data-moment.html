@@ -1,0 +1,79 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .dm-kicker {
+      position: absolute; top: 160px; left: 0; width: 100%; text-align: center;
+      font-weight: 700; font-size: 28px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #E8441E; opacity: 0;
+    }
+    #dm-headline {
+      position: absolute; top: 224px; left: 90px; right: 90px; text-align: center;
+      font-weight: 800; font-size: 44px; line-height: 1.32; color: #ffffff; opacity: 0;
+    }
+    #dm-pin-wrap {
+      position: absolute; left: 50%; top: 1500px; width: 0; height: 0;
+      transform: translate(-50%, -50%);
+    }
+    .dm-ring {
+      position: absolute; left: 50%; top: 50%; border-radius: 50%;
+      border: 2px solid rgba(232,68,30,0.55);
+      margin-left: -170px; margin-top: -170px;
+      opacity: 0;
+    }
+    #dm-ring-1 { width: 340px; height: 340px; }
+    #dm-ring-2 { width: 340px; height: 340px; }
+    #dm-circle {
+      position: absolute; left: 50%; top: 50%;
+      width: 300px; height: 300px; border-radius: 50%;
+      margin-left: -150px; margin-top: -150px;
+      background: radial-gradient(circle at 36% 30%, rgba(232,68,30,0.32), rgba(17,17,17,0.95) 72%);
+      border: 3px solid #E8441E;
+      box-shadow: 0 0 60px rgba(232,68,30,0.32);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      opacity: 0;
+    }
+    #dm-number { font-size: 76px; font-weight: 900; color: #ffffff; line-height: 1; }
+    #dm-number .sign { color: #E8441E; }
+    #dm-unit { margin-top: 6px; font-size: 28px; font-weight: 700; line-height: 1.2; color: rgba(255,255,255,0.82); text-align: center; }
+  </style>
+  <div id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+    <div class="dm-kicker">Tính chung 2 phiên gần nhất</div>
+    <div id="dm-headline">Vàng miếng trong nước tăng tổng cộng</div>
+    <div id="dm-pin-wrap">
+      <div class="dm-ring" id="dm-ring-1"></div>
+      <div class="dm-ring" id="dm-ring-2"></div>
+      <div id="dm-circle">
+        <div id="dm-number"><span class="sign">+</span><span id="dmCountup">0</span></div>
+        <div id="dm-unit">triệu đồng / lượng</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo(".dm-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.1);
+    tl.fromTo("#dm-headline", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.3);
+    tl.fromTo("#dm-circle", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.55, ease: "back.out(1.7)" }, 0.75);
+    tl.fromTo("#dm-ring-1", { opacity: 0, scale: 0.5 }, { keyframes: [
+      { opacity: 0.6, scale: 0.75, duration: 0.15, ease: "power1.out" },
+      { opacity: 0, scale: 1.25, duration: 0.95, ease: "power1.out" }
+    ] }, 0.95);
+    tl.fromTo("#dm-ring-2", { opacity: 0, scale: 0.5 }, { keyframes: [
+      { opacity: 0.45, scale: 0.8, duration: 0.18, ease: "power1.out" },
+      { opacity: 0, scale: 1.45, duration: 1.12, ease: "power1.out" }
+    ] }, 1.15);
+
+    var countEl = document.getElementById("dmCountup");
+    var counter = { val: 0 };
+    tl.to(counter, {
+      val: 2.2,
+      duration: 0.9,
+      ease: "power1.out",
+      onUpdate: function () { countEl.textContent = counter.val.toFixed(1).replace(".", ","); },
+    }, 1.2);
+    window.__timelines["04-data-moment"] = tl;
+  </script>
+</template>

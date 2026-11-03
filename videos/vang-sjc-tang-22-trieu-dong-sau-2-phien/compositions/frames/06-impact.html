@@ -1,0 +1,91 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    #imp-map-bg {
+      position: absolute; top: 160px; left: 140px; width: 800px; height: 1500px;
+      opacity: 0;
+    }
+    .imp-kicker {
+      position: absolute; top: 140px; left: 0; width: 100%; text-align: center;
+      font-weight: 700; font-size: 28px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #E8441E; opacity: 0;
+    }
+    #imp-headline {
+      position: absolute; top: 206px; left: 90px; right: 90px; text-align: center;
+      font-weight: 800; font-size: 46px; line-height: 1.32; color: #ffffff; opacity: 0;
+    }
+    #imp-headline .hl { color: #E8441E; }
+
+    #imp-cards { position: absolute; top: 1310px; left: 110px; width: 860px; height: 300px; }
+    .imp-card {
+      position: absolute; top: 0; width: 380px; height: 300px; border-radius: 16px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: 0 0 36px rgba(232,68,30,0.1);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 0 20px; text-align: center;
+      opacity: 0;
+    }
+    #imp-card-vn { left: 0; }
+    #imp-card-world { left: 480px; }
+    .imp-icon { width: 56px; height: 56px; margin-bottom: 14px; }
+    .imp-label { font-size: 28px; font-weight: 700; color: rgba(255,255,255,0.68); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 10px; }
+    .imp-value { font-size: 40px; font-weight: 900; color: #ffffff; line-height: 1.15; }
+    .imp-value .u { font-size: 28px; font-weight: 700; color: rgba(255,255,255,0.72); display: block; margin-top: 4px; }
+
+    #imp-divider {
+      position: absolute; top: 1340px; left: 50%; margin-left: -75px;
+      width: 150px; height: 150px; border-radius: 50%;
+      background: #111111; border: 2px solid #E8441E;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      opacity: 0;
+    }
+    #imp-divider-label { font-size: 16px; font-weight: 700; letter-spacing: 0.04em; color: rgba(255,255,255,0.6); }
+    #imp-divider-value { margin-top: 4px; font-size: 30px; font-weight: 800; color: #E8441E; line-height: 1.1; }
+
+    #imp-stat {
+      position: absolute; top: 1648px; left: 90px; right: 90px; text-align: center;
+      font-size: 28px; font-weight: 600; color: rgba(255,255,255,0.8); opacity: 0;
+    }
+  </style>
+  <div id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <svg id="imp-map-bg" viewBox="0 0 700 1000" preserveAspectRatio="xMidYMid meet">
+      <path d="M 300,40 C 360,110 320,180 360,250 C 400,320 300,380 340,450 C 380,520 280,580 320,650 C 355,715 270,770 300,840 C 325,895 265,945 250,1000 L 200,1000 C 175,935 235,870 200,800 C 168,735 255,670 220,600 C 188,535 275,480 240,410 C 208,345 285,295 255,225 C 225,160 270,110 255,60 Z" fill="none" stroke="#ffffff" stroke-width="3" opacity="0.1"/>
+    </svg>
+    <div class="imp-kicker">Chênh lệch trong nước &amp; thế giới</div>
+    <div id="imp-headline">Khoảng cách giá vàng đang <span class="hl">co lại</span></div>
+
+    <div id="imp-cards">
+      <div class="imp-card" id="imp-card-vn">
+        <svg class="imp-icon" viewBox="0 0 24 24" fill="none"><path d="M12 22s7-7.58 7-12.5A7 7 0 0 0 5 9.5C5 14.42 12 22 12 22Z" fill="#E8441E"/><circle cx="12" cy="9.5" r="2.6" fill="#111111"/></svg>
+        <div class="imp-label">Việt Nam</div>
+        <div class="imp-value">141,2<span class="u">triệu đồng / lượng</span></div>
+      </div>
+      <div class="imp-card" id="imp-card-world">
+        <svg class="imp-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#E8441E" stroke-width="1.6"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18" stroke="#E8441E" stroke-width="1.3" fill="none"/></svg>
+        <div class="imp-label">Thế giới</div>
+        <div class="imp-value">126,5<span class="u">triệu đồng / lượng</span></div>
+      </div>
+    </div>
+    <div id="imp-divider">
+      <div id="imp-divider-label" data-layout-ignore>CHÊNH LỆCH</div>
+      <div id="imp-divider-value">~15 TR</div>
+    </div>
+    <div id="imp-stat">Giảm so với mức 16 &ndash; 18 triệu đồng của tuần trước</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#imp-map-bg", { opacity: 0 }, { opacity: 1, duration: 1.0, ease: "power1.out" }, 0.1);
+    tl.fromTo(".imp-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.15);
+    tl.fromTo("#imp-headline", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.4);
+    tl.fromTo("#imp-card-vn", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 1.1);
+    tl.fromTo("#imp-card-world", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 1.3);
+    tl.fromTo("#imp-divider", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, 1.75);
+    tl.fromTo("#imp-stat", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 2.2);
+    window.__timelines["06-impact"] = tl;
+  </script>
+</template>
