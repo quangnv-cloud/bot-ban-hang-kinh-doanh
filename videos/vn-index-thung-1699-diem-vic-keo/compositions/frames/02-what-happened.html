@@ -1,0 +1,89 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .wh-kicker {
+      position: absolute; top: 140px; left: 0; width: 100%; text-align: center;
+      font-weight: 700; font-size: 28px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #E8441E; opacity: 0;
+    }
+    #wh-headline {
+      position: absolute; top: 206px; left: 90px; right: 90px; text-align: center;
+      font-weight: 800; font-size: 46px; line-height: 1.32; color: #ffffff; opacity: 0;
+    }
+    #wh-headline .hl { color: #E8441E; }
+
+    /* Article Image Card — editorial frame, kept entirely inside the 1300-1680px safe band */
+    #wh-card {
+      position: absolute; top: 1310px; left: 110px; width: 860px; height: 330px;
+      border-radius: 16px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: 0 0 40px rgba(232, 68, 30, 0.14), 0 18px 40px rgba(0,0,0,0.45);
+      opacity: 0;
+    }
+    #wh-card img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: 60% 60%;
+    }
+    #wh-card-scrim {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(17,17,17,0) 55%, rgba(17,17,17,0.72) 100%);
+    }
+    #wh-card-badge {
+      position: absolute; top: 14px; left: 14px;
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(17,17,17,0.55); border: 1px solid rgba(232,68,30,0.6);
+      border-radius: 8px; padding: 6px 12px;
+      font-size: 18px; font-weight: 700; color: #ffffff; letter-spacing: 0.04em;
+    }
+    /* Ring Progress source badge — a small orange progress ring around a source icon,
+       replaces the pill-shaped badge used by other styles; sets up the "ring" visual
+       language carried through the rest of this video. */
+    #wh-card-ring {
+      position: absolute; bottom: 14px; right: 14px;
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(17,17,17,0.6); border-radius: 999px; padding: 6px 16px 6px 6px;
+    }
+    #wh-card-ring svg { width: 44px; height: 44px; flex: none; transform: rotate(-90deg); }
+    #wh-card-ring .ring-track { fill: none; stroke: rgba(255,255,255,0.18); stroke-width: 4; }
+    #wh-card-ring .ring-fill { fill: none; stroke: #E8441E; stroke-width: 4; stroke-linecap: round; }
+    #wh-card-ring span { font-size: 28px; font-weight: 700; color: #ffffff; }
+
+    #wh-stat {
+      position: absolute; top: 1645px; left: 0; width: 100%; text-align: center;
+      font-size: 28px; font-weight: 600; color: rgba(255,255,255,0.78); opacity: 0;
+    }
+  </style>
+  <div id="root" data-composition-id="02-what-happened" data-width="1080" data-height="1920">
+    <div class="wh-kicker">Diễn biến hôm nay</div>
+    <div id="wh-headline">Cổ phiếu Vingroup giảm <span class="hl">3,3%</span>, kéo chỉ số mất gần <span class="hl">13 điểm</span></div>
+
+    <div id="wh-card">
+      <img src="assets/images/hook-photo.jpg" alt="Bảng điện giao dịch chứng khoán">
+      <div id="wh-card-scrim"></div>
+      <div id="wh-card-badge" data-layout-ignore>BOT BÁN HÀNG</div>
+      <div id="wh-card-ring">
+        <svg viewBox="0 0 44 44">
+          <circle class="ring-track" cx="22" cy="22" r="17"></circle>
+          <circle id="wh-ring-fill" class="ring-fill" cx="22" cy="22" r="17" stroke-dasharray="106.8" stroke-dashoffset="106.8"></circle>
+        </svg>
+        <span data-layout-ignore>VnExpress</span>
+      </div>
+    </div>
+    <div id="wh-stat">Trước đó, Vingroup từng là trụ đỡ chính của thị trường</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo(".wh-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.1);
+    tl.fromTo("#wh-headline", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.35);
+    tl.fromTo("#wh-card", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 1.0);
+    tl.fromTo("#wh-card-badge", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 1.4);
+    tl.fromTo("#wh-card-ring", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.6)" }, 1.55);
+    tl.fromTo("#wh-ring-fill", { strokeDashoffset: 106.8 }, { strokeDashoffset: 26.7, duration: 0.6, ease: "power2.out" }, 1.65);
+    tl.fromTo("#wh-stat", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 1.9);
+    window.__timelines["02-what-happened"] = tl;
+  </script>
+</template>

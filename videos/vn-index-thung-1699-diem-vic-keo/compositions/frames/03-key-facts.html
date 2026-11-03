@@ -1,0 +1,74 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .kf-kicker {
+      position: absolute; top: 140px; left: 0; width: 100%; text-align: center;
+      font-weight: 700; font-size: 28px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #E8441E; opacity: 0;
+    }
+    #kf-headline {
+      position: absolute; top: 206px; left: 90px; right: 90px; text-align: center;
+      font-weight: 800; font-size: 44px; line-height: 1.32; color: #ffffff; opacity: 0;
+    }
+    #kf-headline .hl { color: #E8441E; }
+    .kf-row {
+      position: absolute; left: 110px; width: 860px; height: 170px;
+      display: flex; align-items: center; gap: 28px;
+      border-top: 1px solid rgba(255,255,255,0.14);
+      padding-top: 18px;
+      opacity: 0;
+    }
+    #kf-row1 { top: 1300px; }
+    #kf-row2 { top: 1490px; }
+    /* Ring Progress key-fact device — mini radial (110px) replaces the usual icon/number. */
+    .kf-ring { width: 110px; height: 110px; flex: none; position: relative; }
+    .kf-ring svg { width: 110px; height: 110px; transform: rotate(-90deg); }
+    .kf-ring .ring-track { fill: none; stroke: rgba(255,255,255,0.16); stroke-width: 7; }
+    .kf-ring .ring-fill { fill: none; stroke: #E8441E; stroke-width: 7; stroke-linecap: round; }
+    .kf-ring-label {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      font-size: 28px; font-weight: 800; color: #ffffff;
+    }
+    .kf-text { font-size: 30px; font-weight: 600; line-height: 1.32; color: rgba(255,255,255,0.92); }
+    .kf-text .hl { color: #E8441E; font-weight: 800; }
+  </style>
+  <div id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <div class="kf-kicker">Dữ liệu phiên 3/11</div>
+    <div id="kf-headline">Chỉ số giảm nhưng thị trường vẫn <span class="hl">lệch pha</span></div>
+
+    <div class="kf-row" id="kf-row1">
+      <div class="kf-ring">
+        <svg viewBox="0 0 110 110">
+          <circle class="ring-track" cx="55" cy="55" r="44"></circle>
+          <circle id="kf-ring1-fill" class="ring-fill" cx="55" cy="55" r="44" stroke-dasharray="276.5" stroke-dashoffset="276.5"></circle>
+        </svg>
+        <div class="kf-ring-label">54%</div>
+      </div>
+      <div class="kf-text"><span class="hl">349 mã tăng</span>, nhiều hơn 302 mã giảm trên toàn thị trường</div>
+    </div>
+    <div class="kf-row" id="kf-row2">
+      <div class="kf-ring">
+        <svg viewBox="0 0 110 110">
+          <circle class="ring-track" cx="55" cy="55" r="44"></circle>
+          <circle id="kf-ring2-fill" class="ring-fill" cx="55" cy="55" r="44" stroke-dasharray="276.5" stroke-dashoffset="276.5"></circle>
+        </svg>
+        <div class="kf-ring-label">+4,2%</div>
+      </div>
+      <div class="kf-text">Cổ phiếu <span class="hl">Hòa Phát tăng 4,2%</span>, đóng góp tích cực nhất cho VN-Index</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo(".kf-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.1);
+    tl.fromTo("#kf-headline", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.35);
+    tl.fromTo("#kf-row1", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }, 1.0);
+    tl.fromTo("#kf-ring1-fill", { strokeDashoffset: 276.5 }, { strokeDashoffset: 128.3, duration: 0.7, ease: "power2.out" }, 1.15);
+    tl.fromTo("#kf-row2", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }, 1.6);
+    tl.fromTo("#kf-ring2-fill", { strokeDashoffset: 276.5 }, { strokeDashoffset: 160.4, duration: 0.7, ease: "power2.out" }, 1.75);
+    window.__timelines["03-key-facts"] = tl;
+  </script>
+</template>

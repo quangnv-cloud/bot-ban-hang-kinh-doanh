@@ -1,0 +1,113 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .ctx-kicker {
+      position: absolute; top: 140px; left: 0; width: 100%; text-align: center;
+      font-weight: 700; font-size: 28px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #E8441E; opacity: 0;
+    }
+    #ctx-quote-mark {
+      position: absolute; top: 190px; left: 0; width: 100%; text-align: center;
+      font-size: 140px; font-weight: 900; color: rgba(232,68,30,0.16); line-height: 1; opacity: 0;
+    }
+    #ctx-headline {
+      position: absolute; top: 290px; left: 100px; right: 100px; text-align: center;
+      font-weight: 700; font-size: 38px; line-height: 1.38; color: #ffffff; opacity: 0;
+    }
+    #ctx-headline .hl { color: #E8441E; font-weight: 800; }
+    #ctx-source {
+      position: absolute; top: 556px; left: 0; width: 100%; text-align: center;
+      font-size: 28px; font-weight: 600; color: rgba(255,255,255,0.55); opacity: 0;
+    }
+
+    /* 4 medium rings in a row — fill on one shared 0-40% scale so magnitude reads honestly
+       (small stock-% moves vs. the much larger liquidity drop). */
+    #ctx-rings { position: absolute; top: 1360px; left: 110px; width: 860px; height: 300px; }
+    .ctx-ring-col { position: absolute; top: 0; width: 200px; display: flex; flex-direction: column; align-items: center; opacity: 0; }
+    #ctx-rc-1 { left: 0px; }
+    #ctx-rc-2 { left: 220px; }
+    #ctx-rc-3 { left: 440px; }
+    #ctx-rc-4 { left: 650px; width: 210px; }
+    .ctx-ring { width: 140px; height: 140px; position: relative; }
+    .ctx-ring svg { width: 140px; height: 140px; transform: rotate(-90deg); }
+    .ctx-ring-track { fill: none; stroke: rgba(255,255,255,0.14); stroke-width: 10; }
+    .ctx-ring-fill { fill: none; stroke: #E8441E; stroke-width: 10; stroke-linecap: round; }
+    .ctx-ring-pct {
+      position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .ctx-ring-pct .arrow { font-size: 20px; color: #E8441E; line-height: 1; }
+    .ctx-ring-pct .num { font-size: 28px; font-weight: 800; color: #ffffff; line-height: 1.1; }
+    .ctx-ring-lbl { margin-top: 14px; font-size: 28px; font-weight: 700; color: rgba(255,255,255,0.72); text-align: center; line-height: 1.25; }
+  </style>
+  <div id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div class="ctx-kicker">Nhận định thị trường</div>
+    <div id="ctx-quote-mark">&rdquo;</div>
+    <div id="ctx-headline">Thị trường đang <span class="hl">lệch pha sâu sắc</span> giữa chỉ số và cổ phiếu</div>
+    <div id="ctx-source">— Công ty Chứng khoán MB</div>
+
+    <div id="ctx-rings">
+      <div class="ctx-ring-col" id="ctx-rc-1">
+        <div class="ctx-ring">
+          <svg viewBox="0 0 140 140">
+            <circle class="ctx-ring-track" cx="70" cy="70" r="60"></circle>
+            <circle id="ctx-ring1-fill" class="ctx-ring-fill" cx="70" cy="70" r="60" stroke-dasharray="376.99" stroke-dashoffset="376.99"></circle>
+          </svg>
+          <div class="ctx-ring-pct"><span class="arrow">&#9660;</span><span class="num">3,3%</span></div>
+        </div>
+        <div class="ctx-ring-lbl">VIC</div>
+      </div>
+      <div class="ctx-ring-col" id="ctx-rc-2">
+        <div class="ctx-ring">
+          <svg viewBox="0 0 140 140">
+            <circle class="ctx-ring-track" cx="70" cy="70" r="60"></circle>
+            <circle id="ctx-ring2-fill" class="ctx-ring-fill" cx="70" cy="70" r="60" stroke-dasharray="376.99" stroke-dashoffset="376.99"></circle>
+          </svg>
+          <div class="ctx-ring-pct"><span class="arrow">&#9660;</span><span class="num">2,1%</span></div>
+        </div>
+        <div class="ctx-ring-lbl">GAS</div>
+      </div>
+      <div class="ctx-ring-col" id="ctx-rc-3">
+        <div class="ctx-ring">
+          <svg viewBox="0 0 140 140">
+            <circle class="ctx-ring-track" cx="70" cy="70" r="60"></circle>
+            <circle id="ctx-ring3-fill" class="ctx-ring-fill" cx="70" cy="70" r="60" stroke-dasharray="376.99" stroke-dashoffset="376.99"></circle>
+          </svg>
+          <div class="ctx-ring-pct"><span class="arrow">&#9650;</span><span class="num">4,2%</span></div>
+        </div>
+        <div class="ctx-ring-lbl">HPG</div>
+      </div>
+      <div class="ctx-ring-col" id="ctx-rc-4">
+        <div class="ctx-ring">
+          <svg viewBox="0 0 140 140">
+            <circle class="ctx-ring-track" cx="70" cy="70" r="60"></circle>
+            <circle id="ctx-ring4-fill" class="ctx-ring-fill" cx="70" cy="70" r="60" stroke-dasharray="376.99" stroke-dashoffset="376.99"></circle>
+          </svg>
+          <div class="ctx-ring-pct"><span class="arrow">&#9660;</span><span class="num">32%</span></div>
+        </div>
+        <div class="ctx-ring-lbl">Thanh khoản HoSE</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo(".ctx-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.1);
+    tl.fromTo("#ctx-quote-mark", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.out" }, 0.3);
+    tl.fromTo("#ctx-headline", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.45);
+    tl.fromTo("#ctx-source", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 1.0);
+
+    tl.fromTo("#ctx-rc-1", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.4);
+    tl.fromTo("#ctx-ring1-fill", { strokeDashoffset: 376.99 }, { strokeDashoffset: 345.9, duration: 0.6, ease: "power2.out" }, 1.5);
+    tl.fromTo("#ctx-rc-2", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.65);
+    tl.fromTo("#ctx-ring2-fill", { strokeDashoffset: 376.99 }, { strokeDashoffset: 357.2, duration: 0.6, ease: "power2.out" }, 1.75);
+    tl.fromTo("#ctx-rc-3", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.9);
+    tl.fromTo("#ctx-ring3-fill", { strokeDashoffset: 376.99 }, { strokeDashoffset: 337.6, duration: 0.6, ease: "power2.out" }, 2.0);
+    tl.fromTo("#ctx-rc-4", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 2.15);
+    tl.fromTo("#ctx-ring4-fill", { strokeDashoffset: 376.99 }, { strokeDashoffset: 75.4, duration: 0.6, ease: "power2.out" }, 2.25);
+
+    window.__timelines["05-context"] = tl;
+  </script>
+</template>
