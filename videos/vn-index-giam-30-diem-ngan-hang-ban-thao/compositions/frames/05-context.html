@@ -1,0 +1,100 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .ctx-kicker {
+      position: absolute; top: 150px; left: 0; width: 100%; text-align: center;
+      font-weight: 700; font-size: 26px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #E8441E; opacity: 0;
+    }
+    .ctx-headline {
+      position: absolute; top: 214px; left: 90px; right: 90px; text-align: center;
+      font-weight: 800; font-size: 44px; line-height: 1.3; color: #ffffff; opacity: 0;
+    }
+
+    #ctx-block {
+      position: absolute; top: 1300px; left: 70px; width: 940px;
+    }
+    .ctx-row-label {
+      font-size: 24px; font-weight: 700; color: rgba(255,255,255,0.55);
+      letter-spacing: 0.06em; text-transform: uppercase;
+      opacity: 0;
+    }
+    #ctx-row1 { padding-bottom: 28px; border-bottom: 1px solid rgba(255,255,255,0.12); }
+    #ctx-row1-line {
+      display: flex; align-items: center; justify-content: space-between; margin-top: 14px;
+      opacity: 0;
+    }
+    #ctx-row1-value { font-size: 36px; font-weight: 800; color: #ffffff; }
+    #ctx-row1-value .delta { color: #E8441E; font-size: 24px; font-weight: 700; margin-left: 8px; }
+    #ctx-spark { width: 220px; height: 50px; }
+    #ctx-spark path { fill: none; stroke: #E8441E; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+
+    #ctx-row2 { margin-top: 24px; }
+    #ctx-row2-value {
+      margin-top: 14px;
+      font-size: 32px; font-weight: 800; color: #ffffff;
+      opacity: 0;
+    }
+    #ctx-dots { display: flex; gap: 14px; margin-top: 18px; }
+    .ctx-dot {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: rgba(255,255,255,0.14);
+      transform: scale(0);
+    }
+    .ctx-dot.last { box-shadow: 0 0 0 0 rgba(232,68,30,0.6); }
+  </style>
+  <div data-hf-id="hf-3o8a" id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-dbqn" class="ctx-kicker" id="ctxKicker">Thanh khoản &amp; dòng vốn ngoại</div>
+    <div data-hf-id="hf-p8op" class="ctx-headline" id="ctxHeadline">Tiền vẫn đổ vào dù thị trường giảm</div>
+    <div data-hf-id="hf-7or4" id="ctx-block">
+      <div data-hf-id="hf-bfe4" id="ctx-row1">
+        <div data-hf-id="hf-ax7s" class="ctx-row-label" id="ctxLabel1">Thanh khoản sàn Thành phố Hồ Chí Minh</div>
+        <div data-hf-id="hf-plb7" id="ctx-row1-line">
+          <div data-hf-id="hf-08vg" id="ctx-row1-value">18.500 tỷ đồng<span data-hf-id="hf-q5lr" class="delta">&#9650; +4.000 tỷ</span></div>
+          <svg data-hf-id="hf-9v77" id="ctx-spark" viewBox="0 0 220 50"><path data-hf-id="hf-76xn" id="sparkCtx" d="M4,42 L52,34 L100,36 L148,20 L216,8"/></svg>
+        </div>
+      </div>
+      <div data-hf-id="hf-mavr" id="ctx-row2">
+        <div data-hf-id="hf-smlb" class="ctx-row-label" id="ctxLabel2">Khối ngoại bán ròng</div>
+        <div data-hf-id="hf-3kul" id="ctx-row2-value">Phiên thứ 7 liên tiếp</div>
+        <div data-hf-id="hf-ztvl" id="ctx-dots">
+          <div data-hf-id="hf-b91t" class="ctx-dot" id="dot1"></div>
+          <div data-hf-id="hf-f75u" class="ctx-dot" id="dot2"></div>
+          <div data-hf-id="hf-j59v" class="ctx-dot" id="dot3"></div>
+          <div data-hf-id="hf-vnsc" class="ctx-dot" id="dot4"></div>
+          <div data-hf-id="hf-wfg5" class="ctx-dot" id="dot5"></div>
+          <div data-hf-id="hf-0dk6" class="ctx-dot" id="dot6"></div>
+          <div data-hf-id="hf-xia5" class="ctx-dot last" id="dot7"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo(".ctx-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.1);
+    tl.fromTo(".ctx-headline", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.35);
+
+    tl.fromTo("#ctxLabel1", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 1.0);
+    tl.fromTo("#ctx-row1-line", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.2);
+    var sparkPath = document.getElementById("sparkCtx");
+    var sparkLen = sparkPath.getTotalLength();
+    sparkPath.style.strokeDasharray = sparkLen;
+    sparkPath.style.strokeDashoffset = sparkLen;
+    tl.to(sparkPath, { strokeDashoffset: 0, duration: 0.9, ease: "power1.inOut" }, 1.3);
+
+    tl.fromTo("#ctxLabel2", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 2.6);
+    tl.fromTo("#ctx-row2-value", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 2.8);
+
+    var dotIds = ["#dot1", "#dot2", "#dot3", "#dot4", "#dot5", "#dot6", "#dot7"];
+    dotIds.forEach(function (sel, i) {
+      tl.to(sel, { scale: 1, backgroundColor: "#E8441E", duration: 0.28, ease: "back.out(2)" }, 3.2 + i * 0.14);
+    });
+    tl.fromTo("#dot7", { boxShadow: "0 0 0 0 rgba(232,68,30,0.6)" }, { boxShadow: "0 0 0 14px rgba(232,68,30,0)", duration: 0.9, ease: "power1.out", repeat: 2 }, 4.2);
+
+    window.__timelines["05-context"] = tl;
+  </script>
+</template>

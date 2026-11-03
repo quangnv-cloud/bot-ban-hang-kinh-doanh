@@ -1,0 +1,75 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .im-kicker {
+      position: absolute; top: 150px; left: 0; width: 100%; text-align: center;
+      font-weight: 700; font-size: 26px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #E8441E; opacity: 0;
+    }
+    .im-headline {
+      position: absolute; top: 214px; left: 90px; right: 90px; text-align: center;
+      font-weight: 800; font-size: 44px; line-height: 1.3; color: #ffffff; opacity: 0;
+    }
+    .im-headline .hl { color: #E8441E; }
+    #im-rows {
+      position: absolute; top: 1310px; left: 70px; width: 940px;
+    }
+    .im-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+      padding: 26px 0;
+      border-bottom: 1.5px solid rgba(232,68,30,0.35);
+      opacity: 0;
+    }
+    .im-row:last-child { border-bottom: none; }
+    .im-row-label {
+      font-size: 27px; font-weight: 700; color: rgba(255,255,255,0.75);
+      letter-spacing: 0.03em; text-transform: uppercase;
+    }
+    .im-row-value {
+      text-align: right; font-size: 32px; font-weight: 800; color: #ffffff;
+      white-space: nowrap;
+    }
+    .im-row-value .arrow.down { color: #E8441E; }
+    .im-row-value .arrow.up { color: #E8441E; }
+    .im-row.hero {
+      background: rgba(232,68,30,0.1);
+      border-radius: 12px;
+      padding: 22px 20px;
+      border-bottom: none;
+      margin-top: 6px;
+    }
+    .im-row.hero .im-row-label { color: #ffffff; }
+    .im-row.hero .im-row-value { font-size: 34px; }
+  </style>
+  <div data-hf-id="hf-repe" id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-zj7f" class="im-kicker" id="imKicker">Ảnh hưởng toàn thị trường</div>
+    <div data-hf-id="hf-k40w" class="im-headline" id="imHeadline">Bất động sản, dầu khí giảm theo; <span data-hf-id="hf-m275" class="hl">VIC là điểm sáng hiếm hoi</span></div>
+    <div data-hf-id="hf-ym87" id="im-rows">
+      <div data-hf-id="hf-vhgk" class="im-row" id="imRow1">
+        <div data-hf-id="hf-r238" class="im-row-label">Bất động sản</div>
+        <div data-hf-id="hf-i618" class="im-row-value"><span data-hf-id="hf-pabo" class="arrow down">&#9660;</span> VRE, KDH, SCR, NLG &#8722;4 đến 5%</div>
+      </div>
+      <div data-hf-id="hf-45cf" class="im-row" id="imRow2">
+        <div data-hf-id="hf-d1d2" class="im-row-label">Dầu khí</div>
+        <div data-hf-id="hf-u0z9" class="im-row-value"><span data-hf-id="hf-ga7w" class="arrow down">&#9660;</span> PVT &#8722;3,1% &middot; PLX &#8722;2,9%</div>
+      </div>
+      <div data-hf-id="hf-2xos" class="im-row hero" id="imRow3">
+        <div data-hf-id="hf-3q6u" class="im-row-label">VIC</div>
+        <div data-hf-id="hf-3ons" class="im-row-value"><span data-hf-id="hf-8hur" class="arrow up">&#9650;</span> +0,4% &middot; góp gần 2 điểm cho chỉ số</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo(".im-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.1);
+    tl.fromTo(".im-headline", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.35);
+    tl.fromTo("#imRow1", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, 1.1);
+    tl.fromTo("#imRow2", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, 2.6);
+    tl.fromTo("#imRow3", { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, 4.1);
+    window.__timelines["06-impact"] = tl;
+  </script>
+</template>

@@ -1,0 +1,71 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .kf-kicker {
+      position: absolute; top: 150px; left: 0; width: 100%; text-align: center;
+      font-weight: 700; font-size: 26px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #E8441E; opacity: 0;
+    }
+    .kf-headline {
+      position: absolute; top: 214px; left: 90px; right: 90px; text-align: center;
+      font-weight: 800; font-size: 48px; line-height: 1.28; color: #ffffff; opacity: 0;
+    }
+    .kf-headline .hl { color: #E8441E; }
+
+    /* Full-width raw terminal strip — edge to edge, no card margins (differs from bordered card). */
+    #kf-strip {
+      position: absolute; top: 1300px; left: 0; width: 1080px;
+      border-top: 2px solid #E8441E;
+      padding: 36px 70px 0 70px;
+    }
+    .kf-row {
+      display: flex; align-items: baseline; gap: 14px;
+      margin-top: 30px;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .kf-row:first-child { margin-top: 0; }
+    .kf-prompt { font-size: 32px; font-weight: 800; color: #E8441E; flex-shrink: 0; }
+    .kf-reveal { clip-path: inset(0 100% 0 0); }
+    .kf-tag { font-size: 24px; font-weight: 700; color: rgba(255,255,255,0.5); letter-spacing: 0.06em; text-transform: uppercase; }
+    .kf-text { font-size: 30px; font-weight: 700; color: #ffffff; }
+    #kf-cursor {
+      display: inline-block; width: 16px; height: 34px; margin-left: 4px;
+      background: #E8441E; vertical-align: -6px; opacity: 0;
+    }
+  </style>
+  <div data-hf-id="hf-chzy" id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-2ukq" class="kf-kicker" id="kfKicker">Nguyên nhân</div>
+    <div data-hf-id="hf-mccz" class="kf-headline" id="kfHeadline">Hàng loạt lệnh gọi ký quỹ <span data-hf-id="hf-bzw7" class="hl">cùng một lúc</span></div>
+    <div data-hf-id="hf-xdwn" id="kf-strip">
+      <div data-hf-id="hf-selc" class="kf-row" id="kfRow1">
+        <span data-hf-id="hf-y9qh" class="kf-prompt">&gt;</span>
+        <span data-hf-id="hf-psc5" class="kf-reveal" id="kfRow1Text"><span data-hf-id="hf-u3nk" class="kf-tag">Nguyên nhân:</span> <span data-hf-id="hf-76gu" class="kf-text">Công ty chứng khoán đồng loạt gọi ký quỹ</span></span>
+      </div>
+      <div data-hf-id="hf-3a2z" class="kf-row" id="kfRow2">
+        <span data-hf-id="hf-7hdp" class="kf-prompt">&gt;</span>
+        <span data-hf-id="hf-7u2u" class="kf-reveal" id="kfRow2Text"><span data-hf-id="hf-qidf" class="kf-tag">Thời điểm:</span> <span data-hf-id="hf-fxzi" class="kf-text">Ngay sau giờ nghỉ trưa</span></span>
+      </div>
+      <div data-hf-id="hf-zbyy" class="kf-row" id="kfRow3">
+        <span data-hf-id="hf-8oas" class="kf-prompt">&gt;</span>
+        <span data-hf-id="hf-w3un" class="kf-reveal" id="kfRow3Text"><span data-hf-id="hf-k2bv" class="kf-tag">Hệ quả:</span> <span data-hf-id="hf-txmg" class="kf-text">Áp lực bán tăng mạnh toàn thị trường</span><span data-hf-id="hf-cgtg" id="kf-cursor"></span></span>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo(".kf-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.1);
+    tl.fromTo(".kf-headline", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.35);
+    tl.fromTo("#kf-strip", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 0.9);
+
+    tl.fromTo("#kfRow1Text", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.85, ease: "none" }, 1.3);
+    tl.fromTo("#kfRow2Text", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.7, ease: "none" }, 2.6);
+    tl.fromTo("#kfRow3Text", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.85, ease: "none" }, 3.8);
+    tl.fromTo("#kf-cursor", { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "none", repeat: 5, yoyo: true }, 4.65);
+    window.__timelines["03-key-facts"] = tl;
+  </script>
+</template>

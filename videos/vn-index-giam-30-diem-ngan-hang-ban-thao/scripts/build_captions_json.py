@@ -1,11 +1,11 @@
 import json
 
 LINES = [
-    {"file": "assets/audio/stt2.json", "offset": 7.60, "act": "what-happened"},
-    {"file": "assets/audio/stt3.json", "offset": 14.75, "act": "key-facts"},
-    {"file": "assets/audio/stt4.json", "offset": 23.20, "act": "data-moment"},
-    {"file": "assets/audio/stt5.json", "offset": 32.90, "act": "context"},
-    {"file": "assets/audio/stt6.json", "offset": 42.95, "act": "impact"},
+    {"file": "assets/audio/stt2.json", "offset": 6.900, "act": "what-happened"},
+    {"file": "assets/audio/stt3.json", "offset": 13.550, "act": "key-facts"},
+    {"file": "assets/audio/stt4.json", "offset": 21.000, "act": "data-moment"},
+    {"file": "assets/audio/stt5.json", "offset": 30.500, "act": "context"},
+    {"file": "assets/audio/stt6.json", "offset": 38.600, "act": "impact"},
 ]
 
 CHUNK_SIZE = 6

@@ -7,5 +7,8 @@
     "check": "npx --yes hyperframes@0.9.6 check",
     "render": "npx --yes hyperframes@0.9.6 render",
     "publish": "npx --yes hyperframes@0.9.6 publish"
+  },
+  "devDependencies": {
+    "@hyperframes/core": "^0.9.6"
   }
 }

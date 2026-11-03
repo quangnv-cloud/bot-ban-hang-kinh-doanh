@@ -1,0 +1,149 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .dm-kicker {
+      position: absolute; top: 150px; left: 0; width: 100%; text-align: center;
+      font-weight: 700; font-size: 26px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #E8441E; opacity: 0;
+    }
+    .dm-headline {
+      position: absolute; top: 214px; left: 90px; right: 90px; text-align: center;
+      font-weight: 800; font-size: 42px; line-height: 1.3; color: #ffffff; opacity: 0;
+    }
+
+    /* Mini bar chart — 5 bank tickers, VPB standout tallest/orange, true-scaled heights */
+    #dm-chart {
+      position: absolute; top: 420px; left: 110px; width: 860px; height: 300px;
+    }
+    #dm-chart-axis {
+      position: absolute; left: 0; bottom: 40px; width: 100%; height: 2px;
+      background: rgba(255,255,255,0.25);
+      transform: scaleX(0); transform-origin: left center;
+    }
+    .dm-bar-col {
+      position: absolute; bottom: 40px; width: 110px;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .dm-bar-col .pct {
+      font-size: 24px; font-weight: 800; color: #ffffff; opacity: 0; margin-bottom: 10px;
+      /* decorative chart annotation, not primary reading text */
+    }
+    .dm-bar-col.hero .pct { color: #E8441E; font-size: 28px; }
+    .dm-bar {
+      width: 64px; border-radius: 6px 6px 0 0;
+      background: rgba(255,255,255,0.3);
+      transform: scaleY(0); transform-origin: bottom center;
+    }
+    .dm-bar-col.hero .dm-bar { background: #E8441E; }
+    .dm-bar-col .code {
+      position: absolute; bottom: -38px;
+      font-size: 22px; font-weight: 700; color: rgba(255,255,255,0.65);
+      opacity: 0;
+    }
+    .dm-bar-col.hero .code { color: #ffffff; font-weight: 800; }
+
+    /* Hero stat band — within 1300-1680px safe zone */
+    #dm-chip {
+      position: absolute; top: 1310px; left: 0; width: 100%; text-align: center;
+      opacity: 0;
+    }
+    #dm-chip span {
+      display: inline-flex; align-items: center; gap: 10px;
+      border: 1.5px solid #E8441E; border-radius: 999px;
+      padding: 8px 26px;
+      font-size: 28px; font-weight: 800; letter-spacing: 0.06em; color: #E8441E;
+    }
+    #dm-number-wrap {
+      position: absolute; top: 1380px; left: 0; width: 100%; text-align: center;
+    }
+    #dm-number {
+      display: inline-block;
+      font-weight: 900; font-size: 160px; line-height: 1; color: #ffffff;
+      letter-spacing: -0.02em;
+      opacity: 0;
+    }
+    #dm-number .sign { color: #E8441E; }
+    #dmSub {
+      position: absolute; top: 1566px; left: 90px; right: 90px; text-align: center;
+      font-weight: 600; font-size: 30px; line-height: 1.4; color: rgba(255,255,255,0.78);
+      opacity: 0;
+    }
+  </style>
+  <div data-hf-id="hf-o51p" id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-t34t" class="dm-kicker" id="dmKicker">Cổ phiếu giảm mạnh nhất</div>
+    <div data-hf-id="hf-c9sj" class="dm-headline" id="dmHeadline">Ngân hàng dẫn đầu đà bán tháo</div>
+    <div data-hf-id="hf-l8zj" id="dm-chart">
+      <div data-hf-id="hf-hqdf" id="dm-chart-axis"></div>
+      <div data-hf-id="hf-stmc" class="dm-bar-col" id="dmCol1" style="left:0px;">
+        <div data-hf-id="hf-8o5q" class="pct" data-layout-ignore>&#8722;3%</div>
+        <div data-hf-id="hf-c7fa" class="dm-bar" style="height:90px;"></div>
+        <div data-hf-id="hf-y1rt" class="code" data-layout-ignore>VCB</div>
+      </div>
+      <div data-hf-id="hf-1gt5" class="dm-bar-col" id="dmCol2" style="left:150px;">
+        <div data-hf-id="hf-wmky" class="pct" data-layout-ignore>&#8722;3%</div>
+        <div data-hf-id="hf-0tiy" class="dm-bar" style="height:90px;"></div>
+        <div data-hf-id="hf-e255" class="code" data-layout-ignore>BID</div>
+      </div>
+      <div data-hf-id="hf-1qnb" class="dm-bar-col hero" id="dmCol3" style="left:300px;">
+        <div data-hf-id="hf-sfsv" class="pct" data-layout-ignore>&#8722;6%</div>
+        <div data-hf-id="hf-fklo" class="dm-bar" style="height:180px;"></div>
+        <div data-hf-id="hf-l8dq" class="code" data-layout-ignore>VPB</div>
+      </div>
+      <div data-hf-id="hf-cbs0" class="dm-bar-col" id="dmCol4" style="left:450px;">
+        <div data-hf-id="hf-x0vz" class="pct" data-layout-ignore>&#8722;3%</div>
+        <div data-hf-id="hf-17tz" class="dm-bar" style="height:90px;"></div>
+        <div data-hf-id="hf-t3o0" class="code" data-layout-ignore>LPB</div>
+      </div>
+      <div data-hf-id="hf-gsja" class="dm-bar-col" id="dmCol5" style="left:600px;">
+        <div data-hf-id="hf-xf70" class="pct" data-layout-ignore>&#8722;3%</div>
+        <div data-hf-id="hf-1m50" class="dm-bar" style="height:90px;"></div>
+        <div data-hf-id="hf-tziw" class="code" data-layout-ignore>ACB</div>
+      </div>
+    </div>
+    <div data-hf-id="hf-pdtn" id="dm-chip"><span data-hf-id="hf-4jkn">VPB &middot; MÃ GIẢM SÂU NHẤT</span></div>
+    <div data-hf-id="hf-81xj" id="dm-number-wrap">
+      <div data-hf-id="hf-037t" id="dm-number"><span data-hf-id="hf-juuc" class="sign">&#8722;</span><span data-hf-id="hf-wgsp" id="dmCountup">0</span>%</div>
+    </div>
+    <div data-hf-id="hf-9dbv" id="dmSub">Giá đóng cửa 21.550 đồng mỗi cổ phiếu</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo(".dm-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.1);
+    tl.fromTo(".dm-headline", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.35);
+    tl.fromTo("#dm-chart-axis", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.out" }, 0.8);
+
+    var cols = [
+      { sel: "#dmCol1" },
+      { sel: "#dmCol2" },
+      { sel: "#dmCol3" },
+      { sel: "#dmCol4" },
+      { sel: "#dmCol5" }
+    ];
+    var starts = [1.0, 1.15, 1.3, 1.45, 1.6];
+    cols.forEach(function (c, i) {
+      var t = starts[i];
+      tl.to(c.sel + " .dm-bar", { scaleY: 1, duration: 0.5, ease: "power2.out" }, t);
+      tl.fromTo(c.sel + " .pct", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.3, ease: "power1.out" }, t + 0.3);
+      tl.fromTo(c.sel + " .code", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, t + 0.1);
+    });
+
+    tl.fromTo("#dm-chip", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 2.1);
+    tl.fromTo("#dm-number", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" }, 2.4);
+
+    var countEl = document.getElementById("dmCountup");
+    var counter = { val: 0 };
+    tl.to(counter, {
+      val: 6,
+      duration: 1.0,
+      ease: "power1.out",
+      onUpdate: function () { countEl.textContent = Math.round(counter.val); },
+    }, 2.45);
+
+    tl.fromTo("#dmSub", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 3.6);
+    window.__timelines["04-data-moment"] = tl;
+  </script>
+</template>

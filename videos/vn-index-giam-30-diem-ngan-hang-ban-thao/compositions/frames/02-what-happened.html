@@ -1,0 +1,116 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .wh-kicker {
+      position: absolute; top: 150px; left: 0; width: 100%; text-align: center;
+      font-weight: 700; font-size: 26px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #E8441E; opacity: 0;
+    }
+    /* Article Image Card — editorial framed box, not full-bleed */
+    #wh-card {
+      position: absolute; top: 212px; left: 120px; width: 840px; height: 460px;
+      border-radius: 18px; overflow: hidden;
+      border: 1.5px solid rgba(232,68,30,0.5);
+      box-shadow: 0 0 44px rgba(232,68,30,0.16);
+      opacity: 0;
+    }
+    #wh-card img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: 50% 30%;
+    }
+    #wh-card-scrim {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(17,17,17,0) 60%, rgba(17,17,17,0.75) 100%);
+    }
+    #wh-card-badge {
+      position: absolute; left: 18px; bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(17,17,17,0.55);
+      border-radius: 7px; padding: 6px 12px;
+    }
+    #wh-card-badge img { width: 20px; height: 20px; }
+    #wh-card-badge span { font-size: 20px; font-weight: 700; color: #ffffff; }
+    .wh-headline {
+      position: absolute; top: 718px; left: 90px; right: 90px; text-align: center;
+      font-weight: 800; font-size: 46px; line-height: 1.28; color: #ffffff; opacity: 0;
+    }
+    .wh-headline .hl { color: #E8441E; }
+
+    /* Data ticker — single scrolling row of quote-style figures */
+    #wh-ticker-wrap {
+      position: absolute; top: 1340px; left: 0; width: 1080px;
+      opacity: 0;
+    }
+    #wh-ticker-bar {
+      position: relative;
+      width: 100%;
+      border-top: 2px solid #E8441E;
+      border-bottom: 2px solid #E8441E;
+      background: rgba(232,68,30,0.08);
+      padding: 22px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    #wh-ticker-live {
+      position: absolute; left: 24px; top: 50%; transform: translateY(-50%);
+      display: flex; align-items: center; gap: 10px;
+      z-index: 2;
+      background: #111111;
+      border-radius: 8px;
+      padding: 8px 16px 8px 10px;
+    }
+    #wh-ticker-live-dot {
+      width: 14px; height: 14px; border-radius: 50%; background: #E8441E;
+    }
+    #wh-ticker-live span {
+      font-weight: 800; font-size: 24px; letter-spacing: 0.08em; color: #ffffff;
+    }
+    #wh-ticker-track {
+      display: inline-block;
+      padding-left: 220px;
+      font-weight: 700; font-size: 30px; letter-spacing: 0.02em; color: #ffffff;
+    }
+    #wh-ticker-track .down { color: #E8441E; font-weight: 800; }
+    #wh-ticker-track .sep { color: rgba(255,255,255,0.35); margin: 0 18px; }
+  </style>
+  <div data-hf-id="hf-5ubw" id="root" data-composition-id="02-what-happened" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-arbj" class="wh-kicker" id="whKicker">Phiên giao dịch 2/11</div>
+    <div data-hf-id="hf-f4ej" id="wh-card">
+      <img data-hf-id="hf-xu3c" src="assets/images/hook-photo.jpg" alt="Bảng điện chứng khoán" data-layout-allow-overflow>
+      <div data-hf-id="hf-0t66" id="wh-card-scrim"></div>
+      <div data-hf-id="hf-yc65" id="wh-card-badge">
+        <img data-hf-id="hf-5vor" src="public/logo-bbh-mark.png" alt="">
+        <span data-hf-id="hf-ny5q" data-layout-ignore>BOT BÁN HÀNG</span>
+      </div>
+    </div>
+    <div data-hf-id="hf-06o7" class="wh-headline" id="whHeadline">Chỉ số xuyên thủng mốc <span data-hf-id="hf-kubf" class="hl">1.700 điểm</span> trong phiên</div>
+    <div data-hf-id="hf-d4jc" id="wh-ticker-wrap">
+      <div data-hf-id="hf-n097" id="wh-ticker-bar">
+        <div data-hf-id="hf-rqk0" id="wh-ticker-live" data-layout-allow-occlusion>
+          <div data-hf-id="hf-89cc" id="wh-ticker-live-dot"></div>
+          <span data-hf-id="hf-mzdf">LIVE</span>
+        </div>
+        <div data-hf-id="hf-h51g" id="wh-ticker-track" data-layout-allow-overlap data-layout-allow-overflow>
+          <span data-hf-id="hf-3vil" class="down">VN-INDEX &#9660; 1.710</span><span data-hf-id="hf-9z7o" class="sep">&middot;</span><span data-hf-id="hf-glqg">ĐÁY PHIÊN 1.694</span><span data-hf-id="hf-jxks" class="sep">&middot;</span><span data-hf-id="hf-ymv8">PHIÊN GIẢM THỨ 3 LIÊN TIẾP</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo(".wh-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.1);
+    tl.fromTo("#wh-card", { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.5, ease: "power2.out" }, 0.3);
+    tl.fromTo("#wh-card img", { scale: 1.1 }, { scale: 1.0, duration: 1.1, ease: "power2.out" }, 0.3);
+    tl.fromTo("#wh-card-badge", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 0.75);
+    tl.fromTo(".wh-headline", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.95);
+    tl.fromTo("#wh-ticker-wrap", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 1.5);
+    tl.fromTo("#wh-ticker-live-dot", { opacity: 0.35 }, { opacity: 1, duration: 0.6, ease: "sine.inOut", repeat: 6, yoyo: true }, 1.5);
+    tl.set("#wh-ticker-track", { x: 1080 }, 0);
+    tl.to("#wh-ticker-track", { x: -1400, duration: 4.9, ease: "none" }, 1.7);
+    window.__timelines["02-what-happened"] = tl;
+  </script>
+</template>
