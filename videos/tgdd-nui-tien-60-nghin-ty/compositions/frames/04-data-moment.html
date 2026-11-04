@@ -1,0 +1,149 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .dm-kicker {
+      position: absolute;
+      top: 170px; left: 64px; right: 64px;
+      text-align: center;
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      color: rgba(255,255,255,0.78);
+    }
+    .dm-hero-wrap {
+      position: absolute;
+      top: 300px; left: 0; right: 0;
+      text-align: center;
+    }
+    .dm-hero-number {
+      font-size: 300px;
+      font-weight: 900;
+      color: #E8441E;
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+    }
+    .dm-hero-label {
+      margin-top: 6px;
+      font-size: 46px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.02em;
+    }
+    .dm-subtitle {
+      position: absolute;
+      top: 730px; left: 64px; right: 64px;
+      text-align: center;
+      font-size: 36px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.3;
+    }
+    .dm-timeline {
+      position: absolute;
+      top: 1360px; left: 64px; right: 64px;
+      height: 280px;
+    }
+    .dm-axis-line {
+      position: absolute;
+      left: 190px; right: 190px; top: 130px;
+      height: 3px;
+      background: rgba(255,255,255,0.18);
+    }
+    .dm-axis-fill {
+      position: absolute;
+      left: 190px; right: 190px; top: 130px;
+      height: 3px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.3), #E8441E);
+      transform-origin: left;
+    }
+    .dm-node {
+      position: absolute;
+      top: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform: translateX(-50%);
+    }
+    .dm-node.n2018 { left: 190px; }
+    .dm-node.n2026 { left: 890px; }
+    .dm-node-year {
+      font-size: 28px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 10px;
+    }
+    .dm-node-dot {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: #111111;
+      border: 4px solid rgba(255,255,255,0.4);
+    }
+    .dm-node.n2026 .dm-node-dot {
+      width: 40px; height: 40px;
+      border: 5px solid #E8441E;
+      box-shadow: 0 0 24px rgba(232,68,30,0.6);
+    }
+    .dm-node-value {
+      margin-top: 12px;
+      font-size: 28px;
+      font-weight: 800;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+    .dm-node.n2026 .dm-node-value {
+      font-size: 32px;
+      color: #E8441E;
+    }
+  </style>
+  <div data-hf-id="hf-o51p" id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-8k6e" class="dm-kicker" id="dm-kicker">SO VỚI 8 NĂM TRƯỚC (2018 → 2026)</div>
+    <div data-hf-id="hf-tjea" class="dm-hero-wrap" id="dm-hero-wrap">
+      <div data-hf-id="hf-wg7m" class="dm-hero-number" id="dm-hero-number">×1</div>
+      <div data-hf-id="hf-xw4h" class="dm-hero-label">TĂNG HƠN 10 LẦN</div>
+    </div>
+    <div data-hf-id="hf-udcp" class="dm-subtitle" id="dm-subtitle">Chỉ sau 8 năm, "núi tiền" của Thế Giới Di Động đã phình to gấp hơn 10 lần.</div>
+    <div data-hf-id="hf-hk6o" class="dm-timeline" id="dm-timeline">
+      <div data-hf-id="hf-a5dw" class="dm-axis-line"></div>
+      <div data-hf-id="hf-nvwy" class="dm-axis-fill" id="dm-axis-fill"></div>
+      <div data-hf-id="hf-rr2p" class="dm-node n2018" id="dm-node-2018">
+        <div data-hf-id="hf-69t7" class="dm-node-year">30/9/2018</div>
+        <div data-hf-id="hf-zf24" class="dm-node-dot"></div>
+        <div data-hf-id="hf-5jpx" class="dm-node-value">5.730 tỷ đồng</div>
+      </div>
+      <div data-hf-id="hf-4hfp" class="dm-node n2026" id="dm-node-2026">
+        <div data-hf-id="hf-6wui" class="dm-node-year">30/9/2026</div>
+        <div data-hf-id="hf-qrg4" class="dm-node-dot"></div>
+        <div data-hf-id="hf-ab8b" class="dm-node-value">59.771 tỷ đồng</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo("#dm-kicker", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0);
+
+    var heroEl = document.getElementById("dm-hero-number");
+    var hc = { v: 1 };
+    tl.fromTo("#dm-hero-wrap", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.6)" }, 0.3);
+    tl.to(hc, {
+      v: 10,
+      duration: 0.9,
+      ease: "power2.out",
+      onUpdate: function () { heroEl.textContent = "×" + Math.max(1, Math.round(hc.v)); },
+    }, 0.45);
+
+    tl.fromTo("#dm-subtitle", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.55);
+
+    tl.fromTo("#dm-node-2018", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 2.3);
+    tl.fromTo("#dm-axis-fill", { scaleX: 0 }, { scaleX: 1, duration: 1.0, ease: "power2.inOut" }, 2.55);
+    tl.fromTo("#dm-node-2026", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, 3.45);
+
+    window.__timelines["04-data-moment"] = tl;
+  </script>
+</template>

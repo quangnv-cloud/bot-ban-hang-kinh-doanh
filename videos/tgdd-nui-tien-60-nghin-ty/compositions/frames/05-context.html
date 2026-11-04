@@ -1,0 +1,127 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .cx-kicker {
+      position: absolute;
+      top: 160px; left: 64px; right: 64px;
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: #E8441E;
+    }
+    .cx-subtitle {
+      position: absolute;
+      top: 230px; left: 64px; right: 64px;
+      font-size: 36px;
+      font-weight: 600;
+      color: #ffffff;
+      line-height: 1.3;
+      max-width: 940px;
+    }
+    .cx-track-wrap {
+      position: absolute;
+      left: 64px; right: 64px;
+    }
+    .cx-track-label-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .cx-track-year {
+      font-size: 30px;
+      font-weight: 800;
+      color: rgba(255,255,255,0.78);
+    }
+    .cx-track-pct {
+      font-size: 44px;
+      font-weight: 900;
+      color: #ffffff;
+    }
+    .cx-track-bg {
+      position: relative;
+      width: 100%;
+      height: 52px;
+      border-radius: 26px;
+      background: rgba(255,255,255,0.1);
+      overflow: hidden;
+    }
+    .cx-track-fill {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      border-radius: 26px;
+      background: linear-gradient(90deg, rgba(232,68,30,0.55), #E8441E);
+      transform-origin: left;
+      transform: scaleX(0);
+    }
+    .cx-track-small .cx-track-fill { width: 2.58%; }
+    .cx-track-big .cx-track-fill { width: 49.65%; }
+    .cx-delta-badge {
+      position: absolute;
+      left: 64px; right: 64px;
+      display: flex;
+      justify-content: center;
+    }
+    .cx-delta-badge span {
+      font-size: 32px;
+      font-weight: 800;
+      color: #E8441E;
+      background: rgba(232,68,30,0.12);
+      border: 1.5px solid rgba(232,68,30,0.45);
+      border-radius: 14px;
+      padding: 14px 30px;
+    }
+  </style>
+  <div data-hf-id="hf-3o8a" id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-1fcm" class="cx-kicker" id="cx-kicker">TỶ TRỌNG ĐẦU TƯ NGẮN HẠN / TỔNG TÀI SẢN</div>
+    <div data-hf-id="hf-1y60" class="cx-subtitle" id="cx-subtitle">Cơ cấu vốn của Thế Giới Di Động cũng thay đổi rõ rệt theo thời gian.</div>
+
+    <div data-hf-id="hf-qbp2" class="cx-track-wrap cx-track-small" id="cx-track-2018" style="top: 460px;">
+      <div data-hf-id="hf-ebft" class="cx-track-label-row">
+        <span data-hf-id="hf-xmxl" class="cx-track-year">Năm 2018</span>
+        <span data-hf-id="hf-lc84" class="cx-track-pct" id="cx-pct-2018">0%</span>
+      </div>
+      <div data-hf-id="hf-rc5x" class="cx-track-bg"><div data-hf-id="hf-qvcu" class="cx-track-fill" id="cx-fill-2018"></div></div>
+    </div>
+
+    <div data-hf-id="hf-724o" class="cx-track-wrap cx-track-big" id="cx-track-2026" style="top: 1340px;">
+      <div data-hf-id="hf-6xjx" class="cx-track-label-row">
+        <span data-hf-id="hf-xlzc" class="cx-track-year">Năm 2026</span>
+        <span data-hf-id="hf-pd4n" class="cx-track-pct" id="cx-pct-2026">0%</span>
+      </div>
+      <div data-hf-id="hf-4ps9" class="cx-track-bg"><div data-hf-id="hf-wda5" class="cx-track-fill" id="cx-fill-2026"></div></div>
+    </div>
+
+    <div data-hf-id="hf-7zrk" class="cx-delta-badge" id="cx-delta-badge" style="top: 1560px;">
+      <span data-hf-id="hf-bty4">▲ Tăng khoảng 47 điểm phần trăm sau 8 năm</span>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo("#cx-kicker", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0);
+    tl.fromTo("#cx-subtitle", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.2);
+
+    tl.fromTo("#cx-track-2018", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.75);
+    tl.fromTo("#cx-fill-2018", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power3.out" }, 1.0);
+    var p1 = document.getElementById("cx-pct-2018");
+    var pc1 = { v: 0 };
+    tl.to(pc1, { v: 2.58, duration: 0.6, ease: "power2.out", onUpdate: function () { p1.textContent = pc1.v.toFixed(2).replace(".", ",") + "%"; } }, 1.0);
+
+    tl.fromTo("#cx-track-2026", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 2.1);
+    tl.fromTo("#cx-fill-2026", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power3.out" }, 2.35);
+    var p2 = document.getElementById("cx-pct-2026");
+    var pc2 = { v: 0 };
+    tl.to(pc2, { v: 49.65, duration: 0.7, ease: "power2.out", onUpdate: function () { p2.textContent = pc2.v.toFixed(2).replace(".", ",") + "%"; } }, 2.35);
+
+    tl.fromTo("#cx-delta-badge", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.6)" }, 3.3);
+
+    window.__timelines["05-context"] = tl;
+  </script>
+</template>

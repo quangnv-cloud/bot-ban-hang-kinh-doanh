@@ -1,0 +1,139 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .im-kicker {
+      position: absolute;
+      top: 150px; left: 64px; right: 64px;
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.78);
+    }
+    .im-axis {
+      position: absolute;
+      left: 140px; top: 270px;
+      width: 3px; height: 1160px;
+      background: linear-gradient(180deg, rgba(232,68,30,0.65), rgba(232,68,30,0.2));
+      transform-origin: top;
+    }
+    .im-node {
+      position: absolute;
+      left: 115px;
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: #111111;
+      border: 4px solid #E8441E;
+      box-shadow: 0 0 22px rgba(232,68,30,0.5);
+    }
+    .im-block {
+      position: absolute;
+      left: 210px; right: 64px;
+    }
+    .im-block-label {
+      font-size: 32px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 10px;
+    }
+    .im-block-value-row {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .im-block-value {
+      font-size: 66px;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: -0.01em;
+    }
+    .im-block-unit {
+      font-size: 28px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.7);
+    }
+    .im-block-badge {
+      margin-top: 10px;
+      display: inline-flex;
+      font-size: 28px;
+      font-weight: 800;
+      color: #E8441E;
+      background: rgba(232,68,30,0.12);
+      border: 1.5px solid rgba(232,68,30,0.45);
+      border-radius: 10px;
+      padding: 7px 16px;
+    }
+    .im-flow-row {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-top: 4px;
+      flex-wrap: wrap;
+    }
+    .im-flow-from {
+      font-size: 40px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.55);
+      text-decoration: line-through;
+      text-decoration-color: rgba(255,255,255,0.3);
+    }
+    .im-flow-arrow {
+      font-size: 36px;
+      color: #E8441E;
+      font-weight: 800;
+    }
+    .im-flow-to {
+      font-size: 58px;
+      font-weight: 900;
+      color: #E8441E;
+    }
+  </style>
+  <div data-hf-id="hf-repe" id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-qarp" class="im-kicker" id="im-kicker">NỢ NGẮN HẠN & QUY MÔ VẬN HÀNH</div>
+    <div data-hf-id="hf-rxmu" class="im-axis" id="im-axis"></div>
+
+    <div data-hf-id="hf-0e6x" class="im-node" id="im-node1" style="top: 400px;"></div>
+    <div data-hf-id="hf-85iq" class="im-block" id="im-block1" style="top: 380px;">
+      <div data-hf-id="hf-s2rw" class="im-block-label">Nợ phải trả ngắn hạn</div>
+      <div data-hf-id="hf-b5xt" class="im-block-value-row">
+        <span data-hf-id="hf-jott" class="im-block-value" id="im-value1">54.558</span>
+        <span data-hf-id="hf-xybi" class="im-block-unit">tỷ đồng</span>
+      </div>
+      <div data-hf-id="hf-vlbk" class="im-block-badge">▲ Tăng 8,3%</div>
+    </div>
+
+    <div data-hf-id="hf-qieo" class="im-node" id="im-node2" style="top: 1380px;"></div>
+    <div data-hf-id="hf-qags" class="im-block" id="im-block2" style="top: 1360px;">
+      <div data-hf-id="hf-hfip" class="im-block-label">Riêng khoản phải trả Apple Việt Nam</div>
+      <div data-hf-id="hf-88lw" class="im-flow-row">
+        <span data-hf-id="hf-92ci" class="im-flow-from">464 tỷ</span>
+        <span data-hf-id="hf-k4tm" class="im-flow-arrow">→</span>
+        <span data-hf-id="hf-91z5" class="im-flow-to" id="im-value2">2.726 tỷ đồng</span>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo("#im-kicker", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0);
+    tl.fromTo("#im-axis", { scaleY: 0 }, { scaleY: 1, duration: 1.0, ease: "power2.out" }, 0.15);
+
+    tl.fromTo("#im-node1", { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(2.2)" }, 0.4);
+    tl.fromTo("#im-block1", { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, 0.5);
+    var v1 = document.getElementById("im-value1");
+    var c1 = { v: 0 };
+    tl.to(c1, { v: 54558, duration: 0.65, ease: "power2.out", onUpdate: function () { v1.textContent = Math.round(c1.v).toLocaleString("vi-VN"); } }, 0.65);
+
+    tl.fromTo("#im-node2", { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(2.2)" }, 3.2);
+    tl.fromTo("#im-block2", { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, 3.3);
+    tl.fromTo("#im-value2", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.8)" }, 3.75);
+
+    window.__timelines["06-impact"] = tl;
+  </script>
+</template>

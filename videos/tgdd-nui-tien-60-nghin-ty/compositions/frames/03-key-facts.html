@@ -1,0 +1,184 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .kf-kicker {
+      position: absolute;
+      top: 140px; left: 64px;
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: #E8441E;
+    }
+    .kf-axis {
+      position: absolute;
+      left: 140px; top: 270px;
+      width: 3px; height: 740px;
+      background: linear-gradient(180deg, rgba(232,68,30,0.75), rgba(232,68,30,0.15));
+      transform-origin: top;
+    }
+    .kf-node {
+      position: absolute;
+      left: 115px;
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: #111111;
+      border: 4px solid #E8441E;
+      box-shadow: 0 0 22px rgba(232,68,30,0.5);
+    }
+    .kf-fact {
+      position: absolute;
+      left: 210px; right: 64px;
+    }
+    .kf-fact-label {
+      font-size: 32px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 10px;
+    }
+    .kf-fact-value-row {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .kf-fact-value {
+      font-size: 68px;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: -0.01em;
+    }
+    .kf-fact-unit {
+      font-size: 30px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.7);
+    }
+    .kf-fact-badge {
+      margin-top: 10px;
+      display: inline-flex;
+      font-size: 28px;
+      font-weight: 800;
+      color: #E8441E;
+      background: rgba(232,68,30,0.12);
+      border: 1.5px solid rgba(232,68,30,0.45);
+      border-radius: 10px;
+      padding: 7px 16px;
+    }
+    .kf-chart-title {
+      position: absolute;
+      top: 1310px; left: 64px; right: 64px;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      color: rgba(255,255,255,0.75);
+    }
+    .kf-chart {
+      position: absolute;
+      top: 1395px; left: 64px; right: 64px;
+      height: 185px;
+    }
+    .kf-bar-col {
+      position: absolute;
+      bottom: 0;
+      width: 160px;
+    }
+    .kf-bar-col.c1 { left: 180px; }
+    .kf-bar-col.c2 { left: 600px; }
+    .kf-bar {
+      position: absolute;
+      bottom: 0;
+      left: 10px;
+      width: 140px;
+      border-radius: 10px 10px 0 0;
+      transform-origin: bottom;
+    }
+    .kf-bar.b1 { height: 180px; background: linear-gradient(180deg, #ff6a42, #E8441E); }
+    .kf-bar.b2 { height: 90px; background: linear-gradient(180deg, #ff9777, rgba(232,68,30,0.75)); }
+    .kf-bar-caption-row {
+      position: absolute;
+      top: 1600px; left: 64px; right: 64px;
+      height: 80px;
+    }
+    .kf-bar-caption {
+      position: absolute;
+      opacity: 0;
+      width: 220px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .kf-bar-caption.cap1 { left: 150px; }
+    .kf-bar-caption.cap2 { left: 570px; }
+    .kf-bar-caption .n { color: #E8441E; font-weight: 800; }
+  </style>
+  <div data-hf-id="hf-chzy" id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-peau" class="kf-kicker" id="kf-kicker">CƠ CẤU KHOẢN ĐẦU TƯ NGẮN HẠN</div>
+    <div data-hf-id="hf-3xkw" class="kf-axis" id="kf-axis"></div>
+
+    <div data-hf-id="hf-v5vj" class="kf-node" id="kf-node1" style="top: 400px;"></div>
+    <div data-hf-id="hf-n54y" class="kf-fact" id="kf-fact1" style="top: 380px;">
+      <div data-hf-id="hf-mz1u" class="kf-fact-label">Tiền gửi ngân hàng</div>
+      <div data-hf-id="hf-f945" class="kf-fact-value-row">
+        <span data-hf-id="hf-mu3x" class="kf-fact-value" id="kf-value1">31.895</span>
+        <span data-hf-id="hf-7fjk" class="kf-fact-unit">tỷ đồng</span>
+      </div>
+      <div data-hf-id="hf-cz45" class="kf-fact-badge">▲ Tăng 47,5%</div>
+    </div>
+
+    <div data-hf-id="hf-k6ao" class="kf-node" id="kf-node2" style="top: 800px;"></div>
+    <div data-hf-id="hf-p9r5" class="kf-fact" id="kf-fact2" style="top: 780px;">
+      <div data-hf-id="hf-dyrp" class="kf-fact-label">Trái phiếu doanh nghiệp</div>
+      <div data-hf-id="hf-hd89" class="kf-fact-value-row">
+        <span data-hf-id="hf-jkgc" class="kf-fact-value" id="kf-value2">15.877</span>
+        <span data-hf-id="hf-lyko" class="kf-fact-unit">tỷ đồng</span>
+      </div>
+      <div data-hf-id="hf-2td7" class="kf-fact-badge">▲ Tăng 46,6%</div>
+    </div>
+
+    <div class="kf-chart-title" id="kf-chart-title">SO SÁNH QUY MÔ 2 KHOẢN LỚN NHẤT</div>
+    <div class="kf-chart">
+      <div class="kf-bar-col c1">
+        <div class="kf-bar b1" id="kf-bar1"></div>
+      </div>
+      <div class="kf-bar-col c2">
+        <div class="kf-bar b2" id="kf-bar2"></div>
+      </div>
+    </div>
+    <div class="kf-bar-caption-row">
+      <div class="kf-bar-caption cap1" id="kf-cap1">Tiền gửi NH<br><span class="n">31.895 tỷ</span></div>
+      <div class="kf-bar-caption cap2" id="kf-cap2">Trái phiếu DN<br><span class="n">15.877 tỷ</span></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo("#kf-kicker", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0);
+    tl.fromTo("#kf-axis", { scaleY: 0 }, { scaleY: 1, duration: 0.9, ease: "power2.out" }, 0.15);
+
+    tl.fromTo("#kf-node1", { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(2.2)" }, 0.35);
+    tl.fromTo("#kf-fact1", { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, 0.45);
+    var v1 = document.getElementById("kf-value1");
+    var c1 = { v: 0 };
+    tl.to(c1, { v: 31895, duration: 0.6, ease: "power2.out", onUpdate: function () { v1.textContent = Math.round(c1.v).toLocaleString("vi-VN"); } }, 0.6);
+
+    tl.fromTo("#kf-node2", { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(2.2)" }, 1.9);
+    tl.fromTo("#kf-fact2", { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, 2.0);
+    var v2 = document.getElementById("kf-value2");
+    var c2 = { v: 0 };
+    tl.to(c2, { v: 15877, duration: 0.6, ease: "power2.out", onUpdate: function () { v2.textContent = Math.round(c2.v).toLocaleString("vi-VN"); } }, 2.15);
+
+    tl.fromTo("#kf-chart-title", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 3.9);
+    tl.fromTo("#kf-bar1", { scaleY: 0 }, { scaleY: 1, duration: 0.55, ease: "power3.out" }, 4.15);
+    tl.fromTo("#kf-cap1", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 4.55);
+    tl.fromTo("#kf-bar2", { scaleY: 0 }, { scaleY: 1, duration: 0.55, ease: "power3.out" }, 4.65);
+    tl.fromTo("#kf-cap2", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 5.05);
+
+    window.__timelines["03-key-facts"] = tl;
+  </script>
+</template>
