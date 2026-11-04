@@ -31,6 +31,12 @@ var REPORTS = {
     range: 'B9:H22',
     title: 'Doanh thu / Chi phí Ads theo Sale'
   },
+  'bu': {
+    spreadsheetId: '1Sd97mPpr_k1ca8QdKOpMNHrMsDZHiFTYDI6fF2REB1Y',
+    gid: '462434893',
+    range: 'L9:R14',
+    title: 'Doanh thu / Chi phí Ads theo BU'
+  },
   'compare': {
     spreadsheetId: '1Zxjj231qAO79hlnbDdiH5GG0cgP3a2masS55leLcsJI',
     gid: '1616235685',

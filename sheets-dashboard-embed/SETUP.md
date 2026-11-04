@@ -55,6 +55,7 @@ giới hạn range sẽ lấy kèm hết:
 | report            | Nguồn                                                                             | range         |
 |-------------------|------------------------------------------------------------------------------------------------------|---------------|
 | `sale`            | Sheet 1 (`1Sd97m...`, gid `462434893`) — bảng Lịch meet/Chi phí Ads theo Sale    | `B9:H22`      |
+| `bu`              | Sheet 1 (`1Sd97m...`, gid `462434893`) — bảng Lịch meet/Chi phí Ads theo BU      | `L9:R14`      |
 | `compare`         | Sheet 2 (`1Zxjj2...`, gid `1616235685`) — bảng So sánh chi tiết theo tuần       | `A20:P46`     |
 | `compare_month`   | Sheet 2 (`1Zxjj2...`, gid `661100457`) — bảng So sánh chi tiết theo tháng       | `A20:P46`     |
 
@@ -65,7 +66,14 @@ range có thể lệch và cần dò lại theo cách tương tự, hoặc dùng
 Đã xảy ra thật: `compare` từng là `A20:P45`, sau khi Sheet được thêm dòng
 "Doanh thu sau Ads" vào giữa bảng thì bảng dài thêm 1 dòng, cập nhật lại
 thành `A20:P46` — nếu iframe trên merchant.vn tự nhiên thiếu mất dòng cuối,
-đây là nguyên nhân thường gặp nhất, dò lại range là xong.)
+đây là nguyên nhân thường gặp nhất, dò lại range là xong.
+
+Lưu ý riêng cho tab `gid=462434893` (sheet `sale`/`bu`): giữa các bảng đặt
+cạnh nhau có 1 cột trống merge dọc (rowspan lớn, dùng làm khoảng cách thị
+giác) — ví dụ cột K trước bảng BU. Dò range theo kiểu "từ dòng N" dễ bị lệch
+1 cột nếu không để ý cột đệm này, vì dòng tiêu đề và dòng dữ liệu có thể vô
+tình lệch cột khi đo bằng mắt/đếm thủ công — nên dò bằng cách gọi thử
+`&range=` thật và so khớp giá trị trả về, không đoán toạ độ.)
 
 Dán trên trình duyệt để test trước khi nhúng:
 
