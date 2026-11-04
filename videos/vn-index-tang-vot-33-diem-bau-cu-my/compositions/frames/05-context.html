@@ -1,0 +1,78 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .cx-quote-bg {
+      position: absolute;
+      top: 60px; left: 70px;
+      font-size: 380px;
+      font-weight: 900;
+      color: #E8441E;
+      opacity: 0.09;
+      line-height: 1;
+      font-family: Georgia, "Times New Roman", serif;
+      z-index: 0;
+    }
+    .cx-kicker {
+      position: absolute;
+      top: 150px; left: 96px;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #E8441E;
+      z-index: 1;
+    }
+    .cx-line {
+      position: absolute;
+      left: 96px; right: 96px;
+      border-left: 6px solid #E8441E;
+      padding-left: 32px;
+      z-index: 1;
+    }
+    .cx-line .dash { color: #E8441E; font-weight: 900; font-size: 40px; margin-right: 10px; }
+    .cx-line .txt { font-size: 40px; font-weight: 700; line-height: 1.35; color: #ffffff; }
+    #cx-line-1 { top: 236px; }
+    #cx-line-2 { top: 466px; }
+    #cx-line-3 { top: 1320px; }
+    .cx-source-tag {
+      position: absolute;
+      left: 96px; top: 1540px;
+      font-size: 28px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.55);
+      z-index: 1;
+    }
+  </style>
+  <div id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div class="cx-quote-bg" id="cx-quote-bg">&ldquo;</div>
+    <div class="cx-kicker" id="cx-kicker">VÌ SAO THỊ TRƯỜNG BẬT TĂNG?</div>
+
+    <div class="cx-line" id="cx-line-1">
+      <div class="txt"><span class="dash">—</span>Đà tăng diễn ra ngay sau bầu cử giữa kỳ tại Mỹ ngày 3/11.</div>
+    </div>
+    <div class="cx-line" id="cx-line-2">
+      <div class="txt"><span class="dash">—</span>Giới phân tích cho rằng có thể thay đổi kỳ vọng chính sách tài khóa, thương mại Mỹ.</div>
+    </div>
+    <div class="cx-line" id="cx-line-3">
+      <div class="txt"><span class="dash">—</span>Qua đó giảm áp lực tỷ giá lên các thị trường mới nổi như Việt Nam.</div>
+    </div>
+    <div class="cx-source-tag" id="cx-source-tag">Theo đánh giá của giới phân tích trong nước</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo("#cx-quote-bg", { opacity: 0 }, { opacity: 0.09, duration: 0.5, ease: "power1.out" }, 0);
+    tl.fromTo("#cx-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.15);
+    tl.fromTo("#cx-line-1", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, 0.45);
+    tl.fromTo("#cx-line-2", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, 1.05);
+    tl.fromTo("#cx-line-3", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, 1.65);
+    tl.fromTo("#cx-source-tag", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 2.1);
+
+    window.__timelines["05-context"] = tl;
+  </script>
+</template>

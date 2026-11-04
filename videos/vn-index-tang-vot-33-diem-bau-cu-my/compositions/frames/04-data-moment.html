@@ -1,0 +1,134 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .dm-quote-bg {
+      position: absolute;
+      top: 110px; left: 50%;
+      transform: translateX(-50%);
+      font-size: 560px;
+      font-weight: 900;
+      color: #E8441E;
+      opacity: 0.09;
+      line-height: 1;
+      font-family: Georgia, "Times New Roman", serif;
+      z-index: 0;
+    }
+    .dm-kicker {
+      position: absolute;
+      top: 196px; left: 0; right: 0;
+      text-align: center;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.8);
+      z-index: 1;
+    }
+    .dm-number-wrap {
+      position: absolute;
+      top: 300px; left: 0; right: 0;
+      text-align: center;
+      z-index: 1;
+    }
+    .dm-number {
+      font-size: 300px;
+      font-weight: 900;
+      color: #E8441E;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+    }
+    .dm-unit {
+      font-size: 54px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-top: 4px;
+    }
+    .dm-underline {
+      position: absolute;
+      top: 668px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+    .dm-subtitle {
+      position: absolute;
+      top: 740px; left: 110px; right: 110px;
+      text-align: center;
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 1.35;
+      color: #ffffff;
+      z-index: 1;
+    }
+    .dm-subtitle b { color: #E8441E; }
+    .dm-card {
+      position: absolute;
+      left: 96px; right: 96px; top: 1320px;
+      background: #ffffff;
+      border-radius: 6px;
+      padding: 36px 44px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.45);
+      transform: rotate(-1deg);
+    }
+    .dm-card-label {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #E8441E;
+      margin-bottom: 14px;
+    }
+    .dm-card-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+    .dm-card-row span.lbl { font-size: 28px; font-weight: 600; color: #333333; }
+    .dm-card-row span.val { font-size: 40px; font-weight: 900; color: #111111; }
+  </style>
+  <div id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+    <div class="dm-quote-bg" id="dm-quote-bg">&rdquo;</div>
+    <div class="dm-kicker" id="dm-kicker">MỨC TĂNG MẠNH NHẤT PHIÊN</div>
+    <div class="dm-number-wrap" id="dm-number-wrap">
+      <div class="dm-number" id="dm-number">0,0</div>
+      <div class="dm-unit">điểm tăng</div>
+    </div>
+    <svg class="dm-underline" id="dm-underline" width="420" height="30" viewBox="0 0 420 30">
+      <path d="M6 18 C 90 6, 180 26, 260 12 S 380 8, 414 16" fill="none" stroke="#E8441E" stroke-width="7" stroke-linecap="round"/>
+    </svg>
+    <div class="dm-subtitle" id="dm-subtitle">Đưa VN-Index đóng cửa ở <b>1.733 điểm</b>, mức tăng mạnh nhất gần đây.</div>
+
+    <div class="dm-card" id="dm-card">
+      <div class="dm-card-label">NGƯỠNG KỸ THUẬT</div>
+      <div class="dm-card-row"><span class="lbl">Đóng cửa trên</span><span class="val">1.730 điểm</span></div>
+      <div class="dm-card-row"><span class="lbl">Kháng cự tiếp theo</span><span class="val">1.745–1.750</span></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo("#dm-quote-bg", { opacity: 0 }, { opacity: 0.09, duration: 0.5, ease: "power1.out" }, 0);
+    tl.fromTo("#dm-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.2);
+
+    var numEl = document.getElementById("dm-number");
+    var counter = { v: 0 };
+    tl.to(counter, {
+      v: 33.4,
+      duration: 1.0,
+      ease: "power2.out",
+      onUpdate: function () {
+        numEl.textContent = counter.v.toFixed(1).replace(".", ",");
+      },
+    }, 0.45);
+
+    tl.fromTo("#dm-underline path", { strokeDasharray: 440, strokeDashoffset: 440 }, { strokeDashoffset: 0, duration: 0.5, ease: "power1.inOut" }, 1.5);
+    tl.fromTo("#dm-subtitle", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.75);
+    tl.fromTo("#dm-card", { opacity: 0, y: 40, rotate: 3 }, { opacity: 1, y: 0, rotate: -1, duration: 0.45, ease: "back.out(1.4)" }, 2.2);
+
+    window.__timelines["04-data-moment"] = tl;
+  </script>
+</template>

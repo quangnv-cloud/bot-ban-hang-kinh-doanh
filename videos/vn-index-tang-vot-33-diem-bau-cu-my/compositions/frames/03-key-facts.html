@@ -1,0 +1,81 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .kf-kicker {
+      position: absolute;
+      top: 120px; left: 96px;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #E8441E;
+    }
+    .kf-card {
+      position: absolute;
+      left: 96px; right: 96px;
+      background: #ffffff;
+      border-radius: 6px;
+      padding: 32px 40px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.45);
+    }
+    #kf-card-1 { top: 210px; height: 270px; transform: rotate(-1.8deg); }
+    #kf-card-2 { top: 540px; height: 270px; transform: rotate(1.4deg); }
+    #kf-card-3 { top: 1320px; height: 260px; transform: rotate(-1.1deg); }
+    .kf-card-label {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #E8441E;
+      margin-bottom: 10px;
+    }
+    .kf-card-main {
+      font-size: 58px;
+      font-weight: 900;
+      color: #111111;
+      line-height: 1.1;
+    }
+    .kf-card-sub {
+      margin-top: 10px;
+      font-size: 28px;
+      font-weight: 600;
+      color: #333333;
+      line-height: 1.3;
+    }
+  </style>
+  <div id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <div class="kf-kicker" id="kf-kicker">BA ĐIỂM NHẤN PHIÊN NAY</div>
+
+    <div class="kf-card" id="kf-card-1">
+      <div class="kf-card-label">NHÓM CHỨNG KHOÁN DẪN SÓNG</div>
+      <div class="kf-card-main">VIX, VCI tăng trần</div>
+      <div class="kf-card-sub">Hàng loạt mã chứng khoán kịch trần ngay phiên mở cửa</div>
+    </div>
+
+    <div class="kf-card" id="kf-card-2">
+      <div class="kf-card-label">MÃ ĐẦU NGÀNH BỨT PHÁ</div>
+      <div class="kf-card-main">SSI tăng 6,5%</div>
+      <div class="kf-card-sub">Một trong những mã vốn hóa lớn nhất ngành chứng khoán</div>
+    </div>
+
+    <div class="kf-card" id="kf-card-3">
+      <div class="kf-card-label">BẤT ĐỘNG SẢN · NGÂN HÀNG</div>
+      <div class="kf-card-main">DXG, TCH, HDC tăng hết biên độ</div>
+      <div class="kf-card-sub">Lan tỏa sang nhóm bất động sản và ngân hàng</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo("#kf-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.1);
+    tl.fromTo("#kf-card-1", { opacity: 0, y: -40, rotate: -7 }, { opacity: 1, y: 0, rotate: -1.8, duration: 0.5, ease: "back.out(1.4)" }, 0.35);
+    tl.fromTo("#kf-card-2", { opacity: 0, y: -40, rotate: 7 }, { opacity: 1, y: 0, rotate: 1.4, duration: 0.5, ease: "back.out(1.4)" }, 0.95);
+    tl.fromTo("#kf-card-3", { opacity: 0, y: -40, rotate: -7 }, { opacity: 1, y: 0, rotate: -1.1, duration: 0.5, ease: "back.out(1.4)" }, 1.55);
+
+    window.__timelines["03-key-facts"] = tl;
+  </script>
+</template>

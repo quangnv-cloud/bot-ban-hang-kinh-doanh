@@ -1,0 +1,138 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .wh-photo-card {
+      position: absolute;
+      top: 56px; left: 96px; right: 96px;
+      height: 600px;
+      background: #ffffff;
+      border-radius: 6px;
+      padding: 14px 14px 46px 14px;
+      box-shadow: 0 28px 54px rgba(0,0,0,0.5);
+      transform: rotate(-1.6deg);
+    }
+    .wh-photo-card .wh-photo-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      box-shadow: 0 0 40px rgba(232, 68, 30, 0.14);
+    }
+    .wh-photo-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 42%;
+    }
+    .wh-photo-badge {
+      position: absolute;
+      right: 24px; bottom: 10px;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #111111;
+      opacity: 0.55;
+    }
+    .wh-quote-bg {
+      position: absolute;
+      top: 612px; left: 60px;
+      font-size: 420px;
+      font-weight: 900;
+      color: #E8441E;
+      opacity: 0.10;
+      line-height: 1;
+      font-family: Georgia, "Times New Roman", serif;
+      z-index: 0;
+    }
+    .wh-kicker {
+      position: absolute;
+      top: 706px; left: 96px;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #E8441E;
+      z-index: 1;
+    }
+    .wh-headline {
+      position: absolute;
+      top: 756px; left: 96px; right: 96px;
+      font-size: 72px;
+      font-weight: 900;
+      line-height: 1.08;
+      color: #ffffff;
+      z-index: 1;
+    }
+    .wh-stats {
+      position: absolute;
+      left: 96px; right: 96px; top: 1330px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .wh-stat-card {
+      background: #ffffff;
+      border-radius: 6px;
+      padding: 24px 32px;
+      box-shadow: 0 16px 32px rgba(0,0,0,0.4);
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+    }
+    .wh-stat-card.b { transform: rotate(0.9deg); }
+    .wh-stat-card.a { transform: rotate(-0.7deg); }
+    .wh-stat-number {
+      font-size: 68px;
+      font-weight: 900;
+      color: #E8441E;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .wh-stat-label {
+      font-size: 30px;
+      font-weight: 600;
+      color: #111111;
+      line-height: 1.25;
+    }
+  </style>
+  <div id="root" data-composition-id="02-what-happened" data-width="1080" data-height="1920">
+    <div class="wh-photo-card" id="wh-photo-card">
+      <div class="wh-photo-inner">
+        <img src="assets/images/hook-photo.jpg" alt="Nhà đầu tư theo dõi bảng điện chứng khoán">
+      </div>
+      <div class="wh-photo-badge" data-layout-ignore>BOT BÁN HÀNG</div>
+    </div>
+    <div class="wh-quote-bg" id="wh-quote-bg">&ldquo;</div>
+    <div class="wh-kicker" id="wh-kicker">DIỄN BIẾN PHIÊN GIAO DỊCH</div>
+    <div class="wh-headline" id="wh-headline">Thanh khoản<br>bùng nổ</div>
+    <div class="wh-stats" id="wh-stats">
+      <div class="wh-stat-card a" id="wh-stat-a">
+        <div class="wh-stat-number">17.464<span style="font-size:34px;"> tỷ</span></div>
+        <div class="wh-stat-label">Thanh khoản HoSE,<br>tăng gần 39% so với phiên trước</div>
+      </div>
+      <div class="wh-stat-card b" id="wh-stat-b">
+        <div class="wh-stat-number">70,7%</div>
+        <div class="wh-stat-label">Số cổ phiếu trên HoSE<br>tăng giá trong phiên</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo("#wh-photo-card", { y: -36, opacity: 0, rotate: -5 }, { y: 0, opacity: 1, rotate: -1.6, duration: 0.55, ease: "power2.out" }, 0);
+    tl.fromTo("#wh-quote-bg", { opacity: 0 }, { opacity: 0.10, duration: 0.4, ease: "power1.out" }, 0.4);
+    tl.fromTo("#wh-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.55);
+    tl.fromTo("#wh-headline", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0.68);
+    tl.fromTo("#wh-stat-a", { opacity: 0, x: -50, rotate: -6 }, { opacity: 1, x: 0, rotate: -0.7, duration: 0.45, ease: "back.out(1.5)" }, 1.15);
+    tl.fromTo("#wh-stat-b", { opacity: 0, x: 50, rotate: 6 }, { opacity: 1, x: 0, rotate: 0.9, duration: 0.45, ease: "back.out(1.5)" }, 1.4);
+
+    window.__timelines["02-what-happened"] = tl;
+  </script>
+</template>

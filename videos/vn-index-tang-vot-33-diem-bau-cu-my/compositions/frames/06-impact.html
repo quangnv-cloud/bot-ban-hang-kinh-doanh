@@ -1,0 +1,83 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .im-kicker {
+      position: absolute;
+      top: 140px; left: 96px;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #E8441E;
+      z-index: 3;
+    }
+    .im-card {
+      position: absolute;
+      background: #ffffff;
+      border-radius: 6px;
+      padding: 32px 36px;
+      box-shadow: 0 22px 44px rgba(0,0,0,0.48);
+    }
+    #im-card-a {
+      top: 220px; left: 96px; width: 740px; height: 380px;
+      transform: rotate(2.2deg);
+      z-index: 1;
+    }
+    #im-card-b {
+      top: 480px; left: 244px; width: 740px; height: 340px;
+      transform: rotate(-2deg);
+      z-index: 2;
+    }
+    #im-card-c {
+      top: 1320px; left: 96px; right: 96px; height: 260px;
+      transform: rotate(-1deg);
+      z-index: 1;
+    }
+    .im-label {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #E8441E;
+      margin-bottom: 12px;
+    }
+    .im-main { font-size: 46px; font-weight: 900; color: #111111; line-height: 1.2; }
+    .im-main.big { font-size: 68px; }
+    .im-sub { margin-top: 10px; font-size: 28px; font-weight: 600; color: #333333; line-height: 1.3; }
+  </style>
+  <div id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <div class="im-kicker" id="im-kicker">ĐỘNG THÁI TỪ NGÂN HÀNG NHÀ NƯỚC</div>
+
+    <div class="im-card" id="im-card-a">
+      <div class="im-label">CHÍNH SÁCH TIỀN TỆ</div>
+      <div class="im-main">Hoán đổi ngoại tệ kỳ hạn 182 ngày</div>
+      <div class="im-sub">Dự kiến triển khai từ ngày 6/11/2026</div>
+    </div>
+
+    <div class="im-card" id="im-card-b">
+      <div class="im-label">QUY MÔ TỐI ĐA</div>
+      <div class="im-main big">2 tỷ USD</div>
+      <div class="im-sub">Hạn mức hoán đổi ngoại tệ của Ngân hàng Nhà nước</div>
+    </div>
+
+    <div class="im-card" id="im-card-c">
+      <div class="im-label">THANH KHOẢN BƠM RA BAN ĐẦU</div>
+      <div class="im-main big">~48.800 tỷ đồng</div>
+      <div class="im-sub">Nếu dùng hết hạn mức swap, tạm thời tới kỳ đáo hạn</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo("#im-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.1);
+    tl.fromTo("#im-card-a", { opacity: 0, x: -50, rotate: -4 }, { opacity: 1, x: 0, rotate: 2.2, duration: 0.5, ease: "back.out(1.4)" }, 0.4);
+    tl.fromTo("#im-card-b", { opacity: 0, x: 50, rotate: 5 }, { opacity: 1, x: 0, rotate: -2, duration: 0.5, ease: "back.out(1.4)" }, 1.0);
+    tl.fromTo("#im-card-c", { opacity: 0, y: 40, rotate: 3 }, { opacity: 1, y: 0, rotate: -1, duration: 0.5, ease: "back.out(1.4)" }, 1.6);
+
+    window.__timelines["06-impact"] = tl;
+  </script>
+</template>
