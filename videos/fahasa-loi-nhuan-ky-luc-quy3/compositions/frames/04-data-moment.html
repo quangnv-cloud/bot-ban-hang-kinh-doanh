@@ -1,0 +1,146 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .dm-kicker-wrap {
+      position: absolute;
+      top: 210px; left: 64px; right: 64px;
+      text-align: center;
+    }
+    .dm-kicker {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: #E8441E;
+      text-transform: uppercase;
+    }
+    .dm-headline {
+      position: absolute;
+      top: 280px; left: 64px; right: 64px;
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.32;
+      color: #ffffff;
+      text-align: center;
+    }
+    .dm-headline b { color: #E8441E; }
+    .dm-grid {
+      position: absolute;
+      top: 1230px; left: 64px; right: 64px;
+      height: 450px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .dm-side {
+      flex: 1;
+      border: 1.5px solid rgba(255,255,255,0.18);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      padding: 24px 16px;
+      text-align: center;
+      opacity: 0.85;
+    }
+    .dm-side-label {
+      font-size: 22px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.3;
+      margin-bottom: 14px;
+      min-height: 56px;
+    }
+    .dm-side-num {
+      font-size: 40px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+    .dm-main {
+      flex: 1.7;
+      border: 2px solid #E8441E;
+      border-radius: 24px;
+      background: rgba(232,68,30,0.1);
+      box-shadow: 0 0 56px rgba(232, 68, 30, 0.24);
+      padding: 28px 20px;
+      text-align: center;
+    }
+    .dm-main-label {
+      font-size: 28px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 14px;
+    }
+    .dm-main-num {
+      font-size: 108px;
+      font-weight: 900;
+      color: #E8441E;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+    }
+    .dm-main-unit {
+      font-size: 34px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-top: 6px;
+    }
+    .dm-main-tag {
+      margin-top: 14px;
+      font-size: 22px;
+      font-weight: 700;
+      color: #ffffff;
+      background: #E8441E;
+      border-radius: 999px;
+      padding: 6px 16px;
+      display: inline-block;
+    }
+  </style>
+  <div data-hf-id="hf-o51p" id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-bprm" class="dm-kicker-wrap"><div data-hf-id="hf-ten2" class="dm-kicker">Con số đáng chú ý</div></div>
+    <div data-hf-id="hf-dnwd" class="dm-headline">Lợi nhuận quý 3 <b data-hf-id="hf-x82w">cao nhất từ trước đến nay</b> của Fahasa.</div>
+    <div data-hf-id="hf-ihk2" class="dm-grid" id="dm-grid">
+      <div data-hf-id="hf-r7xm" class="dm-side" id="dm-side-left">
+        <div data-hf-id="hf-1kke" class="dm-side-label" data-layout-ignore>Doanh thu thuần quý 3</div>
+        <div data-hf-id="hf-6h7g" class="dm-side-num" id="dm-side-num-left">0</div>
+      </div>
+      <div data-hf-id="hf-x5nw" class="dm-main" id="dm-main">
+        <div data-hf-id="hf-3paf" class="dm-main-label">Lợi nhuận sau thuế quý 3</div>
+        <div data-hf-id="hf-rjvq" class="dm-main-num" id="dm-main-num">0</div>
+        <div data-hf-id="hf-to0o" class="dm-main-unit">tỷ đồng</div>
+        <div data-hf-id="hf-p5wl" class="dm-main-tag" data-layout-ignore>Kỷ lục</div>
+      </div>
+      <div data-hf-id="hf-2rzt" class="dm-side" id="dm-side-right">
+        <div data-hf-id="hf-atzj" class="dm-side-label" data-layout-ignore>Lợi nhuận sau thuế 9 tháng</div>
+        <div data-hf-id="hf-dwi9" class="dm-side-num" id="dm-side-num-right">0</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo(".dm-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0);
+    tl.fromTo(".dm-headline", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.25);
+
+    tl.fromTo("#dm-side-left", { opacity: 0, x: -20 }, { opacity: 0.85, x: 0, duration: 0.35, ease: "power2.out" }, 0.75);
+    tl.fromTo("#dm-side-right", { opacity: 0, x: 20 }, { opacity: 0.85, x: 0, duration: 0.35, ease: "power2.out" }, 0.75);
+    tl.fromTo("#dm-main", { opacity: 0, scale: 0.88 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.5)" }, 0.95);
+
+    var mainNum = document.getElementById("dm-main-num");
+    var leftNum = document.getElementById("dm-side-num-left");
+    var rightNum = document.getElementById("dm-side-num-right");
+    var cm = { v: 0 }, cl = { v: 0 }, cr = { v: 0 };
+    tl.to(cm, {
+      v: 20.7,
+      duration: 0.8,
+      ease: "power2.out",
+      onUpdate: function () { mainNum.textContent = cm.v.toFixed(1).replace(".", ","); },
+    }, 1.35);
+    tl.to(cl, { v: 1820, duration: 0.6, ease: "power2.out", onUpdate: function () { leftNum.textContent = Math.round(cl.v).toLocaleString("vi-VN") + " tỷ"; } }, 1.55);
+    tl.to(cr, { v: 46.4, duration: 0.6, ease: "power2.out", onUpdate: function () { rightNum.textContent = cr.v.toFixed(1).replace(".", ",") + " tỷ"; } }, 1.65);
+
+    window.__timelines["04-data-moment"] = tl;
+  </script>
+</template>
