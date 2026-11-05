@@ -1,0 +1,119 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .wh-bg-wrap {
+      position: absolute; inset: -40px;
+      background-image: url("assets/images/hook-photo.jpg");
+      background-size: cover;
+      background-position: center 30%;
+      filter: blur(22px) brightness(0.55) saturate(1.05);
+    }
+    .wh-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(17,17,17,0.66) 0%, rgba(17,17,17,0.8) 55%, #111111 100%); }
+
+    .wh-content { position: absolute; left: 64px; right: 64px; top: 230px; }
+    .wh-kicker {
+      font-size: 30px; font-weight: 700; letter-spacing: 0.06em;
+      color: #E8441E; text-transform: uppercase; margin-bottom: 20px;
+    }
+    .wh-headline {
+      font-size: 56px; font-weight: 800; line-height: 1.22; color: #ffffff; max-width: 950px;
+    }
+    .wh-headline b { color: #E8441E; }
+    .wh-subnote {
+      margin-top: 24px; font-size: 32px; font-weight: 600; color: rgba(255,255,255,0.82); line-height: 1.4;
+    }
+    .wh-subnote b { color: #ffffff; }
+
+    .wh-ticker {
+      position: absolute; left: 0; right: 0; top: 650px; height: 96px;
+      background: rgba(10,10,10,0.95);
+      border-top: 2px solid #E8441E; border-bottom: 2px solid #E8441E;
+      overflow: hidden; display: flex; align-items: center;
+    }
+    .wh-ticker-track { position: absolute; left: 0; top: 0; height: 100%; display: flex; align-items: center; white-space: nowrap; will-change: transform; }
+    .wh-ticker-track span { display: inline-flex; align-items: center; font-size: 30px; font-weight: 700; color: #ffffff; letter-spacing: 0.02em; padding: 0 18px; }
+    .wh-ticker-track .dot {
+      width: 16px; height: 16px; border-radius: 50%; background: #E8441E; margin-right: 10px; display: inline-block;
+    }
+    .wh-ticker-track .live { color: #E8441E; }
+    .wh-ticker-track .sep { color: rgba(255,255,255,0.4); }
+
+    .wh-card {
+      position: absolute; left: 165px; top: 1330px; width: 750px; height: 320px;
+      border-radius: 18px; overflow: hidden; border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: 0 0 40px rgba(232,68,30,0.16), 0 18px 40px rgba(0,0,0,0.4);
+    }
+    .wh-card img { width: 100%; height: 100%; object-fit: cover; object-position: center 32%; }
+    .wh-card-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(17,17,17,0) 55%, rgba(17,17,17,0.82) 100%); }
+    .wh-card-label {
+      position: absolute; left: 20px; right: 20px; bottom: 16px; font-size: 28px; font-weight: 700; color: #ffffff;
+    }
+    .wh-card-badge {
+      position: absolute; right: 16px; top: 16px; background: rgba(17,17,17,0.72); border: 1px solid rgba(232,68,30,0.6);
+      border-radius: 8px; padding: 6px 12px; font-size: 20px; font-weight: 700; color: #ffffff; letter-spacing: 0.03em;
+    }
+    /* Decorative brand watermark texture, not reading-critical copy — see brand Article Image System. */
+  </style>
+  <div id="root" data-composition-id="02-what-happened" data-width="1080" data-height="1920">
+    <div class="wh-bg-wrap" id="wh-bg-wrap" data-layout-allow-overflow data-layout-ignore></div>
+    <div class="wh-scrim"></div>
+
+    <div class="wh-content" id="wh-content">
+      <div class="wh-kicker">Diễn biến giao dịch</div>
+      <div class="wh-headline">NHNN mua đô la Mỹ từ ngân hàng, tỷ giá <b>24.399 đồng</b>/USD</div>
+      <div class="wh-subnote">Giao dịch hoán đổi thực hiện ngày <b>6/11</b>, Ngân hàng Nhà nước tất toán ngày <b>9/11</b>.</div>
+    </div>
+
+    <div class="wh-ticker" id="wh-ticker">
+      <div class="wh-ticker-track" id="wh-ticker-track" data-layout-allow-overflow>
+        <span><span class="dot"></span><span class="live">LIVE</span></span>
+        <span>HOÁN ĐỔI NGOẠI TỆ KỲ HẠN 182 NGÀY</span>
+        <span class="sep">·</span>
+        <span>TỶ GIÁ MUA 24.399 ĐỒNG/USD</span>
+        <span class="sep">·</span>
+        <span>THỰC HIỆN 6/11</span>
+        <span class="sep">·</span>
+        <span>NGUỒN: VNEXPRESS</span>
+        <span class="sep">·</span>
+        <span><span class="dot"></span><span class="live">LIVE</span></span>
+        <span>HOÁN ĐỔI NGOẠI TỆ KỲ HẠN 182 NGÀY</span>
+        <span class="sep">·</span>
+        <span>TỶ GIÁ MUA 24.399 ĐỒNG/USD</span>
+        <span class="sep">·</span>
+        <span>THỰC HIỆN 6/11</span>
+        <span class="sep">·</span>
+        <span>NGUỒN: VNEXPRESS</span>
+        <span class="sep">·</span>
+      </div>
+    </div>
+
+    <div class="wh-card" id="wh-card">
+      <img src="assets/images/hook-photo.jpg" alt="Trụ sở Ngân hàng Nhà nước Việt Nam">
+      <div class="wh-card-scrim"></div>
+      <div class="wh-card-badge" data-layout-ignore>BOT BÁN HÀNG</div>
+      <div class="wh-card-label">Trụ sở Ngân hàng Nhà nước — Hà Nội</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo("#wh-bg-wrap", { scale: 1.08, opacity: 0 }, { scale: 1.0, opacity: 1, duration: 0.6, ease: "power2.out" }, 0);
+    tl.fromTo(".wh-kicker", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.32, ease: "power2.out" }, 0.25);
+    tl.fromTo(".wh-headline", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.42, ease: "power2.out" }, 0.42);
+    tl.fromTo(".wh-subnote", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.36, ease: "power2.out" }, 0.78);
+
+    tl.fromTo("#wh-ticker", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 1.05);
+    // Seamless marquee: track content is duplicated, animate exactly -50% width, finite repeat sized to scene length.
+    tl.fromTo("#wh-ticker-track", { xPercent: 0 }, { xPercent: -50, duration: 30, ease: "none" }, 1.1);
+
+    tl.fromTo("#wh-card", { opacity: 0, y: 30, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power2.out" }, 1.5);
+
+    window.__timelines["02-what-happened"] = tl;
+  </script>
+</template>

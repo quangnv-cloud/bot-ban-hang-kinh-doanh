@@ -1,0 +1,16 @@
+{
+  "result": {
+    "audio_link": "https://vbee.vn/s/6ec4f3ff-7fd9-4a6e-81d1-cc4fe1a4c3e8/e9b58747-7700-4620-a390-96934beeb595",
+    "audio_type": "mp3",
+    "bitrate": 128,
+    "characters": 195,
+    "created_at": "2026-11-05T00:29:30.835Z",
+    "request_id": "6ec4f3ff-7fd9-4a6e-81d1-cc4fe1a4c3e8",
+    "sample_rate": "24000",
+    "speed_rate": 1.09,
+    "status": "SUCCESS",
+    "timestamp_words": [],
+    "voice_code": "hn_female_ngochuyen_full_24k-stl"
+  },
+  "status": 1
+}

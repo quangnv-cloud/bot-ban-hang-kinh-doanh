@@ -1,0 +1,71 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .im-kicker {
+      position: absolute; left: 64px; top: 232px;
+      font-size: 30px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #E8441E;
+    }
+    .im-headline {
+      position: absolute; left: 64px; right: 64px; top: 296px;
+      font-size: 44px; font-weight: 800; color: #ffffff; line-height: 1.26; max-width: 950px;
+    }
+
+    .im-table { position: absolute; left: 64px; right: 64px; top: 600px; }
+    .im-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 34px 6px; border-bottom: 1px solid rgba(255,255,255,0.16);
+    }
+    .im-row:first-child { border-top: 1px solid rgba(255,255,255,0.16); }
+    .im-row-label { font-size: 28px; font-weight: 700; letter-spacing: 0.02em; color: rgba(255,255,255,0.62); text-transform: uppercase; max-width: 380px; line-height: 1.3; }
+    .im-row-value { display: flex; align-items: center; gap: 12px; }
+    .im-row-value .arrow { font-size: 28px; font-weight: 800; color: #E8441E; }
+    .im-row-value .val { font-size: 38px; font-weight: 800; color: #ffffff; text-align: right; }
+
+    .im-closing {
+      position: absolute; left: 100px; right: 100px; top: 1360px; text-align: center;
+    }
+    .im-closing-text { font-size: 38px; font-weight: 800; color: #ffffff; line-height: 1.4; }
+    .im-closing-text b { color: #E8441E; }
+  </style>
+  <div id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <div class="im-kicker" id="im-kicker">Sau 182 ngày</div>
+    <div class="im-headline" id="im-headline">NHNN bán lại toàn bộ USD, thu hồi tiền đồng đã bơm ra.</div>
+
+    <div class="im-table">
+      <div class="im-row" id="im-row-1">
+        <div class="im-row-label">Tỷ giá mua — 9/11</div>
+        <div class="im-row-value"><span class="val">24.399 đồng/USD</span></div>
+      </div>
+      <div class="im-row" id="im-row-2">
+        <div class="im-row-label">Tỷ giá bán lại — sau 182 ngày</div>
+        <div class="im-row-value"><span class="arrow">▲</span><span class="val">24.704 đồng/USD</span></div>
+      </div>
+      <div class="im-row" id="im-row-3">
+        <div class="im-row-label">Kết quả</div>
+        <div class="im-row-value"><span class="val">Thu hồi toàn bộ tiền đồng</span></div>
+      </div>
+    </div>
+
+    <div class="im-closing" id="im-closing">
+      <div class="im-closing-text">Ngân hàng Nhà nước thu hồi lại <b>toàn bộ số tiền đồng</b> đã bơm ra trước đó.</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo("#im-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.1);
+    tl.fromTo("#im-headline", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.3);
+
+    tl.fromTo("#im-row-1", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.9);
+    tl.fromTo("#im-row-2", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 1.4);
+    tl.fromTo("#im-row-3", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 1.9);
+
+    tl.fromTo("#im-closing", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 2.5);
+
+    window.__timelines["06-impact"] = tl;
+  </script>
+</template>

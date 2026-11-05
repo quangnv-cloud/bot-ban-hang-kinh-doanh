@@ -1,0 +1,81 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .dm-ticker-code {
+      position: absolute; left: 0; right: 0; top: 260px; text-align: center;
+    }
+    .dm-code-pill {
+      display: inline-flex; align-items: center; gap: 10px;
+      border: 1.5px solid #E8441E; border-radius: 999px; padding: 10px 26px;
+      background: rgba(232,68,30,0.1);
+    }
+    .dm-code-pill span.sym { font-size: 30px; font-weight: 800; color: #ffffff; letter-spacing: 0.08em; }
+    .dm-code-pill span.tag { font-size: 28px; font-weight: 700; color: #E8441E; letter-spacing: 0.04em; }
+
+    .dm-center { position: absolute; left: 0; right: 0; top: 620px; text-align: center; }
+    .dm-line { height: 2px; background: rgba(255,255,255,0.25); margin: 0 120px; }
+    .dm-number-row {
+      display: flex; align-items: baseline; justify-content: center; gap: 22px; padding: 34px 0;
+    }
+    .dm-number { font-size: 240px; font-weight: 900; color: #E8441E; line-height: 0.9; letter-spacing: -0.02em; }
+    .dm-unit { font-size: 56px; font-weight: 800; color: #ffffff; }
+    .dm-subtitle {
+      margin-top: 30px; font-size: 36px; font-weight: 700; line-height: 1.35; color: #ffffff;
+      max-width: 860px; margin-left: auto; margin-right: auto; padding: 0 60px;
+    }
+
+    .dm-row {
+      position: absolute; left: 120px; right: 120px; top: 1440px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid rgba(255,255,255,0.18); border-bottom: 1px solid rgba(255,255,255,0.18);
+      padding: 28px 10px;
+    }
+    .dm-row-label { font-size: 28px; font-weight: 700; letter-spacing: 0.03em; color: rgba(255,255,255,0.65); text-transform: uppercase; }
+    .dm-row-value { display: flex; align-items: center; gap: 10px; }
+    .dm-row-value .arrow { color: #E8441E; font-size: 26px; font-weight: 800; }
+    .dm-row-value .val { font-size: 38px; font-weight: 800; color: #ffffff; }
+  </style>
+  <div id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+    <div class="dm-ticker-code" id="dm-ticker-code">
+      <div class="dm-code-pill"><span class="sym">NHNN</span><span class="tag">KỲ HẠN HOÁN ĐỔI</span></div>
+    </div>
+    <div class="dm-center">
+      <div class="dm-line"></div>
+      <div class="dm-number-row">
+        <span class="dm-number" id="dm-number">0</span>
+        <span class="dm-unit">ngày</span>
+      </div>
+      <div class="dm-line"></div>
+      <div class="dm-subtitle" id="dm-subtitle">Kỳ hạn hoán đổi ngoại tệ dài nhất từ trước đến nay của Ngân hàng Nhà nước.</div>
+    </div>
+    <div class="dm-row" id="dm-row">
+      <div class="dm-row-label">Quy mô tối đa</div>
+      <div class="dm-row-value"><span class="arrow">▲</span><span class="val">48.800 tỷ đồng</span></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo("#dm-ticker-code", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.1);
+    tl.fromTo(".dm-line", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.out" }, 0.4);
+
+    var numEl = document.getElementById("dm-number");
+    var counter = { v: 0 };
+    tl.to(counter, {
+      v: 182,
+      duration: 1.1,
+      ease: "power2.out",
+      onUpdate: function () { numEl.textContent = Math.round(counter.v).toString(); },
+    }, 0.7);
+    tl.fromTo(".dm-unit", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power1.out" }, 1.5);
+    tl.fromTo("#dm-subtitle", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.75);
+
+    tl.fromTo("#dm-row", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 2.3);
+
+    window.__timelines["04-data-moment"] = tl;
+  </script>
+</template>

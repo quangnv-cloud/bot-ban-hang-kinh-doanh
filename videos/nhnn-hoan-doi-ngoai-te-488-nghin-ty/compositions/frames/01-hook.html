@@ -1,0 +1,167 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .hk-photo-wrap {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 980px;
+      overflow: hidden;
+    }
+    .hk-photo-wrap img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+    }
+    .hk-photo-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(17,17,17,0) 45%, rgba(17,17,17,0.55) 82%, #111111 100%);
+    }
+    .hk-panel {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 1060px;
+      background: #111111;
+      padding: 56px 64px 0 64px;
+    }
+    .hk-masthead {
+      position: absolute;
+      top: 44px; left: 64px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .hk-masthead img { width: 44px; height: 48px; display: block; }
+    .hk-masthead span {
+      font-size: 32px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .hk-badges {
+      position: absolute;
+      top: 124px; left: 64px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .hk-source-badge {
+      border: 1.5px solid #E8441E;
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-size: 28px;
+      font-weight: 600;
+      color: #ffffff;
+      background: rgba(232,68,30,0.08);
+    }
+    .hk-time-badge {
+      border-radius: 999px;
+      padding: 10px 22px;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #E8441E;
+      background: rgba(232,68,30,0.14);
+      border: 1px solid rgba(232,68,30,0.4);
+    }
+    .hk-headline-wrap {
+      position: absolute;
+      top: 236px; left: 64px; right: 64px;
+    }
+    .hk-kicker {
+      font-size: 28px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.78);
+      margin-bottom: 18px;
+    }
+    .hk-number-row {
+      display: flex;
+      align-items: baseline;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    .hk-number {
+      font-size: 116px;
+      font-weight: 900;
+      line-height: 0.92;
+      color: #E8441E;
+      letter-spacing: -0.02em;
+    }
+    .hk-unit {
+      font-size: 44px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+    .hk-subtitle {
+      margin-top: 28px;
+      font-size: 38px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: #ffffff;
+      max-width: 940px;
+    }
+    .hk-subtitle b { color: #E8441E; }
+  </style>
+  <div id="root" data-composition-id="01-hook" data-width="1080" data-height="1920">
+    <div class="hk-photo-wrap" id="hk-photo-wrap">
+      <img src="assets/images/hook-photo.jpg" alt="Trụ sở Ngân hàng Nhà nước Việt Nam">
+      <div class="hk-photo-scrim"></div>
+    </div>
+    <div class="hk-panel" id="hk-panel">
+      <div class="hk-masthead" id="hk-masthead">
+        <img src="public/logo-bbh-mark.png" alt="Bot Ban Hang">
+        <span>Bot Bán Hàng</span>
+      </div>
+      <div class="hk-badges" id="hk-badges">
+        <div class="hk-source-badge">Nguồn: VnExpress · 4/11/2026</div>
+        <div class="hk-time-badge">HIỆU LỰC 6/11</div>
+      </div>
+      <div class="hk-headline-wrap" id="hk-headline-wrap" data-hold>
+        <div class="hk-kicker">NHNN bơm thanh khoản qua hoán đổi ngoại tệ</div>
+        <div class="hk-number-row">
+          <span class="hk-number" id="hk-number">0</span>
+          <span class="hk-unit">tỷ đồng</span>
+        </div>
+        <div class="hk-subtitle">Kỳ hạn <b>182 ngày</b> — dài chưa từng có trong các đợt hoán đổi của NHNN.</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo("#hk-photo-wrap img", { scale: 1.12, opacity: 0 }, { scale: 1.0, opacity: 1, duration: 0.7, ease: "power2.out" }, 0);
+    tl.fromTo("#hk-panel", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }, 0.32);
+    tl.fromTo("#hk-masthead", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.55);
+    tl.fromTo(".hk-source-badge", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.6)" }, 0.78);
+    tl.fromTo(".hk-time-badge", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.6)" }, 0.96);
+    tl.fromTo(".hk-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 1.08);
+
+    // Count-up number (seeked rendering: counter driven purely by timeline progress, deterministic).
+    var numEl = document.getElementById("hk-number");
+    function formatVN(n) {
+      return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+    var counter = { v: 0 };
+    tl.to(counter, {
+      v: 48800,
+      duration: 1.0,
+      ease: "power2.out",
+      onUpdate: function () {
+        numEl.textContent = formatVN(counter.v);
+      },
+    }, 1.25);
+    tl.fromTo(".hk-unit", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power1.out" }, 2.15);
+    tl.fromTo(".hk-subtitle", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 2.4);
+
+    window.__timelines["01-hook"] = tl;
+  </script>
+</template>

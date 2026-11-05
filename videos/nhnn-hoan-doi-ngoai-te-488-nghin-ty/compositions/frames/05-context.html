@@ -1,0 +1,76 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #111111;
+    }
+    .ctx-kicker {
+      position: absolute; left: 64px; top: 232px;
+      font-size: 30px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #E8441E;
+    }
+    .ctx-headline {
+      position: absolute; left: 64px; right: 64px; top: 296px;
+      font-size: 44px; font-weight: 800; color: #ffffff; line-height: 1.26; max-width: 950px;
+    }
+    .ctx-rows { position: absolute; left: 64px; right: 64px; top: 560px; display: flex; flex-direction: column; gap: 40px; }
+    .ctx-row { display: flex; align-items: center; gap: 24px; }
+    .ctx-spark { width: 160px; height: 56px; flex-shrink: 0; }
+    .ctx-spark path { fill: none; stroke: #E8441E; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+    .ctx-text { font-size: 32px; font-weight: 700; color: #ffffff; line-height: 1.3; }
+
+    .ctx-closing {
+      position: absolute; left: 110px; right: 110px; top: 1420px;
+      border: 2px solid #E8441E; border-radius: 16px;
+      background: rgba(232,68,30,0.08);
+      padding: 38px 40px; text-align: center;
+    }
+    .ctx-closing-text { font-size: 34px; font-weight: 800; color: #ffffff; line-height: 1.3; }
+    .ctx-closing-text b { color: #E8441E; }
+  </style>
+  <div id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div class="ctx-kicker" id="ctx-kicker">Vì sao NHNN làm điều này</div>
+    <div class="ctx-headline" id="ctx-headline">Linh hoạt dùng công cụ hoán đổi để hỗ trợ hệ thống ngân hàng.</div>
+
+    <div class="ctx-rows">
+      <div class="ctx-row" id="ctx-row-1">
+        <svg class="ctx-spark" viewBox="0 0 160 56"><path id="ctx-path-1" d="M4,44 L34,36 L64,38 L94,20 L124,22 L156,6"></path></svg>
+        <div class="ctx-text">Tăng vốn tiền đồng cho tổ chức tín dụng</div>
+      </div>
+      <div class="ctx-row" id="ctx-row-2">
+        <svg class="ctx-spark" viewBox="0 0 160 56"><path id="ctx-path-2" d="M4,44 L34,40 L64,30 L94,32 L124,16 L156,10"></path></svg>
+        <div class="ctx-text">Góp phần giảm mặt bằng lãi suất</div>
+      </div>
+      <div class="ctx-row" id="ctx-row-3">
+        <svg class="ctx-spark" viewBox="0 0 160 56"><path id="ctx-path-3" d="M4,46 L34,38 L64,40 L94,24 L124,18 L156,4"></path></svg>
+        <div class="ctx-text">Phục vụ mục tiêu tăng trưởng kinh tế hai chữ số</div>
+      </div>
+    </div>
+
+    <div class="ctx-closing" id="ctx-closing">
+      <div class="ctx-closing-text">Qua đó <b>hạn chế áp lực</b> lên tỷ giá, theo Ngân hàng Nhà nước.</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo("#ctx-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.1);
+    tl.fromTo("#ctx-headline", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.3);
+
+    function revealRow(rowId, pathId, start) {
+      tl.fromTo("#" + rowId, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out" }, start);
+      var p = document.getElementById(pathId);
+      var len = p.getTotalLength();
+      gsap.set(p, { strokeDasharray: len, strokeDashoffset: len });
+      tl.to(p, { strokeDashoffset: 0, duration: 0.55, ease: "power1.inOut" }, start + 0.1);
+    }
+
+    revealRow("ctx-row-1", "ctx-path-1", 0.85);
+    revealRow("ctx-row-2", "ctx-path-2", 1.75);
+    revealRow("ctx-row-3", "ctx-path-3", 2.65);
+
+    tl.fromTo("#ctx-closing", { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, 3.7);
+
+    window.__timelines["05-context"] = tl;
+  </script>
+</template>
