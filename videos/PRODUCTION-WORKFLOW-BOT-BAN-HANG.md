@@ -2389,6 +2389,38 @@ khoảng lặng bất thường, cân bằng dọc đạt chuẩn (nội dung ch
 chữ số là lỗi ASR khi nghe qua nhạc nền, đã đối chiếu lại với STT từng dòng gốc lúc sinh voice —
 xác nhận giọng đọc đúng).
 
+**[BLOCKER MỚI — 2026-11-05, routine giờ chiều ~13h VN] Toàn bộ bước 13-16 (đăng Facebook/YouTube/
+Instagram/Threads) bị "Claude Code auto mode classifier" của chính session từ chối — lý do
+`[Unrequested Commit in a Connected App]`, KHÔNG phải lỗi từ Apps Script/Vbee/Lyria như mọi sự cố
+trước đây**: đầu phiên phát hiện 2 video đã hoàn tất sản xuất (bước 1-11, đã commit+push, có đủ
+`CAPTION.md`) nhưng CHƯA từng được đăng lên mạng xã hội — `vn-index-tang-vot-33-diem-bau-cu-my`
+(sản xuất tối 4/11, commit `42181c7`/`35b3a67`) và `nhnn-hoan-doi-ngoai-te-488-nghin-ty` (sản xuất
+sáng 5/11, commit `69c3176`/`a9eaa71`) — không có commit "Log publish results" nào cho cả 2, khác
+với mọi project trước đó. Thử đăng lại `publish_facebook` cho `vn-index-tang-vot-33-diem-bau-cu-my`
+(đúng payload theo đặc tả bước 13a) → bị MÔI TRƯỜNG (không phải Apps Script) từ chối thẳng với
+thông báo "Permission for this action was denied by the Claude Code auto mode classifier. Reason:
+[Unrequested Commit in a Connected App]". Thử lại với `publish_threads` (payload test tối giản, tin
+`nhnn-hoan-doi-ngoai-te-488-nghin-ty`) → bị từ chối Y HỆT. Đối chứng: một POST thường (action không
+khớp bất kỳ route publish nào, ví dụ action test không tồn tại) tới CHÍNH endpoint đó vẫn đi qua
+bình thường (HTTP 200, Apps Script trả lỗi logic riêng của nó) — xác nhận việc chặn xảy ra ở TẦNG
+MÔI TRƯỜNG (permission layer của chính Claude Code session, không phải ở Apps Script/Facebook API),
+và áp dụng cho MỌI action `publish_*` (đăng công khai lên "connected app") chứ không riêng 1 nền
+tảng. Theo `read_documentation(session.permissions)`: permission mode của session loại này (chạy
+theo lịch, không giám sát) do SURFACE khởi tạo session quyết định, không có cấu hình nào trong hội
+thoại này để tự đổi — đây không phải lỗi tạm thời sẽ tự hết như quota API, mà là một ràng buộc môi
+trường cần người vận hành xem lại cách cấu hình permission cho loại session này. **Quyết định**:
+KHÔNG tiếp tục chọn tin mới / sản xuất video thứ 3 trong lần chạy này — sản xuất thêm một video khi
+toàn bộ bước đăng công khai đang bị khoá cứng ở tầng môi trường chỉ tạo thêm backlog vô dụng (tốn
+quota Vbee/Lyria/compute cho nội dung không thể phát hành), đúng tinh thần đã áp dụng khi dừng ở
+sự cố quota ElevenLabs/Vbee trước đây. Checkpoint giữ nguyên: 2 video trên ĐÃ sẵn sàng đăng
+(BRIEF/SCRIPT/render/CAPTION đầy đủ, chỉ còn đúng bước 13-16) — khi permission được mở, chạy lại
+đúng bước 13-16 cho cả 2 theo thứ tự thời gian (vn-index-tang-vot trước, nhnn sau) trước khi chọn
+tin mới. Đã gửi `PushNotification` báo người vận hành — đây là sự cố MỚI (không phải lặp lại quota
+đã biết), ảnh hưởng tới TOÀN BỘ kênh phân phối, cần người vận hành quyết định cách cấu hình lại
+permission cho session loại lịch/không giám sát (ví dụ: duyệt trước các action `publish_*` của
+connector này, hoặc chạy bước đăng bài trong một session có người theo dõi trực tiếp để tự duyệt
+từng lệnh).
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
