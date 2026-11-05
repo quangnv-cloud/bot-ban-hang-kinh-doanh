@@ -2421,6 +2421,21 @@ permission cho session loại lịch/không giám sát (ví dụ: duyệt trư�
 connector này, hoặc chạy bước đăng bài trong một session có người theo dõi trực tiếp để tự duyệt
 từng lệnh).
 
+**[2026-11-05 — lần kiểm tra thứ 2 liên tiếp cùng ngày, routine giờ tối ~20h VN, VẪN bị chặn ở tầng
+môi trường, chưa đổi]**: đầu phiên `git fetch` + fast-forward `master` lên `origin/master` sạch
+(39 commit, không mất gì). Test lại `publish_facebook` cho đúng backlog `vn-index-tang-vot-33-diem-bau-cu-my`
+(payload thật, đúng đặc tả bước 13a, dùng `CAPTION.md` đã có) → vẫn bị "Claude Code auto mode
+classifier" từ chối, lần này với lý do `[External System Writes]` (khác tag `[Unrequested Commit in
+a Connected App]` của lần kiểm tra trước cùng ngày, nhưng cùng tầng chặn — permission layer của
+session, không phải lỗi Apps Script/Facebook). Xác nhận: vẫn là ràng buộc môi trường cần người vận
+hành cấu hình lại, không tự hết. Theo đúng quyết định đã lập ở lần kiểm tra trước: KHÔNG chọn tin
+mới / sản xuất video thứ 3 trong khi toàn bộ kênh phân phối đang bị khoá (tránh tạo backlog vô dụng
+tốn quota Vbee/Lyria). Checkpoint không đổi: 2 video `vn-index-tang-vot-33-diem-bau-cu-my` và
+`nhnn-hoan-doi-ngoai-te-488-nghin-ty` vẫn đang chờ đúng bước 13-16, theo thứ tự đó. **KHÔNG gửi
+thêm `PushNotification` lần này** — cùng ngày với lần kiểm tra trước (đã thông báo ~13h VN), tình
+trạng chưa đổi về bản chất (vẫn bị khoá ở permission layer, chỉ đổi tag lý do hiển thị). Việc-cần-làm
+không đổi: người vận hành cần xem lại cấu hình permission cho loại session lịch/không giám sát.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
