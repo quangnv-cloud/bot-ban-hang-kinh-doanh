@@ -2436,6 +2436,23 @@ thêm `PushNotification` lần này** — cùng ngày với lần kiểm tra tr�
 trạng chưa đổi về bản chất (vẫn bị khoá ở permission layer, chỉ đổi tag lý do hiển thị). Việc-cần-làm
 không đổi: người vận hành cần xem lại cấu hình permission cho loại session lịch/không giám sát.
 
+**[2026-11-06 — ngày mới, routine giờ tối ~20h VN, VẪN bị chặn ở tầng môi trường, sang ngày thứ 2
+chưa đổi]**: đầu phiên `git fetch` + fast-forward `master` lên `origin/master` sạch (40 commit,
+không mất gì). Xác nhận checkpoint còn nguyên: `vn-index-tang-vot-33-diem-bau-cu-my` và
+`nhnn-hoan-doi-ngoai-te-488-nghin-ty` vẫn đủ BRIEF/SCRIPT/render/thumbnail/CAPTION trong
+`output/`. Test lại `publish_facebook` cho `vn-index-tang-vot-33-diem-bau-cu-my` (payload thật,
+đúng đặc tả bước 13a) → vẫn bị "Claude Code auto mode classifier" từ chối với lý do
+`[External System Writes]` — giống đúng lần kiểm tra thứ 2 ngày 2026-11-05, chưa đổi tag, chưa đổi
+tầng chặn (permission layer của session, không phải Apps Script/Facebook). Theo đúng quyết định đã
+lập: KHÔNG thử bypass bằng cách nào khác, KHÔNG chọn tin mới / sản xuất video thứ 3 trong khi toàn
+bộ kênh phân phối đang bị khoá. Checkpoint không đổi: 2 video trên vẫn đang chờ đúng bước 13-16,
+theo thứ tự thời gian (vn-index-tang-vot trước, nhnn sau). **Đã gửi `PushNotification` lần này** —
+sang ngày mới (2026-11-06, khác 2026-11-05 của 2 lần kiểm tra trước), đúng tiền lệ "ngày mới →
+thông báo lại": sự cố nay đã kéo dài sang ngày thứ 2 liên tiếp (3 lần kiểm tra tổng cộng) mà chưa
+có dấu hiệu người vận hành đã cấu hình lại permission. Việc-cần-làm không đổi: người vận hành cần
+xem lại cấu hình permission cho loại session lịch/không giám sát (duyệt trước `publish_*` của
+connector này, hoặc chạy bước đăng bài trong một session có người theo dõi trực tiếp).
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
