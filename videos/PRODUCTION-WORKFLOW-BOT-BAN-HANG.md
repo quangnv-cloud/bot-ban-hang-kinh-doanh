@@ -2468,6 +2468,40 @@ này** — cùng ngày (giờ VN) với lần kiểm tra trước đã thông b�
 bản chất. Việc-cần-làm không đổi: người vận hành cần xem lại cấu hình permission cho loại session
 lịch/không giám sát.
 
+**[2026-11-07 — buổi sáng, phiên riêng] 2 checkpoint cũ xác nhận ĐÃ đăng thành công, sản xuất thêm
+video thứ 3 `vpbank-sacombank-hut-155-nghin-ty-tien-gui` (style 4-split-comparison), nhưng bước
+13-16 (đăng bài) của chính video thứ 3 này CHƯA được gọi trong phiên đó**: đầu phiên đó test lại
+`publish_*` cho 2 checkpoint cũ (`vn-index-tang-vot-33-diem-bau-cu-my`,
+`nhnn-hoan-doi-ngoai-te-488-nghin-ty`) và phát hiện cả hai ĐÃ được đăng thành công từ trước (Facebook
+Reel+Story, YouTube, Instagram; chỉ Threads lỗi do access token hết hạn — xem chi tiết trong log
+`style-rotation-state.json` index 3). Sau khi xác nhận xong, phiên đó chọn tin mới và sản xuất xong
+toàn bộ bước 1-12 cho `vpbank-sacombank-hut-155-nghin-ty-tien-gui` (commit `0766571`/`4989dce`,
+BRIEF/SCRIPT/render/thumbnail/CAPTION đầy đủ trong `output/`, đã push `origin/master`) — nhưng
+phiên đó KẾT THÚC trước khi gọi bước 13-16 cho chính video này (không có commit "Log publish
+results"), nên để lại đúng 1 checkpoint mới đang chờ đăng.
+
+**[2026-11-07 — lần kiểm tra tiếp theo (phiên này), NGÀY MỚI so với lần thông báo gần nhất
+(2026-11-06), VẪN bị chặn ở tầng môi trường, chưa đổi]**: đầu phiên `git fetch origin master` +
+`git checkout master` + fast-forward sạch (44 commit, không mất gì, bao gồm cả 2 commit sản xuất
+video thứ 3 nêu trên). Xác nhận đúng checkpoint đang chờ đăng là
+`vpbank-sacombank-hut-155-nghin-ty-tien-gui` (BRIEF/SCRIPT/render/thumbnail/CAPTION đã đầy đủ, đã
+push). Test `publish_facebook` cho video này (payload thật, đúng đặc tả bước 13a, dùng `CAPTION.md`
+đã có, title lấy từ `BRIEF.md`) → vẫn bị "Claude Code auto mode classifier" từ chối với lý do
+`[External System Writes]` — y hệt mọi lần kiểm tra từ 2026-11-05, xác nhận ràng buộc môi trường
+vẫn còn đó (không tự hết, không liên quan tới việc 2 checkpoint cũ đã đăng được ở phiên sáng nay —
+có thể verdict của classifier không nhất quán giữa các phiên/session khác nhau). Theo đúng quyết
+định đã lập từ 2026-11-05: KHÔNG thử bypass bằng cách nào khác, KHÔNG chọn tin mới / sản xuất video
+thứ 4 trong khi toàn bộ kênh phân phối đang bị khoá ở phiên này. Checkpoint hiện tại: đúng 1 video
+`vpbank-sacombank-hut-155-nghin-ty-tien-gui` đang chờ bước 13-16 — khi permission được mở (ở phiên
+này hoặc phiên sau), chạy lại đúng bước 13-16 cho video này trước khi chọn tin mới. **Đã gửi
+`PushNotification`** — ngày mới (2026-11-07) so với lần thông báo gần nhất (2026-11-06), đúng tiền
+lệ "ngày mới → thông báo lại"; sự cố đã kéo dài sang ngày thứ 3, dù có dấu hiệu việc đăng bài ĐÃ
+từng thành công được ở 1 phiên khác cùng ngày (gợi ý sự cố có thể không phải khoá cứng 100% mọi
+phiên, đáng để người vận hành biết thêm chi tiết này khi quyết định cách xử lý). Việc-cần-làm không
+đổi: người vận hành cần xem lại cấu hình permission cho loại session lịch/không giám sát (duyệt
+trước `publish_*` của connector này, hoặc chạy bước đăng bài trong một session có người theo dõi
+trực tiếp để tự duyệt từng lệnh khi bị classifier chặn).
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
