@@ -1,0 +1,136 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      color: #ffffff;
+      background: #111111;
+    }
+    .f5-header {
+      position: absolute;
+      left: 64px; right: 64px; top: 200px;
+    }
+    .f5-kicker {
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #E8441E;
+      margin-bottom: 16px;
+    }
+    .f5-title {
+      font-weight: 800;
+      font-size: 42px;
+      line-height: 1.25;
+      color: #ffffff;
+    }
+    .f5-col-divider {
+      position: absolute;
+      left: 540px; top: 700px;
+      width: 2px; height: 650px;
+      background: rgba(255,255,255,0.18);
+    }
+    .f5-col-head {
+      position: absolute;
+      top: 700px;
+      width: 300px;
+      text-align: center;
+      font-weight: 800;
+      font-size: 28px;
+      letter-spacing: 0.04em;
+      padding: 10px 0;
+      border-radius: 999px;
+    }
+    .f5-col-head.up { left: 114px; color: #ffffff; background: #E8441E; }
+    .f5-col-head.down { left: 666px; color: rgba(255,255,255,0.75); background: transparent; border: 1.5px solid rgba(255,255,255,0.35); }
+    .f5-bar-baseline {
+      position: absolute;
+      bottom: 0;
+      width: 96px;
+      border-radius: 10px 10px 0 0;
+    }
+    .f5-bar-up { left: 212px; background: linear-gradient(180deg, #ff6a45, #E8441E); box-shadow: 0 0 30px rgba(232,68,30,0.4); }
+    .f5-bar-down { left: 764px; background: rgba(255,255,255,0.28); }
+    .f5-bar-wrap {
+      position: absolute;
+      top: 782px; bottom: 620px;
+      left: 0; right: 0;
+    }
+    .f5-col-text {
+      position: absolute;
+      top: 1330px;
+      width: 440px;
+      text-align: center;
+    }
+    .f5-col-text.up { left: 64px; }
+    .f5-col-text.down { left: 576px; }
+    .f5-col-stat {
+      font-weight: 900;
+      font-size: 66px;
+      color: #E8441E;
+      line-height: 1;
+    }
+    .f5-col-stat.muted { color: rgba(255,255,255,0.65); font-size: 56px; }
+    .f5-col-bank {
+      margin-top: 14px;
+      font-weight: 700;
+      font-size: 28px;
+      color: #ffffff;
+    }
+    .f5-col-note {
+      margin-top: 18px;
+      font-weight: 600;
+      font-size: 28px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.5;
+    }
+  </style>
+  <div id="root" data-composition-id="05-context" data-width="1080" data-height="1920">
+    <div class="f5-header clip" id="f5-header" data-start="0" data-duration="10.1">
+      <div class="f5-kicker">Context</div>
+      <div class="f5-title">Bức tranh phân hoá rõ rệt giữa các ngân hàng</div>
+    </div>
+
+    <div class="f5-col-divider clip" id="f5-col-divider" data-start="0.6" data-duration="9.5"></div>
+
+    <div class="f5-col-head up clip" id="f5-head-up" data-start="0.7" data-duration="9.4">TĂNG MẠNH</div>
+    <div class="f5-col-head down clip" id="f5-head-down" data-start="1.0" data-duration="9.1">GIẢM SÂU</div>
+
+    <div class="f5-bar-wrap">
+      <div class="f5-bar-baseline f5-bar-up clip" id="f5-bar-up" data-start="0.95" data-duration="9.15" style="height:0px"></div>
+      <div class="f5-bar-baseline f5-bar-down clip" id="f5-bar-down" data-start="1.25" data-duration="8.85" style="height:0px"></div>
+    </div>
+
+    <div class="f5-col-text up clip" id="f5-text-up" data-start="1.5" data-duration="8.6">
+      <div class="f5-col-stat" id="f5-stat-up">+24%</div>
+      <div class="f5-col-bank">Ngân hàng Bản Việt</div>
+      <div class="f5-col-note">gấp 7,5 lần cùng kỳ năm ngoái</div>
+    </div>
+
+    <div class="f5-col-text down clip" id="f5-text-down" data-start="1.8" data-duration="8.3">
+      <div class="f5-col-stat muted" id="f5-stat-down">-85%</div>
+      <div class="f5-col-bank">OCB</div>
+      <div class="f5-col-note">Saigonbank, Eximbank cũng thu hẹp tiền gửi</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo("#f5-header .f5-kicker", { y: -14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 0);
+    tl.fromTo("#f5-header .f5-title", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.36, ease: "power3.out" }, 0.14);
+
+    tl.fromTo("#f5-col-divider", { scaleY: 0, opacity: 0 }, { scaleY: 1, opacity: 1, duration: 0.4, ease: "power2.out" }, 0.6);
+
+    tl.fromTo("#f5-head-up", { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.7);
+    tl.fromTo("#f5-bar-up", { height: "0px" }, { height: "430px", duration: 0.6, ease: "power2.out" }, 0.95);
+    tl.fromTo("#f5-text-up", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 1.5);
+
+    tl.fromTo("#f5-head-down", { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 1.0);
+    tl.fromTo("#f5-bar-down", { height: "0px" }, { height: "160px", duration: 0.6, ease: "power2.out" }, 1.25);
+    tl.fromTo("#f5-text-down", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 1.8);
+
+    window.__timelines["05-context"] = tl;
+  </script>
+</template>

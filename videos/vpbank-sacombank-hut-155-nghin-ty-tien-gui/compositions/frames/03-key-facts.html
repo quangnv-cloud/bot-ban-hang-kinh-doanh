@@ -1,0 +1,103 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      color: #ffffff;
+      background: #111111;
+    }
+    .f3-header {
+      position: absolute;
+      left: 64px; right: 64px; top: 200px;
+    }
+    .f3-kicker {
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #E8441E;
+      margin-bottom: 16px;
+    }
+    .f3-title {
+      font-weight: 800;
+      font-size: 44px;
+      line-height: 1.22;
+      color: #ffffff;
+    }
+    .f3-rows {
+      position: absolute;
+      left: 64px; right: 64px; top: 1310px;
+    }
+    .f3-row {
+      display: flex;
+      align-items: center;
+      padding: 13px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.14);
+    }
+    .f3-row:last-child { border-bottom: none; }
+    .f3-row .lbl {
+      flex: 0 0 300px;
+      font-weight: 600;
+      font-size: 32px;
+      color: rgba(255,255,255,0.68);
+    }
+    .f3-row .f3-divider {
+      width: 2px;
+      height: 64px;
+      background: rgba(232,68,30,0.5);
+      margin-right: 28px;
+    }
+    .f3-row .val {
+      flex: 1;
+      text-align: right;
+      font-weight: 900;
+      font-size: 48px;
+      color: #E8441E;
+      letter-spacing: -0.01em;
+    }
+    .f3-row .val .sub {
+      display: block;
+      font-weight: 600;
+      font-size: 28px;
+      color: rgba(255,255,255,0.75);
+      margin-top: 4px;
+    }
+  </style>
+  <div id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <div class="f3-header clip" id="f3-header" data-start="0" data-duration="11.8">
+      <div class="f3-kicker">Key facts</div>
+      <div class="f3-title">Ai hút tiền gửi mạnh nhất 9 tháng 2026</div>
+    </div>
+    <div class="f3-rows" id="f3-rows">
+      <div class="f3-row clip" id="f3-row-1" data-start="0.6" data-duration="11.2">
+        <span class="lbl">VPBank</span>
+        <span class="f3-divider"></span>
+        <span class="val">+25%<span class="sub">hơn 155 nghìn tỷ đồng</span></span>
+      </div>
+      <div class="f3-row clip" id="f3-row-2" data-start="3.4" data-duration="8.4">
+        <span class="lbl">Sacombank</span>
+        <span class="f3-divider"></span>
+        <span class="val">×2<span class="sub">155.500 tỷ đồng, so cùng kỳ</span></span>
+      </div>
+      <div class="f3-row clip" id="f3-row-3" data-start="6.2" data-duration="5.6">
+        <span class="lbl">Ngân hàng Quốc Dân</span>
+        <span class="f3-divider"></span>
+        <span class="val">+45%<span class="sub">hút ròng 60 nghìn tỷ đồng</span></span>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo("#f3-header .f3-kicker", { y: -14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 0);
+    tl.fromTo("#f3-header .f3-title", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.36, ease: "power3.out" }, 0.14);
+
+    tl.fromTo("#f3-row-1", { x: -24, opacity: 0 }, { x: 0, opacity: 1, duration: 0.36, ease: "power2.out" }, 0.6);
+    tl.fromTo("#f3-row-2", { x: -24, opacity: 0 }, { x: 0, opacity: 1, duration: 0.36, ease: "power2.out" }, 3.4);
+    tl.fromTo("#f3-row-3", { x: -24, opacity: 0 }, { x: 0, opacity: 1, duration: 0.36, ease: "power2.out" }, 6.2);
+
+    window.__timelines["03-key-facts"] = tl;
+  </script>
+</template>

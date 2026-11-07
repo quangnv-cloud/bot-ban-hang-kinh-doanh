@@ -1,0 +1,9 @@
+{
+  "input_text": "VPBank tăng 25 phần trăm, hút thêm hơn 155 nghìn tỷ đồng. Sacombank tăng 155 nghìn 500 tỷ đồng, gấp 2 lần cùng kỳ. Ngân hàng Quốc Dân tăng 45 phần trăm, hút ròng 60 nghìn tỷ đồng.",
+  "app_id": "2eaf1264-f096-49d2-87b7-f1a0e6979bb4",
+  "voice_code": "hn_female_ngochuyen_full_24k-stl",
+  "audio_type": "mp3",
+  "bitrate": 128,
+  "speed_rate": 1.15,
+  "response_type": "direct"
+}

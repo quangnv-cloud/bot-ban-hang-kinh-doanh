@@ -1,0 +1,85 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      color: #ffffff;
+      background: #111111;
+    }
+    .f6-half-top {
+      position: absolute;
+      left: 0; right: 0; top: 0; height: 960px;
+      display: flex; flex-direction: column; justify-content: flex-start;
+      padding: 230px 64px 0 64px;
+    }
+    .f6-half-bottom {
+      position: absolute;
+      left: 0; right: 0; top: 960px; height: 960px;
+      padding: 380px 64px 0 64px;
+    }
+    .f6-divider {
+      position: absolute;
+      left: 64px; right: 64px; top: 958px;
+      height: 3px;
+      background: #E8441E;
+      box-shadow: 0 0 20px rgba(232,68,30,0.6);
+      transform-origin: 50% 50%;
+    }
+    .f6-label {
+      display: inline-block;
+      font-weight: 800;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+      padding: 10px 22px;
+      border-radius: 999px;
+      margin-bottom: 26px;
+    }
+    .f6-half-top .f6-label { background: transparent; border: 1.5px solid rgba(255,255,255,0.35); color: rgba(255,255,255,0.8); }
+    .f6-half-bottom .f6-label { background: #E8441E; color: #ffffff; }
+    .f6-body {
+      font-weight: 700;
+      font-size: 38px;
+      line-height: 1.38;
+      color: #ffffff;
+      max-width: 940px;
+    }
+    .f6-body b { color: #E8441E; }
+    .f6-stat-row {
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+      margin-top: 18px;
+    }
+    .f6-stat-row .bank { font-weight: 700; font-size: 32px; color: #ffffff; }
+    .f6-stat-row .delta { font-weight: 900; font-size: 48px; color: #E8441E; }
+  </style>
+  <div id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <div class="f6-half-top clip" id="f6-half-top" data-start="0" data-duration="8.0">
+      <div class="f6-label">YÊU CẦU CHÍNH SÁCH</div>
+      <div class="f6-body">Ngân hàng Nhà nước yêu cầu các ngân hàng giảm tối thiểu <b>0,5 điểm %</b> lãi suất tiền gửi niêm yết kỳ hạn từ 6 tháng trở lên.</div>
+    </div>
+
+    <div class="f6-divider clip" id="f6-divider" data-start="0.5" data-duration="7.5"></div>
+
+    <div class="f6-half-bottom clip" id="f6-half-bottom" data-start="0.7" data-duration="7.3">
+      <div class="f6-label">THỰC TẾ THỊ TRƯỜNG</div>
+      <div class="f6-stat-row"><span class="bank">Ngân hàng Quốc Dân</span><span class="delta">+3 điểm%</span></div>
+      <div class="f6-stat-row"><span class="bank">VPBank</span><span class="delta">+2 điểm%</span></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo("#f6-half-top .f6-label", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0);
+    tl.fromTo("#f6-half-top .f6-body", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.22);
+
+    tl.fromTo("#f6-divider", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power3.out" }, 0.5);
+
+    tl.fromTo("#f6-half-bottom .f6-label", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.7);
+    tl.fromTo("#f6-half-bottom .f6-stat-row", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.34, ease: "power2.out", stagger: 0.2 }, 1.0);
+
+    window.__timelines["06-impact"] = tl;
+  </script>
+</template>

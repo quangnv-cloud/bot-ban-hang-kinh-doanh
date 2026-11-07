@@ -1,0 +1,195 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      color: #ffffff;
+      background: #111111;
+    }
+    .f4-header {
+      position: absolute;
+      left: 0; right: 0; top: 190px;
+      text-align: center;
+    }
+    .f4-kicker {
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #E8441E;
+      margin-bottom: 16px;
+    }
+    .f4-title {
+      font-weight: 800;
+      font-size: 42px;
+      line-height: 1.25;
+      color: #ffffff;
+      padding: 0 80px;
+    }
+    .f4-vs-wrap {
+      position: absolute;
+      left: 56px; right: 56px; top: 660px;
+      height: 620px;
+      display: flex;
+      align-items: center;
+    }
+    .f4-col-old {
+      width: 34%;
+      flex: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 0.5;
+    }
+    .f4-col-old .lbl {
+      font-weight: 600;
+      font-size: 28px;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 14px;
+      text-align: center;
+    }
+    .f4-col-old .mult {
+      font-weight: 800;
+      font-size: 72px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1;
+    }
+    .f4-col-old .note {
+      margin-top: 12px;
+      font-weight: 600;
+      font-size: 28px;
+      color: rgba(255,255,255,0.55);
+      text-align: center;
+    }
+    .f4-vs-divider {
+      width: 32%;
+      flex: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    .f4-vs-line {
+      width: 2px; height: 100%;
+      background: linear-gradient(180deg, rgba(232,68,30,0) 0%, rgba(232,68,30,0.7) 50%, rgba(232,68,30,0) 100%);
+      position: absolute; left: 50%; top: 0;
+      transform: translateX(-50%);
+      transform-origin: 50% 50%;
+    }
+    .f4-vs-badge {
+      position: relative;
+      width: 88px; height: 88px;
+      border-radius: 50%;
+      background: #E8441E;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 26px;
+      box-shadow: 0 0 30px rgba(232, 68, 30, 0.55);
+      z-index: 2;
+    }
+    .f4-col-new {
+      width: 34%;
+      flex: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .f4-col-new .lbl {
+      font-weight: 700;
+      font-size: 28px;
+      color: #ffffff;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+    .f4-col-new .mult {
+      font-weight: 900;
+      font-size: 108px;
+      color: #E8441E;
+      line-height: 0.95;
+      text-shadow: 0 0 40px rgba(232, 68, 30, 0.45);
+    }
+    .f4-col-new .unit {
+      margin-top: 6px;
+      font-weight: 800;
+      font-size: 30px;
+      letter-spacing: 0.04em;
+      color: #E8441E;
+      text-align: center;
+    }
+    .f4-col-new .note {
+      margin-top: 12px;
+      font-weight: 700;
+      font-size: 28px;
+      color: #ffffff;
+      text-align: center;
+    }
+    .f4-footer {
+      position: absolute;
+      left: 64px; right: 64px; bottom: 300px;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .f4-footer-pill {
+      display: inline-flex; align-items: center;
+      padding: 12px 26px;
+      border-radius: 8px;
+      border: 1.5px solid rgba(255,255,255,0.35);
+      font-weight: 700; font-size: 28px; color: #ffffff;
+    }
+    .f4-footer-pill b { color: #E8441E; }
+  </style>
+  <div id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+    <div class="f4-header clip" id="f4-header" data-start="0" data-duration="9.5">
+      <div class="f4-kicker">Data moment</div>
+      <div class="f4-title">Chứng chỉ tiền gửi tăng thêm — ai cao nhất hệ thống</div>
+    </div>
+
+    <div class="f4-vs-wrap clip" id="f4-vs-wrap" data-start="0.7" data-duration="8.8">
+      <div class="f4-col-old" id="f4-col-old">
+        <div class="lbl">ACB</div>
+        <div class="mult">-70%</div>
+        <div class="note">chỉ 10.600 tỷ đồng</div>
+      </div>
+      <div class="f4-vs-divider">
+        <div class="f4-vs-line" id="f4-vs-line"></div>
+        <div class="f4-vs-badge" id="f4-vs-badge" data-layout-ignore>VS</div>
+      </div>
+      <div class="f4-col-new" id="f4-col-new">
+        <div class="lbl">MB</div>
+        <div class="mult" id="f4-mult">+100</div>
+        <div class="unit">NGHÌN TỶ</div>
+        <div class="note">lên hơn 240 nghìn tỷ — cao nhất hệ thống</div>
+      </div>
+    </div>
+
+    <div class="f4-footer clip" id="f4-footer" data-start="2.6" data-duration="6.9">
+      <div class="f4-footer-pill">Cùng kỳ: <b>giảm gần 70%</b> so với <b>cao nhất hệ thống</b></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo("#f4-header .f4-kicker", { y: -14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 0);
+    tl.fromTo("#f4-header .f4-title", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.36, ease: "power3.out" }, 0.14);
+
+    tl.fromTo("#f4-col-old", { opacity: 0, x: -20 }, { opacity: 0.5, x: 0, duration: 0.4, ease: "power2.out" }, 0.7);
+    tl.fromTo("#f4-vs-line", { scaleY: 0 }, { scaleY: 1, duration: 0.4, ease: "power2.out" }, 0.9);
+    tl.fromTo("#f4-vs-badge", { scale: 0, rotate: -30, opacity: 0 }, { scale: 1, rotate: 0, opacity: 1, duration: 0.4, ease: "back.out(2.4)" }, 1.15);
+    tl.fromTo("#f4-col-new", { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, 1.35);
+
+    var f4MultEl = document.getElementById("f4-mult");
+    var f4CountProxy = { val: 0 };
+    tl.to(f4CountProxy, {
+      val: 100,
+      duration: 0.9,
+      ease: "power1.out",
+      onUpdate: function () {
+        f4MultEl.textContent = "+" + Math.round(f4CountProxy.val);
+      },
+    }, 1.55);
+
+    tl.fromTo("#f4-footer .f4-footer-pill", { y: 14, opacity: 0, scale: 0.92 }, { y: 0, opacity: 1, scale: 1, duration: 0.36, ease: "back.out(2)" }, 2.6);
+
+    window.__timelines["04-data-moment"] = tl;
+  </script>
+</template>

@@ -1,0 +1,112 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      color: #ffffff;
+      background: #111111;
+    }
+    .f2-photo-col {
+      position: absolute;
+      left: 0; top: 0;
+      width: 540px; height: 1920px;
+      overflow: hidden;
+    }
+    .f2-photo-col img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: 30% 38%;
+    }
+    .f2-photo-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(17,17,17,0.35) 0%, rgba(17,17,17,0.05) 30%, rgba(17,17,17,0.6) 100%);
+    }
+    .f2-divider {
+      position: absolute;
+      left: 538px; top: 0;
+      width: 4px; height: 1920px;
+      background: #E8441E;
+      box-shadow: 0 0 24px rgba(232, 68, 30, 0.7);
+      transform-origin: 50% 50%;
+    }
+    .f2-headline-block {
+      position: absolute;
+      left: 566px; right: 0; top: 560px;
+      padding: 0 56px 0 0;
+    }
+    .f2-kicker {
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #E8441E;
+      margin-bottom: 22px;
+    }
+    .f2-headline {
+      font-weight: 800;
+      font-size: 50px;
+      line-height: 1.2;
+      color: #ffffff;
+      max-width: 460px;
+    }
+    .f2-pill-col {
+      position: absolute;
+      left: 566px; right: 0; top: 1340px;
+      padding: 0 56px 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .f2-pill {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 12px;
+      padding: 14px 22px;
+      border-radius: 10px;
+      background: rgba(232,68,30,0.1);
+      border: 1.5px solid rgba(232,68,30,0.5);
+    }
+    .f2-pill .bank {
+      font-weight: 700;
+      font-size: 28px;
+      color: #ffffff;
+    }
+    .f2-pill .delta {
+      font-weight: 900;
+      font-size: 40px;
+      color: #E8441E;
+    }
+  </style>
+  <div id="root" data-composition-id="02-what-happened" data-width="1080" data-height="1920">
+    <div class="f2-photo-col clip" id="f2-photo-col" data-start="0" data-duration="5.8">
+      <img src="assets/images/hook-photo.jpg" alt="Giao dịch tại ngân hàng">
+      <div class="f2-photo-scrim"></div>
+    </div>
+    <div class="f2-divider clip" id="f2-divider" data-start="0" data-duration="5.8"></div>
+    <div class="f2-headline-block clip" id="f2-headline-block" data-start="0" data-duration="5.8">
+      <div class="f2-kicker" id="f2-kicker">Diễn biến huy động vốn</div>
+      <div class="f2-headline" id="f2-headline">Ngân hàng tư nhân đua hút tiền gửi cuối năm</div>
+    </div>
+    <div class="f2-pill-col clip" id="f2-pill-col" data-start="0" data-duration="5.8">
+      <div class="f2-pill"><span class="bank">VPBank</span><span class="delta">+25%</span></div>
+      <div class="f2-pill"><span class="bank">Sacombank</span><span class="delta">×2</span></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo("#f2-photo-col img", { scale: 1.08, opacity: 0 }, { scale: 1.0, opacity: 1, duration: 0.5, ease: "power2.out" }, 0);
+    tl.fromTo("#f2-divider", { scaleY: 0, opacity: 0.4 }, { scaleY: 1, opacity: 1, duration: 0.4, ease: "power3.out" }, 0.26);
+    tl.fromTo("#f2-kicker", { x: 24, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 0.5);
+    tl.fromTo("#f2-headline", { x: 30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.4, ease: "expo.out" }, 0.72);
+    tl.fromTo(".f2-pill", { y: 18, opacity: 0, scale: 0.92 }, { y: 0, opacity: 1, scale: 1, duration: 0.34, ease: "back.out(2)", stagger: 0.18 }, 1.25);
+
+    window.__timelines["02-what-happened"] = tl;
+  </script>
+</template>
