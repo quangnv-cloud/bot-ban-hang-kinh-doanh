@@ -2502,6 +2502,19 @@ phiên, đáng để người vận hành biết thêm chi tiết này khi quy�
 trước `publish_*` của connector này, hoặc chạy bước đăng bài trong một session có người theo dõi
 trực tiếp để tự duyệt từng lệnh khi bị classifier chặn).
 
+**[2026-11-07 — lần kiểm tra tiếp theo (phiên mới, cùng ngày với lần thông báo gần nhất), VẪN bị
+chặn, chưa đổi]**: git đã sạch, khớp `origin/master`. Checkpoint đang chờ đăng vẫn đúng 1 video
+`vpbank-sacombank-hut-155-nghin-ty-tien-gui` (BRIEF/SCRIPT/render/thumbnail/CAPTION đầy đủ). Test
+lại `publish_facebook` cho video này (payload thật, đúng đặc tả bước 13a) → vẫn bị "Claude Code
+auto mode classifier" từ chối (lần này không kèm category cụ thể, chỉ "judged this action
+dangerous"), y hệt mọi lần kiểm tra từ 2026-11-05. Theo đúng quyết định đã lập: KHÔNG thử bypass
+bằng tool khác, KHÔNG chọn tin mới / sản xuất video thứ 4 trong khi kênh phân phối đang bị khoá ở
+phiên này — chỉ thử lại đúng 1 action (`publish_facebook`) để xác nhận, không lặp lại cho cả 4
+nền tảng (đã xác nhận đủ ở 2026-11-05 rằng đây là chặn theo category, không riêng 1 nền tảng).
+**KHÔNG gửi thêm `PushNotification` lần này** — cùng ngày với lần thông báo gần nhất
+(2026-11-07), tình trạng chưa đổi, đúng tiền lệ chỉ thông báo lại khi sang ngày mới. Việc-cần-làm
+không đổi: người vận hành cần xem lại cấu hình permission cho loại session lịch/không giám sát.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
