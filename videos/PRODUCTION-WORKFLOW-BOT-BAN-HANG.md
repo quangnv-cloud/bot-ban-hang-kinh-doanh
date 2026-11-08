@@ -2534,6 +2534,24 @@ Việc-cần-làm không đổi: người vận hành cần xem lại cấu hìn
 giám sát (duyệt trước `publish_*` của connector này, hoặc chạy bước đăng bài trong một session có
 người theo dõi trực tiếp để tự duyệt từng lệnh khi bị classifier chặn).
 
+**[2026-11-08 — lần kiểm tra thứ 2 trong ngày, routine tự động theo lịch, cùng ngày với lần thông
+báo "day 4" ở trên, VẪN bị chặn ở tầng môi trường, chưa đổi]**: đầu phiên `git fetch origin master`
+xác nhận local đã ngang `origin/master` tại `2e9490f` (2 commit mới so với checkpoint trước, chỉ là
+log reconfirm, không ảnh hưởng checkpoint). Checkpoint đang chờ đăng vẫn đúng 1 video
+`vpbank-sacombank-hut-155-nghin-ty-tien-gui` (BRIEF/SCRIPT/render/thumbnail/CAPTION đầy đủ trong
+`output/`, chưa có commit "Log publish results"). Test lại `publish_facebook` cho video này (payload
+thật, đúng đặc tả bước 13a, dùng `CAPTION.md`/`BRIEF.md` đã có) → vẫn bị "Claude Code auto mode
+classifier" từ chối với lý do `[External System Writes]` — y hệt mọi lần kiểm tra từ 2026-11-05,
+xác nhận ràng buộc môi trường vẫn còn đó, sang ngày thứ 4 liên tiếp, 7 lần kiểm tra tổng cộng. Theo
+đúng quyết định đã lập từ 2026-11-05: KHÔNG thử bypass bằng tool khác, KHÔNG chọn tin mới / sản xuất
+video thứ 4 trong khi toàn bộ kênh phân phối đang bị khoá ở phiên này — chỉ thử lại đúng 1 action
+(`publish_facebook`) để xác nhận, không lặp lại cho cả 4 nền tảng. Checkpoint không đổi:
+`vpbank-sacombank-hut-155-nghin-ty-tien-gui` vẫn đang chờ đúng bước 13-16 — khi permission được mở,
+chạy lại đúng bước 13-16 cho video này trước khi chọn tin mới. **KHÔNG gửi thêm `PushNotification`
+lần này** — cùng ngày với lần thông báo "day 4" ở trên (đã thông báo), tình trạng chưa đổi, đúng
+tiền lệ chỉ thông báo lại khi sang ngày mới. Việc-cần-làm không đổi: người vận hành cần xem lại cấu
+hình permission cho loại session lịch/không giám sát.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
