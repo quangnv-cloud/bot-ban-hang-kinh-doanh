@@ -2515,6 +2515,25 @@ nền tảng (đã xác nhận đủ ở 2026-11-05 rằng đây là chặn theo
 (2026-11-07), tình trạng chưa đổi, đúng tiền lệ chỉ thông báo lại khi sang ngày mới. Việc-cần-làm
 không đổi: người vận hành cần xem lại cấu hình permission cho loại session lịch/không giám sát.
 
+**[2026-11-08 — ngày mới, routine tự động theo lịch, VẪN bị chặn ở tầng môi trường, sang ngày thứ 4
+chưa đổi]**: đầu phiên `git fetch origin master` + `git checkout master` + fast-forward sạch
+(1 commit, `4be64bb..be87083`, không mất gì). Checkpoint đang chờ đăng vẫn đúng 1 video
+`vpbank-sacombank-hut-155-nghin-ty-tien-gui` (BRIEF/SCRIPT/render/thumbnail/CAPTION đầy đủ trong
+`output/`, chưa có commit "Log publish results"). Test lại `publish_facebook` cho video này (payload
+thật, đúng đặc tả bước 13a, dùng `CAPTION.md`/`BRIEF.md` đã có) → vẫn bị "Claude Code auto mode
+classifier" từ chối với lý do `[External System Writes]` — y hệt lần kiểm tra gần nhất (2026-11-07),
+xác nhận ràng buộc môi trường vẫn còn đó sang ngày thứ 4 liên tiếp (2026-11-05 → 2026-11-08), 6 lần
+kiểm tra tổng cộng. Theo đúng quyết định đã lập từ 2026-11-05: KHÔNG thử bypass bằng tool khác,
+KHÔNG chọn tin mới / sản xuất video thứ 4 trong khi toàn bộ kênh phân phối đang bị khoá ở phiên này
+— chỉ thử lại đúng 1 action (`publish_facebook`) để xác nhận, không lặp lại cho cả 4 nền tảng.
+Checkpoint không đổi: `vpbank-sacombank-hut-155-nghin-ty-tien-gui` vẫn đang chờ đúng bước 13-16 —
+khi permission được mở, chạy lại đúng bước 13-16 cho video này trước khi chọn tin mới. **Đã gửi
+`PushNotification`** — ngày mới (2026-11-08) so với lần thông báo gần nhất (2026-11-07), đúng tiền
+lệ "ngày mới → thông báo lại"; sự cố nay đã kéo dài 4 ngày liên tiếp không có dấu hiệu được xử lý.
+Việc-cần-làm không đổi: người vận hành cần xem lại cấu hình permission cho loại session lịch/không
+giám sát (duyệt trước `publish_*` của connector này, hoặc chạy bước đăng bài trong một session có
+người theo dõi trực tiếp để tự duyệt từng lệnh khi bị classifier chặn).
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
