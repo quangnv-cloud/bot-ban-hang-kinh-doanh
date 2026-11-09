@@ -2580,6 +2580,34 @@ tiếp để tự duyệt từng lệnh khi bị classifier chặn). **Bài họ
 kiểm tra checkpoint đăng bài đang treo (`git log`/đọc mục này) TRƯỚC bước 1 (chọn tin), không phải
 sau — để tránh lỡ burn thêm 1 slot style + 1 tin "used" không cần thiết như lần này.
 
+**[2026-11-09 — lần kiểm tra thứ 2 trong ngày, routine tự động theo lịch, cùng ngày với lần thông
+báo "day 5" ở trên, VẪN bị chặn ở tầng môi trường, chưa đổi]**: đầu phiên `git checkout master` +
+`git fetch origin master` + `git merge --ff-only origin/master` (fast-forward sạch 4 commit, không
+mất gì, local khớp `origin/master` tại `3516bd7`). Đã kiểm tra checkpoint TRƯỚC khi chọn tin mới
+(đúng bài học vừa rút ra ở lần trước): `vpbank-sacombank-hut-155-nghin-ty-tien-gui` vẫn đủ
+BRIEF/SCRIPT/render/thumbnail/CAPTION trong `output/`, chưa có commit "Log publish results";
+`vn-index-giam-tuan-nguy-co-ve-1700-diem` vẫn đúng trạng thái WIP bước 1-3 (BRIEF/SCRIPT/ảnh Hook đã
+có, chưa sinh voice/dựng/render) — KHÔNG tiếp tục bước 4 trở đi, KHÔNG chọn tin mới. Test lại
+`publish_facebook` cho checkpoint `vpbank-sacombank-hut-155-nghin-ty-tien-gui` (payload thật, đúng
+đặc tả bước 13a, dùng `CAPTION.md`/`BRIEF.md` đã có) → vẫn bị "Permission for this action was denied
+by the Claude Code auto mode classifier" từ chối, lần này với lý do `[External System Writes]` (khác
+tag `[Unrequested Commit in a Connected App]` của lần kiểm tra đầu ngày hôm nay, nhưng cùng tầng
+chặn — permission layer của session, không phải lỗi Apps Script/Facebook; đúng mẫu hình tag thay đổi
+qua lại đã quan sát nhiều lần từ 2026-11-05). Xác nhận: vẫn là ràng buộc môi trường cần người vận
+hành cấu hình lại, không tự hết, sang ngày thứ 5 liên tiếp (2026-11-05 → 2026-11-09), 9 lần kiểm tra
+tổng cộng. Theo đúng quyết định đã lập từ 2026-11-05: KHÔNG thử bypass bằng tool/host/encoding/
+subagent khác, KHÔNG chọn tin mới / sản xuất video thứ 4, KHÔNG tiếp tục dự án WIP
+`vn-index-giam-tuan-nguy-co-ve-1700-diem` trong khi toàn bộ kênh phân phối đang bị khoá ở phiên này
+— chỉ thử lại đúng 1 action (`publish_facebook`) để xác nhận, không lặp lại cho cả 4 nền tảng (đã
+xác nhận đủ từ 2026-11-05 rằng đây là chặn theo category, không riêng 1 nền tảng). Checkpoint không
+đổi, theo đúng thứ tự xử lý khi permission mở: 1) `vpbank-sacombank-hut-155-nghin-ty-tien-gui` (đủ
+bước 1-12, chờ 13-16), 2) `vn-index-giam-tuan-nguy-co-ve-1700-diem` (chỉ mới bước 1-3, làm tiếp từ
+bước 4 SAU KHI checkpoint 1 xong). **KHÔNG gửi thêm `PushNotification` lần này** — cùng ngày với lần
+thông báo "day 5" ở trên (đã thông báo), tình trạng chưa đổi về bản chất, đúng tiền lệ chỉ thông báo
+lại khi sang ngày mới. Việc-cần-làm không đổi: người vận hành cần xem lại cấu hình permission cho
+loại session lịch/không giám sát (duyệt trước `publish_*` của connector này, hoặc chạy bước đăng bài
+trong một session có người theo dõi trực tiếp để tự duyệt từng lệnh khi bị classifier chặn).
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
