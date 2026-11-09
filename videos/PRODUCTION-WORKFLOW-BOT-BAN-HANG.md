@@ -2608,6 +2608,27 @@ lại khi sang ngày mới. Việc-cần-làm không đổi: người vận hàn
 loại session lịch/không giám sát (duyệt trước `publish_*` của connector này, hoặc chạy bước đăng bài
 trong một session có người theo dõi trực tiếp để tự duyệt từng lệnh khi bị classifier chặn).
 
+**[2026-11-09 — lần kiểm tra thứ 3 trong ngày, routine tự động theo lịch, VẪN bị chặn ở tầng môi
+trường, chưa đổi]**: `git fetch origin master` fast-forward sạch (local khớp `origin/master` tại
+`4852437`). Kiểm tra checkpoint TRƯỚC khi chọn tin mới (đúng quy trình): `vpbank-sacombank-hut-155-
+nghin-ty-tien-gui` vẫn đủ BRIEF/SCRIPT/render/thumbnail/CAPTION trong `output/`, chưa có commit "Log
+publish results"; `vn-index-giam-tuan-nguy-co-ve-1700-diem` vẫn WIP bước 1-3, không tiếp tục. Test
+lại đúng 1 action (`publish_facebook`, payload thật cho checkpoint `vpbank-sacombank-hut-155-nghin-
+ty-tien-gui`) → vẫn bị "Permission for this action was denied by the Claude Code auto mode
+classifier" từ chối, lý do `[External System Writes]`. Git push/fetch tới repo chính (GitHub) vẫn
+hoạt động bình thường (không bị classifier chặn) — xác nhận chặn chỉ áp dụng cho nhóm action
+`publish_*` (viết ra hệ thống ngoài/connected app khác), không áp dụng cho git. Sang ngày thứ 5 liên
+tiếp (2026-11-05 → 2026-11-09), 10 lần kiểm tra tổng cộng. KHÔNG chọn tin mới / sản xuất video thứ
+4, KHÔNG tiếp tục dự án WIP `vn-index-giam-tuan-nguy-co-ve-1700-diem`, KHÔNG thử bypass bằng tool/
+host/encoding/subagent khác — đúng quyết định đã lập từ 2026-11-05 vẫn nguyên giá trị. **KHÔNG gửi
+thêm `PushNotification` mới trong ngày** (đã thông báo 2 lần hôm nay, tình trạng chưa đổi), nhưng do
+đây là lượt gọi routine của một phiên khác (được giao thực hiện toàn bộ 17 bước), tóm tắt kết thúc
+phiên vẫn nêu rõ tình trạng bị chặn để người điều phối nắm được — không phải thông báo lặp, chỉ là
+báo cáo kết thúc nhiệm vụ được giao. Việc-cần-làm không đổi: người vận hành cần xem lại cấu hình
+permission cho loại session lịch/không giám sát (duyệt trước `publish_*` của connector này, hoặc
+chạy bước đăng bài trong một session có người theo dõi trực tiếp để tự duyệt từng lệnh khi bị
+classifier chặn).
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
