@@ -2552,6 +2552,34 @@ lần này** — cùng ngày với lần thông báo "day 4" ở trên (đã th�
 tiền lệ chỉ thông báo lại khi sang ngày mới. Việc-cần-làm không đổi: người vận hành cần xem lại cấu
 hình permission cho loại session lịch/không giám sát.
 
+**[2026-11-09 — ngày mới, routine tự động theo lịch, VẪN bị chặn ở tầng môi trường, sang ngày thứ 5
+chưa đổi]**: đầu phiên này KHÔNG kiểm tra checkpoint trước khi chọn tin — đã lỡ thực hiện bước 1-3
+cho một tin/video thứ 4 (`vn-index-giam-tuan-nguy-co-ve-1700-diem`, tin Znews "VN-Index đối mặt
+nguy cơ trở lại vùng 1.700 điểm") trước khi nhớ lại checkpoint đang treo: đã gọi mark-used cho tin
+`4cbc838ae300` và `claim_style` (nhận index 0 — "1-card-and-bar"), tải `hook-photo.jpg`, viết
+`BRIEF.md`/`SCRIPT.md` — CHƯA sinh voice, CHƯA dựng composition, CHƯA render. Khi rà lại
+`PRODUCTION-WORKFLOW-BOT-BAN-HANG.md` mới phát hiện checkpoint `vpbank-sacombank-hut-155-nghin-ty-
+tien-gui` vẫn đang chờ đúng bước 13-16 từ 2026-11-07. Test lại `publish_facebook` cho đúng checkpoint
+này (payload thật, đúng đặc tả bước 13a, dùng `CAPTION.md`/`BRIEF.md` đã có) → vẫn bị "Claude Code
+auto mode classifier" từ chối với lý do `[Unrequested Commit in a Connected App]` — y hệt lần kiểm
+tra đầu tiên 2026-11-05, xác nhận ràng buộc môi trường vẫn còn đó sang ngày thứ 5 liên tiếp
+(2026-11-05 → 2026-11-09), 8 lần kiểm tra tổng cộng. Theo đúng quyết định đã lập từ 2026-11-05:
+KHÔNG thử bypass bằng tool khác, KHÔNG tiếp tục sản xuất video thứ 4 (dừng ngay ở bước 3, không sinh
+voice/dựng/render) trong khi toàn bộ kênh phân phối đang bị khoá — tránh đúng loại backlog vô dụng
+mà quy tắc này được lập ra để ngăn. Dự án `vn-index-giam-tuan-nguy-co-ve-1700-diem` được giữ lại
+(BRIEF/SCRIPT/ảnh đã có, chất lượng tốt, không muốn bỏ công đã làm) nhưng gắn nhãn WIP — KHÔNG tiếp
+tục bước 4 trở đi cho tới khi checkpoint `vpbank-sacombank-hut-155-nghin-ty-tien-gui` được đăng xong
+bước 13-16. Checkpoint hiện tại (theo thứ tự xử lý khi permission mở): 1) `vpbank-sacombank-hut-
+155-nghin-ty-tien-gui` (đủ bước 1-12, chờ 13-16), 2) `vn-index-giam-tuan-nguy-co-ve-1700-diem` (chỉ
+mới bước 1-3, cần làm tiếp từ bước 4 SAU KHI checkpoint 1 xong). **Đã gửi `PushNotification`** — ngày
+mới (2026-11-09) so với lần thông báo gần nhất (2026-11-08), đúng tiền lệ "ngày mới → thông báo
+lại"; sự cố nay đã kéo dài 5 ngày liên tiếp không có dấu hiệu được xử lý. Việc-cần-làm không đổi:
+người vận hành cần xem lại cấu hình permission cho loại session lịch/không giám sát (duyệt trước
+`publish_*` của connector này, hoặc chạy bước đăng bài trong một session có người theo dõi trực
+tiếp để tự duyệt từng lệnh khi bị classifier chặn). **Bài học mới rút ra lần này**: routine PHẢI
+kiểm tra checkpoint đăng bài đang treo (`git log`/đọc mục này) TRƯỚC bước 1 (chọn tin), không phải
+sau — để tránh lỡ burn thêm 1 slot style + 1 tin "used" không cần thiết như lần này.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
