@@ -2629,6 +2629,29 @@ permission cho loại session lịch/không giám sát (duyệt trước `publis
 chạy bước đăng bài trong một session có người theo dõi trực tiếp để tự duyệt từng lệnh khi bị
 classifier chặn).
 
+**[2026-11-10 — ngày mới, routine tự động theo lịch, VẪN bị chặn ở tầng môi trường, sang ngày thứ 6
+chưa đổi]**: đầu phiên `git fetch origin master` + `git checkout master` + fast-forward sạch (6
+commit, `4be64bb..fec040c`, không mất gì). Kiểm tra checkpoint TRƯỚC khi chọn tin mới (đúng quy
+trình đã rút ra từ 2026-11-09): `vpbank-sacombank-hut-155-nghin-ty-tien-gui` vẫn đủ
+BRIEF/SCRIPT/render/thumbnail/CAPTION trong `output/`, chưa có commit "Log publish results";
+`vn-index-giam-tuan-nguy-co-ve-1700-diem` vẫn đúng trạng thái WIP bước 1-3 (BRIEF/SCRIPT/ảnh Hook đã
+có, chưa sinh voice/dựng/render) — KHÔNG tiếp tục bước 4 trở đi, KHÔNG chọn tin mới. Test lại đúng 1
+action (`publish_facebook`, payload thật cho checkpoint `vpbank-sacombank-hut-155-nghin-ty-tien-gui`,
+đúng đặc tả bước 13a, dùng `CAPTION.md`/`BRIEF.md` đã có) → vẫn bị "Permission for this action was
+denied by the Claude Code auto mode classifier" từ chối, lý do `[External System Writes]` — y hệt
+phần lớn các lần kiểm tra trước. Sang ngày thứ 6 liên tiếp (2026-11-05 → 2026-11-10), 11 lần kiểm
+tra tổng cộng. Theo đúng quyết định đã lập từ 2026-11-05: KHÔNG thử bypass bằng tool/host/encoding/
+subagent khác, KHÔNG chọn tin mới / sản xuất video thứ 4, KHÔNG tiếp tục dự án WIP
+`vn-index-giam-tuan-nguy-co-ve-1700-diem` trong khi toàn bộ kênh phân phối đang bị khoá ở phiên này.
+Checkpoint không đổi, theo đúng thứ tự xử lý khi permission mở: 1) `vpbank-sacombank-hut-155-nghin-
+ty-tien-gui` (đủ bước 1-12, chờ 13-16), 2) `vn-index-giam-tuan-nguy-co-ve-1700-diem` (chỉ mới bước
+1-3, làm tiếp từ bước 4 SAU KHI checkpoint 1 xong). **Đã gửi `PushNotification`** — ngày mới
+(2026-11-10) so với lần thông báo gần nhất (2026-11-09), đúng tiền lệ "ngày mới → thông báo lại";
+sự cố nay đã kéo dài 6 ngày liên tiếp không có dấu hiệu được xử lý. Việc-cần-làm không đổi: người
+vận hành cần xem lại cấu hình permission cho loại session lịch/không giám sát (duyệt trước
+`publish_*` của connector này, hoặc chạy bước đăng bài trong một session có người theo dõi trực
+tiếp để tự duyệt từng lệnh khi bị classifier chặn).
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
