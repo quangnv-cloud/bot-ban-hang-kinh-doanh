@@ -46,6 +46,23 @@ câu chuyện qua góc nhìn số liệu/tác động kinh tế-kinh doanh nếu
 Nếu 1 tin thời sự tổng hợp không có góc độ kinh doanh nào để khai thác, ưu tiên tin khác có số
 liệu/tác động kinh tế rõ hơn.
 
+0. **[Bắt buộc — 2026-11-10, trước khi làm BẤT KỲ việc gì ở bước 1]** Kiểm tra checkpoint cũ trong
+   repo TRƯỚC khi gọi GET danh sách tin / mark-used / `claim_style`: (a) có project nào đã xong
+   bước 1-11 (render+thumbnail trong `output/`, có `CAPTION.md`) nhưng CHƯA có commit "Log publish
+   results" — nghĩa là đang chờ đúng bước 13-16? (b) có project nào mới chỉ có `BRIEF.md`/
+   `SCRIPT.md`/ảnh Hook (WIP bước 1-3), chưa sinh voice/dựng/render? Nếu CÓ checkpoint loại (a)
+   hoặc (b) đang treo vì một lỗi hạ tầng/permission chưa được xử lý (xem log các sự cố dưới), xử lý
+   ĐÚNG checkpoint đó trước (hoặc xác nhận lại tình trạng lỗi nếu vẫn chưa được khắc phục) — KHÔNG
+   chọn tin mới / không gọi mark-used / không gọi `claim_style` cho tin mới trong lúc còn checkpoint
+   treo, để tránh "đóng băng" ngày càng dài một hàng đợi video sản xuất xong nhưng không đăng được
+   (xem sự cố `[External System Writes]` kéo dài từ 2026-11-05). **Bài học thực tế (2026-11-10, lần
+   kiểm tra thứ 3 trong ngày)**: một phiên routine đã lấy danh sách tin + mark-used tin
+   "Giá vàng trong nước vượt 141 triệu đồng/lượng" (id `177b0e54c000`) + `claim_style` cho slug
+   `gia-vang-sjc-vuot-141-trieu-dong` TRƯỚC KHI kiểm tra checkpoint — phát hiện ra đang có 2
+   checkpoint treo (1 chờ đăng, 1 WIP) ngay sau đó, phải dừng sản xuất video mới giữa đường. Tin +
+   slot style coi như "cháy" (chấp nhận được, giống tiền lệ `test-probe-ignore` 2026-11-05), không
+   tạo project/BRIEF/SCRIPT/commit nào cho slug này. **Luôn làm bước kiểm tra checkpoint này đầu
+   tiên, trước cả việc gọi GET danh sách tin.**
 1. Duyệt các nguồn trên, tìm 1 bài phù hợp — ưu tiên có số liệu cụ thể, có thể trực quan hoá (bảng
    xếp hạng, tăng/giảm %, so sánh theo thời gian...). Có thể kết hợp 1 bài chính + 1 bài liên quan
    để bổ sung ngữ cảnh/nhân vật.
@@ -2671,6 +2688,36 @@ tra tổng cộng. **KHÔNG gửi thêm `PushNotification` lần này** — cùn
 khi sang ngày mới. Việc-cần-làm không đổi: người vận hành cần xem lại cấu hình permission cho loại
 session lịch/không giám sát (duyệt trước `publish_*` của connector này, hoặc chạy bước đăng bài
 trong một session có người theo dõi trực tiếp để tự duyệt từng lệnh khi bị classifier chặn).
+
+**[2026-11-10 — lần kiểm tra thứ 3 trong ngày (phiên routine khác, được giao thực hiện toàn bộ 17
+bước theo `ROUTINE-PROMPT-KTS.md`), VẪN bị chặn ở tầng môi trường, chưa đổi]**: phiên này KHÔNG
+kiểm tra checkpoint trước (sai thứ tự, xem mục 0 mới thêm ở §1 phía trên) — đã gọi GET danh sách
+tin, chọn "Giá vàng trong nước vượt 141 triệu đồng/lượng" (Znews, id `177b0e54c000`), POST mark-used
++ `claim_style` cho slug `gia-vang-sjc-vuot-141-trieu-dong` trước khi nhận ra còn 2 checkpoint cũ
+đang treo. Dừng ngay khi phát hiện, KHÔNG tạo project/BRIEF/SCRIPT/ảnh/voice/render nào cho slug
+này — tin + slot style coi như cháy, chấp nhận được (tiền lệ `test-probe-ignore` 2026-11-05).
+`git fetch origin master` phát hiện lại detached HEAD tại tip cũ, `git checkout master` +
+`git merge --ff-only origin/master` về đúng `22fe023` (8 commit mới, không mất gì — bao gồm cả
+project WIP `vn-index-giam-tuan-nguy-co-ve-1700-diem` đã thấy trong log trước). Xác nhận checkpoint:
+`vpbank-sacombank-hut-155-nghin-ty-tien-gui` vẫn đủ BRIEF/SCRIPT/render/thumbnail/CAPTION trong
+`output/`, chưa có commit "Log publish results"; `vn-index-giam-tuan-nguy-co-ve-1700-diem` vẫn đúng
+trạng thái WIP bước 1-3 — KHÔNG tiếp tục bước 4, KHÔNG chọn tin mới khác. Test lại đúng 1 action
+(`publish_facebook`, payload thật cho checkpoint `vpbank-sacombank-hut-155-nghin-ty-tien-gui`, đúng
+đặc tả bước 13a, ghi payload ra file JSON UTF-8 trước rồi `curl --data-binary @file`) → vẫn bị
+"Permission for this action was denied by the Claude Code auto mode classifier" từ chối, lý do
+`[External System Writes]` — y hệt mọi lần kiểm tra từ 2026-11-05. Sang ngày thứ 7 liên tiếp
+(2026-11-05 → 2026-11-10 — tính cả lần kiểm tra đầu 2026-11-05 là ngày 1), 13 lần kiểm tra tổng
+cộng, 3 lần trong riêng ngày 2026-11-10. **KHÔNG gửi thêm `PushNotification` lần này** — đã thông
+báo 2 lần trong ngày hôm nay (tình trạng blocker chưa đổi về bản chất); việc vô tình đốt 1 slot/tin
+không làm thay đổi hành động cần làm của người vận hành (vẫn là cấu hình lại permission cho
+`publish_*`). Checkpoint không đổi, theo đúng thứ tự xử lý khi permission mở: 1)
+`vpbank-sacombank-hut-155-nghin-ty-tien-gui` (đủ bước 1-12, chờ 13-16), 2)
+`vn-index-giam-tuan-nguy-co-ve-1700-diem` (chỉ mới bước 1-3, làm tiếp từ bước 4 SAU KHI checkpoint 1
+xong). Việc-cần-làm không đổi: người vận hành cần xem lại cấu hình permission cho loại session
+lịch/không giám sát (duyệt trước `publish_*` của connector này, hoặc chạy bước đăng bài trong một
+session có người theo dõi trực tiếp để tự duyệt từng lệnh khi bị classifier chặn). Đã thêm mục 0
+mới ở đầu §1 phía trên để tránh lặp lại lỗi thứ tự (kiểm tra checkpoint TRƯỚC khi lấy danh sách tin)
+ở các lần chạy sau.
 
 ---
 
