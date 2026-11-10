@@ -2652,6 +2652,26 @@ vận hành cần xem lại cấu hình permission cho loại session lịch/kh�
 `publish_*` của connector này, hoặc chạy bước đăng bài trong một session có người theo dõi trực
 tiếp để tự duyệt từng lệnh khi bị classifier chặn).
 
+**[2026-11-10 — lần kiểm tra thứ 2 trong ngày (routine ca khác cùng ngày), VẪN bị chặn, chưa đổi]**:
+đầu phiên `git fetch origin master` → phát hiện local đang ở trạng thái detached HEAD tại `2925ea2`
+(bản fetch của phiên trước), `git checkout master` rồi `git merge --ff-only origin/master` để về lại
+đúng tip (`2925ea2`, khớp 7 commit mới nhất, không mất gì — nguyên nhân detached HEAD nhiều khả năng
+do cách phiên trước checkout, không phải lỗi dữ liệu). Kiểm tra checkpoint TRƯỚC khi chọn tin mới:
+`vpbank-sacombank-hut-155-nghin-ty-tien-gui` vẫn đủ BRIEF/SCRIPT/render/thumbnail/CAPTION trong
+`output/`, chưa có commit "Log publish results"; `vn-index-giam-tuan-nguy-co-ve-1700-diem` vẫn đúng
+trạng thái WIP bước 1-3 — KHÔNG tiếp tục, KHÔNG chọn tin mới (đúng quyết định đã lập từ 2026-11-05:
+không chất thêm video không đăng được khi kênh phân phối đang khoá). Test lại đúng 1 action
+(`publish_facebook`, payload thật cho checkpoint `vpbank-sacombank-hut-155-nghin-ty-tien-gui`, đúng
+đặc tả bước 13a, ghi payload ra file JSON trước rồi `curl --data-binary @file` theo đúng quy tắc
+encoding UTF-8 của dự án) → vẫn bị "Permission for this action was denied by the Claude Code auto
+mode classifier" từ chối, lý do `[External System Writes]` — y hệt mọi lần kiểm tra trước, không
+có thay đổi gì ở tầng môi trường. Sang ngày thứ 6 liên tiếp (2026-11-05 → 2026-11-10), 12 lần kiểm
+tra tổng cộng. **KHÔNG gửi thêm `PushNotification` lần này** — cùng ngày với lần thông báo
+"2026-11-10" ở trên (đã thông báo), tình trạng chưa đổi về bản chất, đúng tiền lệ chỉ thông báo lại
+khi sang ngày mới. Việc-cần-làm không đổi: người vận hành cần xem lại cấu hình permission cho loại
+session lịch/không giám sát (duyệt trước `publish_*` của connector này, hoặc chạy bước đăng bài
+trong một session có người theo dõi trực tiếp để tự duyệt từng lệnh khi bị classifier chặn).
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
