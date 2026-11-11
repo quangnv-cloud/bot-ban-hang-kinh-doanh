@@ -2770,6 +2770,26 @@ không đổi: người vận hành cần xem lại cấu hình permission cho l
 (duyệt trước `publish_*` của connector Apps Script này, hoặc chạy riêng bước đăng bài 13-16 trong 1
 session có người theo dõi trực tiếp để tự duyệt khi bị classifier chặn).
 
+**[2026-11-11 — lần kiểm tra thứ 3 trong ngày thứ 8 (13:15 UTC), VẪN bị chặn, chưa đổi]**: đầu
+phiên, checkpoint vẫn đúng như mô tả ở trên: `vpbank-sacombank-hut-155-nghin-ty-tien-gui` đủ
+BRIEF/SCRIPT/render/thumbnail/CAPTION, chờ bước 13-16; `vn-index-giam-tuan-nguy-co-ve-1700-diem`
+vẫn WIP bước 1-3, không tiếp tục. `git status` lại phát hiện `HEAD detached` (lần thứ 2 ghi nhận
+hiện tượng này) — đã sửa lại bằng `git checkout master && git merge --ff-only origin/master`
+(fast-forward sạch lên `a1177c9`, không mất commit). Test lại `publish_facebook` (payload thật,
+ghi ra file JSON UTF-8 trước, gọi bằng `curl --data-binary @file`, đúng đặc tả bước 13a): bị từ
+chối ngay bởi **"Claude Code auto mode classifier"**, lý do lần này là **"[External System
+Writes]"** — lại một cách diễn đạt khác với 2 lần trong ngày (`"[External System Writes]"` lần
+này, so với `"judged this action dangerous (it gave no explanation)"` lần trước và
+`"[Unrequested Commit in a Connected App]"` trước đó nữa) — xác nhận thêm lần nữa rằng lý do cụ
+thể không ổn định/không có giá trị chẩn đoán, bản chất vẫn là chốt permission ở tầng session lịch/
+không giám sát. KHÔNG thử biến thể khác để né chặn. KHÔNG chọn tin mới, KHÔNG `claim_style`,
+KHÔNG sản xuất video thứ 4, KHÔNG tiếp tục video WIP. Sang ngày thứ 8, lần kiểm tra thứ 16 tổng
+cộng. **KHÔNG gửi `PushNotification` lần này** — đã gửi 1 lần trong ngày hôm nay (06:09 UTC, log
+phía trên) cho đúng blocker này, tình trạng/nguyên nhân/việc-cần-làm không đổi so với lần đó, nên
+im lặng theo nguyên tắc "không báo thừa khi không có gì mới" của routine. Việc-cần-làm không đổi:
+người vận hành xem lại cấu hình permission cho session lịch/không giám sát với connector Apps
+Script này.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
