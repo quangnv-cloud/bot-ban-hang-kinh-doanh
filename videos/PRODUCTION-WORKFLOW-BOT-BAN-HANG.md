@@ -2741,6 +2741,35 @@ classifier chặn), theo đúng thứ tự xử lý khi permission mở: 1) `vpb
 tien-gui` (đủ bước 1-12, chờ 13-16), 2) `vn-index-giam-tuan-nguy-co-ve-1700-diem` (chỉ mới bước
 1-3, làm tiếp từ bước 4 SAU KHI checkpoint 1 xong).
 
+**[2026-11-11 — lần kiểm tra thứ 2 trong ngày thứ 8 (06:07 UTC, cùng ngày với lần 00:22 UTC phía
+trên), VẪN bị chặn, chưa đổi]**: đầu phiên kiểm tra checkpoint TRƯỚC khi lấy danh sách tin, đúng mục
+0: `vpbank-sacombank-hut-155-nghin-ty-tien-gui` vẫn đủ BRIEF/SCRIPT/render (15.7MB)/thumbnail/
+CAPTION trong `output/`, chưa có commit "Log publish results"; `vn-index-giam-tuan-nguy-co-ve-1700-
+diem` vẫn đúng trạng thái WIP bước 1-3, không tiếp tục. `git fetch origin master` phát hiện lại
+`HEAD detached` tại tip cũ, đã sửa bằng `git checkout master && git merge --ff-only origin/master`
+(fast-forward sạch, lên đúng `e826dc4`, không mất commit nào). Test lại `publish_facebook` (payload
+thật cho checkpoint `vpbank-sacombank-hut-155-nghin-ty-tien-gui`, đúng đặc tả bước 13a, ghi payload
+ra file JSON UTF-8 trước rồi `curl --data-binary @file`, không gõ thẳng text vào `-d`): 1 lần gọi
+không kèm `-i`/`-D -` thực sự đi tới script.google.com nhưng nhận về trang lỗi "Sorry, unable to
+open the file at this time" của Google Drive (HTTP 405) sau khi follow redirect — khác hẳn `302`
+trống thường thấy khi KHÔNG follow redirect ở GET; 1 lần gọi khác (thêm `-i -D -` để xem header) bị
+chính "Permission for this action was denied by the Claude Code auto mode classifier" từ chối, lý do
+lần này là **"The server-side auto mode classifier judged this action dangerous (it gave no
+explanation)"** — khác cách diễn đạt lý do so với các lần trước (`[External System Writes]`,
+`[Unrequested Commit in a Connected App]`), xác nhận lý do cụ thể mà classifier trả về KHÔNG ổn
+định/không có ý nghĩa chẩn đoán riêng — bản chất vẫn là 1 chốt chặn ở tầng permission của session
+lịch/không giám sát, không phải lỗi phía Apps Script/API. KHÔNG thử thêm biến thể khác (đổi
+tool/host/encoding/subagent) để né chặn — đúng quyết định đã lập từ 2026-11-05. Sang ngày thứ 8
+liên tiếp (2026-11-05 → 2026-11-11), lần kiểm tra thứ 15 tổng cộng. KHÔNG chọn tin mới, KHÔNG
+`claim_style`, KHÔNG sản xuất video thứ 4, KHÔNG tiếp tục `vn-index-giam-tuan-nguy-co-ve-1700-diem`.
+**Đã gửi `PushNotification`** cho lần kiểm tra này — phiên này (coordinator Fable, không phải
+subagent) có tool `PushNotification`, và không có xác nhận nào trong lịch sử repo rằng một thông
+báo thật đã tới người vận hành cho ngày hôm nay (lần kiểm tra 00:22 UTC chạy trong 1 subagent không
+có tool này) — ưu tiên báo thừa còn hơn báo thiếu cho 1 blocker 8 ngày chưa được xử lý. Việc-cần-làm
+không đổi: người vận hành cần xem lại cấu hình permission cho loại session lịch/không giám sát
+(duyệt trước `publish_*` của connector Apps Script này, hoặc chạy riêng bước đăng bài 13-16 trong 1
+session có người theo dõi trực tiếp để tự duyệt khi bị classifier chặn).
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
