@@ -2816,6 +2816,25 @@ cấu hình permission cho loại session lịch/không giám sát (duyệt trư
 Script này, hoặc chạy riêng bước đăng bài 13-16 trong 1 session có người theo dõi trực tiếp để tự
 duyệt khi bị classifier chặn).
 
+**[2026-11-12, lần kiểm tra thứ 2 trong ngày, ~06:05 UTC — phiên routine lịch kế tiếp (slot
+~12h30 giờ VN)]**: kiểm tra checkpoint TRƯỚC khi lấy danh sách tin, đúng mục 0 — cả 2 checkpoint
+treo vẫn nguyên trạng y như lần kiểm tra sáng nay: `vpbank-sacombank-hut-155-nghin-ty-tien-gui`
+đủ BRIEF/SCRIPT/render/thumbnail/CAPTION trong `output/`, chưa có commit "Log publish results";
+`vn-index-giam-tuan-nguy-co-ve-1700-diem` vẫn WIP bước 1-3. `git fetch origin master` lần này
+không phát hiện commit mới nào từ phiên khác kể từ lần kiểm tra sáng nay (chỉ chính commit "day 9"
+đó). `HEAD` lần này ở đúng branch `master`, không bị detached. Test lại đúng 1 action
+(`publish_facebook`, cùng payload thật cho checkpoint `vpbank-sacombank-hut-155-nghin-ty-tien-gui`,
+ghi payload ra file JSON UTF-8 trước rồi `curl --data-binary @file`) → vẫn bị "Permission for this
+action was denied by the Claude Code auto mode classifier" từ chối, lý do `[External System
+Writes]` — không đổi. Sang ngày thứ 9, lần kiểm tra thứ 18 tổng cộng. Theo đúng quyết định đã lập
+từ 2026-11-05: KHÔNG thử bypass bằng tool/host/encoding/subagent khác, KHÔNG chọn tin mới /
+`claim_style`, KHÔNG sản xuất video thứ 4, KHÔNG tiếp tục dự án WIP
+`vn-index-giam-tuan-nguy-co-ve-1700-diem`. **KHÔNG gửi `PushNotification` lần này** — đã gửi 1 lần
+trong ngày hôm nay (lần kiểm tra thứ 1, log phía trên) cho đúng blocker này, tình trạng/nguyên
+nhân/việc-cần-làm không đổi so với lần đó, nên im lặng theo nguyên tắc "không báo thừa khi không
+có gì mới" của routine. Việc-cần-làm không đổi: người vận hành xem lại cấu hình permission cho
+session lịch/không giám sát với connector Apps Script này.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
