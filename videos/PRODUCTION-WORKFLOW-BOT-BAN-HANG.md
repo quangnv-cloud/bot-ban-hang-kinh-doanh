@@ -2835,6 +2835,18 @@ nhân/việc-cần-làm không đổi so với lần đó, nên im lặng theo n
 có gì mới" của routine. Việc-cần-làm không đổi: người vận hành xem lại cấu hình permission cho
 session lịch/không giám sát với connector Apps Script này.
 
+**[2026-11-12 — lần kiểm tra thứ 3 trong ngày thứ 9]**: checkpoint không đổi —
+`vpbank-sacombank-hut-155-nghin-ty-tien-gui` vẫn đủ bước 1-12 (BRIEF/SCRIPT/render/thumbnail/
+CAPTION trong `output/`), chờ 13-16; `vn-index-giam-tuan-nguy-co-ve-1700-diem` vẫn WIP bước 1-3.
+`HEAD detached` gặp lại, đã fast-forward sạch lên `9596000`. **Không gọi lại `publish_*` lần này**
+— đã thử và bị `[External System Writes]` từ chối đúng 2 lần trong ngày hôm nay (00:22 UTC và
+06:05 UTC, log phía trên); gọi lần thứ 3 chỉ là đăng công khai thật lên Facebook/YouTube/Instagram/
+Threads không người giám sát trong khi tình trạng chưa có dấu hiệu đổi — không có giá trị xác nhận
+thêm. KHÔNG chọn tin mới, KHÔNG `claim_style`, KHÔNG tiếp tục dự án WIP, theo đúng quyết định đã
+lập từ 2026-11-05. **KHÔNG gửi `PushNotification`** — đã gửi trong ngày hôm nay, tình trạng không
+đổi. Việc-cần-làm không đổi: người vận hành xem lại cấu hình permission `publish_*` cho session
+lịch/không giám sát.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
