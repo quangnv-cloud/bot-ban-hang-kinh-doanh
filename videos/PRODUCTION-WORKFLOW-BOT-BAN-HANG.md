@@ -2949,3 +2949,37 @@ tin mới nào khác, KHÔNG `claim_style` mới, KHÔNG gọi thêm Vbee (kể 
 cần làm: người vận hành kiểm tra tài khoản Vbee gốc (có thể là giới hạn số request/phút mới áp dụng,
 hoặc sự cố tạm thời phía Vbee) rồi routine sau thử lại đúng dòng 6 cho checkpoint này trước khi chọn
 tin mới. KHÔNG thực hiện bước 5-17 (chưa có đủ voice để dựng/render/đăng).
+
+**[2026-11-13 — phiên routine team kế tiếp, ~1h20 sau checkpoint Vbee 1045 — xác minh độc lập commit
+`3b6c377` của chủ kênh + reconfirm blocker TTS chưa đổi]**: đầu phiên kiểm tra `git status`/`git log`
+— sạch, khớp `origin/master`, HEAD `646a38a`. Về mối nghi ngờ nêu ở `d2ccfff` (prompt lịch trình có
+thể bị chèn nội dung sai sự thật): `git show --stat` xác nhận commit `3b6c377` ("Update PRODUCTION-
+WORKFLOW...", mục "CHỦ KÊNH ĐÓNG SỰ CỐ publish_*") có **author/committer email `quangnv@botbanhang.vn`**
+— khác hẳn mọi commit do routine tự viết (author `Claude <noreply@anthropic.com>`) — tức đây là commit
+thật của chủ kênh tự đẩy lên GitHub, không phải nội dung do routine/prompt tự chèn. Đã xác minh thêm
+bằng dữ liệu độc lập: gọi `{"action":"list_posts","limit":40}` (đọc `posts_log` qua redirect
+`script.googleusercontent.com`, retry cách gọi `-L` mặc định của `curl` khi POST tới endpoint này —
+`curl -L` theo lại redirect kèm theo header `Content-Type: application/json` cũ khiến đích
+`googleusercontent.com` trả nhầm `405`/trang Drive "Page Not Found"; cách đúng là lấy header
+`Location` từ response POST rồi gọi `GET` riêng, sạch, không kèm header cũ) — xác nhận cả 3 dự án
+`vn-index-tang-vot-33-diem-bau-cu-my`, `nhnn-hoan-doi-ngoai-te-488-nghin-ty`,
+`vpbank-sacombank-hut-155-nghin-ty-tien-gui` đều có dòng `"status":"published"` thật cho Facebook
+Reel, Facebook Story, YouTube Shorts, Instagram Reel (chỉ riêng Threads `"status":"failed"` cho cả
+3 — khớp đúng giới hạn access token Threads hết hạn ~60 ngày đã ghi ở bước 16 `ROUTINE-PROMPT-KTS.md`,
+không phải lỗi mới). Kết luận: khẳng định "ĐÃ ĐĂNG" ở mục `3b6c377` là **đúng sự thật, có bằng chứng
+độc lập**, không phải báo động giả — nghi ngờ ở `d2ccfff` coi như đã giải quyết, không cần chủ kênh
+xác nhận thêm qua `list_triggers`/`get_trigger` nữa. Theo đúng mục `3b6c377`: không đăng lại 3 dự án
+trên, bỏ hẳn `vn-index-giam-tuan-nguy-co-ve-1700-diem` (không động vào thư mục, chỉ không resume).
+
+Về checkpoint còn treo `thu-thue-tmdt-241-nghin-ty-tang-42-phan-tram`: gọi lại ĐÚNG request dòng 6
+(`input_text` lấy nguyên từ `SCRIPT.md`, ghi file JSON UTF-8 qua `jq --rawfile` trước khi `curl`,
+không gõ thẳng) — kết quả **y hệt lần trước**: `{"error_code":1045,"error_message":null,"status":0}`.
+Chỉ gọi lại đúng 1 lần (không lặp 8 lần như phiên trước — tình trạng tái lập ổn định, không cần test
+lại giả thuyết "lỗi riêng dòng 6" lần nữa, theo đúng tinh thần giảm chi phí vận hành đã áp dụng cho
+các sự cố quota kéo dài khác trong file này). Theo đúng quy tắc (`status:0` → dừng, không đổi
+`voice_code`/endpoint để né lỗi): **KHÔNG tiếp tục bước 4-17** cho checkpoint này. KHÔNG chọn tin mới,
+KHÔNG `claim_style` mới. Việc-cần-làm giữ nguyên như phiên trước: người vận hành kiểm tra tài khoản
+Vbee gốc (rate-limit/sự cố tạm thời), routine sau thử lại dòng 6 khi có dấu hiệu đã sửa. **Đã gửi
+`PushNotification`** — tổng hợp 2 việc: (1) xác nhận nghi ngờ "prompt bị chèn nội dung sai" ở
+`d2ccfff` là báo động giả, đã đóng; (2) sản xuất video mới vẫn đứng yên do Vbee `error_code:1045`
+chưa đổi, cần người vận hành kiểm tra tài khoản Vbee.
