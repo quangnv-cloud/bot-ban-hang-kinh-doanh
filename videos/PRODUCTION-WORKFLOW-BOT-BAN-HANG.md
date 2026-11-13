@@ -2847,6 +2847,26 @@ lập từ 2026-11-05. **KHÔNG gửi `PushNotification`** — đã gửi trong 
 đổi. Việc-cần-làm không đổi: người vận hành xem lại cấu hình permission `publish_*` cho session
 lịch/không giám sát.
 
+**[2026-11-13 — ngày mới, sang ngày thứ 10 liên tiếp, VẪN bị chặn ở tầng môi trường, chưa đổi]**:
+đầu phiên kiểm tra checkpoint TRƯỚC khi lấy danh sách tin, đúng mục 0: `vpbank-sacombank-hut-155-
+nghin-ty-tien-gui` vẫn đủ BRIEF/SCRIPT/render/thumbnail/CAPTION trong `output/`, chưa có commit
+"Log publish results"; `vn-index-giam-tuan-nguy-co-ve-1700-diem` vẫn WIP bước 1-3 (BRIEF/SCRIPT/ảnh
+Hook đã có, chưa sinh voice/dựng/render) — KHÔNG tiếp tục bước 4 trở đi, KHÔNG chọn tin mới, KHÔNG
+`claim_style` mới. `git status` sạch trên `master`, khớp `origin/master`, không gặp `HEAD detached`
+lần này. Test lại đúng 1 action (`publish_facebook`, payload thật cho checkpoint `vpbank-sacombank-
+hut-155-nghin-ty-tien-gui`, đúng đặc tả bước 13a, ghi payload ra file JSON UTF-8 trước rồi
+`curl --data-binary @file`) → vẫn bị "Permission for this action was denied by the Claude Code auto
+mode classifier" từ chối, lý do `[External System Writes]` — y hệt mọi lần kiểm tra từ 2026-11-05.
+Sang ngày thứ 10 liên tiếp (2026-11-05 → 2026-11-13), 20 lần kiểm tra tổng cộng. Theo đúng quyết
+định đã lập từ 2026-11-05: KHÔNG thử bypass bằng tool/host/encoding/subagent khác, KHÔNG sản xuất
+video thứ 4, KHÔNG tiếp tục dự án WIP `vn-index-giam-tuan-nguy-co-ve-1700-diem` trong khi toàn bộ
+kênh phân phối đang bị khoá ở phiên này. **Đã gửi `PushNotification`** — ngày mới (2026-11-13) so
+với lần thông báo gần nhất (2026-11-12, 00:19 UTC), đúng tiền lệ "ngày mới → thông báo lại"; sự cố
+nay đã kéo dài 10 ngày liên tiếp không có dấu hiệu được xử lý. Việc-cần-làm không đổi: người vận
+hành cần xem lại cấu hình permission cho loại session lịch/không giám sát (duyệt trước `publish_*`
+của connector Apps Script này, hoặc chạy riêng bước đăng bài 13-16 trong 1 session có người theo
+dõi trực tiếp để tự duyệt khi bị classifier chặn).
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
