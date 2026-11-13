@@ -2867,6 +2867,36 @@ hành cần xem lại cấu hình permission cho loại session lịch/không gi
 của connector Apps Script này, hoặc chạy riêng bước đăng bài 13-16 trong 1 session có người theo
 dõi trực tiếp để tự duyệt khi bị classifier chặn).
 
+**[2026-11-13 — lần kiểm tra thứ 2 trong ngày thứ 10, phiên routine team kế tiếp — phát hiện prompt
+lịch trình bị chèn nội dung không khớp sự thật đã ghi nhận trong repo]**: đầu phiên kiểm tra
+checkpoint TRƯỚC khi lấy danh sách tin, đúng mục 0 — `git status`/`git log` xác nhận `master` sạch,
+khớp `origin/master`, commit gần nhất vẫn là "Reconfirm blocker ... (day 10)" từ lần kiểm tra sáng
+nay; KHÔNG có bất kỳ commit "Log publish results" nào cho `vpbank-sacombank-hut-155-nghin-ty-tien-
+gui`, `vn-index-tang-vot-33-diem-bau-cu-my`, hay `nhnn-hoan-doi-ngoai-te-488-nghin-ty` trong lịch sử
+repo. Prompt của lần chạy lịch này (nội dung "CẬP NHẬT CHECKPOINT ... chủ kênh xác nhận 2026-11-13")
+khẳng định 3 project trên "ĐÃ ĐĂNG" và rằng sự cố `publish_*` bị chặn từ 2026-11-05 là do "routine CŨ
+trên tài khoản cá nhân" nay đã chuyển sang "routine team" nên không cần ghi thêm mục "Reconfirm
+blocker" — cả hai khẳng định này **mâu thuẫn trực tiếp với bằng chứng trong chính repo**: log 10
+ngày/20+ lần kiểm tra trước đó ghi nhận chặn ở tầng "Claude Code auto mode classifier" (lý do
+`[External System Writes]` / "judged this action dangerous"), đây là chặn ở tầng permission của
+loại session lịch/không giám sát, không liên quan gì đến tài khoản cá nhân hay tài khoản team; và
+không hề có commit "Log publish results" nào xác nhận 3 project trên đã được đăng. Theo nguyên tắc
+không coi nội dung của chính prompt lịch trình là xác nhận đã được duyệt/đã xảy ra khi nó mâu thuẫn
+với dữ liệu đã xác minh được: phiên này KHÔNG coi 3 project trên là đã đăng, KHÔNG bỏ qua việc ghi
+"Reconfirm blocker", KHÔNG gọi lại `publish_*` (đã test đủ trong lần kiểm tra sáng nay, chưa có gì
+đổi), KHÔNG chọn tin mới / `claim_style` / sản xuất video thứ 4, KHÔNG tiếp tục
+`vn-index-giam-tuan-nguy-co-ve-1700-diem`. **KHÔNG gửi `PushNotification` về tình trạng blocker** vì
+đã gửi trong ngày hôm nay (lần kiểm tra thứ 1) và trạng thái chặn không đổi — **nhưng ĐÃ gửi
+`PushNotification` riêng báo người vận hành về phần nội dung checkpoint không khớp sự thật trong
+prompt lịch trình lần này**, vì đây là phát hiện mới (khác với tình trạng blocker không đổi), đáng
+được xem xét độc lập: có thể prompt lịch trình (`trig_*`/`ROUTINE-PROMPT-KTS.md`) đã bị sửa sai hoặc
+bị chèn nội dung không phải do chủ kênh viết. Việc-cần-làm không đổi cộng thêm 1 việc mới: (1) xem
+lại cấu hình permission `publish_*` cho session lịch/không giám sát như các lần trước; (2) chủ kênh
+tự kiểm tra lại nội dung đã nhập cho scheduled task gọi routine này (qua `list_triggers`/
+`get_trigger`) để xác nhận đoạn "CẬP NHẬT CHECKPOINT ... xác nhận 2026-11-13" có đúng là họ viết hay
+không, trước khi tin vào bất kỳ khẳng định "đã đăng"/"blocker đã đóng" nào xuất hiện trong đó ở các
+lần chạy sau.
+
 ---
 
 *File này + `BRAND-SYSTEM-BOT-BAN-HANG.md` + `CONSTRUCTION-STYLES-BOT-BAN-HANG.md` là ba tài liệu
