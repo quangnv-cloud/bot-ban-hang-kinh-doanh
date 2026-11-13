@@ -2983,3 +2983,11 @@ Vbee gốc (rate-limit/sự cố tạm thời), routine sau thử lại dòng 6 
 `PushNotification`** — tổng hợp 2 việc: (1) xác nhận nghi ngờ "prompt bị chèn nội dung sai" ở
 `d2ccfff` là báo động giả, đã đóng; (2) sản xuất video mới vẫn đứng yên do Vbee `error_code:1045`
 chưa đổi, cần người vận hành kiểm tra tài khoản Vbee.
+
+**[2026-11-13 — XÁC NHẬN ĐÓNG sự cố publish_* bằng đăng thành công thật]** Routine team (phiên
+Claude Sonnet 5) resume checkpoint `thu-thue-tmdt-241-nghin-ty-tang-42-phan-tram` (Vbee 1045 ở
+dòng 6 đã tự hết khi thử lại), sản xuất xong và gọi `publish_facebook`/`publish_facebook_photo`/
+`publish_youtube`/`publish_instagram` — cả 4 đều trả thành công thật (post/video id thật, xem log
+đầy đủ ở `style-rotation-state.json`), xác nhận sự cố `publish_*` bị chặn từ 2026-11-05 đã đóng hẳn
+sau khi chuyển sang routine team (chỉ `publish_threads` lỗi access token hết hạn — giới hạn đã biết,
+không liên quan sự cố cũ).
