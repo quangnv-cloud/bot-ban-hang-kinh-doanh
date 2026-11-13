@@ -2924,3 +2924,28 @@ Người viết: chủ kênh (quangnv), tự commit trên GitHub. Không phải 
    `list_yt_content` để chắc chắn bài chưa có trên kênh.
 5. Nếu `publish_*` vẫn bị từ chối ở routine team: dừng, ghi nguyên văn lỗi một lần vào cuối file
    này, gửi thông báo, không tìm cách lách. Không sản xuất thêm video cho tới khi chủ kênh xử lý.
+
+**[BLOCKER MỚI — 2026-11-13, routine team] Vbee TTS trả `error_code:1045` `error_message:null`
+(`status:0`), MÃ LỖI CHƯA TỪNG GẶP (khác hẳn `401 Unauthorized` ngày 2026-09-30 và `1051` "exceeded
+API TTS quota" từ 2026-10-12)**: checkpoint cũ đã đóng (mục 2026-11-13 phía trên), không còn
+checkpoint treo nên chọn tin mới theo đúng bước 1-2 của `ROUTINE-PROMPT-KTS.md` — tin Znews "Đã thu
+241.000 tỷ tiền thuế từ thương mại điện tử sau 10 tháng" (id `06ba8928a52a`, đăng 12/11/2026), đã
+mark `used`, `claim_style` thành công (index 9, style `10-stock-terminal`), viết xong
+`BRIEF.md`/`SCRIPT.md`, tải xong ảnh Hook. Sinh voice dòng 1-5 bằng Vbee (tài khoản GỐC, hôm nay
+2026-11-13 đã qua mốc 31/10 nên không dùng cặp `_TAM`) đều `status:1` bình thường, tải về đủ
+`line1.mp3`...`line5.mp3`, đã chạy ElevenLabs STT xác nhận transcript khớp văn bản gốc (không phải
+lỗi encoding). Tới dòng 6 ("Thủ tục tuân thủ đã giảm 53 phần trăm thời gian...") — cùng cấu trúc
+payload, chỉ khác `input_text`, ghi file JSON UTF-8 bằng Python `-I` trước khi gọi (không gõ thẳng
+vào `curl -d`) — trả `{"error_code":1045,"error_message":null,"status":0}`. Thử lại đúng request đó
+8 lần, cách nhau 30 giây (tổng ~4 phút), kết quả **y hệt cả 8 lần**. Để loại trừ lỗi riêng của nội
+dung dòng 6 (dài 187 ký tự, xấp xỉ dòng 3 dài 186 ký tự đã thành công), thử thêm 1 request tối giản
+`"Xin chào."` bằng đúng `voice_code`/`app_id`/token — **vẫn `error_code:1045`** y hệt, xác nhận đây
+là lỗi ở tầng tài khoản/phiên (rate-limit hoặc khoá tạm thời sau 5 request liên tiếp trong ~50 giây),
+không phải lỗi nội dung dòng 6. Theo đúng quy tắc (`status:0` → dừng, không thử đổi `voice_code`/
+endpoint khác để né lỗi): **DỪNG sản xuất ở bước 4 (sinh giọng đọc)**. Checkpoint mới:
+`videos/thu-thue-tmdt-241-nghin-ty-tang-42-phan-tram/` — đủ `BRIEF.md`/`SCRIPT.md`/ảnh Hook/voice
+dòng 1-5 + STT dòng 2-5, CHƯA có voice dòng 6, CHƯA dựng composition, CHƯA render. KHÔNG mark used
+tin mới nào khác, KHÔNG `claim_style` mới, KHÔNG gọi thêm Vbee (kể cả request tối giản khác). Việc
+cần làm: người vận hành kiểm tra tài khoản Vbee gốc (có thể là giới hạn số request/phút mới áp dụng,
+hoặc sự cố tạm thời phía Vbee) rồi routine sau thử lại đúng dòng 6 cho checkpoint này trước khi chọn
+tin mới. KHÔNG thực hiện bước 5-17 (chưa có đủ voice để dựng/render/đăng).
