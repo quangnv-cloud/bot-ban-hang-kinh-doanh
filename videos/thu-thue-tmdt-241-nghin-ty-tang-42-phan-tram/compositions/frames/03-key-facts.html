@@ -1,0 +1,111 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      color: #ffffff;
+      background: #111111;
+    }
+    .f3-header {
+      position: absolute;
+      left: 64px; right: 64px; top: 190px;
+    }
+    .f3-kicker {
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #E8441E;
+      margin-bottom: 16px;
+    }
+    .f3-title {
+      font-weight: 800;
+      font-size: 42px;
+      line-height: 1.24;
+      color: #ffffff;
+    }
+    .f3-rows {
+      position: absolute;
+      left: 64px; right: 64px; top: 1300px;
+    }
+    .f3-row {
+      display: flex;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.14);
+    }
+    .f3-row:last-child { border-bottom: none; }
+    .f3-candle {
+      flex: 0 0 40px;
+      margin-right: 24px;
+    }
+    .f3-row .txt { flex: 1; }
+    .f3-row .lead {
+      font-weight: 900;
+      font-size: 40px;
+      color: #E8441E;
+      letter-spacing: -0.01em;
+    }
+    .f3-row .desc {
+      display: block;
+      font-weight: 600;
+      font-size: 29px;
+      color: rgba(255,255,255,0.78);
+      margin-top: 4px;
+      line-height: 1.3;
+    }
+  </style>
+  <div id="root" data-composition-id="03-key-facts" data-width="1080" data-height="1920">
+    <div class="f3-header clip" id="f3-header" data-start="0" data-duration="10.3">
+      <div class="f3-kicker">Key facts</div>
+      <div class="f3-title">Thương mại điện tử Việt Nam tăng trưởng nhanh</div>
+    </div>
+    <div class="f3-rows" id="f3-rows">
+      <div class="f3-row clip" id="f3-row-1" data-start="0.6" data-duration="9.7">
+        <svg class="f3-candle" id="f3-candle-1" viewBox="0 0 40 56">
+          <line x1="10" y1="10" x2="10" y2="46" stroke="rgba(255,255,255,0.4)" stroke-width="2"></line>
+          <rect x="4" y="26" width="12" height="14" fill="rgba(255,255,255,0.25)"></rect>
+          <line x1="29" y1="4" x2="29" y2="50" stroke="#E8441E" stroke-width="2"></line>
+          <rect x="23" y="14" width="12" height="30" fill="#E8441E"></rect>
+        </svg>
+        <span class="txt"><span class="lead">+20%/năm</span><span class="desc">Doanh số thương mại điện tử tăng bình quân từ năm 2022</span></span>
+      </div>
+      <div class="f3-row clip" id="f3-row-2" data-start="3.3" data-duration="7.0">
+        <svg class="f3-candle" id="f3-candle-2" viewBox="0 0 40 56">
+          <line x1="10" y1="10" x2="10" y2="46" stroke="rgba(255,255,255,0.4)" stroke-width="2"></line>
+          <rect x="4" y="26" width="12" height="14" fill="rgba(255,255,255,0.25)"></rect>
+          <line x1="29" y1="4" x2="29" y2="50" stroke="#E8441E" stroke-width="2"></line>
+          <rect x="23" y="14" width="12" height="30" fill="#E8441E"></rect>
+        </svg>
+        <span class="txt"><span class="lead">Thứ 2 Đông Nam Á</span><span class="desc">Về tốc độ tăng trưởng thương mại điện tử</span></span>
+      </div>
+      <div class="f3-row clip" id="f3-row-3" data-start="6.0" data-duration="4.3">
+        <svg class="f3-candle" id="f3-candle-3" viewBox="0 0 40 56">
+          <line x1="10" y1="10" x2="10" y2="46" stroke="rgba(255,255,255,0.4)" stroke-width="2"></line>
+          <rect x="4" y="26" width="12" height="14" fill="rgba(255,255,255,0.25)"></rect>
+          <line x1="29" y1="4" x2="29" y2="50" stroke="#E8441E" stroke-width="2"></line>
+          <rect x="23" y="14" width="12" height="30" fill="#E8441E"></rect>
+        </svg>
+        <span class="txt"><span class="lead">37 tỷ đô la Mỹ</span><span class="desc">Dự kiến doanh số thương mại điện tử cả năm nay</span></span>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo("#f3-header .f3-kicker", { y: -14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 0);
+    tl.fromTo("#f3-header .f3-title", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.36, ease: "power3.out" }, 0.14);
+
+    [1, 2, 3].forEach(function (n) {
+      var startMap = { 1: 0.6, 2: 3.3, 3: 6.0 };
+      var t = startMap[n];
+      tl.fromTo("#f3-row-" + n, { x: -24, opacity: 0 }, { x: 0, opacity: 1, duration: 0.36, ease: "power2.out" }, t);
+      tl.fromTo("#f3-candle-" + n + " line", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, t + 0.08);
+      tl.fromTo("#f3-candle-" + n + " rect", { scaleY: 0, transformOrigin: "50% 100%" }, { scaleY: 1, duration: 0.3, ease: "power2.out", stagger: 0.08 }, t + 0.1);
+    });
+
+    window.__timelines["03-key-facts"] = tl;
+  </script>
+</template>

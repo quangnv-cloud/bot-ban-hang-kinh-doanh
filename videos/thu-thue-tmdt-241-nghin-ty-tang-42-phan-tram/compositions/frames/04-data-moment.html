@@ -1,0 +1,143 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      color: #ffffff;
+      background: #111111;
+    }
+    .f4-header {
+      position: absolute;
+      left: 64px; right: 64px; top: 190px;
+      text-align: center;
+    }
+    .f4-kicker {
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #E8441E;
+      margin-bottom: 16px;
+    }
+    .f4-title {
+      font-weight: 800;
+      font-size: 42px;
+      line-height: 1.25;
+      color: #ffffff;
+      padding: 0 60px;
+    }
+    /* Decorative backdrop line-chart, fills the mid-frame gap (not primary content) */
+    .f4-chart-wrap {
+      position: absolute;
+      left: 0; right: 0; top: 540px; height: 560px;
+      opacity: 0.4;
+    }
+    .f4-chart-wrap svg { width: 100%; height: 100%; }
+    .f4-chart-code {
+      position: absolute;
+      left: 64px; top: 460px;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.4);
+    }
+    .f4-stat-block {
+      position: absolute;
+      left: 0; right: 0; top: 1300px;
+      text-align: center;
+    }
+    .f4-number-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .f4-number {
+      font-size: 148px;
+      font-weight: 900;
+      line-height: 0.92;
+      color: #E8441E;
+      letter-spacing: -0.02em;
+      text-shadow: 0 0 40px rgba(232, 68, 30, 0.45);
+    }
+    .f4-unit {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      color: #ffffff;
+    }
+    .f4-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 28px;
+      padding: 14px 28px;
+      border-radius: 999px;
+      background: rgba(232,68,30,0.14);
+      border: 1.5px solid rgba(232,68,30,0.5);
+      font-weight: 700;
+      font-size: 30px;
+      color: #ffffff;
+    }
+    .f4-pill b { color: #E8441E; font-size: 34px; }
+  </style>
+  <div id="root" data-composition-id="04-data-moment" data-width="1080" data-height="1920">
+    <div class="f4-header clip" id="f4-header" data-start="0" data-duration="6.9">
+      <div class="f4-kicker">Data moment</div>
+      <div class="f4-title">Số thu thuế thương mại điện tử 10 tháng</div>
+    </div>
+
+    <div class="f4-chart-code clip" id="f4-chart-code" data-start="0.6" data-duration="6.3" data-layout-ignore>TMDT-TAX · 10T2026</div>
+    <div class="f4-chart-wrap clip" id="f4-chart-wrap" data-start="0.7" data-duration="6.2">
+      <svg viewBox="0 0 1080 560" preserveAspectRatio="none">
+        <path id="f4-chart-path" d="M 40 460 L 180 430 L 320 440 L 460 360 L 600 320 L 740 220 L 880 150 L 1040 70"
+          fill="none" stroke="#E8441E" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </div>
+
+    <div class="f4-stat-block" id="f4-stat-block">
+      <div class="f4-number-row clip" id="f4-number-row" data-start="1.3" data-duration="5.6">
+        <span class="f4-number" id="f4-number">0</span>
+        <span class="f4-unit">NGHÌN TỶ ĐỒNG</span>
+      </div>
+      <div class="clip" id="f4-pill-wrap" data-start="2.5" data-duration="4.4">
+        <div class="f4-pill">So với cùng kỳ: <b>+42%</b></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo("#f4-header .f4-kicker", { y: -14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 0);
+    tl.fromTo("#f4-header .f4-title", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.36, ease: "power3.out" }, 0.14);
+
+    tl.fromTo("#f4-chart-code", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 0.6);
+
+    var pathEl = document.getElementById("f4-chart-path");
+    var pathLen = 1300;
+    try { pathLen = pathEl.getTotalLength(); } catch (e) {}
+    pathEl.style.strokeDasharray = pathLen;
+    pathEl.style.strokeDashoffset = pathLen;
+    tl.fromTo("#f4-chart-wrap", { opacity: 0 }, { opacity: 0.4, duration: 0.2, ease: "power1.out" }, 0.7);
+    tl.to(pathEl, { strokeDashoffset: 0, duration: 1.6, ease: "power1.inOut" }, 0.7);
+
+    tl.fromTo("#f4-number-row", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.3);
+
+    var numEl = document.getElementById("f4-number");
+    function formatVN(n) { return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); }
+    var counter = { v: 0 };
+    tl.to(counter, {
+      v: 241,
+      duration: 1.3,
+      ease: "power2.out",
+      onUpdate: function () { numEl.textContent = formatVN(counter.v); },
+    }, 1.45);
+
+    tl.fromTo("#f4-pill-wrap .f4-pill", { y: 14, opacity: 0, scale: 0.92 }, { y: 0, opacity: 1, scale: 1, duration: 0.36, ease: "back.out(2)" }, 2.5);
+
+    window.__timelines["04-data-moment"] = tl;
+  </script>
+</template>

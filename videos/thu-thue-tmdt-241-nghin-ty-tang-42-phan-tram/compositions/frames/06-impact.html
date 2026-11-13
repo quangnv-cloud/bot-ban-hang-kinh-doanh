@@ -1,0 +1,144 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Montserrat", Arial, sans-serif;
+      color: #ffffff;
+      background: #111111;
+    }
+    .f6-header {
+      position: absolute;
+      left: 64px; right: 64px; top: 220px;
+    }
+    .f6-kicker {
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #E8441E;
+      margin-bottom: 16px;
+    }
+    .f6-title {
+      font-weight: 800;
+      font-size: 44px;
+      line-height: 1.3;
+      color: #ffffff;
+      max-width: 940px;
+    }
+    .f6-row {
+      position: absolute;
+      left: 64px; right: 64px;
+      height: 96px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.14);
+    }
+    .f6-row-1 { top: 1314px; }
+    .f6-row-2 { top: 1428px; }
+    .f6-row .lbl {
+      flex: 0 0 300px;
+      font-weight: 700;
+      font-size: 30px;
+      color: rgba(255,255,255,0.82);
+      line-height: 1.25;
+    }
+    .f6-row .spark {
+      flex: 1;
+      height: 60px;
+      margin: 0 20px;
+    }
+    .f6-row .spark svg { width: 100%; height: 100%; }
+    .f6-row .val {
+      flex: 0 0 150px;
+      text-align: right;
+      font-weight: 900;
+      font-size: 54px;
+      color: #E8441E;
+      letter-spacing: -0.01em;
+    }
+    .f6-footer {
+      position: absolute;
+      left: 64px; right: 64px; top: 1554px;
+      display: flex;
+      justify-content: center;
+    }
+    .f6-footer-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 30px;
+      border-radius: 12px;
+      border: 1.5px solid rgba(232,68,30,0.5);
+      background: rgba(232,68,30,0.1);
+      font-weight: 700;
+      font-size: 29px;
+      color: #ffffff;
+      text-align: center;
+      line-height: 1.35;
+    }
+    .f6-footer-pill b { color: #E8441E; }
+  </style>
+  <div id="root" data-composition-id="06-impact" data-width="1080" data-height="1920">
+    <div class="f6-header clip" id="f6-header" data-start="0" data-duration="9.9">
+      <div class="f6-kicker">Impact</div>
+      <div class="f6-title">Thủ tục tuân thủ thuế thương mại điện tử giảm mạnh</div>
+    </div>
+
+    <div class="f6-row f6-row-1 clip" id="f6-row-1" data-start="1.0" data-duration="8.9">
+      <span class="lbl">Thời gian tuân thủ</span>
+      <span class="spark">
+        <svg viewBox="0 0 600 60" preserveAspectRatio="none">
+          <path id="f6-spark-1" d="M 10 14 L 130 20 L 260 26 L 390 34 L 480 42 L 590 50" fill="none" stroke="#E8441E" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </span>
+      <span class="val" id="f6-val-1">0%</span>
+    </div>
+
+    <div class="f6-row f6-row-2 clip" id="f6-row-2" data-start="3.6" data-duration="6.3">
+      <span class="lbl">Chi phí tuân thủ</span>
+      <span class="spark">
+        <svg viewBox="0 0 600 60" preserveAspectRatio="none">
+          <path id="f6-spark-2" d="M 10 12 L 130 18 L 260 24 L 390 34 L 480 44 L 590 52" fill="none" stroke="#E8441E" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </span>
+      <span class="val" id="f6-val-2">0%</span>
+    </div>
+
+    <div class="f6-footer clip" id="f6-footer" data-start="6.6" data-duration="3.3">
+      <div class="f6-footer-pill">Ngưỡng thuế mới bao phủ hơn <b>90%</b> doanh nghiệp vừa và nhỏ</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo("#f6-header .f6-kicker", { y: -14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 0);
+    tl.fromTo("#f6-header .f6-title", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 0.14);
+
+    function animSpark(rowStart, pathId, valId, target) {
+      var el = document.getElementById(pathId);
+      var len = 700;
+      try { len = el.getTotalLength(); } catch (e) {}
+      el.style.strokeDasharray = len;
+      el.style.strokeDashoffset = len;
+      tl.fromTo("#" + pathId.replace("f6-spark", "f6-row"), { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }, rowStart);
+      tl.to(el, { strokeDashoffset: 0, duration: 0.9, ease: "power1.inOut" }, rowStart + 0.15);
+      var valEl = document.getElementById(valId);
+      var proxy = { v: 0 };
+      tl.to(proxy, {
+        v: target,
+        duration: 0.5,
+        ease: "power1.out",
+        onUpdate: function () { valEl.textContent = "-" + Math.round(proxy.v) + "%"; },
+      }, rowStart + 1.0);
+    }
+
+    animSpark(1.0, "f6-spark-1", "f6-val-1", 53);
+    animSpark(3.6, "f6-spark-2", "f6-val-2", 55);
+
+    tl.fromTo("#f6-footer .f6-footer-pill", { y: 14, opacity: 0, scale: 0.94 }, { y: 0, opacity: 1, scale: 1, duration: 0.36, ease: "back.out(2)" }, 6.6);
+
+    window.__timelines["06-impact"] = tl;
+  </script>
+</template>

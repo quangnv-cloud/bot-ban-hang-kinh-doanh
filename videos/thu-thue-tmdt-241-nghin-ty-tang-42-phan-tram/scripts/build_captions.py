@@ -15,13 +15,13 @@ OUT_PATH = os.path.join(ROOT, "compositions", "frames", "captions.html")
 
 # (line_number, scene_start_time) for acts 2..6 (Hook/act1 excluded from captions)
 LINES = [
-    (2, 6.500),
-    (3, 12.300),
-    (4, 24.100),
-    (5, 33.600),
-    (6, 43.700),
+    (2, 5.950),
+    (3, 12.210),
+    (4, 22.710),
+    (5, 29.810),
+    (6, 39.810),
 ]
-TOTAL_DURATION = 51.700
+TOTAL_DURATION = 49.960
 GROUP_PAD_END = 0.30
 MIN_GROUP_GAP = 0.05
 WORDS_PER_GROUP = 5
